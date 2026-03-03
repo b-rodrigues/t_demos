@@ -10,7 +10,7 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  demo:
+  r-py-json-t:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -47,5 +47,5 @@ jobs:
 
       - name: Reade one Node
         run: |
-          echo "read_node(name = 'mtcars_mpg')" > view.t
+          echo "read_node('mtcars_mpg')" > view.t
           nix develop --command t run --unsafe view.t

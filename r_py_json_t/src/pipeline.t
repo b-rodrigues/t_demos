@@ -2,20 +2,21 @@
 
 p = pipeline {
   -- 1. Python node: read data with polars
-  mtcars_pl = pyn(
-    command = <{ 
+  mtcars_pl = node(
+    command = <{
       import polars
-      polars.read_csv("data/mtcars.csv", separator="|") 
+      polars.read_csv("data/mtcars.csv", separator="|")
     }>,
     include = ["data/mtcars.csv"],
+    runtime = Python,
     serializer = "arrow"
   )
 
-  -- 2. Python node: filter and use custom JSON serializer from functions.py
+  -- 2. Python node: filter and serialize as JSON
   mtcars_pl_am = pyn(
-    command = <{ 
+    command = <{
       import polars
-      mtcars_pl.filter(polars.col("am") == 1) 
+      mtcars_pl.filter(polars.col("am") == 1)
     }>,
     deserializer = "arrow",
     serializer = "json"
@@ -23,8 +24,8 @@ p = pipeline {
 
   -- 3. R node: read JSON using built-in decoder and take head using functions.R
   mtcars_head = rn(
-    command = <{ 
-      my_head(mtcars_pl_am) 
+    command = <{
+      my_head(mtcars_pl_am)
     }>,
     functions = ["src/functions.R"],
     deserializer = "json"
@@ -32,11 +33,10 @@ p = pipeline {
 
   -- 4. R node: select column with dplyr
   mtcars_mpg = rn(
-    command = <{ 
+    command = <{
       library(dplyr)
-      mtcars_head %>% select(mpg) 
-    }>,
-    serializer = "arrow" -- Efficient transfer if we want to read it in T later
+      mtcars_head %>% select(mpg)
+    }>
   )
 }
 
