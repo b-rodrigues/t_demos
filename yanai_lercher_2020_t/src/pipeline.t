@@ -7,7 +7,7 @@ p = pipeline {
 from PIL import Image
 import numpy
 def read_image(x):
-    im = Image.open(x)
+    im = Image.open(x).convert("L")
     pixels = numpy.asarray(im)
     return pixels
 
@@ -31,7 +31,7 @@ py_coords = numpy.column_stack(numpy.where(gorilla_pixels < threshold_level))
   raw_coords = pyn(
     command = <{
 import pandas as pd
-raw_coords = pd.DataFrame(py_coords)
+raw_coords = pd.DataFrame(py_coords, columns=["V1", "V2"])
     }>,
     serializer = "arrow"
   )
@@ -53,6 +53,7 @@ coords <- clean_coords(raw_coords)
 library(dplyr)
 gender_dist <- gender_distribution(coords)
     }>,
+    functions = ["src/functions.R"],
     deserializer = "arrow"
   )
 
