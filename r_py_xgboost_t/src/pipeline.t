@@ -55,7 +55,7 @@ library(dplyr)
 library(yardstick)
 
 combined_factor <- combined_df %>%
-  mutate(across(everything(), factor))
+  mutate(across(everything(), ~factor(.x, levels = c(0, 1))))
   
 confusion_matrix <- conf_mat(combined_factor, truth, estimate)
     }>,
@@ -67,7 +67,8 @@ confusion_matrix <- conf_mat(combined_factor, truth, estimate)
     command = <{
 from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, y_pred)
-    }>
+    }>,
+    serializer = "json"
   )
 }
 
