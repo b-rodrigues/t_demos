@@ -33,11 +33,14 @@ jobs:
         with:
           name: rstats-on-nix
 
+      - name: Build enivronment
+        run: nix develop
+
       - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run src/pipeline.t
 
       - name: Inspect Built Nodes
         run: |
-          echo "print(inspect_pipeline())" > inspect.t
+          echo "inspect_pipeline()" > inspect.t
           nix develop --command t run --unsafe inspect.t
