@@ -1,0 +1,43 @@
+name: Run Basic T Demo
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  demo-basic-t:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./basic_t
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Run Pipeline (Populate and Build)
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Inspect Built Nodes
+        run: |
+          echo "print(inspect_pipeline())" > inspect.t
+          nix develop --command t run inspect.t --mode repl

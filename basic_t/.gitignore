@@ -1,0 +1,17 @@
+# Build artifacts
+_build/
+result
+*.exe
+
+# Generated outputs (regenerated from source)
+outputs/
+
+# Editor files
+*~
+.#*
+\#*#
+.merlin
+
+# OS files
+.DS_Store
+Thumbs.db
