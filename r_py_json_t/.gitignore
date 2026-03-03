@@ -15,3 +15,6 @@ outputs/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Pipeline artifacts
+_pipeline/
