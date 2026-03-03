@@ -4,17 +4,17 @@ p = pipeline {
   -- 1. Load data
   mtcars = rn(
     command = <{
-      mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
+mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
     }>,
     include = ["data/mtcars.csv"],
-    serializer = "arrow" -- Use arrow for internal T efficiency if possible
+    serializer = "arrow" 
   )
 
-  -- 2. "Filter" node
+  -- 2. Filter node
   mtcars_am = rn(
     command = <{
-      library(dplyr)
-      mtcars_am <- mtcars %>% filter(TRUE)
+library(dplyr)
+mtcars_am <- mtcars %>% filter(TRUE)
     }>,
     deserializer = "arrow",
     serializer = "arrow"
@@ -23,33 +23,31 @@ p = pipeline {
   -- 3. Head node with "write.csv" serializer
   mtcars_head = rn(
     command = <{
-      mtcars_head <- my_head(mtcars_am, 100)
+mtcars_head <- my_head(mtcars_am, 100)
     }>,
     deserializer = "arrow",
     functions = ["src/my_head.R"],
-    -- write.csv(mtcars_head, "$out/artifact") works because 'file' is the 2nd arg
     serializer = "write.csv"
   )
 
-  -- 4. Tail node with "qs::qsave" serializer and "read.csv" deserializer for head
+  -- 4. Tail node with "json" serializer and "read.csv" deserializer for head
   mtcars_tail = rn(
     command = <{
-      mtcars_tail <- my_tail(mtcars_head)
+library(dplyr)
+mtcars_tail <- mtcars_am %>% tail(5)
     }>,
-    deserializer = [mtcars_head: "read.csv"],
-    functions = ["src/my_tail.R"],
-    -- qs::qsave(mtcars_tail, "$out/artifact") works because 'file' is the 2nd arg
-    serializer = "qs::qsave"
+    deserializer = "arrow",
+    serializer = "json"
   )
 
   -- 5. Join node with mixed deserializers
   mtcars_mpg = rn(
     command = <{
-      library(dplyr)
-      mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
+library(dplyr)
+mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
     }>,
     deserializer = [
-      mtcars_tail: "qs::qread",
+      mtcars_tail: "json",
       mtcars_head: "read.csv"
     ]
   )
