@@ -1,4 +1,4 @@
-name: Run Basic T Demo
+name: Demo Many Inputs T
 
 on:
   push:
@@ -10,11 +10,11 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  demo-basic-t:
+  demo:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./basic_t
+        working-directory: ./many_inputs_t
 
     steps:
       - name: Checkout repository
@@ -33,7 +33,7 @@ jobs:
         with:
           name: rstats-on-nix
 
-      - name: Build enivronment
+      - name: Build environment
         run: nix develop
 
       - name: Run Pipeline (Populate and Build)
@@ -44,3 +44,8 @@ jobs:
         run: |
           echo "inspect_pipeline()" > inspect.t
           nix develop --command t run --unsafe inspect.t
+
+      - name: Reade one Node
+        run: |
+          echo "read_node(name = 'head_mtcars')" > view.t
+          nix develop --command t run --unsafe view.t
