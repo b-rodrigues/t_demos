@@ -17,7 +17,7 @@ p = pipeline {
       import polars
       mtcars_pl.filter(polars.col("am") == 1)
     }>,
-    serializer = "json"
+    serializer = "csv"
   )
 
   -- 3. R node: read JSON using built-in decoder and take head using functions.R
@@ -26,7 +26,7 @@ p = pipeline {
       my_head(mtcars_pl_am)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "json"
+    deserializer = "csv"
   )
 
   -- 4. R node: select column with dplyr
