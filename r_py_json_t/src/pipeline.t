@@ -8,8 +8,7 @@ p = pipeline {
       polars.read_csv("data/mtcars.csv", separator="|")
     }>,
     include = ["data/mtcars.csv"],
-    runtime = Python,
-    serializer = "arrow"
+    runtime = Python
   )
 
   -- 2. Python node: filter and serialize as JSON
@@ -18,7 +17,6 @@ p = pipeline {
       import polars
       mtcars_pl.filter(polars.col("am") == 1)
     }>,
-    deserializer = "arrow",
     serializer = "json"
   )
 
