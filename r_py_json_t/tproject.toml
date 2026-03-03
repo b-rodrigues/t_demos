@@ -16,7 +16,7 @@ packages = ["dplyr"]
 
 [py-dependencies]
 # Python packages this project depends on
-packages = ["polars"]
+packages = ["polars", "pyarrow"]
 
 [t]
 # Minimum T language version required
