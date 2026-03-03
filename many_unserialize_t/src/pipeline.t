@@ -27,7 +27,7 @@ mtcars_head <- my_head(mtcars_am, 100)
     }>,
     deserializer = "arrow",
     functions = ["src/my_head.R"],
-    serializer = "write.csv"
+    serializer = "csv"
   )
 
   -- 4. Tail node with "json" serializer and "read.csv" deserializer for head
@@ -48,7 +48,7 @@ mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
     }>,
     deserializer = [
       mtcars_tail: "json",
-      mtcars_head: "read.csv"
+      mtcars_head: "csv"
     ]
   )
 }
