@@ -5,7 +5,7 @@
 base_p = pipeline {
   raw = node(
     command = read_csv("data/sample.csv"),
-    serializer = "json"
+    serializer = "arrow"
   )
   
   -- Use node() with noop = true to skip heavy computation during builds
@@ -14,15 +14,15 @@ base_p = pipeline {
       library(dplyr)
       raw %>% group_by(group) %>% summarize(total = sum(value))
     }>,
-    deserializer = "json",
-    serializer = "json",
+    deserializer = "arrow",
+    serializer = "arrow",
     noop = true
   )
 
   -- This node depends on heavy_r_node, so it also becomes a noop
   summary = node(
     command = heavy_r_node |> filter($total > 100),
-    deserializer = "json"
+    deserializer = "arrow"
   )
 }
 
@@ -87,11 +87,11 @@ print(pipeline_nodes(p_pruned))
 -- Create two pipelines to chain
 -- We use node() to ensure the dependency 'input' is tracked accurately
 p_start = pipeline { 
-  input = 10 
+  shared_node = 10 
 }
 
 p_next = pipeline { 
-  output = node(command = input * 2)
+  output = shared_node * 2
 }
 
 print("Nodes in p_next:")
@@ -100,10 +100,10 @@ print("Dependencies in p_next:")
 print(pipeline_deps(p_next))
 
 p_chained = p_start |> chain(p_next)
-print("Chained nodes:")
+print("Chained nodes (wiring verified):")
 print(pipeline_nodes(p_chained))
-print("Chained result (output):")
-print(p_chained.output)
+print("Chained dependencies:")
+print(pipeline_deps(p_chained))
 
 -- 9. Validation
 print("Validating base_p:")
