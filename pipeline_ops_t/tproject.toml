@@ -1,0 +1,16 @@
+[project]
+name = "pipeline_ops_t"
+description = "A T project demonstrating advanced pipeline operations"
+
+[dependencies]
+# T packages this project depends on
+
+[r-dependencies]
+packages = ["dplyr", "jsonlite"]
+
+[py-dependencies]
+version = "python313"
+packages = ["pandas"]
+
+[t]
+min_version = "0.5.0"

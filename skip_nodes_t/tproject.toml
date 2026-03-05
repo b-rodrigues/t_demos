@@ -1,0 +1,15 @@
+[project]
+name = "skip_nodes_t"
+description = "A T project focused on skipping nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr"]
+
+[py-dependencies]
+version = "python313"
+packages = ["pandas"]
+
+[t]
+min_version = "0.5.0"
