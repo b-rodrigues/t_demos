@@ -4,8 +4,8 @@ p = pipeline {
   -- 1. Python node: read data with polars
   mtcars_pl = node(
     command = <{
-      import polars
-      polars.read_csv("data/mtcars.csv", separator="|")
+import polars
+polars.read_csv("data/mtcars.csv", separator="|")
     }>,
     include = ["data/mtcars.csv"],
     runtime = Python
@@ -14,8 +14,8 @@ p = pipeline {
   -- 2. Python node: filter and serialize as JSON
   mtcars_pl_am = pyn(
     command = <{
-      import polars
-      mtcars_pl.filter(polars.col("am") == 1)
+import polars
+mtcars_pl.filter(polars.col("am") == 1)
     }>,
     serializer = "csv"
   )
