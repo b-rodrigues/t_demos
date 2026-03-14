@@ -1,0 +1,53 @@
+name: Demo SHN T
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  shn-t:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./shn_t
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Build environment
+        run: |
+          nix flake update
+          nix develop
+
+      - name: Run Pipeline (Populate and Build)
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Inspect Built Nodes
+        run: |
+          echo "inspect_pipeline()" > inspect.t
+          nix develop --command t run --unsafe inspect.t
+
+      - name: Read Final Summary Node
+        run: |
+          echo "read_node('final_summary') |> print" > view.t
+          nix develop --command t run --unsafe view.t
