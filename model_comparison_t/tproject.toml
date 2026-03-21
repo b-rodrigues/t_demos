@@ -10,3 +10,7 @@ dataframe = "*"
 colcraft = "*"
 math = "*"
 stats = "*"
+
+[additional-packages]
+r = ["dplyr", "readr", "arrow", "jsonlite"]
+python = ["scikit-learn", "pandas", "pyarrow"]
