@@ -18,6 +18,9 @@ packages = ["readr"]
 # Python packages this project depends on
 packages = ["polars"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [t]
 # Minimum T language version required
 min_version = "0.51.1"
