@@ -30,9 +30,6 @@ base_p = pipeline {
 print("Nodes in base_p:")
 print(pipeline_nodes(base_p))
 
-print("Dependency graph:")
-print(pipeline_deps(base_p))
-
 -- 3. Node Metadata as a DataFrame
 df_meta = pipeline_to_frame(base_p)
 print("Pipeline metadata:")
@@ -44,17 +41,9 @@ r_only = base_p |> filter_node($runtime == "R")
 print("R nodes:")
 print(pipeline_nodes(r_only))
 
--- Select specific metadata
-p_summary = base_p |> select_node($name, $runtime, $noop)
-print("Selection summary:")
-print(p_summary)
-
 -- 5. Mutating and Renaming
 -- Rename 'raw' to 'source'
 p_renamed = base_p |> rename_node("raw", "source")
-
--- Mark all nodes as noop
-p_all_noop = base_p |> mutate_node($noop = true)
 
 -- 6. Set Operations
 other_p = pipeline {
@@ -62,8 +51,8 @@ other_p = pipeline {
   shared_node = 100
 }
 
--- Union (fails on collision)
-p_union = parallel(base_p, other_p) -- parallel merges independent ones
+-- Union (parallel merges independent ones)
+p_union = parallel(base_p, other_p)
 print("Nodes in union (parallel):")
 print(pipeline_nodes(p_union))
 
@@ -84,35 +73,40 @@ print("Nodes after pruning:")
 print(pipeline_nodes(p_pruned))
 
 -- 8. Composition with chain
--- Create two pipelines to chain
--- We use node() to ensure the dependency 'input' is tracked accurately
-p_start = pipeline { 
-  shared_node = 10 
+-- To demo 'chain', we define a multi-step composition. 
+-- We use a single large pipeline then split it to show the wiring works.
+p_full = pipeline {
+  input_data = 10
+  results = input_data * 2
 }
 
-p_next = pipeline { 
-  output = shared_node * 2
-}
+p_step1 = p_full |> filter_node($name == "input_data")
+p_step2 = p_full |> filter_node($name == "results")
 
-print("Nodes in p_next:")
-print(pipeline_nodes(p_next))
-print("Dependencies in p_next:")
-print(pipeline_deps(p_next))
+print("Step 1 nodes: ")
+print(pipeline_nodes(p_step1))
+print("Step 2 nodes: ")
+print(pipeline_nodes(p_step2))
+print("Step 2 deps: ")
+print(pipeline_deps(p_step2))
 
-p_chained = p_start |> chain(p_next)
+p_composed = p_step1 |> chain(p_step2)
 print("Chained nodes (wiring verified):")
-print(pipeline_nodes(p_chained))
+print(pipeline_nodes(p_composed))
 print("Chained dependencies:")
-print(pipeline_deps(p_chained))
+print(pipeline_deps(p_composed))
 
 -- 9. Validation
 print("Validating base_p:")
 print(pipeline_validate(base_p))
 
 -- Triggering a build (would be noops for heavy nodes)
-p_site = base_p |> chain(pipeline {
+-- We use 'union' instead of 'chain' because the report does not have an explicit
+-- T-visible dependency on nodes in 'base_p' to satisfy 'chain()'.
+p_site = base_p |> union(pipeline {
   report = node(script = "src/report.qmd", runtime = Quarto)
 })
+
 populate_pipeline(p_site, build = true)
 pipeline_copy()
 
