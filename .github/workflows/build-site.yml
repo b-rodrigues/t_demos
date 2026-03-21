@@ -1,0 +1,39 @@
+name: Build Demos Site
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout t_demos repository
+        uses: actions/checkout@v4
+        with:
+          path: t_demos
+
+      - name: Checkout tlang repository
+        uses: actions/checkout@v4
+        with:
+          repository: b-rodrigues/tlang
+          path: tlang
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Build Demos and Docs
+        run: |
+          export TLANG_ROOT="${GITHUB_WORKSPACE}/tlang"
+          export DEMOS_ROOT="${GITHUB_WORKSPACE}/t_demos"
+          cd ${DEMOS_ROOT}
+          bash rebuild_demos_site.sh

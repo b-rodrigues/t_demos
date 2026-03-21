@@ -51,7 +51,11 @@ mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
       mtcars_head: "csv"
     ]
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize
-build_pipeline(p)
+populate_pipeline(p, build = true)
+pipeline_copy()

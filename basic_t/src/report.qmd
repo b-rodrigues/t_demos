@@ -1,0 +1,53 @@
+---
+title: "Basic T Demo: MTCars Analysis"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases a basic data analysis pipeline in the **T Programming Language**.
+Each chunk below is executed by the T interpreter during the Quarto rendering process.
+
+# Data Inspection
+
+We can access pipeline nodes directly. In Quarto, `read_node("name")` provides metadata about the node, including its path.
+
+```{t}
+#| label: load-data
+# Read the node metadata
+mt_node = read_node("mtcars")
+
+# Actually read the data from its artifact path
+df = read_csv(mt_node.path)
+df |> glimpse
+```
+
+# Filtering Results
+
+The pipeline also produced a filtered version of the dataset.
+
+```{t}
+#| label: filter-data
+filtered_node = read_node("filtered_mtcars")
+filtered = read_csv(filtered_node.path)
+
+print(str_join(["Number of rows in filtered data: ", nrow(filtered)]))
+print(str_nchar("Hello world"))
+head(filtered, 5)
+```
+
+# Accessing Artifact Paths
+
+The `path` attribute allows for easy integration with any tool that expects a file.
+
+```{t}
+#| label: path-demo
+m_node = read_node("mtcars_mpg")
+print(str_join(["MPG artifact path: ", m_node.path]))
+```
+
+# Conclusion
+
+The T language orchestrates the entire workflow, and Quarto provides a beautiful way to document and share the results, all within the same ecosystem.

@@ -1,0 +1,48 @@
+---
+title: "Polyglot T Project: Pipeline Summary"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This report demonstrates the results of a polyglot pipeline orchestrated by **T**.
+The pipeline involves data processing in **Python** (via Polars) and **R** (via dplyr).
+T provides a unified interface to access artifacts from all these runtimes.
+
+# Pipeline Architecture
+
+The pipeline consists of the following stages:
+1. **Python**: Load and filter `mtcars` with Polars.
+2. **R**: Take the head of the data.
+3. **R**: Select specific columns.
+
+# Results
+
+We can inspect any node artifact directly in this report using T chunks.
+
+## Filtered Data (from Python/Polars)
+
+```{t}
+#| label: python-data
+node_pl = read_node("mtcars_pl_am")
+# Read the CSV artifact that was serialized by the Python node
+df_filtered = read_csv(node_pl.path)
+df_filtered |> glimpse
+```
+
+## Final Dataset (from R/dplyr)
+
+```{t}
+#| label: r-data
+node_mpg = read_node("mtcars_mpg")
+# R nodes serialize to RDS by default. 
+# We'll use read_node to get the value directly if T supports it in Quarto.
+# But use .path for robustness as we are in the Quarto environment.
+print(str_join(["Final artifact path: ", node_mpg.path]))
+```
+
+# Conclusion
+
+T allows for seamless data flow between different runtimes, while Quarto provides a powerful way to present the final analysis using a single, cohesive language.

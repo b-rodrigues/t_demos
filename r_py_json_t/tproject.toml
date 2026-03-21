@@ -16,7 +16,13 @@ packages = ["dplyr"]
 
 [py-dependencies]
 # Python packages this project depends on
-packages = ["polars", "pyarrow"]
+version = "python314"
+# Example:
+# packages = ["pandas", "numpy"]
+packages = ["polars"]
+
+[additional-tools]
+packages = ["quarto"]
 
 [t]
 # Minimum T language version required

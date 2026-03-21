@@ -70,7 +70,11 @@ accuracy = accuracy_score(y_test, y_pred)
     }>,
     serializer = "json"
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
--- Build locally
-build_pipeline(p)
+-- Materialize
+populate_pipeline(p, build = true)
+pipeline_copy()

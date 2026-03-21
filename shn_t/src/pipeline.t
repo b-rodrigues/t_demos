@@ -27,11 +27,11 @@ p = pipeline {
     command = awk_node |> head(1),
     deserializer = [awk_node: "csv"]
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize the pipeline
--- In rixpress: rxp_populate(project_path = ".", build = FALSE)
--- Here we call populate_pipeline to generate the Nix infrastructure.
--- The user said to run it in the workflow, so we can either build it here or in the workflow.
--- Usually, t run script.t requires populate_pipeline(p, build = true)
 populate_pipeline(p, build = true)
+pipeline_copy()

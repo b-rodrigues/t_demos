@@ -110,6 +110,10 @@ print("Validating base_p:")
 print(pipeline_validate(base_p))
 
 -- Triggering a build (would be noops for heavy nodes)
-populate_pipeline(base_p, build = true)
+p_site = base_p |> chain(pipeline {
+  report = node(script = "src/report.qmd", runtime = Quarto)
+})
+populate_pipeline(p_site, build = true)
+pipeline_copy()
 
 print("Pipeline Demo Complete")

@@ -1,0 +1,34 @@
+---
+title: "Yanai & Lercher 2020 T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo reproduces a workflow inspired by Yanai & Lercher (2020), involving image processing in **Python** and statistical plotting in **R**.
+
+# Data Processing
+
+The `gorilla_pixels` are extracted in Python and passed to R for cleaning.
+
+```{t}
+#| label: data-info
+node_coords = read_node("coords")
+print(str_join(["Cleaned coordinates path: ", node_coords.path]))
+```
+
+# Visualization
+
+Nodes `plot1` and `plot2` generate visualizations in R based on the processed coordinates.
+
+```{t}
+#| label: plot-info
+node_p1 = read_node("plot1")
+print(str_join(["Plot 1 artifact path: ", node_p1.path]))
+```
+
+# Conclusion
+
+T facilitates complex cross-language workflows involving image data, numerical computation, and high-quality visualization.

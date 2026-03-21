@@ -109,3 +109,11 @@ print("Running patched pipeline...")
 p_run_patched = populate_pipeline(p_patched, build = true)
 print("Patched Comparison Results:")
 print(p_run_patched.compare)
+
+-- Finally, render a report on the patched pipeline
+p_report = pipeline {
+  report = node(script = "src/report.qmd", runtime = Quarto)
+}
+p_site = p_patched |> chain(p_report)
+populate_pipeline(p_site, build = true)
+pipeline_copy()

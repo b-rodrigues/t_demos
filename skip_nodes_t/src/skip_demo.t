@@ -25,6 +25,9 @@ p = pipeline {
     command = sum(expensive_node),
     deserializer = "json"
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 print("Nodes in pipeline:")
@@ -37,6 +40,7 @@ print(summary_df)
 
 -- The build will NOT execute expensive_node's script, but will create stubs
 populate_pipeline(p, build = true)
+pipeline_copy()
 
 print("Check build log status with inspect_pipeline():")
 print(inspect_pipeline())

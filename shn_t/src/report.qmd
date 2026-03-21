@@ -1,0 +1,36 @@
+---
+title: "Shell Node T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases a T pipeline incorporating **Shell** nodes (via `shn`) using tools like `awk` for data processing.
+
+# AWK Processing Results
+
+The `awk_node` calculates summary statistics directly from the raw data using a shell command.
+
+```{t}
+#| label: awk-results
+node_awk = read_node("awk_node")
+df_awk = read_csv(node_awk.path)
+df_awk
+```
+
+# T Language Integration
+
+The `final_summary` node then consumes the AWK output using a CSV deserializer.
+
+```{t}
+#| label: final-summary
+node_final = read_node("final_summary")
+val_final = t_read_json(node_final.path)
+val_final
+```
+
+# Conclusion
+
+The T language makes it easy to incorporate legacy scripts or specialized command-line tools into a modern data pipeline.

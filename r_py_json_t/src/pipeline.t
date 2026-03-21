@@ -36,7 +36,11 @@ mtcars_pl.filter(polars.col("am") == 1)
       mtcars_head %>% select(mpg)
     }>
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize the pipeline
-build_pipeline(p)
+populate_pipeline(p, build = true)
+pipeline_copy()

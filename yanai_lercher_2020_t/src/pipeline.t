@@ -77,7 +77,11 @@ plot2 <- make_plot2(coords)
     functions = ["src/functions.R"],
     deserializer = "arrow"
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
--- Build locally
-build_pipeline(p)
+-- Materialize
+populate_pipeline(p, build = true)
+pipeline_copy()

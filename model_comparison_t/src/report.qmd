@@ -1,0 +1,30 @@
+---
+title: "Model Comparison T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo compares two models for predicting `mpg`: a **Linear Regression** in R and a **Random Forest** in Python.
+
+# Performance Comparison
+
+We access the scores produced by both the R and Python model nodes.
+
+```{t}
+#| label: model-scores
+r_node = read_node("r_model")
+py_node = read_node("py_model")
+
+r_score = t_read_json(r_node.path)
+py_score = t_read_json(py_node.path)
+
+print(str_join(["R Model R^2: ", str_string(r_score)]))
+print(str_join(["Python Model R^2: ", str_string(py_score)]))
+```
+
+# Conclusion
+
+T allows for high-level pipeline composition and patching, making it easy to compare models across different language runtimes.

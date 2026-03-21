@@ -27,7 +27,11 @@ p = pipeline {
     deserializer = "arrow",
     serializer = "arrow" -- Optional
   )
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize the pipeline
-build_pipeline(p)
+populate_pipeline(p, build = true)
+pipeline_copy()

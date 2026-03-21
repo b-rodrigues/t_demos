@@ -1,0 +1,30 @@
+---
+title: "Pipeline Operations T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases advanced pipeline manipulation operations in T, such as `filter_node`, `mutate_node`, `rename_node`, and `chain`.
+
+# Pipeline Metadata
+
+T allows converting a pipeline's definition into a DataFrame for introspection.
+
+```{t}
+#| label: pipeline-meta
+p = pipeline {
+  raw = read_csv("data/sample.csv")
+  summary = raw |> filter($value > 10)
+}
+
+# Introspect nodes
+df_nodes = pipeline_to_frame(p)
+df_nodes
+```
+
+# Conclusion
+
+The T language treats pipelines as first-class objects that can be transformed and composed programmatically.

@@ -1,0 +1,10 @@
+_pipeline/
+pipeline-output/
+_extensions/
+.quarto/
+*.html
+*.pdf
+_site/
+build_log.txt
+build_pid.txt
+src/_extensions/

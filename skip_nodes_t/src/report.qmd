@@ -1,0 +1,24 @@
+---
+title: "Skip Nodes T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases the `noop` attribute in T, which allows marking nodes to be skipped during the actual pipeline build.
+
+# Skiped Node Status
+
+In this pipeline, `expensive_node` is marked as `noop = true`.
+
+```{t}
+#| label: skip-status
+node_exp = read_node("expensive_node")
+print(str_join(["Expensive node noop status: ", str_string(node_exp.noop)]))
+```
+
+# Conclusion
+
+The `noop` feature is useful for skipping heavy computations during development or when using static data stubs.

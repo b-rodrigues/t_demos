@@ -1,0 +1,37 @@
+---
+title: "Many Unserialize T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases a T pipeline where different nodes use varying serialization formats (**Arrow**, **CSV**, **JSON**).
+
+# Final Merged Dataset
+
+The `mtcars_mpg` node is the result of a join of two nodes using different data formats.
+
+```{t}
+#| label: merged-data
+# Node that uses many unserialization strategies
+node_join = read_node("mtcars_mpg")
+df_join = read_arrow(node_join.path)
+df_join |> head(5)
+```
+
+# Mixed serialization details
+
+- `mtcars_tail` was serialized as **JSON**.
+- `mtcars_head` was serialized as **CSV**.
+
+```{t}
+#| label: tail-data
+node_tail = read_node("mtcars_tail")
+# read_json returns a T value (list of dicts usually for tables)
+tail_data = t_read_json(node_tail.path)
+print(str_join(["Tail data length: ", length(tail_data)]))
+```
+
+The T language handles the mapping between these diverse formats across the pipeline boundaries.

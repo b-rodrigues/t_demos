@@ -12,7 +12,7 @@ description = "A T data analysis project"
 # R packages this project depends on
 # Example:
 # packages = ["dplyr", "ggplot2"]
-packages = []
+packages = ["arrow"]
 
 [py-dependencies]
 # Python packages this project depends on
@@ -20,6 +20,9 @@ version = "python314"
 # Example:
 # packages = ["pandas", "numpy"]
 packages = []
+
+[additional-tools]
+packages = ["quarto"]
 
 [t]
 # Minimum T language version required

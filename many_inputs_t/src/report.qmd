@@ -1,0 +1,36 @@
+---
+title: "Many Inputs T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases a T pipeline that loads multiple data sources using both **R** and **Python** (via Polars).
+
+# R-based Data Loading
+
+The `mtcars_r` node loads multiple files using R's `readr::read_delim`.
+
+```{t}
+#| label: r-data
+node_r = read_node("mtcars_r")
+df_r = read_arrow(node_r.path)
+df_r |> head(5)
+```
+
+# Python-based Data Loading
+
+The `mtcars_py` node loads files using a Python function.
+
+```{t}
+#| label: python-data
+node_py = read_node("mtcars_py")
+df_py = read_arrow(node_py.path)
+df_py |> head(5)
+```
+
+# Conclusion
+
+T manages the polyglot data flow between R and Python nodes seamlessly.

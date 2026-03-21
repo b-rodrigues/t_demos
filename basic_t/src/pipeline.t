@@ -12,6 +12,9 @@ p = pipeline {
   -- Select transformation
   -- In rixpress: rxp_r(name = mtcars_mpg, expr = dplyr::select(filtered_mtcars, mpg))
   mtcars_mpg = filtered_mtcars |> select($mpg)
+
+  -- Render Quarto report
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize the pipeline
@@ -20,3 +23,4 @@ p = pipeline {
 -- The user said to run it in the workflow, so we can either build it here or in the workflow.
 -- Usually, t run script.t requires populate_pipeline(p, build = true)
 populate_pipeline(p, build = true)
+pipeline_copy()
