@@ -2,7 +2,7 @@
   description = "yanai_lercher_2020_t — a T data analysis project";
 
   inputs = {
-    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-03-21";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-03-11";
     flake-utils.url = "github:numtide/flake-utils";
     t-lang.url = "github:b-rodrigues/tlang/";
   };
