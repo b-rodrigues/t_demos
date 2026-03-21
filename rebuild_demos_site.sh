@@ -60,11 +60,12 @@ for demo_dir in */; do
         rm -rf src/_extensions/tlang
         cp -r "$TLANG_ROOT/editors/quarto/tlang/_extensions/tlang" src/_extensions/
         
-        # 3. Compile the pipeline using dune exec for the T compiler
-        echo "    Executing T pipeline..."
-        # We run from the demo root so relative paths in tproject.toml work.
-        # But we use the T compiler from TLANG_ROOT via nix develop.
-        nix develop "$TLANG_ROOT" --command dune exec --root "$TLANG_ROOT" src/repl.exe -- run --unsafe "$ABS_ENTRY"
+        # 3. Update the demo's specific flake and execute using its own environment
+        echo "    Updating and executing T pipeline for $demo_name..."
+        # We run from the demo root so relative paths work.
+        # Calling nix flake update ensures we are on the latest head of T as per the flake.nix.
+        nix flake update
+        nix develop --command t run --unsafe "$ABS_ENTRY"
         
         # 4. Copy the report to the docs directory
         if [ -d "pipeline-output/report/artifact" ]; then
