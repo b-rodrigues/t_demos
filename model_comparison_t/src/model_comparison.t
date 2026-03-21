@@ -1,7 +1,7 @@
 -- model_comparison.t
 -- Experimentation and Model Comparison using Pipeline Operations
--- Demonstrates chain() using the named deserializer dict to make cross-pipeline
--- dependencies visible to T. See: docs/pipeline_tutorial.md §25
+-- Demonstrates chain() using the aliased T-stub pattern for cross-pipeline deps.
+-- See: docs/pipeline_tutorial.md §25 "Cross-Pipeline Dependency Tracking"
 
 -- 1. Setup Data Node
 p_data = pipeline {
@@ -16,91 +16,73 @@ p_data = pipeline {
 }
 
 -- 2. Define Model A (R)
--- Using a named deserializer dict: deserializer = [raw_data: "arrow"]
--- This makes `raw_data` a T-visible dependency, so chain() can wire the pipelines.
+-- Aliased T-stub: `data_for_r = raw_data` references raw_data from p_data.
+-- T can parse the RHS, detect the cross-pipeline dependency, and chain() works.
+-- The R code then uses `data_for_r` as the variable name in its environment.
 p_r_model = pipeline {
+  data_for_r = raw_data    -- aliased T-stub
   r_model = rn(
     <{
-      model = lm(mpg ~ hp + wt, data = raw_data)
+      model = lm(mpg ~ hp + wt, data = data_for_r)
       summary(model)$r.squared
     }>,
-    deserializer = [raw_data: "arrow"],
+    deserializer = "arrow",
     serializer = "json"
   )
 }
 
 -- 3. Define Model B (Python)
--- Same pattern: named deserializer to expose raw_data as a T-level dependency.
+-- Same aliased T-stub pattern for the Python node.
 p_py_model = pipeline {
+  data_for_py = raw_data    -- aliased T-stub
   py_model = pyn(
     <{
       from sklearn.ensemble import RandomForestRegressor
-      X = raw_data[['hp', 'wt']]
-      y = raw_data['mpg']
+      X = data_for_py[['hp', 'wt']]
+      y = data_for_py['mpg']
       rf = RandomForestRegressor(n_estimators=10)
       rf.fit(X, y)
       rf.score(X, y)
     }>,
-    deserializer = [raw_data: "arrow"],
+    deserializer = "arrow",
     serializer = "json"
   )
 }
 
 -- 4. Composing the Pipelines
--- chain() works: `raw_data` appears as a key in both deserializer dicts,
--- which T can inspect to find the shared dependency name.
+-- chain() works: T sees `raw_data` referenced on the RHS of the aliases,
+-- which matches the `raw_data` node in p_data.
 print("Chaining R model...")
 p_with_r = p_data |> chain(p_r_model)
 
 print("Chaining Python model...")
 p_combined = p_with_r |> chain(p_py_model)
 
--- 5. Add Comparison Node
--- A T node that reads the JSON outputs from r_model and py_model.
--- Named deserializers wire r_model and py_model into p_compare.
-p_compare = pipeline {
-  compare = {
-    r_score  = t_read_json(read_node("r_model").path)
-    py_score = t_read_json(read_node("py_model").path)
-    delta    = py_score - r_score
-    [r_r2: r_score, py_r2: py_score, improvement: delta]
-  }
-}
-
-print("Chaining comparison node...")
-p_final = p_combined |> chain(pipeline {
-  compare_results = {
-    r_score  = t_read_json(read_node("r_model").path)
-    py_score = t_read_json(read_node("py_model").path)
-    delta    = py_score - r_score
-    [r_r2: r_score, py_r2: py_score, improvement: delta]
-  }
-})
-
 print("Final DAG structure:")
-print(pipeline_nodes(p_final))
+print(pipeline_nodes(p_combined))
 print("Final dependencies:")
-print(pipeline_deps(p_final))
+print(pipeline_deps(p_combined))
 
--- 6. Trigger Build
+-- 5. Trigger Build
 print("Building and Running Model Comparison DAG...")
-populate_pipeline(p_final, build = true)
+populate_pipeline(p_combined, build = true)
 
--- 7. Showcase 'patch'
+-- 6. Showcase 'patch'
 -- Update the R model to use only Horsepower without touching the Python node or data node.
 print("Patching R model to use only 'hp'...")
 p_patch = pipeline {
+  data_for_r = raw_data
   r_model = rn(
     <{
-      model = lm(mpg ~ hp, data = raw_data)
+      model = lm(mpg ~ hp, data = data_for_r)
       summary(model)$r.squared
     }>,
-    deserializer = [raw_data: "arrow"],
+    deserializer = "arrow",
     serializer = "json"
   )
 }
 
-p_patched = p_final |> patch(p_patch)
+p_patched = p_combined |> patch(p_patch)
 
 print("Running patched pipeline...")
 populate_pipeline(p_patched, build = true)
