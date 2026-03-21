@@ -17,3 +17,6 @@ packages = ["dplyr", "readr", "arrow", "jsonlite"]
 [py-dependencies]
 version = "python313"
 packages = ["scikit-learn", "pandas", "pyarrow"]
+
+[t]
+min_version = "0.51.1"
