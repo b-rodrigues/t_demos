@@ -41,14 +41,15 @@ res
   )
 
   -- 4. Comparison Node (T)
-  compare = node(
+  -- Renamed to 'comparison_result' to avoid any conflict with reserved words or node metadata.
+  comparison_result = node(
     command = <{
-res = [
-  r_r2: r_model, 
-  py_r2: py_model, 
-  improvement: py_model - r_model
-]
-res
+      res = [
+        r_r2: r_model, 
+        py_r2: py_model, 
+        improvement: py_model - r_model
+      ]
+      res
     }>,
     deserializer = [r_model: "json", py_model: "json"],
     serializer = "json"
