@@ -12,14 +12,14 @@ description = "A T data analysis project"
 # R packages this project depends on
 # Example:
 # packages = ["dplyr", "ggplot2"]
-packages = ["dplyr"]
+packages = ["dplyr", "jsonlite", "arrow"]
 
 [py-dependencies]
 # Python packages this project depends on
-version = "python314"
+version = "python313"
 # Example:
 # packages = ["pandas", "numpy"]
-packages = ["polars"]
+packages = ["polars", "pandas", "pyarrow"]
 
 [additional-tools]
 packages = ["quarto"]
