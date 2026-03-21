@@ -8,13 +8,13 @@ filters:
 # Introduction
 
 This report demonstrates the results of a polyglot pipeline orchestrated by **T**.
-The pipeline involves data processing in **Python** (via Polars) and **R** (via dplyr).
+The pipeline involves data processing in **Python** (via Pandas) and **R** (via dplyr).
 T provides a unified interface to access artifacts from all these runtimes.
 
 # Pipeline Architecture
 
 The pipeline consists of the following stages:
-1. **Python**: Load and filter `mtcars` with Polars.
+1. **Python**: Load and filter `mtcars` with Pandas.
 2. **R**: Take the head of the data.
 3. **R**: Select specific columns.
 
@@ -22,7 +22,7 @@ The pipeline consists of the following stages:
 
 We can inspect any node artifact directly in this report using T chunks.
 
-## Filtered Data (from Python/Polars)
+## Filtered Data (from Python/Pandas)
 
 ```{t}
 #| label: python-data
@@ -37,10 +37,8 @@ df_filtered |> glimpse
 ```{t}
 #| label: r-data
 node_mpg = read_node("mtcars_mpg")
-# R nodes serialize to RDS by default. 
-# We'll use read_node to get the value directly if T supports it in Quarto.
-# But use .path for robustness as we are in the Quarto environment.
-print(str_join(["Final artifact path: ", node_mpg.path]))
+# R nodes serialize to CSV in this pipeline
+print(str_glue("Final artifact path: {node_mpg.path}"))
 ```
 
 # Conclusion

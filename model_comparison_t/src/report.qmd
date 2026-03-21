@@ -18,11 +18,12 @@ We access the scores produced by both the R and Python model nodes.
 r_node = read_node("r_model")
 py_node = read_node("py_model")
 
+-- Since these are JSON artifacts, we read them as T values
 r_score = t_read_json(r_node.path)
 py_score = t_read_json(py_node.path)
 
-print(str_join(["R Model R^2: ", str_string(r_score)]))
-print(str_join(["Python Model R^2: ", str_string(py_score)]))
+print(str_glue("R Model R^2: {r_score}"))
+print(str_glue("Python Model R^2: {py_score}"))
 ```
 
 # Conclusion
