@@ -35,7 +35,7 @@ jobs:
 
       - name: Set up environment
         run: |
-          nix shell github:b-rodrigues/tlang --keep-env-var CI --command t update
+          nix shell github:b-rodrigues/tlang --command t update
 
       - name: Run Pipeline (Populate and Build)
         run: |
