@@ -1,6 +1,5 @@
 _pipeline/
 pipeline-output/
-_extensions/
 .quarto/
 *.html
 *.pdf
