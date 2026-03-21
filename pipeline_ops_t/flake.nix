@@ -2,9 +2,9 @@
   description = "pipeline_ops_t — a T data analysis project demonstrating advanced pipeline operations";
 
   inputs = {
-    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-03-03";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-03-21";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "github:b-rodrigues/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/";
   };
 
   nixConfig = {
