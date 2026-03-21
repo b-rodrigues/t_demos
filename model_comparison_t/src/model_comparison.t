@@ -1,8 +1,9 @@
 -- model_comparison.t
 -- Experimentation and Model Comparison using Pipeline Operations
+-- Demonstrates chain() with the T-stub workaround for R/Python cross-pipeline deps.
+-- See: docs/pipeline_tutorial.md §25 "Cross-Pipeline Dependency Tracking"
 
 -- 1. Setup Data Node
--- We'll start with a base pipeline that loads mtcars data
 p_data = pipeline {
   raw_data = rn(
     <{ 
@@ -14,9 +15,11 @@ p_data = pipeline {
   )
 }
 
--- 2. Define Model A (R) — explicitly depends on raw_data via deserializer
--- Simple linear regression model
+-- 2. Define Model A (R)
+-- Uses the T-stub pattern: `raw_data = raw_data` makes the cross-pipeline
+-- dependency visible to chain(), because T can parse T-expressions.
 p_r_model = pipeline {
+  raw_data = raw_data      -- T-stub: bridges chain() across pipeline boundaries
   r_model = rn(
     <{
       model = lm(mpg ~ hp + wt, data = raw_data)
@@ -27,9 +30,10 @@ p_r_model = pipeline {
   )
 }
 
--- 3. Define Model B (Python) — explicitly depends on raw_data via deserializer
--- Random Forest Regressor
+-- 3. Define Model B (Python)
+-- Same T-stub pattern for the Python node.
 p_py_model = pipeline {
+  raw_data = raw_data      -- T-stub
   py_model = pyn(
     <{
       from sklearn.ensemble import RandomForestRegressor
@@ -45,8 +49,8 @@ p_py_model = pipeline {
 }
 
 -- 4. Composing the Pipelines
--- chain() works because r_model and py_model both declare 'raw_data'
--- as a deserializer dependency, so T can find the link.
+-- chain() now works: T can see `raw_data` in both p_r_model and p_py_model
+-- because of the T-stub node.
 print("Chaining R model...")
 p_with_r = p_data |> chain(p_r_model)
 
@@ -54,14 +58,15 @@ print("Chaining Python model...")
 p_combined = p_with_r |> chain(p_py_model)
 
 -- 5. Add Comparison Node
--- We define a T node that consumes 'r_model' and 'py_model' from above.
--- Since these are T-native reads (via deserializer), chain() works correctly here too.
+-- A T node that reads the JSON outputs from r_model and py_model.
 p_compare = pipeline {
+  r_model  = r_model     -- T-stub to wire r_model
+  py_model = py_model    -- T-stub to wire py_model
   compare = {
-    r_raw  = t_read_json(read_node("r_model").path)
-    py_raw = t_read_json(read_node("py_model").path)
-    delta  = py_raw - r_raw
-    [r_r2: r_raw, py_r2: py_raw, improvement: delta]
+    r_score  = t_read_json(read_node("r_model").path)
+    py_score = t_read_json(read_node("py_model").path)
+    delta    = py_score - r_score
+    [r_r2: r_score, py_r2: py_score, improvement: delta]
   }
 }
 
@@ -80,6 +85,7 @@ populate_pipeline(p_final, build = true)
 -- Update the R model to use only Horsepower without touching the Python node or data node.
 print("Patching R model to use only 'hp'...")
 p_patch = pipeline {
+  raw_data = raw_data
   r_model = rn(
     <{
       model = lm(mpg ~ hp, data = raw_data)
