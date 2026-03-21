@@ -55,7 +55,7 @@ for demo_dir in */; do
         rm -rf pipeline-output/ _pipeline/
         
         # Assuming tools are available on CI via flakes
-        nix shell github:b-rodrigues/tlang --command "t update"
+        nix shell github:b-rodrigues/tlang --command t update
         nix develop --command t run --unsafe "$ABS_ENTRY"
         
         # 3. Extract metadata from tproject.toml
