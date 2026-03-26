@@ -25,12 +25,12 @@ p = pipeline {
   -- Depends on df_r
   df_py = pyn(
     command = <{
-      import pandas as pd
-      # df_r is automatically deserialized from arrow because we specified it
-      df_py = df_r.copy()
-      df_py['val_py'] = df_py['val'] * 2
-      df_py['is_high'] = (df_py['val_py'] > 0).astype(int)
-      df_py['lang'] = 'python'
+import pandas as pd
+# df_r is automatically deserialized from arrow because we specified it
+df_py = df_r.copy()
+df_py['val_py'] = df_py['val'] * 2
+df_py['is_high'] = (df_py['val_py'] > 0).astype(int)
+df_py['lang'] = 'python'
     }>,
     deserializer = "arrow",
     serializer = "arrow"
@@ -70,10 +70,10 @@ p = pipeline {
   -- Produces a scikit-learn model object (pickle serialized)
   lm_py = pyn(
     command = <{
-      from sklearn.linear_model import LinearRegression
-      X = df_py[['val']]
-      y = df_py['val_py']
-      lm_py = LinearRegression().fit(X, y)
+  from sklearn.linear_model import LinearRegression
+  X = df_py[['val']]
+  y = df_py['val_py']
+  lm_py = LinearRegression().fit(X, y)
     }>,
     deserializer = "arrow"
   )
@@ -82,10 +82,10 @@ p = pipeline {
   -- Produces a statsmodels model object (pickle serialized)
   logit_py = pyn(
     command = <{
-      import statsmodels.api as sm
-      X = sm.add_constant(df_py[['val']])
-      y = df_py['is_high']
-      logit_py = sm.Logit(y, X).fit()
+  import statsmodels.api as sm
+  X = sm.add_constant(df_py[['val']])
+  y = df_py['is_high']
+  logit_py = sm.Logit(y, X).fit()
     }>,
     deserializer = "arrow"
   )
@@ -110,8 +110,8 @@ p = pipeline {
   -- Serialized as JSON
   vector_py = pyn(
     command = <{
-      import numpy as np
-      vector_py = np.linspace(0, 1, 10).tolist()
+  import numpy as np
+  vector_py = np.linspace(0, 1, 10).tolist()
     }>,
     serializer = "json"
   )
