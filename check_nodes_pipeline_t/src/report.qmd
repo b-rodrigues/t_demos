@@ -75,6 +75,20 @@ This is an RDS-serialized R `glm` object.
 read_node("glm_r")
 ```
 
+### PMML Linear Model (r_model_pmml)
+This is a PMML-serialized R `lm` object.
+```{t}
+#| label: r-model-pmml
+read_node("r_model_pmml")
+```
+
+### T-Native Prediction (pred_t_r)
+This is a T-native prediction of the R PMML model.
+```{t}
+#| label: pred-t-r
+read_node("pred_t_r")
+```
+
 ## Python Models
 
 ### Linear Regression (lm_py)
@@ -89,6 +103,20 @@ This is a Pickle-serialized Statsmodels Logit model.
 ```{t}
 #| label: logit-py
 read_node("logit_py")
+```
+
+### PMML Linear Model (py_model_pmml)
+This is a PMML-serialized Python model.
+```{t}
+#| label: py-model-pmml
+read_node("py_model_pmml")
+```
+
+### T-Native Prediction (pred_t_py)
+This is a T-native prediction of the Python PMML model.
+```{t}
+#| label: pred-t-py
+read_node("pred_t_py")
 ```
 
 ## Simplified Summaries and Vectors

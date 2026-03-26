@@ -106,7 +106,53 @@ df_py['lang'] = 'python'
     serializer = "json"
   )
 
-  -- 10. Python node: A vector (numpy array)
+  -- 10. R PMML Model (r2pmml)
+  r_model_pmml = rn(
+    command = <{
+      lm(val_py ~ val, data = df_py)
+    }>,
+    deserializer = "arrow",
+    serializer = "pmml"
+  )
+
+  -- 11. T Native Prediction of R Model
+  pred_t_r = node(
+    command = <{
+      # df_py is arrow, r_model_pmml is pmml
+      predict(df_py, r_model_pmml)
+    }>,
+    deserializer = [
+      df_py: "arrow",
+      r_model_pmml: "pmml"
+    ]
+  )
+
+  -- 12. Python PMML Model (sklearn2pmml)
+  py_model_pmml = pyn(
+    command = <{
+      from sklearn.linear_model import LinearRegression
+      from sklearn2pmml import sklearn2pmml
+      from sklearn2pmml.pipeline import PMMLPipeline
+      X = df_py[['val']]
+      y = df_py['val_py']
+      py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
+    }>,
+    deserializer = "arrow",
+    serializer = "pmml"
+  )
+
+  -- 13. T Native Prediction of Python Model
+  pred_t_py = node(
+    command = <{
+      predict(df_py, py_model_pmml)
+    }>,
+    deserializer = [
+      df_py: "arrow",
+      py_model_pmml: "pmml"
+    ]
+  )
+
+  -- 14. Python node: A vector (numpy array)
   -- Serialized as JSON
   vector_py = pyn(
     command = <{
@@ -116,7 +162,7 @@ df_py['lang'] = 'python'
     serializer = "json"
   )
 
-  -- 11. Bash node: Glue it all together
+  -- 15. Bash node: Glue it all together
   -- Bash nodes use 'text' serializer by default.
   -- They receive paths to artifacts in environment variables.
   -- We can also use read_node results if we were in a T script, 
@@ -128,8 +174,10 @@ df_py['lang'] = 'python'
       echo "R Model JSON Summary: $(cat $T_NODE_model_r_json/artifact)"
       echo "R LM Model (RDS path): $T_NODE_lm_r/artifact"
       echo "R GLM Model (RDS path): $T_NODE_glm_r/artifact"
+      echo "R PMML Model (PMML path): $T_NODE_r_model_pmml/artifact"
       echo "Python LM Model (Pickle path): $T_NODE_lm_py/artifact"
       echo "Python Logit Model (Pickle path): $T_NODE_logit_py/artifact"
+      echo "Python PMML Model (PMML path): $T_NODE_py_model_pmml/artifact"
       echo "Python Vector (JSON): $(cat $T_NODE_vector_py/artifact)"
       echo "Python DF (Arrow path): $T_NODE_df_py/artifact"
       
@@ -140,7 +188,7 @@ df_py['lang'] = 'python'
   )
 
   -- 8. Quarto Report
-  -- 12. Quarto Report
+  -- 16. Quarto Report
   report = node(script = "src/report.qmd", runtime = Quarto)
 }
 

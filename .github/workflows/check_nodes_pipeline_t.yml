@@ -88,6 +88,26 @@ jobs:
           echo "read_node('logit_py')" > view.t
           nix develop --command t run --unsafe view.t
 
+      - name: Inspect r_model_pmml (R node -> PMML)
+        run: |
+          echo "read_node('r_model_pmml')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect pred_t_r (T node -> prediction of R model)
+        run: |
+          echo "read_node('pred_t_r')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect py_model_pmml (Python node -> PMML)
+        run: |
+          echo "read_node('py_model_pmml')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect pred_t_py (T node -> prediction of Python model)
+        run: |
+          echo "read_node('pred_t_py')" > view.t
+          nix develop --command t run --unsafe view.t
+
       - name: Inspect model_r_json (R node -> JSON summary)
         run: |
           echo "read_node('model_r_json')" > view.t

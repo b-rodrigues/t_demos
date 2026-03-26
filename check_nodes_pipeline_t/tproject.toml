@@ -7,12 +7,12 @@ description = "A comprehensive demo to check nodes in multi-language pipelines (
 
 [r-dependencies]
 # R packages this project depends on
-packages = ["dplyr", "arrow", "ggplot2"]
+packages = ["dplyr", "arrow", "ggplot2", "r2pmml"]
 
 [py-dependencies]
 # Python packages this project depends on
 version = "python313"
-packages = ["pandas", "pyarrow", "numpy", "scikit-learn", "statsmodels"]
+packages = ["pandas", "pyarrow", "numpy", "scikit-learn", "statsmodels", "sklearn2pmml"]
 
 [additional-tools]
 packages = ["quarto"]
