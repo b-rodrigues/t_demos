@@ -21,6 +21,9 @@ version = "python314"
 # packages = ["pandas", "numpy"]
 packages = []
 
+[additional-tools]
+packages = ["quarto"]
+
 [t]
 # Minimum T language version required
 min_version = "0.51.1"
