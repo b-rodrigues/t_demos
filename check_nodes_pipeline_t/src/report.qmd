@@ -1,0 +1,119 @@
+---
+title: "Check Nodes Pipeline (T, R, Python, Bash)"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This report showcases a polyglot pipeline managed by **T**.
+The pipeline involves nodes written in T, R, Python, and Bash, with data flowing between them using **Arrow** and **JSON**.
+
+# Pipeline Overview
+
+```{t}
+#| label: pipeline-summary
+#| echo: false
+inspect_pipeline()
+```
+
+# Native T Data
+
+The pipeline starts with a simple T list:
+
+```{t}
+#| label: data-t
+read_node("data_t")
+```
+
+# R and Python Collaboration (Arrow)
+
+An R node creates a dataset, and a Python node transforms it. Both use **Arrow** for efficient interchange.
+
+## R Data (df_r)
+```{t}
+#| label: df-r
+df_r_node = read_node("df_r")
+# read_arrow reads the arrow artifact into a T dataframe
+df_r = read_arrow(df_r_node.path)
+head(df_r)
+```
+
+## Python Transformed Data (df_py)
+```{t}
+#| label: df-py
+df_py_node = read_node("df_py")
+df_py = read_arrow(df_py_node.path)
+head(df_py)
+```
+
+# Models and Vectors
+
+# R ggplot graph (plot_r)
+
+This node produces a ggplot object, which is not natively supported for T deserialization.
+
+```{t}
+#| label: plot-r
+read_node("plot_r")
+```
+
+## R Models
+
+### Linear Model (lm_r)
+This is an RDS-serialized R `lm` object.
+```{t}
+#| label: lm-r
+read_node("lm_r")
+```
+
+### Generalized Linear Model (glm_r)
+This is an RDS-serialized R `glm` object.
+```{t}
+#| label: glm-r
+read_node("glm_r")
+```
+
+## Python Models
+
+### Linear Regression (lm_py)
+This is a Pickle-serialized Scikit-learn model.
+```{t}
+#| label: lm-py
+read_node("lm_py")
+```
+
+### Logit Model (logit_py)
+This is a Pickle-serialized Statsmodels Logit model.
+```{t}
+#| label: logit-py
+read_node("logit_py")
+```
+
+## Simplified Summaries and Vectors
+
+### R Model Summary (JSON)
+```{t}
+#| label: model-r-json
+read_node("model_r_json")
+```
+
+### Python Vector (JSON)
+```{t}
+#| label: vector-py
+read_node("vector_py")
+```
+
+# Bash node Summary
+
+Finally, a Bash node that processed these paths:
+
+```{t}
+#| label: res-bash
+read_node("res_bash")
+```
+
+# Conclusion
+
+T makes it easy to orchestrate complex, multi-language workflows without worrying about the underlying serialization details for common formats.

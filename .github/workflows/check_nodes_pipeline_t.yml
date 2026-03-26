@@ -1,0 +1,105 @@
+name: Demo Check Nodes Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  check-nodes-pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./check_nodes_pipeline_t
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Set up environment
+        run: |
+          nix shell github:b-rodrigues/tlang --command t update
+
+      - name: Run Pipeline (Build and Materialize)
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Inspect Built Nodes (Summary)
+        run: |
+          echo "inspect_pipeline()" > inspect.t
+          nix develop --command t run --unsafe inspect.t
+
+      - name: Inspect data_t (T list)
+        run: |
+          echo "read_node('data_t')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect df_r (R node -> Arrow -> T dataframe)
+        run: |
+          echo "read_node('df_r')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect df_py (Python node -> Arrow -> T dataframe)
+        run: |
+          echo "read_node('df_py')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect plot_r (R node -> ggplot object)
+        run: |
+          echo "read_node('plot_r')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect lm_r (R node -> lm object)
+        run: |
+          echo "read_node('lm_r')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect glm_r (R node -> glm object)
+        run: |
+          echo "read_node('glm_r')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect lm_py (Python node -> sklearn model)
+        run: |
+          echo "read_node('lm_py')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect logit_py (Python node -> statsmodels model)
+        run: |
+          echo "read_node('logit_py')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect model_r_json (R node -> JSON summary)
+        run: |
+          echo "read_node('model_r_json')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect vector_py (Python node -> JSON -> T vector)
+        run: |
+          echo "read_node('vector_py')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect res_bash (Bash node -> Text -> T string)
+        run: |
+          echo "read_node('res_bash')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Inspect report (Quarto node)
+        run: |
+          echo "read_node('report')" > view.t
+          nix develop --command t run --unsafe view.t
