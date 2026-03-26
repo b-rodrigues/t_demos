@@ -1,0 +1,15 @@
+[project]
+name = "lens_demo_t"
+description = "A T project demonstrating functional lenses for deep data manipulation"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr"]
+
+[py-dependencies]
+version = "python313"
+packages = ["pandas"]
+
+[t]
+min_version = "0.51.2"
