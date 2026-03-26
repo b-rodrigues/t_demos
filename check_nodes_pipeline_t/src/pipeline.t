@@ -15,6 +15,7 @@ p = pipeline {
       df_r <- data.frame(
         id = 1:100,
         val = rnorm(100),
+        val_noisy = rnorm(100) * 0.5 + rnorm(100),
         group = rep(c("A", "B"), each = 50)
       )
     }>,
@@ -26,10 +27,13 @@ p = pipeline {
   df_py = pyn(
     command = <{
 import pandas as pd
+import numpy as np
 # df_r is automatically deserialized from arrow because we specified it
 df_py = df_r.copy()
-df_py['val_py'] = df_py['val'] * 2
-df_py['is_high'] = (df_py['val_py'] > 0).astype(int)
+# Target with noise
+df_py['val_py'] = df_py['val'] * 1.5 + df_py['val_noisy'] * 0.5 + np.random.normal(0, 0.1, len(df_py))
+# Classification target with noise to avoid perfect separation
+df_py['is_high'] = (df_py['val_py'] + np.random.normal(0, 0.2, len(df_py)) > 0.5).astype(int)
 df_py['lang'] = 'python'
     }>,
     deserializer = "arrow",
