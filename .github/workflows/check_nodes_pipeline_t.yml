@@ -35,6 +35,10 @@ jobs:
         run: |
           nix shell github:b-rodrigues/tlang --command t update
 
+      - name: Build environment
+        run: |
+          nix develop
+
       - name: Run Pipeline (Build and Materialize)
         run: |
           nix develop --command t run src/pipeline.t
