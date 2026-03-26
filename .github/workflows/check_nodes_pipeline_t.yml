@@ -123,7 +123,6 @@ jobs:
           echo "read_node('res_bash')" > view.t
           nix develop --command t run --unsafe view.t
 
-      - name: Inspect report (Quarto node)
+      - name: Render Quarto Report
         run: |
-          echo "read_node('report')" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command quarto render src/report.qmd

@@ -13,9 +13,9 @@ p = pipeline {
     command = <{
       library(dplyr)
       df_r <- data.frame(
-        id = 1:10,
-        val = rnorm(10),
-        group = rep(c("A", "B"), each = 5)
+        id = 1:100,
+        val = rnorm(100),
+        group = rep(c("A", "B"), each = 50)
       )
     }>,
     serializer = "arrow"
@@ -70,10 +70,10 @@ df_py['lang'] = 'python'
   -- Produces a scikit-learn model object (pickle serialized)
   lm_py = pyn(
     command = <{
-  from sklearn.linear_model import LinearRegression
-  X = df_py[['val']]
-  y = df_py['val_py']
-  lm_py = LinearRegression().fit(X, y)
+from sklearn.linear_model import LinearRegression
+X = df_py[['val']]
+y = df_py['val_py']
+lm_py = LinearRegression().fit(X, y)
     }>,
     deserializer = "arrow"
   )
@@ -82,10 +82,10 @@ df_py['lang'] = 'python'
   -- Produces a statsmodels model object (pickle serialized)
   logit_py = pyn(
     command = <{
-  import statsmodels.api as sm
-  X = sm.add_constant(df_py[['val']])
-  y = df_py['is_high']
-  logit_py = sm.Logit(y, X).fit()
+import statsmodels.api as sm
+X = sm.add_constant(df_py[['val']])
+y = df_py['is_high']
+logit_py = sm.Logit(y, X).fit()
     }>,
     deserializer = "arrow"
   )
@@ -118,7 +118,7 @@ df_py['lang'] = 'python'
   -- 11. T Native Prediction of R Model
   pred_t_r = node(
     command = <{
-      # df_py is arrow, r_model_pmml is pmml
+      -- df_py is arrow, r_model_pmml is pmml
       predict(df_py, r_model_pmml)
     }>,
     deserializer = [
@@ -130,12 +130,12 @@ df_py['lang'] = 'python'
   -- 12. Python PMML Model (sklearn2pmml)
   py_model_pmml = pyn(
     command = <{
-      from sklearn.linear_model import LinearRegression
-      from sklearn2pmml import sklearn2pmml
-      from sklearn2pmml.pipeline import PMMLPipeline
-      X = df_py[['val']]
-      y = df_py['val_py']
-      py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
+from sklearn.linear_model import LinearRegression
+from sklearn2pmml import sklearn2pmml
+from sklearn2pmml.pipeline import PMMLPipeline
+X = df_py[['val']]
+y = df_py['val_py']
+py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
     }>,
     deserializer = "arrow",
     serializer = "pmml"
@@ -156,8 +156,8 @@ df_py['lang'] = 'python'
   -- Serialized as JSON
   vector_py = pyn(
     command = <{
-  import numpy as np
-  vector_py = np.linspace(0, 1, 10).tolist()
+import numpy as np
+vector_py = np.linspace(0, 1, 10).tolist()
     }>,
     serializer = "json"
   )
@@ -187,9 +187,6 @@ df_py['lang'] = 'python'
     serializer = "text"
   )
 
-  -- 8. Quarto Report
-  -- 16. Quarto Report
-  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize the pipeline

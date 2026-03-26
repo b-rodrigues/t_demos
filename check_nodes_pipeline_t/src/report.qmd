@@ -1,147 +1,93 @@
 ---
 title: "Check Nodes Pipeline (T, R, Python, Bash)"
 format: html
-filters:
-  - tlang
 ---
 
 # Introduction
 
 This report showcases a polyglot pipeline managed by **T**.
-The pipeline involves nodes written in T, R, Python, and Bash, with data flowing between them using **Arrow** and **JSON**.
-
-# Pipeline Overview
-
-```{t}
-#| label: pipeline-summary
-#| echo: false
-inspect_pipeline()
-```
+The pipeline involves nodes written in T, R, Python, and Bash.
 
 # Native T Data
-
-The pipeline starts with a simple T list:
-
 ```{t}
 #| label: data-t
-read_node("data_t")
+print(read_node("data_t"))
 ```
 
-# R and Python Collaboration (Arrow)
-
-An R node creates a dataset, and a Python node transforms it. Both use **Arrow** for efficient interchange.
-
-## R Data (df_r)
+# DataFrames (Arrow)
 ```{t}
 #| label: df-r
-df_r_node = read_node("df_r")
-# read_arrow reads the arrow artifact into a T dataframe
-df_r = read_arrow(df_r_node.path)
-head(df_r)
+print(read_node("df_r"))
 ```
 
-## Python Transformed Data (df_py)
 ```{t}
 #| label: df-py
-df_py_node = read_node("df_py")
-df_py = read_arrow(df_py_node.path)
-head(df_py)
+print(read_node("df_py"))
 ```
 
-# Models and Vectors
-
-# R ggplot graph (plot_r)
-
-This node produces a ggplot object, which is not natively supported for T deserialization.
-
+# R ggplot (plot_r)
 ```{t}
 #| label: plot-r
-read_node("plot_r")
+print(read_node("plot_r"))
 ```
 
-## R Models
-
-### Linear Model (lm_r)
-This is an RDS-serialized R `lm` object.
+# R Models
 ```{t}
 #| label: lm-r
-read_node("lm_r")
+print(read_node("lm_r"))
 ```
 
-### Generalized Linear Model (glm_r)
-This is an RDS-serialized R `glm` object.
 ```{t}
 #| label: glm-r
-read_node("glm_r")
+print(read_node("glm_r"))
 ```
 
-### PMML Linear Model (r_model_pmml)
-This is a PMML-serialized R `lm` object.
-```{t}
-#| label: r-model-pmml
-read_node("r_model_pmml")
-```
-
-### T-Native Prediction (pred_t_r)
-This is a T-native prediction of the R PMML model.
-```{t}
-#| label: pred-t-r
-read_node("pred_t_r")
-```
-
-## Python Models
-
-### Linear Regression (lm_py)
-This is a Pickle-serialized Scikit-learn model.
+# Python Models
 ```{t}
 #| label: lm-py
-read_node("lm_py")
+print(read_node("lm_py"))
 ```
 
-### Logit Model (logit_py)
-This is a Pickle-serialized Statsmodels Logit model.
 ```{t}
 #| label: logit-py
-read_node("logit_py")
+print(read_node("logit_py"))
 ```
 
-### PMML Linear Model (py_model_pmml)
-This is a PMML-serialized Python model.
+# PMML Models
+```{t}
+#| label: r-model-pmml
+print(read_node("r_model_pmml"))
+```
+
 ```{t}
 #| label: py-model-pmml
-read_node("py_model_pmml")
+print(read_node("py_model_pmml"))
 ```
 
-### T-Native Prediction (pred_t_py)
-This is a T-native prediction of the Python PMML model.
+# T-Native Predictions
+```{t}
+#| label: pred-t-r
+print(read_node("pred_t_r"))
+```
+
 ```{t}
 #| label: pred-t-py
-read_node("pred_t_py")
+print(read_node("pred_t_py"))
 ```
 
-## Simplified Summaries and Vectors
-
-### R Model Summary (JSON)
+# Summaries and Vectors
 ```{t}
 #| label: model-r-json
-read_node("model_r_json")
+print(read_node("model_r_json"))
 ```
 
-### Python Vector (JSON)
 ```{t}
 #| label: vector-py
-read_node("vector_py")
+print(read_node("vector_py"))
 ```
 
-# Bash node Summary
-
-Finally, a Bash node that processed these paths:
-
+# Bash Results
 ```{t}
 #| label: res-bash
-read_node("res_bash")
+print(read_node("res_bash"))
 ```
-
-# Conclusion
-
-T makes it easy to orchestrate complex, multi-language workflows without worrying about the underlying serialization details for common formats.
