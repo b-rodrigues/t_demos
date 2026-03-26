@@ -12,5 +12,8 @@ packages = ["dplyr", "jsonlite"]
 version = "python313"
 packages = ["pandas"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [t]
 min_version = "0.51.1"
