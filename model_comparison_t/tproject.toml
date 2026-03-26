@@ -18,5 +18,8 @@ packages = ["dplyr", "readr", "arrow", "jsonlite"]
 version = "python313"
 packages = ["scikit-learn", "pandas", "pyarrow"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [t]
 min_version = "0.51.1"
