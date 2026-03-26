@@ -24,6 +24,10 @@ tokyo_l = compose(col_lens("countries"), idx_lens(0), col_lens("cities"), idx_le
 print(get(world, tokyo_l))
 print(get(world_boosted, tokyo_l)) -- 14.7
 
+-- Standard indexing with the same 'get' function (formerly core.get)
+print("Standard Indexing (Country 0):")
+print(get(world.countries, 0).name)
+
 -- 2. Positional Targeting: idx_lens()
 switzerland_l = compose(col_lens("countries"), idx_lens(1))
 print("Focused Country (Switzerland):")
