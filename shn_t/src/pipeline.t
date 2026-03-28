@@ -25,7 +25,7 @@ p = pipeline {
   -- T node that reads the output from the awk node using an explicit csv deserializer
   final_summary = node(
     command = awk_node |> head(1),
-    deserializer = [awk_node: "csv"]
+    deserializer = [awk_node: ^csv]
   )
 
   -- Render Quarto report

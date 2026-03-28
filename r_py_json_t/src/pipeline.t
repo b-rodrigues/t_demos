@@ -9,7 +9,7 @@ import pandas as pd
 pd.read_csv("data/mtcars.csv", sep="|")
     }>,
     include = ["data/mtcars.csv"],
-    serializer = "csv"
+    serializer = ^csv
   )
 
   -- 2. Python node: filter and serialize as CSV
@@ -17,8 +17,8 @@ pd.read_csv("data/mtcars.csv", sep="|")
     command = <{
 mtcars_pl[mtcars_pl['am'] == 1]
     }>,
-    deserializer = "csv",
-    serializer = "csv"
+    deserializer = ^csv,
+    serializer = ^csv
   )
 
   -- 3. R node: read CSV and take head using functions.R
@@ -27,8 +27,8 @@ mtcars_pl[mtcars_pl['am'] == 1]
 my_head(mtcars_pl_am)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "csv",
-    serializer = "csv"
+    deserializer = ^csv,
+    serializer = ^csv
   )
 
   -- 4. R node: select column with dplyr
@@ -37,8 +37,8 @@ my_head(mtcars_pl_am)
 library(dplyr)
 mtcars_head %>% select(mpg)
     }>,
-    deserializer = "csv",
-    serializer = "csv"
+    deserializer = ^csv,
+    serializer = ^csv
   )
 
   -- Render Quarto report

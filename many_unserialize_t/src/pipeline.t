@@ -7,7 +7,7 @@ p = pipeline {
 mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
     }>,
     include = ["data/mtcars.csv"],
-    serializer = "arrow" 
+    serializer = ^arrow
   )
 
   -- 2. Filter node
@@ -16,8 +16,8 @@ mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
 library(dplyr)
 mtcars_am <- mtcars %>% filter(TRUE)
     }>,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
   )
 
   -- 3. Head node with "write.csv" serializer
@@ -25,9 +25,9 @@ mtcars_am <- mtcars %>% filter(TRUE)
     command = <{
 mtcars_head <- my_head(mtcars_am, 100)
     }>,
-    deserializer = "arrow",
+    deserializer = ^arrow,
     functions = ["src/my_head.R"],
-    serializer = "csv"
+    serializer = ^csv
   )
 
   -- 4. Tail node with "json" serializer and "read.csv" deserializer for head
@@ -36,8 +36,8 @@ mtcars_head <- my_head(mtcars_am, 100)
 library(dplyr)
 mtcars_tail <- mtcars_am %>% tail(5)
     }>,
-    deserializer = "arrow",
-    serializer = "json"
+    deserializer = ^arrow,
+    serializer = ^json
   )
 
   -- 5. Join node with mixed deserializers
@@ -47,8 +47,8 @@ library(dplyr)
 mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
     }>,
     deserializer = [
-      mtcars_tail: "json",
-      mtcars_head: "csv"
+      mtcars_tail: ^json,
+      mtcars_head: ^csv
     ]
   )
 

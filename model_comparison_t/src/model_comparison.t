@@ -11,7 +11,7 @@ library(datasets)
 data(mtcars)
 mtcars 
     }>,
-    serializer = "arrow"
+    serializer = ^arrow
   )
 
   -- 2. Define Model A (R)
@@ -20,8 +20,8 @@ mtcars
 model = lm(mpg ~ hp + wt, data = raw_data)
 summary(model)$r.squared
     }>,
-    deserializer = "arrow",
-    serializer = "json"
+    deserializer = ^arrow,
+    serializer = ^json
   )
 
   -- 3. Define Model B (Python)
@@ -36,8 +36,8 @@ rf.fit(X, y)
 res = rf.score(X, y)
 res
     }>,
-    deserializer = "arrow",
-    serializer = "json"
+    deserializer = ^arrow,
+    serializer = ^json
   )
 
   -- 4. Comparison Node (T)
@@ -51,8 +51,8 @@ res
       ]
       res
     }>,
-    deserializer = [r_model: "json", py_model: "json"],
-    serializer = "json"
+    deserializer = [r_model: ^json, py_model: ^json],
+    serializer = ^json
   )
 }
 

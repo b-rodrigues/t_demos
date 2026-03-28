@@ -33,7 +33,7 @@ py_coords = numpy.column_stack(numpy.where(gorilla_pixels < threshold_level))
 import pandas as pd
 raw_coords = pd.DataFrame(py_coords, columns=["V1", "V2"])
     }>,
-    serializer = "arrow"
+    serializer = ^arrow
   )
 
   -- 5. Clean coordinates in R
@@ -43,8 +43,8 @@ library(dplyr)
 coords <- clean_coords(raw_coords)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
   )
 
   -- 6. Gender distribution
@@ -54,7 +54,7 @@ library(dplyr)
 gender_dist <- gender_distribution(coords)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 7. Plots
@@ -65,7 +65,7 @@ library(ggplot2)
 plot1 <- make_plot1(coords)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   plot2 = rn(
@@ -75,7 +75,7 @@ library(ggplot2)
 plot2 <- make_plot2(coords)
     }>,
     functions = ["src/functions.R"],
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- Render Quarto report

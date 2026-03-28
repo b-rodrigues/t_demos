@@ -4,7 +4,7 @@
 p = pipeline {
   data = node(
     command = [1, 2, 3, 4, 5],
-    serializer = "json"
+    serializer = ^json
   )
   
   -- This node is marked to be skipped in builds
@@ -15,15 +15,15 @@ p = pipeline {
       [x * 2 for x in data]
     }>,
     runtime = Python,
-    deserializer = "json",
-    serializer = "json",
+    deserializer = ^json,
+    serializer = ^json,
     noop = true
   )
 
   -- This node depends on expensive_node, so it also becomes a noop
   summary = node(
     command = sum(expensive_node),
-    deserializer = "json"
+    deserializer = ^json
   )
 
   -- Render Quarto report

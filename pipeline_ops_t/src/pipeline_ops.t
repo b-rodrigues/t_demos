@@ -5,7 +5,7 @@
 base_p = pipeline {
   raw = node(
     command = read_csv("data/sample.csv"),
-    serializer = "arrow"
+    serializer = ^arrow
   )
   
   -- Use node() with noop = true to skip heavy computation during builds
@@ -14,15 +14,15 @@ base_p = pipeline {
       library(dplyr)
       raw %>% group_by(group) %>% summarize(total = sum(value))
     }>,
-    deserializer = "arrow",
-    serializer = "arrow",
+    deserializer = ^arrow,
+    serializer = ^arrow,
     noop = true
   )
 
   -- This node depends on heavy_r_node, so it also becomes a noop
   summary = node(
     command = heavy_r_node |> filter($total > 100),
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 }
 

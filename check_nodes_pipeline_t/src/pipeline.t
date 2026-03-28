@@ -19,7 +19,7 @@ p = pipeline {
         group = rep(c("A", "B"), each = 50)
       )
     }>,
-    serializer = "arrow"
+    serializer = ^arrow
   )
 
   -- 3. Python node: Consume Arrow DF from R, add a column, and output as Arrow
@@ -36,8 +36,8 @@ df_py['val_py'] = df_py['val'] * 1.5 + df_py['val_noisy'] * 0.5 + np.random.norm
 df_py['is_high'] = (df_py['val_py'] + np.random.normal(0, 0.2, len(df_py)) > 0.5).astype(int)
 df_py['lang'] = 'python'
     }>,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
   )
 
   -- 4. R node: Create a ggplot graph
@@ -49,7 +49,7 @@ df_py['lang'] = 'python'
         geom_boxplot() +
         theme_minimal()
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 5. R node: Linear model (lm)
@@ -58,7 +58,7 @@ df_py['lang'] = 'python'
     command = <{
       lm(val_py ~ val + group, data = df_py)
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 6. R node: Generalized Linear Model (glm)
@@ -67,7 +67,7 @@ df_py['lang'] = 'python'
     command = <{
       glm(is_high ~ val, data = df_py, family = binomial)
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 7. Python node: Linear Regression (scikit-learn)
@@ -79,7 +79,7 @@ X = df_py[['val']]
 y = df_py['val_py']
 lm_py = LinearRegression().fit(X, y)
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 8. Python node: Logit model (statsmodels)
@@ -91,7 +91,7 @@ X = sm.add_constant(df_py[['val']])
 y = df_py['is_high']
 logit_py = sm.Logit(y, X).fit()
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- 9. R node: Hand-written summary (JSON)
@@ -106,8 +106,8 @@ logit_py = sm.Logit(y, X).fit()
         r_squared = summary(model)$r.squared
       )
     }>,
-    deserializer = "arrow",
-    serializer = "json"
+    deserializer = ^arrow,
+    serializer = ^json
   )
 
   -- 10. R PMML Model (r2pmml)
@@ -115,8 +115,8 @@ logit_py = sm.Logit(y, X).fit()
     command = <{
       lm(val_py ~ val, data = df_py)
     }>,
-    deserializer = "arrow",
-    serializer = "pmml"
+    deserializer = ^arrow,
+    serializer = ^pmml
   )
 
   -- 11. T Native Prediction of R Model
@@ -126,8 +126,8 @@ logit_py = sm.Logit(y, X).fit()
       predict(df_py, r_model_pmml)
     }>,
     deserializer = [
-      df_py: "arrow",
-      r_model_pmml: "pmml"
+      df_py: ^arrow,
+      r_model_pmml: ^pmml
     ]
   )
 
@@ -141,8 +141,8 @@ X = df_py[['val']]
 y = df_py['val_py']
 py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
     }>,
-    deserializer = "arrow",
-    serializer = "pmml"
+    deserializer = ^arrow,
+    serializer = ^pmml
   )
 
   -- 13. T Native Prediction of Python Model
@@ -151,8 +151,8 @@ py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
       predict(df_py, py_model_pmml)
     }>,
     deserializer = [
-      df_py: "arrow",
-      py_model_pmml: "pmml"
+      df_py: ^arrow,
+      py_model_pmml: ^pmml
     ]
   )
 
@@ -163,7 +163,7 @@ py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
 import numpy as np
 vector_py = np.linspace(0, 1, 10).tolist()
     }>,
-    serializer = "json"
+    serializer = ^json
   )
 
   -- 15. Bash node: Glue it all together
@@ -188,7 +188,7 @@ vector_py = np.linspace(0, 1, 10).tolist()
       # Just output some text
       echo "All nodes executed successfully" > summary.txt
     }>,
-    serializer = "text"
+    serializer = ^text
   )
 
 }

@@ -45,7 +45,7 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
 from pandas import DataFrame
 combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
     }>,
-    serializer = "arrow"
+    serializer = ^arrow
   )
 
   -- Confusion matrix in R
@@ -59,7 +59,7 @@ combined_factor <- combined_df %>%
   
 confusion_matrix <- conf_mat(combined_factor, truth, estimate)
     }>,
-    deserializer = "arrow"
+    deserializer = ^arrow
   )
 
   -- Accuracy score in Python
@@ -68,7 +68,7 @@ confusion_matrix <- conf_mat(combined_factor, truth, estimate)
 from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, y_pred)
     }>,
-    serializer = "json"
+    serializer = ^json
   )
 
   -- Render Quarto report
