@@ -1,39 +1,27 @@
--- Demo: Defining a custom YAML serializer using helper files.
+-- Demo: Defining a custom YAML serializer as a first-class T object.
 --
--- The py_writer/py_reader/r_writer/r_reader snippets in a custom serializer
--- dict must be FUNCTION NAMES (not inline code). The actual function
--- definitions live in helper files, included via functions = [...].
+-- The serializer is fully self-contained in src/yaml_serializer.t —
+-- no external .py or .R helper files are needed.
+-- Helper function bodies are embedded via py_functions / r_functions blocks.
+
+import "src/yaml_serializer.t" [yaml_ser]
 
 p = pipeline {
-  -- Producer: Python node exported as YAML
-  -- py_write_yaml is defined in src/yaml_helpers.py
+  -- Producer: Python node exported as YAML using the imported serializer
   config_py = pyn(
     command = <{
       config = dict(api="https://api.tlang.org", v="0.51.2")
     }>,
-    functions = ["src/yaml_helpers.py"],
-    serializer: [
-      format: "yaml",
-      py_writer: <{ py_write_yaml }>,
-      py_reader: <{ py_read_yaml }>
-    ]
+    serializer: yaml_ser
   )
 
-  -- Consumer: R node reading the YAML artifact
-  -- r_read_yaml is defined in src/yaml_helpers.R
+  -- Consumer: R node that reads the YAML artifact via the imported serializer
   config_r = rn(
     command = <{
       print(config_py$api)
       res <- paste("URL:", config_py$api)
     }>,
-    functions = ["src/yaml_helpers.R"],
-    deserializer: [
-      config_py: [
-        format: "yaml",
-        r_reader: <{ r_read_yaml }>,
-        r_writer: <{ r_write_yaml }>
-      ]
-    ]
+    deserializer: [ config_py: yaml_ser ]
   )
 }
 
