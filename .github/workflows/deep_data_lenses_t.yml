@@ -50,7 +50,7 @@ jobs:
           echo "inspect_pipeline()" > inspect.t
           nix develop --command t run --unsafe inspect.t
 
-      - name: Verify Lenses
+      - name: Verify Lens Results
         run: |
-          echo "read_node('final_check')" > view.t
+          echo "read_node('both_updated')" > view.t
           nix develop --command t run --unsafe view.t

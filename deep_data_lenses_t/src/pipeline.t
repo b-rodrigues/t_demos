@@ -35,8 +35,6 @@ p = pipeline {
     )
   })
 
-  -- 5. Read back the version field to verify
-  final_version = node(command = both_updated.version)
 }
 
 build_pipeline(p)
