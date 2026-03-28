@@ -1,20 +1,16 @@
 -- Demo: First-class error values, pipe short-circuiting, and in-node recovery.
 --
--- Important: errors propagate across pipeline nodes and cannot be recovered
--- across node boundaries. All recovery patterns (match, ?|>) must happen
--- *within* a single node's command expression.
+-- Key rule: every pipeline node's command must evaluate to a non-error value,
+-- otherwise build_pipeline treats it as a build failure.
+-- Recovery patterns (match, ?|>) must fully resolve errors within the same node.
 
 p = pipeline {
-  -- 1. A node that computes something safely
+  -- 1. A node that computes something safely — no error
   good_val = node(command = 100 / 5)
 
-  -- 2. A node that intentionally triggers an error (division by zero)
-  --    The error is a first-class value: it doesn't crash T.
-  error_val = node(command = 10 / 0)
-
-  -- 3. Within a single node, recover from a potential error using 'match'.
-  --    We deliberately try a risky operation and handle the Error case.
-  recovered_div = node(command = {
+  -- 2. Recover from a risky division using 'match':
+  --    The Error value is caught and replaced with a default of 0.
+  recovered_with_match = node(command = {
     risky = 42 / 0
     match(risky) {
       Error { msg } => 0,
@@ -22,18 +18,20 @@ p = pipeline {
     }
   })
 
-  -- 4. Using the Maybe-Pipe (?|>) for inline error bypass.
-  --    Unlike |>, ?|> always passes the value (even an Error) to the next function.
-  maybe_recovery = node(command = {
+  -- 3. Recover using the Maybe-Pipe (?|>):
+  --    Unlike |>, ?|> passes Error values through to the handler function,
+  --    allowing inline recovery without a match expression.
+  recovered_with_maybe_pipe = node(command = {
     risky = 99 / 0
     risky ?|> \(x) if (is_error(x)) { -1 } else { x }
   })
 
-  -- 5. Standard pipe (|>) short-circuits on error automatically.
-  --    This node shows that |> propagates a local error without crashing.
-  short_circuit = node(command = {
+  -- 4. Show how |> short-circuits and how to recover after:
+  --    The short-circuited error is caught with a subsequent ?|> recovery.
+  short_circuit_then_recover = node(command = {
     risky = 1 / 0
-    risky |> \(x) x + 100
+    piped = risky |> \(x) x + 100      -- short-circuits, piped = Error
+    piped ?|> \(x) if (is_error(x)) { 0 } else { x }  -- recover
   })
 }
 

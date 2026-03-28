@@ -20,12 +20,11 @@ p = pipeline {
 
   -- 4. Use 'modify' to apply multiple lens updates in a single pass
   -- modify(data, lens1, fn1, lens2, fn2, ...)
-  both_updated = node(command =
-    modify(nested_data,
-      version_lens, \(v) str_join([v, "-released"], sep = ""),
-      retry_lens,   \(x) x + 1
-    )
-  )
+  both_updated = node(command = modify(
+    nested_data,
+    version_lens, \(v) str_join([v, "-released"], sep = ""),
+    retry_lens,   \(x) x + 1
+  ))
 
   -- 5. Verify the final version by reading a specific field
   final_version = node(command = both_updated.version)

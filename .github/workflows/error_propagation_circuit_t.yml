@@ -50,12 +50,12 @@ jobs:
           echo "inspect_pipeline()" > inspect.t
           nix develop --command t run --unsafe inspect.t
 
-      - name: Read Errored Node
+      - name: Read Recovered Node (match)
         run: |
-          echo "read_node('propagated_error')" > view.t
-          nix develop --command t run --unsafe view.t
-
-      - name: Read Recovered Node
-        run: |
-          echo "read_node('recovered_val')" > view_recovered.t
+          echo "read_node('recovered_with_match')" > view_recovered.t
           nix develop --command t run --unsafe view_recovered.t
+
+      - name: Read Recovered Node (maybe-pipe)
+        run: |
+          echo "read_node('recovered_with_maybe_pipe')" > view_maybe.t
+          nix develop --command t run --unsafe view_maybe.t
