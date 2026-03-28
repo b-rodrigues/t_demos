@@ -23,7 +23,7 @@ p = pipeline {
 
   -- 5. Using the Maybe-Pipe (?|>) for bypass
   -- Unlike |>, ?|> forwards the error to the function, enabling recovery inside the lambda.
-  maybe_recovery = node(command = errored_node ?|> fun(x) -> {
+  maybe_recovery = node(command = errored_node ?|> function(x) -> {
     if (is_error(x)) { 999 } else { x }
   })
 }
