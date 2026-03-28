@@ -1,0 +1,15 @@
+[project]
+name = "error_propagation_circuit_t"
+description = "Showcase of first-class error values, pipe short-circuiting, and match recovery patterns."
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.51.2"

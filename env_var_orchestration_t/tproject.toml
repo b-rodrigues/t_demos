@@ -1,0 +1,15 @@
+[project]
+name = "env_var_orchestration_t"
+description = "Injection of dynamic environment variables into polyglot runtimes for credentials and configuration."
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.51.2"

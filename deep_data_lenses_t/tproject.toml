@@ -1,0 +1,15 @@
+[project]
+name = "deep_data_lenses_t"
+description = "Demonstration of path-based immutable updates on nested dictionaries using lenses."
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.51.2"

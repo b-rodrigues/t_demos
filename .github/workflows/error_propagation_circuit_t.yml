@@ -1,0 +1,61 @@
+name: Demo Error Propagation Circuit T
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  error-propagation-circuit-t:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./error_propagation_circuit_t
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Generate flake.nix
+        run: |
+          nix shell github:b-rodrigues/tlang --command t update
+
+      - name: Pin T to main branch for CI
+        run: |
+          sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
+
+      - name: Run Pipeline (Populate and Build)
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Inspect Built Nodes
+        run: |
+          echo "inspect_pipeline()" > inspect.t
+          nix develop --command t run --unsafe inspect.t
+
+      - name: Read Errored Node
+        run: |
+          echo "read_node('propagated_error')" > view.t
+          nix develop --command t run --unsafe view.t
+
+      - name: Read Recovered Node
+        run: |
+          echo "read_node('recovered_val')" > view_recovered.t
+          nix develop --command t run --unsafe view_recovered.t

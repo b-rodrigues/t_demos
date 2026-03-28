@@ -1,0 +1,15 @@
+[project]
+name = "dynamic_pipeline_operator_t"
+description = "Programmatic manipulation of pipelines as first-class objects using the pipeline_ops package."
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.51.2"

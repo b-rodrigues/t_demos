@@ -1,0 +1,15 @@
+[project]
+name = "custom_polyglot_serializer_t"
+description = "Extension of the serializer system using the dictionary format and foreign code blocks for polyglot interchange."
+
+[dependencies]
+
+[r-dependencies]
+packages = ["yaml"]
+
+[py-dependencies]
+version = "python313"
+packages = ["pyyaml"]
+
+[t]
+min_version = "0.51.2"

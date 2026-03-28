@@ -13,6 +13,11 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 
 - **`basic_t`**: Minimum viable pipeline with R and T nodes.
 - **`check_nodes_pipeline_t`**: Comprehensive test of all node types and built-in serializers.
+- **`custom_polyglot_serializer_t`**: Defines custom YAML serializers using foreign code snippets.
+- **`deep_data_lenses_t`**: Surgical updates to nested dictionaries using path-based lenses.
+- **`dynamic_pipeline_operator_t`**: Programmatic manipulation of pipelines as first-class objects.
+- **`env_var_orchestration_t`**: Injection of environment variables into R and Python runtimes.
+- **`error_propagation_circuit_t`**: Demonstrates error propagation, short-circuiting, and recovery with `match`.
 - **`lens_demo_t`**: Demonstrates deep surgical updates to data structures using functional lenses.
 - **`many_inputs_t`**: Shows how to handle multiple source files in a single node.
 - **`model_comparison_t`**: Parallel training of R and Python models with native PMML evaluation.
