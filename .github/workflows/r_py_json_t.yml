@@ -36,6 +36,7 @@ jobs:
       - name: Set up environment
         run: |
           nix shell github:b-rodrigues/tlang --command t update
+          sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
 
       - name: Run Pipeline (Populate and Build)
         run: |

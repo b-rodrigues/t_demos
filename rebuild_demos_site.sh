@@ -56,6 +56,7 @@ for demo_dir in */; do
         
         # Assuming tools are available on CI via flakes
         nix shell github:b-rodrigues/tlang --command t update
+        sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
         nix develop --command t run --unsafe "$ABS_ENTRY"
         
         # 3. Extract metadata from tproject.toml
