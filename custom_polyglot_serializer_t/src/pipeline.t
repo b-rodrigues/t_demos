@@ -1,43 +1,39 @@
--- Demo: Defining a custom YAML serializer using foreign code snippets.
-
--- 1. Define the custom serializer
--- Snippets must be provided as foreign code blocks <{ ... }>
-yaml_ser = [
-  format: "yaml",
-  r_writer: <{ yaml::write_yaml(object, path) }>,
-  r_reader: <{ yaml::read_yaml(path) }>,
-  py_writer: <{ 
-    import yaml
-    with open(path, "w") as f:
-        yaml.dump(obj, f)
-  }>,
-  py_reader: <{
-    import yaml
-    with open(path) as f:
-        yaml.safe_load(f)
-  }>
-]
+-- Demo: Defining a custom YAML serializer using helper files.
+--
+-- The py_writer/py_reader/r_writer/r_reader snippets in a custom serializer
+-- dict must be FUNCTION NAMES (not inline code). The actual function
+-- definitions live in helper files, included via functions = [...].
 
 p = pipeline {
-  -- 2. Producer: Python dictionary exported as YAML
+  -- Producer: Python node exported as YAML
+  -- py_write_yaml is defined in src/yaml_helpers.py
   config_py = pyn(
-    command = <{ 
-      config = {
-          "api": "https://api.tlang.org",
-          "v": "0.51.2"
-      }
+    command = <{
+      config = dict(api="https://api.tlang.org", v="0.51.2")
     }>,
-    serializer: yaml_ser
+    functions = ["src/yaml_helpers.py"],
+    serializer: [
+      format: "yaml",
+      py_writer: <{ py_write_yaml }>,
+      py_reader: <{ py_read_yaml }>
+    ]
   )
 
-  -- 3. Consumer: R script reading the YAML config
+  -- Consumer: R node reading the YAML artifact
+  -- r_read_yaml is defined in src/yaml_helpers.R
   config_r = rn(
-    command = <{ 
-      # Accessing as a list in R directly from the YAML artifact
+    command = <{
       print(config_py$api)
-      res = paste("URL:", config_py$api)
+      res <- paste("URL:", config_py$api)
     }>,
-    deserializer: [ config_py: yaml_ser ]
+    functions = ["src/yaml_helpers.R"],
+    deserializer: [
+      config_py: [
+        format: "yaml",
+        r_reader: <{ r_read_yaml }>,
+        r_writer: <{ r_write_yaml }>
+      ]
+    ]
   )
 }
 

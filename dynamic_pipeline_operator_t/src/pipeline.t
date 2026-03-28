@@ -3,7 +3,7 @@
 -- 1. Create a base pipeline
 base_p = pipeline {
   raw_data = node(command = [ x: 1, y: 2 ])
-  process = node(command = raw_data |> mutate(z: x + y))
+  process = node(command = raw_data |> mutate(z = x + y))
 }
 
 -- 2. Dynamically patch the pipeline
