@@ -2,7 +2,7 @@
 
 -- 1. Create a base pipeline
 base_p = pipeline {
-  raw_data = node(command = [ x: 1, y: 2 ])
+  raw_data = node(command = data_frame(x = [1, 2], y = [3, 4]))
   process = node(command = raw_data |> mutate(z = x + y))
 }
 
@@ -14,7 +14,7 @@ modified_p = base_p
 
 -- 3. Extend the pipeline with a new node
 extension = pipeline {
-  extra_step = node(command = final_result |> mutate(msg: "extended"))
+  extra_step = node(command = final_result |> mutate(msg = "extended"))
 }
 final_p = union(modified_p, extension)
 
