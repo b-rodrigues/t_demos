@@ -15,7 +15,7 @@ p = pipeline {
 
   -- 3. Use 'over' to transform specific fields without touching the rest
   updated_version = node(command =
-    over(nested_data, version_lens, \(v) v ^ "-released")
+    over(nested_data, version_lens, \(v) str_join([v, "-released"], sep = ""))
   )
 
   updated_retry = node(command =
@@ -26,7 +26,7 @@ p = pipeline {
   -- modify(data, lens1, fn1, lens2, fn2, ...)
   both_updated = node(command =
     modify(nested_data,
-      version_lens, \(v) v ^ "-released",
+      version_lens, \(v) str_join([v, "-released"], sep = ""),
       retry_lens,   \(x) x + 1
     )
   )
