@@ -2,7 +2,7 @@
 
 p = pipeline {
   -- 1. A node that returns a regular value
-  input_data = node(command = { status: "ok", val: 42 })
+  input_data = node(command = [ status: "ok", val: 42 ])
 
   -- 2. A node that intentionally returns an error value (e.g. division by zero)
   errored_node = node(command = 10 / 0)

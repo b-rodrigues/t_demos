@@ -1,10 +1,10 @@
 -- Demo: Environment variable injection and dynamic pipeline lifecycle.
 
 -- Define global configuration
-config = {
+config = [
   db_user: "t_orchestrator",
   timeout: 30
-}
+]
 
 p = pipeline {
   -- 1. Pass T-native values into an R runtime as environment variables
@@ -14,10 +14,10 @@ p = pipeline {
       tout <- Sys.getenv("TIMEOUT")
       msg <- paste("User:", user, "with timeout:", tout)
     }>,
-    env_vars: {
+    env_vars: [
       DB_USER: config.db_user,
       TIMEOUT: config.timeout
-    }
+    ]
   )
 
   -- 2. Pass into a Python runtime
@@ -28,10 +28,10 @@ p = pipeline {
       t = os.environ.get("TIMEOUT")
       res = f"Python saw {u} and {t}"
     }>,
-    env_vars: {
+    env_vars: [
       DB_USER: config.db_user,
       TIMEOUT: config.timeout
-    }
+    ]
   )
 }
 

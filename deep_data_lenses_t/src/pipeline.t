@@ -2,19 +2,19 @@
 
 p = pipeline {
   -- 1. Create a deeply nested dictionary structure
-  nested_data = node(command = {
-    metadata: {
+  nested_data = node(command = [
+    metadata: [
       owner: "antigravity",
       tags: ["data", "science", "reproducible"],
-      config: {
-        runtime: {
+      config: [
+        runtime: [
           lang: "T",
           version: "0.51.2"
-        },
+        ],
         retry: 3
-      }
-    }
-  })
+      ]
+    ]
+  ])
 
   -- 2. Use lenses to perform deep surgical updates
   -- We'll change the version number and append a new tag.

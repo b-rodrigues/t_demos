@@ -2,7 +2,7 @@
 
 -- 1. Define the custom serializer
 -- Snippets must be provided as foreign code blocks <{ ... }>
-yaml_ser = {
+yaml_ser = [
   format: "yaml",
   r_writer: <{ yaml::write_yaml(object, path) }>,
   r_reader: <{ yaml::read_yaml(path) }>,
@@ -16,7 +16,7 @@ yaml_ser = {
     with open(path) as f:
         yaml.safe_load(f)
   }>
-}
+]
 
 p = pipeline {
   -- 2. Producer: Python dictionary exported as YAML
@@ -37,7 +37,7 @@ p = pipeline {
       print(config_py$api)
       res = paste("URL:", config_py$api)
     }>,
-    deserializer: { "config_py": yaml_ser }
+    deserializer: [ config_py: yaml_ser ]
   )
 }
 
