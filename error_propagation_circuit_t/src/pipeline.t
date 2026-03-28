@@ -15,7 +15,7 @@ p = pipeline {
   -- We can pattern match on errors to provide default values or alternatives.
   recovered_val = node(command = match(errored_node) {
     Error { msg } => { 
-      print("Warning: errored_node failed with msg: " ^ msg)
+      print(str_join(["Warning: errored_node failed with msg: ", msg], sep = ""))
       0 
     },
     default => errored_node
