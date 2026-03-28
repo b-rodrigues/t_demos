@@ -14,13 +14,9 @@ p = pipeline {
   retry_lens   = node(command = col_lens("retry"))
 
   -- 3. Use 'over' to transform specific fields without touching the rest
-  updated_version = node(command =
-    over(nested_data, version_lens, \(v) str_join([v, "-released"], sep = ""))
-  )
+  updated_version = node(command = over(nested_data, version_lens, \(v) str_join([v, "-released"], sep = "")))
 
-  updated_retry = node(command =
-    over(updated_version, retry_lens, \(x) x + 1)
-  )
+  updated_retry = node(command = over(updated_version, retry_lens, \(x) x + 1))
 
   -- 4. Use 'modify' to apply multiple lens updates in a single pass
   -- modify(data, lens1, fn1, lens2, fn2, ...)
