@@ -16,4 +16,4 @@ packages = ["pandas"]
 packages = ["quarto"]
 
 [t]
-min_version = "0.51.1"
+min_version = "0.51.2"

@@ -12,4 +12,4 @@ version = "python313"
 packages = ["pandas"]
 
 [t]
-min_version = "0.51.1"
+min_version = "0.51.2"

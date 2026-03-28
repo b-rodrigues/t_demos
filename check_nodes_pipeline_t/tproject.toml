@@ -19,4 +19,4 @@ packages = ["quarto"]
 
 [t]
 # Minimum T language version required
-min_version = "0.51.1"
+min_version = "0.51.2"
