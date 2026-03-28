@@ -33,9 +33,12 @@ jobs:
         with:
           name: rstats-on-nix
 
-      - name: Set up environment
+      - name: Generate flake.nix
         run: |
           nix shell github:b-rodrigues/tlang --command t update
+
+      - name: Pin T to main branch for CI
+        run: |
           sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
 
       - name: Run Pipeline (Populate and Build with Ops)
