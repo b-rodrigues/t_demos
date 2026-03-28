@@ -21,8 +21,8 @@ p = pipeline {
   updated_data = node(command = nested_data
     |> modify(
          compose("metadata", "config", "runtime", "version") |> set("0.51.3-rc"),
-         compose("metadata", "tags") |> over(function(tags) -> { tags |> append("validated") }),
-         compose("metadata", "config", "retry") |> over(function(x) -> x + 1)
+         compose("metadata", "tags") |> over(\(tags) tags |> append("validated")),
+         compose("metadata", "config", "retry") |> over(\(x) x + 1)
        )
   )
 

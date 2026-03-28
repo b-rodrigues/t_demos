@@ -14,16 +14,16 @@ p = pipeline {
   -- 4. Recovery using 'match'
   -- We can pattern match on errors to provide default values or alternatives.
   recovered_val = node(command = match(errored_node) {
-    Error { msg } -> { 
+    Error { msg } => { 
       print("Warning: errored_node failed with msg: " ^ msg)
       0 
     },
-    default -> errored_node
+    default => errored_node
   })
 
   -- 5. Using the Maybe-Pipe (?|>) for bypass
   -- Unlike |>, ?|> forwards the error to the function, enabling recovery inside the lambda.
-  maybe_recovery = node(command = errored_node ?|> function(x) -> {
+  maybe_recovery = node(command = errored_node ?|> \(x) {
     if (is_error(x)) { 999 } else { x }
   })
 }
