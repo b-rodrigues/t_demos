@@ -1,0 +1,25 @@
+[project]
+name = "model_comparison_with_glance_t"
+version = "0.1.0"
+description = "A demo comparing R and Python models using the newly expanded glance()."
+
+[dependencies]
+base = "*"
+pipeline = "*"
+dataframe = "*"
+colcraft = "*"
+math = "*"
+stats = "*"
+
+[r-dependencies]
+packages = ["dplyr", "readr", "arrow", "jsonlite"]
+
+[py_dependencies]
+version = "python313"
+packages = ["scikit-learn", "pandas", "pyarrow", "sklearn2pmml"]
+
+[additional-tools]
+packages = ["quarto"]
+
+[t]
+min_version = "0.51.2"
