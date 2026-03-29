@@ -1,5 +1,5 @@
--- model_comparison_with_glance_t
--- Demonstrating cross-language model comparison using the newly expanded glance() function.
+-- model_comparison_with_fit_stats_t
+-- Demonstrating cross-language model comparison using the newly expanded fit_stats() function.
 
 p = pipeline {
   -- 1. Create data (R)
@@ -39,14 +39,14 @@ model_py = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
     serializer = ^pmml
   )
 
-  -- 4. Compare models using glance()
-  -- glance() now supports a list of models and returns a single DataFrame.
+  -- 4. Compare models using fit_stats()
+  -- fit_stats() now supports a list of models and returns a single DataFrame.
   comparison = node(
     command = <{
-      -- glance() automatically stacks statistics when given a list.
+      -- fit_stats() automatically stacks statistics when given a list.
       -- Naming items in the list (Regression_R: ...) adds a 'model' column.
       
-      glance([
+      fit_stats([
         Regression_R: model_r, 
         Regression_Py: model_py
       ])
