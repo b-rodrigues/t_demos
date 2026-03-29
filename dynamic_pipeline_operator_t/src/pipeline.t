@@ -1,6 +1,3 @@
-import colcraft
-import `pipeline`
-
 -- 1. Create a base pipeline
 base_p = pipeline {
   raw_data = node(command = dataframe([[x: 1, y: 3], [x: 2, y: 4]]))
