@@ -33,10 +33,12 @@ jobs:
 
       - name: Update to specific Ref (PR/Branch)
         run: |
-          TLANG_REF="${{ github.event.client_payload.ref || 'main' }}"
-          echo "Using TLANG_REF: $TLANG_REF"
-          nix shell "github:b-rodrigues/tlang/$TLANG_REF" --command t update
-          sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/.*\";|t-lang.url = \"github:b-rodrigues/tlang/$TLANG_REF\";|" flake.nix
+          TLANG_REPO="${{ github.event.client_payload.repo || 'b-rodrigues/tlang' }}"
+          TLANG_SHA="${{ github.event.client_payload.sha || 'main' }}"
+          echo "Using TLANG_REPO: $TLANG_REPO"
+          echo "Using TLANG_SHA: $TLANG_SHA"
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/.*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
 
       - name: Build environment
         run: |
