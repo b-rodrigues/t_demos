@@ -33,12 +33,19 @@ jobs:
         with:
           name: rstats-on-nix
 
-      - name: Update to specific Ref (PR/Branch)
+      - name: Get latest T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TLANG_REPO="${{ github.event.client_payload.repo || 'b-rodrigues/tlang' }}"
-          TLANG_SHA="${{ github.event.client_payload.sha || 'main' }}"
-          echo "Using TLANG_REPO: $TLANG_REPO"
-          echo "Using TLANG_SHA: $TLANG_SHA"
+          # Fetch repository and SHA of the absolute latest activity in tlang
+          INFO=$(gh api repos/b-rodrigues/tlang/events --jq '[.[] | select(.type=="PushEvent" or .type=="PullRequestEvent")][0] | if .type=="PushEvent" then "b-rodrigues/tlang \(.payload.commits[-1].sha)" else "\(.payload.pull_request.head.repo.full_name) \(.payload.pull_request.head.sha)" end')
+          read -r REPO SHA <<< "$INFO"
+          [[ -z "$SHA" || "$SHA" == "null" ]] && { REPO="b-rodrigues/tlang"; SHA="main"; }
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Update to latest T version
+        run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
           sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/.*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
 
