@@ -31,13 +31,12 @@ jobs:
         with:
           name: rstats-on-nix
 
-      - name: Generate flake.nix
+      - name: Update to specific Ref (PR/Branch)
         run: |
-          nix shell github:b-rodrigues/tlang --command t update
-
-      - name: Pin T to main branch for CI
-        run: |
-          sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
+          TLANG_REF="${{ github.event.client_payload.ref || 'main' }}"
+          echo "Using TLANG_REF: $TLANG_REF"
+          nix shell "github:b-rodrigues/tlang/$TLANG_REF" --command t update
+          sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/.*\";|t-lang.url = \"github:b-rodrigues/tlang/$TLANG_REF\";|" flake.nix
 
       - name: Build environment
         run: |
