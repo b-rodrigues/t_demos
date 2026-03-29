@@ -63,5 +63,5 @@ jobs:
 
       - name: Verify Dynamic Renaming
         run: |
-          echo "read_node('final_result')" > view.t
+          echo "read_node('final_status')" > view.t
           nix develop --command t run --unsafe view.t
