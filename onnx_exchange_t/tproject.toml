@@ -13,4 +13,4 @@ version = "python313"
 packages = ["onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy"]
 
 [t]
-min_version = "0.51.3"
+min_version = "0.51.2"
