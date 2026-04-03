@@ -139,9 +139,6 @@ p = pipeline {
   )
 }
 
-print("ONNX Exchange Pipeline Defined.")
-inspect_pipeline(p)
-
 -- Materialize and run
 print("Building and executing ONNX polyglot pipeline...")
 populate_pipeline(p, build = true)
