@@ -21,6 +21,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - **`lens_demo_t`**: Demonstrates deep surgical updates to data structures using functional lenses.
 - **`many_inputs_t`**: Shows how to handle multiple source files in a single node.
 - **`model_comparison_t`**: Parallel training of R and Python models with native PMML evaluation.
+- **`onnx_exchange_t`**: Multi-runtime training (R/Python) and exchange using the first-class `^onnx` serializer and native T scoring.
 - **`r_py_xgboost_t`**: Training XGBoost models in Python and evaluating them in R.
 - **`yanai_lercher_2020_t`**: A real-world example of cross-language thresholding and plotting.
 
