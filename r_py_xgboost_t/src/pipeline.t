@@ -54,7 +54,6 @@ combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
 library(yardstick)
 confusion_matrix = conf_mat(combined_df, truth = factor(target), estimate = factor(prediction)) 
     }>,
-    args = { combined_df = combined_df },
     serializer = ^json
   )
 
