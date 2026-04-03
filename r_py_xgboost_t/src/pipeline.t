@@ -54,7 +54,8 @@ combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
 library(yardstick)
 confusion_matrix = conf_mat(combined_df, truth = factor(target), estimate = factor(prediction)) 
     }>,
-    serializer = ^json
+    serializer = ^json,
+    deserializer = ^arrow
   )
 
   -- Accuracy score in Python
@@ -63,7 +64,7 @@ confusion_matrix = conf_mat(combined_df, truth = factor(target), estimate = fact
 from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, y_pred)
     }>,
-    serializer = ^json
+    serializer = ^json,
   )
 
   -- Render Quarto report
