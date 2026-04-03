@@ -50,16 +50,12 @@ combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
 
   -- Confusion matrix in R
   confusion_matrix = rn(
-    command = <{
-library(dplyr)
+    command = <{ 
 library(yardstick)
-
-combined_factor <- combined_df %>%
-  mutate(across(everything(), ~factor(.x, levels = c(0, 1))))
-  
-confusion_matrix <- conf_mat(combined_factor, truth, estimate)
+confusion_matrix = conf_mat(combined_df, truth = factor(target), estimate = factor(prediction)) 
     }>,
-    deserializer = ^arrow
+    args = { combined_df = combined_df },
+    serializer = ^json
   )
 
   -- Accuracy score in Python
@@ -72,7 +68,7 @@ accuracy = accuracy_score(y_test, y_pred)
   )
 
   -- Render Quarto report
-  report = node(script = "src/report.qmd", runtime = Quarto)
+  report = node(script = "src/report.qmd", runtime = "Quarto")
 }
 
 -- Materialize

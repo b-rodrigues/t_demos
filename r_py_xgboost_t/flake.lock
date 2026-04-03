@@ -1,0 +1,96 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1775133571,
+        "narHash": "sha256-56h6IDpR72t0FHoLMdu2rLk9RCVdUtFobMFhnzXaCTc=",
+        "owner": "rstats-on-nix",
+        "repo": "nixpkgs",
+        "rev": "e23e257414fb0f9cc7e12ddbc95ec45d3ca570f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rstats-on-nix",
+        "ref": "2026-04-02",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1775128571,
+        "narHash": "sha256-hdxLjccKY3OBXdsBdBhjsgE07bTSMsX1Dod2X04yITc=",
+        "owner": "rstats-on-nix",
+        "repo": "nixpkgs",
+        "rev": "a73acb5b3f2b217474da7ab5614574dfdeb3aa69",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rstats-on-nix",
+        "ref": "2026-04-02",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "t-lang": "t-lang"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "t-lang": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1775233495,
+        "narHash": "sha256-IZnMfg4C+LabDPVvZfxTK/30fHukoxuDK5DE+PfJg8c=",
+        "ref": "refs/heads/copilot/check-implement-advanced-modeling",
+        "rev": "a85fd0a51ce5930e11452ecf7af1ecf37613de6e",
+        "revCount": 1804,
+        "type": "git",
+        "url": "file:///home/brodrigues/Documents/repos/tlang"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/brodrigues/Documents/repos/tlang"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
