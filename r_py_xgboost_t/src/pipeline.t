@@ -72,5 +72,5 @@ accuracy = accuracy_score(y_test, y_pred)
 }
 
 -- Materialize
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()

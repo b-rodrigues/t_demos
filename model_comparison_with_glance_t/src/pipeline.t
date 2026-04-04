@@ -59,7 +59,7 @@ model_py = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
 }
 
 -- Execute the pipeline
-build_pipeline(p)
+build_pipeline(p, verbose=1)
 
 -- Copy artifacts for local inspection
 pipeline_copy()

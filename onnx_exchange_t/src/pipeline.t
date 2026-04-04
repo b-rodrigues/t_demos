@@ -141,7 +141,7 @@ p = pipeline {
 
 -- Materialize and run
 print("Building and executing ONNX polyglot pipeline...")
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 
 print("Pipeline complete. Model metadata and predictions extracted.")
 pipeline_copy()

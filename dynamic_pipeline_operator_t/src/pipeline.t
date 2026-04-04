@@ -23,4 +23,4 @@ extension = pipeline {
 final_p = union(modified_p, extension)
 
 -- 5. Build the dynamically generated pipeline
-build_pipeline(final_p)
+build_pipeline(final_p, verbose=1)

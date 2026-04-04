@@ -61,7 +61,7 @@ print(pipeline_nodes(p_final))
 
 -- 5. Trigger Build
 print("Building and Running Model Comparison DAG...")
-populate_pipeline(p_final, build = true)
+populate_pipeline(p_final, build = true, verbose=1)
 
 -- 6. Render Quarto report
 -- Using union to add the disconnected Quarto report.
@@ -70,5 +70,5 @@ p_site = p_final |> union(pipeline {
 })
 
 print("Deploying site...")
-populate_pipeline(p_site, build = true)
+populate_pipeline(p_site, build = true, verbose=1)
 pipeline_copy()

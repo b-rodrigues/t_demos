@@ -83,5 +83,5 @@ plot2 <- make_plot2(coords)
 }
 
 -- Materialize
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()

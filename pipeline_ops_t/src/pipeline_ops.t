@@ -107,7 +107,7 @@ p_site = base_p |> union(pipeline {
   report = node(script = "src/report.qmd", runtime = Quarto)
 })
 
-populate_pipeline(p_site, build = true)
+populate_pipeline(p_site, build = true, verbose=1)
 pipeline_copy()
 
 print("Pipeline Demo Complete")

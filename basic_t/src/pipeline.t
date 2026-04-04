@@ -21,6 +21,6 @@ p = pipeline {
 -- In rixpress: rxp_populate(project_path = ".", build = FALSE)
 -- Here we call populate_pipeline to generate the Nix infrastructure.
 -- The user said to run it in the workflow, so we can either build it here or in the workflow.
--- Usually, t run script.t requires populate_pipeline(p, build = true)
-populate_pipeline(p, build = true)
+-- Usually, t run script.t requires populate_pipeline(p, build = true, verbose=1)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()

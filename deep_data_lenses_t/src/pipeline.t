@@ -37,4 +37,4 @@ p = pipeline {
 
 }
 
-build_pipeline(p)
+build_pipeline(p, verbose=1)

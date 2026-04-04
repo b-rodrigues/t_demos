@@ -39,7 +39,7 @@ print("Noop status:")
 print(summary_df)
 
 -- The build will NOT execute expensive_node's script, but will create stubs
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
 
 print("Check build log status with inspect_pipeline():")

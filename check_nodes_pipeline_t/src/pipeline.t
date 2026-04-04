@@ -195,7 +195,7 @@ vector_py = np.linspace(0, 1, 10).tolist()
 
 -- Materialize the pipeline
 -- This generates the Nix infrastructure and runs the build.
-build_pipeline(p)
+build_pipeline(p, verbose=1)
 
 -- Copy artifacts to local _pipeline/ directory for inspection
 pipeline_copy()

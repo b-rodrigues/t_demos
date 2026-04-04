@@ -57,5 +57,5 @@ mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
 }
 
 -- Materialize
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()

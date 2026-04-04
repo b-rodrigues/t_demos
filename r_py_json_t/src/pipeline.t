@@ -46,5 +46,5 @@ mtcars_head %>% select(mpg)
 }
 
 -- Materialize the pipeline
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
