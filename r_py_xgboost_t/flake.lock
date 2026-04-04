@@ -1,0 +1,127 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1775263394,
+        "narHash": "sha256-JvuGLqPJGRf65O76v+9iCNh4LJv6gS9Ot0T1pGfRdPo=",
+        "owner": "rstats-on-nix",
+        "repo": "nixpkgs",
+        "rev": "04ee08a86fc347a071a10a03c87c03f35ec1d3bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rstats-on-nix",
+        "ref": "2026-04-04",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1775128571,
+        "narHash": "sha256-hdxLjccKY3OBXdsBdBhjsgE07bTSMsX1Dod2X04yITc=",
+        "owner": "rstats-on-nix",
+        "repo": "nixpkgs",
+        "rev": "a73acb5b3f2b217474da7ab5614574dfdeb3aa69",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rstats-on-nix",
+        "ref": "2026-04-02",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs",
+        "t-lang": "t-lang"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "t-lang": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1775294848,
+        "narHash": "sha256-4VuiSzXSLr07GHJ6ilznyKDLKTN+R2dR9pSb1gdX5eo=",
+        "path": "/home/brodrigues/Documents/repos/tlang",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/brodrigues/Documents/repos/tlang",
+        "type": "path"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

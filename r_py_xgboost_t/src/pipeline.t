@@ -43,7 +43,7 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
   combined_df = pyn(
     command = <{
 from pandas import DataFrame
-combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
+combined_df = DataFrame({"target": y_test, "prediction": y_pred})
     }>,
     serializer = ^arrow
   )
@@ -52,7 +52,11 @@ combined_df = DataFrame({"truth": y_test, "estimate": y_pred})
   confusion_matrix = rn(
     command = <{ 
 library(yardstick)
-confusion_matrix = conf_mat(combined_df, truth = factor(target), estimate = factor(prediction)) 
+library(dplyr)
+cm_obj = combined_df %>%
+  mutate(target = as.factor(target), prediction = as.factor(prediction)) %>%
+  conf_mat(truth = target, estimate = prediction)
+confusion_matrix = as.data.frame(cm_obj$table)
     }>,
     serializer = ^json,
     deserializer = ^arrow
@@ -68,7 +72,7 @@ accuracy = accuracy_score(y_test, y_pred)
   )
 
   -- Render Quarto report
-  report = node(script = "src/report.qmd", runtime = "Quarto")
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize
