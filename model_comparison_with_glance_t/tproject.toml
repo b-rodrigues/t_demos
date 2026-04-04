@@ -12,9 +12,9 @@ math = "*"
 stats = "*"
 
 [r-dependencies]
-packages = ["dplyr", "readr", "arrow", "jsonlite"]
+packages = ["dplyr", "readr", "arrow", "jsonlite", "pmml", "XML"]
 
-[py_dependencies]
+[py-dependencies]
 version = "python313"
 packages = ["scikit-learn", "pandas", "pyarrow", "sklearn2pmml"]
 

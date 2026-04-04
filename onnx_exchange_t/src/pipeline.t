@@ -87,7 +87,7 @@ X_new = training_data.drop(columns=['y'], errors='ignore')
 
 predictions = model_r.predict(X_new)
 
-# The PMML predict method returns the prediction output
+# The PMML predict method returns the prediction results
 pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     }>,
     deserializer = [training_data: ^arrow, model_r: ^pmml],
