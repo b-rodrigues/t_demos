@@ -55,9 +55,9 @@ model_py = model
   pred_t_py = node(
     command = <{
       -- We select only 'x' to match the model's expected 1 feature input
-      training_data 
-        |> select($x)
-        |> mutate($t_pred_py = predict($everything, model_py))
+      X = training_data |> select($x)
+      preds = predict(X, model_py)
+      X |> mutate($t_pred_py = preds)
     }>,
     deserializer = [training_data: ^arrow, model_py: ^onnx],
     serializer = ^arrow
@@ -67,9 +67,9 @@ model_py = model
   -- This runs WITHOUT an R runtime using T's native tree-based PMML scorer
   pred_t_r = node(
     command = <{
-      training_data 
-      |> select($x)
-      |> mutate($t_pred_r = predict($everything, model_r))
+      X = training_data |> select($x)
+      preds = predict(X, model_r)
+      X |> mutate($t_pred_r = preds)
     }>,
     deserializer = [training_data: ^arrow, model_r: ^pmml],
     serializer = ^arrow
