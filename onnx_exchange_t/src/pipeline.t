@@ -36,20 +36,18 @@ model_py = model
     serializer = ^onnx
   )
 
-  -- 3. Train a Linear Regression model in R and export to ONNX
+  -- 3. Train a Linear Regression model in R and export to PMML
   model_r = rn(
     command = <{
-      library(onnx)
-      
       # Train a simple model
       model <- lm(y ~ x, data = training_data)
       
-      # Note: The ^onnx serializer in tlang's R emitter expects a model object 
-      # that onnx::onnx_save_model can handle.
+      # The ^pmml serializer in tlang's R emitter handles 
+      # the conversion using the 'pmml' and 'xml2' packages.
       model_r <- model
     }>,
     deserializer = [training_data: ^arrow],
-    serializer = ^onnx
+    serializer = ^pmml
   )
 
   -- 4. Native Prediction in T from Python's ONNX model
@@ -65,33 +63,34 @@ model_py = model
     serializer = ^arrow
   )
 
-  -- 5. Native Prediction in T from R's ONNX model
-  -- This runs WITHOUT an R runtime!
+  -- 5. Native Prediction in T from R's PMML model
+  -- This runs WITHOUT an R runtime using T's native tree-based PMML scorer
   pred_t_r = node(
     command = <{
       training_data 
-        |> select($x)
-        |> mutate($t_pred_r = predict($everything, model_r))
+      |> select($x)
+      |> mutate($t_pred_r = predict($everything, model_r))
     }>,
-    deserializer = [training_data: ^arrow, model_r: ^onnx],
+    deserializer = [training_data: ^arrow, model_r: ^pmml],
     serializer = ^arrow
   )
 
-  -- 6. Prediction in Python using R's ONNX model
+  -- 6. Prediction in Python using R's PMML model
   pred_py_r = pyn(
     command = <{
 import numpy as np
 import pandas as pd
 
-# model_r is an onnxruntime.InferenceSession from the deserializer
-input_name = model_r.get_inputs()[0].name
-X_new = training_data[['x']].values.astype(np.float32)
+# model_r is a pypmml.Model from the deserializer
+# We drop 'y' if present to ensure we only pass features
+X_new = training_data.drop(columns=['y'], errors='ignore')
 
-preds = model_r.run(None, {input_name: X_new})[0]
+predictions = model_r.predict(X_new)
 
-pred_py_r = pd.DataFrame({"py_pred_r": preds.flatten()})
+# pypmml.predict returns a DataFrame with the output field
+pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     }>,
-    deserializer = [training_data: ^arrow, model_r: ^onnx],
+    deserializer = [training_data: ^arrow, model_r: ^pmml],
     serializer = ^arrow
   )
 
@@ -112,13 +111,13 @@ pred_py_r = pd.DataFrame({"py_pred_r": preds.flatten()})
   -- 8. Statistics inspection
   model_stats = node(
     command = <{
-      -- fit_stats() can aggregate metadata from ONNX models
+      -- fit_stats() can aggregate metadata from both ONNX and PMML models
       stats = [model_py, model_r] |> fit_stats
       print("Model Statistics Summary:")
       print(stats)
       stats
     }>,
-    deserializer = [model_py: ^onnx, model_r: ^onnx],
+    deserializer = [model_py: ^onnx, model_r: ^pmml],
     serializer = ^arrow
   )
 
