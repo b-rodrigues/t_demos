@@ -14,6 +14,9 @@ description = "A T data analysis project"
 # packages = ["dplyr", "ggplot2"]
 packages = ["dplyr", "yardstick", "arrow"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [py-dependencies]
 # Python packages this project depends on
 version = "python313"
