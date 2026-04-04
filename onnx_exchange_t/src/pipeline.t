@@ -80,16 +80,16 @@ p = pipeline {
   -- 6. Prediction in Python using R's ONNX model
   pred_py_r = pyn(
     command = <{
-      import numpy as np
-      import pandas as pd
+import numpy as np
+import pandas as pd
       
-      # model_r is an onnxruntime.InferenceSession from the deserializer
-      input_name = model_r.get_inputs()[0].name
-      X_new = training_data[['x']].values.astype(np.float32)
+# model_r is an onnxruntime.InferenceSession from the deserializer
+input_name = model_r.get_inputs()[0].name
+X_new = training_data[['x']].values.astype(np.float32)
       
-      preds = model_r.run(None, {input_name: X_new})[0]
+preds = model_r.run(None, {input_name: X_new})[0]
       
-      pred_py_r = pd.DataFrame({"py_pred_r": preds.flatten()})
+pred_py_r = pd.DataFrame({"py_pred_r": preds.flatten()})
     }>,
     deserializer = [training_data: ^arrow, model_r: ^onnx],
     serializer = ^arrow
