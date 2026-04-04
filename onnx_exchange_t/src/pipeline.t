@@ -81,13 +81,13 @@ model_py = model
 import numpy as np
 import pandas as pd
 
-# model_r is a pypmml.Model from the deserializer
+# model_r is a loaded PMML model (using sklearn2pmml for export)
 # We drop 'y' if present to ensure we only pass features
 X_new = training_data.drop(columns=['y'], errors='ignore')
 
 predictions = model_r.predict(X_new)
 
-# pypmml.predict returns a DataFrame with the output field
+# The PMML predict method returns the prediction results
 pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     }>,
     deserializer = [training_data: ^arrow, model_r: ^pmml],

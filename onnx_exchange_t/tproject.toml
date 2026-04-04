@@ -11,7 +11,7 @@ packages = ["onnx", "dplyr", "arrow", "pmml", "XML"]
 
 [py-dependencies]
 version = "python313"
-packages = ["onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy", "pyarrow", "pypmml", "sklearn2pmml"]
+packages = ["onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy", "pyarrow", "sklearn2pmml"]
 
 [t]
 min_version = "0.51.2"
