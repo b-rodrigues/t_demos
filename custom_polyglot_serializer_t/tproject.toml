@@ -7,6 +7,9 @@ description = "Extension of the serializer system using the dictionary format an
 [r-dependencies]
 packages = ["yaml"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [py-dependencies]
 version = "python313"
 packages = ["pyyaml"]
