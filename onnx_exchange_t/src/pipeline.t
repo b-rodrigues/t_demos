@@ -18,19 +18,19 @@ p = pipeline {
   -- 2. Train a Linear Regression model in Python and export to ONNX
   model_py = pyn(
     command = <{
-      from sklearn.linear_model import LinearRegression
-      import numpy as np
+from sklearn.linear_model import LinearRegression
+import numpy as np
       
-      # Prepare data
-      X = training_data[['x']].values.astype(np.float32)
-      y = training_data['y'].values.astype(np.float32)
+# Prepare data
+X = training_data[['x']].values.astype(np.float32)
+y = training_data['y'].values.astype(np.float32)
       
-      # Train
-      model = LinearRegression()
-      model.fit(X, y)
+# Train
+model = LinearRegression()
+model.fit(X, y)
       
-      # Return the model name for the automatic ^onnx serializer in tlang
-      model_py = model
+# Return the model name for the automatic ^onnx serializer in tlang
+model_py = model
     }>,
     deserializer = [training_data: ^arrow],
     serializer = ^onnx
@@ -82,13 +82,13 @@ p = pipeline {
     command = <{
 import numpy as np
 import pandas as pd
-      
+
 # model_r is an onnxruntime.InferenceSession from the deserializer
 input_name = model_r.get_inputs()[0].name
 X_new = training_data[['x']].values.astype(np.float32)
-      
+
 preds = model_r.run(None, {input_name: X_new})[0]
-      
+
 pred_py_r = pd.DataFrame({"py_pred_r": preds.flatten()})
     }>,
     deserializer = [training_data: ^arrow, model_r: ^onnx],
