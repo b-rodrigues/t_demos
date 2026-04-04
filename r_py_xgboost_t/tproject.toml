@@ -1,7 +1,6 @@
 [project]
 name = "r_py_xgboost_t"
 description = "A T data analysis project"
-nixpkgs_date = "2026-04-02"
 
 [dependencies]
 # T packages this project depends on
@@ -19,9 +18,6 @@ packages = ["dplyr", "yardstick", "arrow"]
 # Python packages this project depends on
 version = "python313"
 packages = ["numpy", "pandas", "scikit-learn", "xgboost", "pyarrow"]
-
-[additional-tools]
-packages = ["quarto"]
 
 [t]
 # Minimum T language version required
