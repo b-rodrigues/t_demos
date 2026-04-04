@@ -20,6 +20,9 @@ packages = ["dplyr", "yardstick", "arrow"]
 version = "python313"
 packages = ["numpy", "pandas", "scikit-learn", "xgboost", "pyarrow"]
 
+[additional-tools]
+packages = ["quarto"]
+
 [t]
 # Minimum T language version required
 min_version = "0.51.2"
