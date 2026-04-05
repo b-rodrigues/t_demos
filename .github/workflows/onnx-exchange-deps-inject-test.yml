@@ -1,4 +1,4 @@
-name: Demo ONNX Exchange T
+name: Demo ONNX Exchange T (deps-inject-test)
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./onnx_exchange_t
+        working-directory: ./onnx-exchange-deps-inject-test
 
     steps:
       - name: Checkout repository
