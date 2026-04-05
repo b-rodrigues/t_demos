@@ -1,0 +1,17 @@
+[project]
+name = "onnx-exchange-deps-inject-test"
+description = "Test project for dependency injection failure."
+nixpkgs_date = "2026-04-02"
+
+[dependencies]
+# T packages are auto-loaded
+
+[r-dependencies]
+packages = ["onnx", "dplyr"]
+
+[py-dependencies]
+version = "python313"
+packages = ["onnx"]
+
+[t]
+min_version = "0.51.2"
