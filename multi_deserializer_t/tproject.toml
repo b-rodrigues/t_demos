@@ -1,0 +1,5 @@
+[r-dependencies]
+packages = ["arrow", "jsonlite"]
+
+[py-dependencies]
+packages = ["pandas", "pyarrow"]

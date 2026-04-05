@@ -1,0 +1,5 @@
+[r-dependencies]
+packages = ["r2pmml"]
+
+[py-dependencies]
+packages = ["sklearn2pmml"]

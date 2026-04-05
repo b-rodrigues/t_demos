@@ -1,0 +1,2 @@
+[r-dependencies]
+packages = ["jsonlite"]

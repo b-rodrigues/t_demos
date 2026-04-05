@@ -1,0 +1,5 @@
+[r-dependencies]
+packages = ["arrow"]
+
+[py-dependencies]
+packages = ["pandas", "pyarrow"]
