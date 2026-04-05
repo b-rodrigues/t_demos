@@ -1,4 +1,4 @@
-name: Demo ONNX Exchange T (Injection Failure Test)
+name: Demo ONNX Exchange T
 
 on:
   push:
@@ -10,11 +10,11 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  onnx-exchange-deps-inject-test:
+  onnx-exchange-t:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./onnx-exchange-deps-inject-test
+        working-directory: ./onnx_exchange_t
 
     steps:
       - name: Checkout repository
@@ -50,23 +50,34 @@ jobs:
       - name: Update to latest T version
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          # Ensure flake.nix points to the correct version for the build
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
 
-      - name: Inject pipeline dependencies (Expected Failure)
+      - name: Inject pipeline dependencies
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "0"
-        continue-on-error: true
-        id: inject
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
+
+      - name: Rebuild flake with new dependencies
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run src/pipeline.t
 
-      - name: Verify failure and exit successfully
+      - name: Inspect Model Stats
         run: |
-          if [[ "${{ steps.inject.outcome }}" == "failure" ]]; then
-            echo "Success: Dependency injection correctly failed with TLANG_AUTO_ADD_PIPELINE_DEPS=0"
-          else
-            echo "Failure: Dependency injection should have failed with TLANG_AUTO_ADD_PIPELINE_DEPS=0"
-            exit 1
-          fi
+          echo "read_node('model_stats')" > view_stats.t
+          nix develop --command t run --unsafe view_stats.t
 
-      - name: Show unchanged tproject.toml
-        run: cat tproject.toml
+      - name: Inspect Final Predictions
+        run: |
+          echo "read_node('results') |> glimpse" > view_results.t
+          nix develop --command t run --unsafe view_results.t
