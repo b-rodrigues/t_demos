@@ -1,5 +1,12 @@
+[project]
+name = "pmml_interchange_t"
+version = "0.1.0"
+
 [r-dependencies]
-packages = ["r2pmml"]
+packages = ["r2pmml", "XML", "jsonlite"]
 
 [py-dependencies]
-packages = ["sklearn2pmml"]
+packages = ["sklearn2pmml", "numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "statsmodels"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]
