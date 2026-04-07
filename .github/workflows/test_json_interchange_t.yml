@@ -1,0 +1,61 @@
+name: Tlang E2E Test - json_interchange_t
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'json_interchange_t/**'
+      - '.github/workflows/test_json_interchange_t.yml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'json_interchange_t/**'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrha1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Get T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            REPO="b-rodrigues/tlang"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Update to latest T version
+        working-directory: ./json_interchange_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          nix develop --command t run pipeline.t || echo "Ignoring initial failure due to cold cache"
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Run Full Pipeline
+        working-directory: ./json_interchange_t
+        run: |
+          nix develop --command t run pipeline.t
