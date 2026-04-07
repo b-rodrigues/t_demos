@@ -5,11 +5,11 @@ description = "A T project demonstrating functional lenses for deep data manipul
 [dependencies]
 
 [r-dependencies]
-packages = ["dplyr"]
+packages = [ "dplyr",]
 
 [py-dependencies]
 version = "python313"
-packages = ["pandas"]
+packages = [ "pandas",]
 
 [t]
 min_version = "0.51.2"

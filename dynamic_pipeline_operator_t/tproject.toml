@@ -12,7 +12,7 @@ version = "python313"
 packages = []
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [t]
 min_version = "0.51.2"

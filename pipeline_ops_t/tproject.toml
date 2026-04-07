@@ -3,17 +3,16 @@ name = "pipeline_ops_t"
 description = "A T project demonstrating advanced pipeline operations"
 
 [dependencies]
-# T packages this project depends on
 
 [r-dependencies]
-packages = ["dplyr", "jsonlite"]
+packages = [ "dplyr", "jsonlite",]
 
 [py-dependencies]
 version = "python313"
-packages = ["pandas"]
+packages = [ "pandas",]
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [t]
 min_version = "0.51.2"

@@ -1,5 +1,12 @@
 [r-dependencies]
-packages = ["arrow"]
+packages = [ "arrow",]
 
 [py-dependencies]
-packages = ["pandas", "pyarrow"]
+packages = [ "pandas", "pyarrow",]
+
+[project]
+name = "factor_roundtrip_t"
+description = "A T data analysis project"
+
+[t]
+min_version = "0.51.2"

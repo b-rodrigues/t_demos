@@ -4,14 +4,13 @@ description = "Train models in R and Python, exchange via ONNX, and predict in a
 nixpkgs_date = "2026-04-02"
 
 [dependencies]
-# T packages are auto-loaded
 
 [r-dependencies]
-packages = ["onnx", "dplyr", "arrow", "pmml", "XML"]
+packages = [ "onnx", "dplyr", "arrow", "pmml", "XML",]
 
 [py-dependencies]
 version = "python313"
-packages = ["onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy", "pyarrow", "sklearn2pmml"]
+packages = [ "onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy", "pyarrow", "sklearn2pmml",]
 
 [t]
 min_version = "0.51.2"

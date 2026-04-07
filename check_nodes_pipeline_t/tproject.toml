@@ -3,20 +3,16 @@ name = "check_nodes_pipeline_t"
 description = "A comprehensive demo to check nodes in multi-language pipelines (T, R, Python, Bash)"
 
 [dependencies]
-# T packages this project depends on
 
 [r-dependencies]
-# R packages this project depends on
-packages = ["dplyr", "arrow", "ggplot2", "r2pmml"]
+packages = [ "dplyr", "arrow", "ggplot2", "r2pmml",]
 
 [py-dependencies]
-# Python packages this project depends on
 version = "python313"
-packages = ["pandas", "pyarrow", "numpy", "scikit-learn", "statsmodels", "sklearn2pmml"]
+packages = [ "pandas", "pyarrow", "numpy", "scikit-learn", "statsmodels", "sklearn2pmml",]
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [t]
-# Minimum T language version required
 min_version = "0.51.2"

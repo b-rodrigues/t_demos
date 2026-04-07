@@ -12,14 +12,14 @@ math = "*"
 stats = "*"
 
 [r-dependencies]
-packages = ["dplyr", "readr", "arrow", "jsonlite"]
+packages = [ "dplyr", "readr", "arrow", "jsonlite",]
 
 [py-dependencies]
 version = "python313"
-packages = ["scikit-learn", "pandas", "pyarrow"]
+packages = [ "scikit-learn", "pandas", "pyarrow",]
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [t]
 min_version = "0.51.2"

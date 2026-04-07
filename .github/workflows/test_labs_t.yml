@@ -53,13 +53,13 @@ jobs:
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
           # Run one to trigger dep resolution
-          nix develop --command t run test_lab2_boston.t || echo "Ignoring initial failure due to cold cache"
+          nix develop --command t run src/pipeline.t || echo "Ignoring initial failure due to cold cache"
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Run Full Pipeline
         working-directory: ./labs_t
         run: |
-          for f in test_lab*.t; do
+          for f in src/test_lab*.t; do
             echo "--- Running $f ---"
             nix develop --command t run "$f"
           done

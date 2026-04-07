@@ -3,27 +3,16 @@ name = "shn_t"
 description = "A T data analysis project"
 
 [dependencies]
-# T packages this project depends on
-# Format: package = { git = "repository-url", tag = "version" }
-# Example:
-# stats = { git = "https://github.com/t-lang/stats", tag = "v0.5.0" }
 
 [r-dependencies]
-# R packages this project depends on
-# Example:
-# packages = ["dplyr", "ggplot2"]
-packages = ["chronicler", "rix"]
+packages = [ "chronicler", "rix",]
 
 [py-dependencies]
-# Python packages this project depends on
 version = "python314"
-# Example:
-# packages = ["pandas", "numpy"]
 packages = []
 
 [t]
-# Minimum T language version required
 min_version = "0.51.2"
 
 [additional-tools]
-packages = ["gawk"]
+packages = [ "gawk",]

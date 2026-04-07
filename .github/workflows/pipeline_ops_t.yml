@@ -59,7 +59,7 @@ jobs:
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
-          nix develop --command t run src/pipeline_ops.t || echo "Dependencies injected (expecting failure to re-lock)"
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
       - name: Show updated tproject.toml
         run: cat tproject.toml
@@ -70,7 +70,7 @@ jobs:
 
       - name: Run Pipeline (Populate and Build with Ops)
         run: |
-          nix develop --command t run src/pipeline_ops.t
+          nix develop --command t run src/pipeline.t
 
       - name: Inspect Built Nodes
         run: |

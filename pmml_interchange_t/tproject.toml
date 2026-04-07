@@ -1,12 +1,16 @@
 [project]
 name = "pmml_interchange_t"
 version = "0.1.0"
+description = "A T data analysis project"
 
 [r-dependencies]
-packages = ["r2pmml", "XML", "jsonlite"]
+packages = [ "r2pmml", "XML", "jsonlite",]
 
 [py-dependencies]
-packages = ["sklearn2pmml", "numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "statsmodels"]
+packages = [ "sklearn2pmml", "numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "statsmodels",]
 
 [additional-tools]
-packages = ["jpmml-evaluator", "jre"]
+packages = [ "jpmml-evaluator", "jre",]
+
+[t]
+min_version = "0.51.2"

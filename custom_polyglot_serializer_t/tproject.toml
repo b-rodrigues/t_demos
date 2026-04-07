@@ -5,14 +5,14 @@ description = "Extension of the serializer system using the dictionary format an
 [dependencies]
 
 [r-dependencies]
-packages = ["yaml"]
+packages = [ "yaml",]
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [py-dependencies]
 version = "python313"
-packages = ["pyyaml"]
+packages = [ "pyyaml",]
 
 [t]
 min_version = "0.51.2"

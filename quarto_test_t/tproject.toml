@@ -1,5 +1,12 @@
 [r-dependencies]
-packages = ["knitr", "rmarkdown"]
+packages = [ "knitr", "rmarkdown",]
 
 [py-dependencies]
-packages = ["ipykernel", "nbclient", "nbformat", "pyyaml"]
+packages = [ "ipykernel", "nbclient", "nbformat", "pyyaml",]
+
+[project]
+name = "quarto_test_t"
+description = "A T data analysis project"
+
+[t]
+min_version = "0.51.2"

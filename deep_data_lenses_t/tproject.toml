@@ -8,7 +8,7 @@ description = "Demonstration of path-based immutable updates on nested dictionar
 packages = []
 
 [additional-tools]
-packages = ["quarto"]
+packages = [ "quarto",]
 
 [py-dependencies]
 version = "python313"

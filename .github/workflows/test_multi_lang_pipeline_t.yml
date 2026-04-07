@@ -52,10 +52,10 @@ jobs:
         working-directory: ./multi_lang_pipeline_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-          nix develop --command t run pipeline.t || echo "Ignoring initial failure due to cold cache"
+          nix develop --command t run src/pipeline.t || echo "Ignoring initial failure due to cold cache"
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Run Full Pipeline
         working-directory: ./multi_lang_pipeline_t
         run: |
-          nix develop --command t run pipeline.t
+          nix develop --command t run src/pipeline.t
