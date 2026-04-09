@@ -59,25 +59,15 @@ jobs:
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "0"
         run: |
-          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+          nix develop --command t run src/pipeline.t > output.log 2>&1 || true
+          cat output.log
+          if grep -q "Pipeline dependency check failed" output.log; then
+            echo "Expected diagnostic: Dependency check failed as expected."
+            exit 0
+          else
+            echo "Error: Did not see the expected diagnostic message."
+            exit 1
+          fi
 
-      - name: Show updated tproject.toml
+      - name: Show final tproject.toml (should be unchanged)
         run: cat tproject.toml
-
-      - name: Rebuild flake with new dependencies
-        run: |
-          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-
-      - name: Run Pipeline (Populate and Build)
-        run: |
-          nix develop --command t run src/pipeline.t
-
-      - name: Inspect Model Stats
-        run: |
-          echo "read_node('model_stats')" > view_stats.t
-          nix develop --command t run --unsafe view_stats.t
-
-      - name: Inspect Final Predictions
-        run: |
-          echo "read_node('results') |> glimpse" > view_results.t
-          nix develop --command t run --unsafe view_results.t
