@@ -74,10 +74,10 @@ jobs:
 
       - name: Inspect Model Stats
         run: |
-          echo "read_node('model_stats').path" > view_stats.t
+          echo "read_node('model_stats').path |> read_arrow" > view_stats.t
           nix develop --command t run --unsafe view_stats.t
 
       - name: Inspect Final Predictions
         run: |
-          echo "read_node('results').path |> glimpse" > view_results.t
+          echo "read_node('results').path |> read_arrow |> glimpse" > view_results.t
           nix develop --command t run --unsafe view_results.t
