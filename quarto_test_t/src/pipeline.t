@@ -5,9 +5,9 @@
 
 p = pipeline {
   data = "Success: Data read from T-Lang"
-  
+
   report = node(
-    script = "tests/pipeline/test_quarto.qmd",
+    script = "tests/pipeline/report.qmd",
     runtime = Quarto,
     args = [
       to: "html",

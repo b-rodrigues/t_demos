@@ -56,7 +56,7 @@ if (is_error(res)) {
     print(res)
 } else {
     print("Build successful.")
-    
+
     df = read_node("data_node")
     p_r = read_node("poisson_r")
     p_py = read_node("poisson_py")

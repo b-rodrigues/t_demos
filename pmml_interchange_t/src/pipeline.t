@@ -3,8 +3,8 @@
 -- with JPMML as the canonical scoring authority.
 
 data_node = node(
-    command = read_csv("data/mtcars.csv", separator: "|") 
-              |> mutate($cyl = factor($cyl), $am = factor($am)),
+    command = read_csv("data/mtcars.csv", separator: "|") |>
+      mutate($cyl = factor($cyl), $am = factor($am)),
     serializer = ^csv
 )
 
@@ -57,36 +57,36 @@ model
 verify_node = node(
     command = <{
         print("--- PHASE 2: AUTHORITY PIVOT VERIFICATION ---")
-        
+
         -- Score R Linear Model (Categorical factors resolved by JPMML)
         p_lm_r = predict(data_node, model_r_node)
         print("R Linear Model Predictions (first 5):")
         print(head(p_lm_r))
-        
+
         -- Score R Random Forest (Complex trees resolved by JPMML)
         p_rf_r = predict(data_node, rf_r_node)
         print("R Random Forest Predictions (first 5):")
         print(head(p_rf_r))
-        
+
         -- Score Python Model
         p_lm_py = predict(data_node, model_py_node)
         print("Python model predictions in T:")
         print(head(p_lm_py))
-        
+
         print("--- PHASE 4: METADATA & VALIDATION ---")
         print("R Model Summary:")
         print(summary(model_r_node))
-        
+
         print("Python Model R-Squared:")
         print(model_py_node.r_squared)
-        
+
         "Verification complete"
     }>,
     runtime = "T",
     deserializer = [
-        data_node: ^csv, 
-        model_r_node: ^pmml, 
-        rf_r_node: ^pmml, 
+        data_node: ^csv,
+        model_r_node: ^pmml,
+        rf_r_node: ^pmml,
         model_py_node: ^pmml
     ]
 )
@@ -99,6 +99,6 @@ p = pipeline {
     verify_node = verify_node
 }
 
--- Syntax check: build_pipeline(p) without execution?
--- The user said "just check the syntax".
+build_pipeline(p, verbose=1)
+
 print("Pipeline defined successfully.")

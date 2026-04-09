@@ -7,9 +7,9 @@ format: html
 
 The following value was read from a T-Lang pipeline node:
 
-```{r}
+```{t}
 #| echo: false
-val <- read_node("data")
+val = read_node("data")
 cat(val)
 ```
 
