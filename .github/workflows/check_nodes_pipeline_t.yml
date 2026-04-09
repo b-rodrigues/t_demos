@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
 
 jobs:
   check-nodes-pipeline:
