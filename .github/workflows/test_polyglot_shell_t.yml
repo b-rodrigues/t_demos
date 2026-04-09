@@ -52,7 +52,17 @@ jobs:
         working-directory: ./polyglot_shell_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-          nix develop --command t run src/pipeline.t || echo "Ignoring initial failure due to cold cache"
+
+      - name: Inject pipeline dependencies
+        working-directory: ./polyglot_shell_t
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Rebuild flake with new dependencies
+        working-directory: ./polyglot_shell_t
+        run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Run Full Pipeline
