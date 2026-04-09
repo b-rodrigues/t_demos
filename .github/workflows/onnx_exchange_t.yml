@@ -79,5 +79,5 @@ jobs:
 
       - name: Inspect Final Predictions
         run: |
-          echo "read_node('results') |> glimpse" > view_results.t
+          echo "read_node('results').path |> glimpse" > view_results.t
           nix develop --command t run --unsafe view_results.t
