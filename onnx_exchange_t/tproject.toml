@@ -1,16 +1,24 @@
 [project]
 name = "onnx_exchange_t"
 description = "Train models in R and Python, exchange via ONNX, and predict in all runtimes."
-nixpkgs_date = "2026-04-02"
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "onnx", "dplyr", "arrow", "pmml", "XML",]
+packages = ["onnx", "dplyr", "arrow", "r2pmml"]
 
 [py-dependencies]
 version = "python313"
-packages = [ "onnx", "onnxruntime", "skl2onnx", "scikit-learn", "pandas", "numpy", "pyarrow", "sklearn2pmml",]
+packages = ["onnx", "onnxruntime", "sklearn2pmml", "scipy", "statsmodels"]
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.51.2"
+
+[nixpkgs]
+date = ""
