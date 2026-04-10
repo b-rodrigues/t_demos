@@ -36,10 +36,10 @@ jobs:
 
       - name: Get T commit
         env:
-          GH_TOKEN: ${ secrets.GITHUB_TOKEN }
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          REPO="${ github.event.client_payload.repo }"
-          SHA="${ github.event.client_payload.sha }"
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             REPO="b-rodrigues/tlang"
             SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
