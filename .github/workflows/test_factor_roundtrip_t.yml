@@ -3,13 +3,8 @@ name: Tlang E2E Test - factor_roundtrip_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'factor_roundtrip_t/**'
-      - '.github/workflows/test_factor_roundtrip_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'factor_roundtrip_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

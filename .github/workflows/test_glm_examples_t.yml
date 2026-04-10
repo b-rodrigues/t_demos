@@ -3,13 +3,8 @@ name: Tlang E2E Test - glm_examples_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'glm_examples_t/**'
-      - '.github/workflows/test_glm_examples_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'glm_examples_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

@@ -2,11 +2,23 @@
 name = "isl_lab2_boston_t"
 description = "ISL Lab Migration: test_lab2_boston.t"
 
+[dependencies]
+
+[r-dependencies]
+packages = ["XML", "arrow", "jsonlite", "r2pmml"]
+
+[py-dependencies]
+version = "python314"
+packages = ["numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "sklearn2pmml", "statsmodels"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]
+
+[latex]
+packages = []
+
 [t]
 min_version = "0.51.2"
 
-[r-dependencies]
-packages = []
-
-[py-dependencies]
-packages = []
+[nixpkgs]
+date = ""

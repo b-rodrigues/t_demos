@@ -78,11 +78,15 @@ if (is_error(res)) {
     preds_r = predict(df, m_r)
     preds_py = predict(df, m_py)
     
-    mae = mean(abs(preds_r .- preds_py))
+    -- Extract probabilities for "Up" or "1"
+    pr = if (type(preds_r) == "DataFrame") { preds_r.`probability(Up)` } else { preds_r }
+    ppy = if (type(preds_py) == "DataFrame") { preds_py.`probability(1)` } else { preds_py }
+
+    mae = mean(abs(pr .- ppy))
     print("MAE (R vs Py) in T:")
     print(mae)
     
-    if (mae < 0.1) { -- Increased tolerance for logistic
+    if (mae < 0.1) {
         print("SUCCESS: Predictions match!")
     } else {
         print("WARNING: Predictions differ.")

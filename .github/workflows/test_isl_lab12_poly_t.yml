@@ -3,13 +3,8 @@ name: Tlang E2E Test - isl_lab12_poly_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'isl_lab12_poly_t/**'
-      - '.github/workflows/test_isl_lab12_poly_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'isl_lab12_poly_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

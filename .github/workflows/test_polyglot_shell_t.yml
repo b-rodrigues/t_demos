@@ -3,13 +3,8 @@ name: Tlang E2E Test - polyglot_shell_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'polyglot_shell_t/**'
-      - '.github/workflows/test_polyglot_shell_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'polyglot_shell_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

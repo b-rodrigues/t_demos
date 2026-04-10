@@ -3,13 +3,8 @@ name: Tlang E2E Test - pmml_interchange_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'pmml_interchange_t/**'
-      - '.github/workflows/test_pmml_interchange_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'pmml_interchange_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

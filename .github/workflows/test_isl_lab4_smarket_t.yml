@@ -3,13 +3,8 @@ name: Tlang E2E Test - isl_lab4_smarket_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'isl_lab4_smarket_t/**'
-      - '.github/workflows/test_isl_lab4_smarket_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'isl_lab4_smarket_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

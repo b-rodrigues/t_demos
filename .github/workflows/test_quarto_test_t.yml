@@ -3,13 +3,8 @@ name: Tlang E2E Test - quarto_test_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'quarto_test_t/**'
-      - '.github/workflows/test_quarto_test_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'quarto_test_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]

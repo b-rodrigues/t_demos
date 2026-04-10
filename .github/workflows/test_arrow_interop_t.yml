@@ -3,13 +3,8 @@ name: Tlang E2E Test - arrow_interop_t
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'arrow_interop_t/**'
-      - '.github/workflows/test_arrow_interop_t.yml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'arrow_interop_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]
