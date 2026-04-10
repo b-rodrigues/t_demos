@@ -32,8 +32,6 @@ X = sm.add_constant(X)
 y = data_node['Survived']
 # Fit model using matrix API
 py_model_node = sm.GLM(y, X, family=sm.families.Binomial()).fit()
-import os
-t_write_pmml(py_model_node, os.path.expandvars("$out/artifact"))
         }>,
         runtime = Python,
         serializer = ^pmml,
