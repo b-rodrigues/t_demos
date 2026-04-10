@@ -2,8 +2,8 @@
 p = pipeline {
     data_node = node(
         command = <{
-            # Use local file (already wget-ed)
-            df <- read.csv("titanic.csv")
+            # Use local file
+            df <- read.csv("data/titanic.csv")
             # Select numeric predictors and target
             df <- df[, c("Survived", "Pclass", "Age", "Fare")]
             df <- na.omit(df)
