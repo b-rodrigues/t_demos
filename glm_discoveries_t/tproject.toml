@@ -1,0 +1,15 @@
+[project]
+name = "glm_discoveries_t"
+description = "GLM Example: Discoveries count response"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = ["arrow", "MASS"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "pyarrow"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]

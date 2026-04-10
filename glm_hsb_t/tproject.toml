@@ -1,0 +1,15 @@
+[project]
+name = "glm_hsb_t"
+description = "GLM Example: HSB binary logistic regression"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = ["arrow", "faraway"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "pyarrow", "patsy"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]

@@ -1,0 +1,12 @@
+[project]
+name = "glm_basic_py_t"
+description = "GLM Example: Basic Python logistic regression"
+
+[t]
+min_version = "0.51.2"
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "pyarrow"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]

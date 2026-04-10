@@ -1,0 +1,15 @@
+[project]
+name = "glm_warpbreaks_t"
+description = "GLM Example: Warpbreaks Poisson/NegBinom regression"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = ["arrow", "MASS"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "pyarrow", "patsy"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]

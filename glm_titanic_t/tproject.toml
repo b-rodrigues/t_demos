@@ -1,0 +1,15 @@
+[project]
+name = "glm_titanic_t"
+description = "GLM Example: Titanic survival logistic regression"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = ["arrow"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "pyarrow"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]
