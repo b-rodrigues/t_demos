@@ -10,7 +10,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = "arrow"
+        serializer = ^arrow
     );
 
     r_model_node = node(
@@ -19,8 +19,8 @@ p = pipeline {
             glm(Survived ~ Pclass + Age + Fare, data = data_node, family = binomial(link = "logit"))
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     py_model_node = node(
@@ -36,8 +36,8 @@ import os
 t_write_pmml(py_model_node, os.path.expandvars("$out/artifact"))
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

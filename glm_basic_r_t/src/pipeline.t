@@ -10,7 +10,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        serializer = "arrow"
+        serializer = ^arrow
     );
     
     model_node = node(
@@ -19,8 +19,8 @@ p = pipeline {
             glm(y ~ x, data = data_node, family = binomial(link = "logit"))
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

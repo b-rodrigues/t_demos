@@ -11,7 +11,7 @@ p = pipeline {
             disc
         }>,
         runtime = R,
-        serializer = "arrow"
+        serializer = ^arrow
     );
 
     poisson_r = node(
@@ -19,8 +19,8 @@ p = pipeline {
             glm(count ~ year + yearSqr, family = "poisson", data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     nb_r = node(
@@ -30,8 +30,8 @@ p = pipeline {
             glm.nb(count ~ year + yearSqr, data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     poisson_py = node(
@@ -43,8 +43,8 @@ X = sm.add_constant(data_node[['year', 'yearSqr']])
 poisson_py = sm.GLM(y, X, family=sm.families.Poisson()).fit()
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

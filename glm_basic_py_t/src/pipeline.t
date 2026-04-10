@@ -14,7 +14,7 @@ p = pipeline {
             dataframe(data)
         }>,
         runtime = T,
-        serializer = "arrow"
+        serializer = ^arrow
     );
     
     model_node = node(
@@ -28,8 +28,8 @@ p = pipeline {
             # t_write_pmml uses the JPMML-StatsModels bridge for this
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

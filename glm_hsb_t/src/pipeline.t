@@ -14,7 +14,7 @@ p = pipeline {
             hsb
         }>,
         runtime = R,
-        serializer = "arrow"
+        serializer = ^arrow
     );
 
     r_model_node = node(
@@ -29,8 +29,8 @@ p = pipeline {
                 data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     py_model_node = node(
@@ -47,8 +47,8 @@ y = y.iloc[:, 0]
 py_model_node = sm.GLM(y, X, family=sm.families.Binomial()).fit()
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

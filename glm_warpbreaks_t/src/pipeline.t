@@ -10,7 +10,7 @@ p = pipeline {
             warpbreaks
         }>,
         runtime = R,
-        serializer = "arrow"
+        serializer = ^arrow
     );
 
     -- Poisson model with interaction between wool and tension
@@ -21,8 +21,8 @@ p = pipeline {
             glm(breaks ~ wool * tension, family = "poisson", data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     -- Negative Binomial model for comparison (often better for count data)
@@ -34,8 +34,8 @@ p = pipeline {
             glm.nb(breaks ~ wool * tension, data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     -- Python Poisson model with formula
@@ -52,8 +52,8 @@ y = y.iloc[:, 0]
 py_poisson = sm.GLM(y, X, family=sm.families.Poisson()).fit()
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 
