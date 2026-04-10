@@ -4,7 +4,7 @@ p = pipeline {
     smarket_raw = node(
         command = <{ read_csv("data/Smarket.csv") }>,
         serializer = ^arrow
-    );
+    )
 
     data_node = node(
         command = <{
