@@ -3,7 +3,7 @@
 -- with JPMML as the canonical scoring authority.
 
 data_node = node(
-    command = read_csv("data/mtcars.csv", separator: "|") |>
+    command = read_csv("data/mtcars.csv", separator = "|") |>
       mutate($cyl = factor($cyl), $am = factor($am)),
     serializer = ^csv
 )
