@@ -1,5 +1,5 @@
 [r-dependencies]
-packages = [ "arrow",]
+packages = [ "arrow", "dplyr"]
 
 [project]
 name = "polyglot_shell_t"
