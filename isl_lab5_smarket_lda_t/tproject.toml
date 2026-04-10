@@ -2,11 +2,23 @@
 name = "isl_lab5_smarket_lda_t"
 description = "ISL Lab Migration: test_lab5_smarket_lda.t"
 
+[dependencies]
+
+[r-dependencies]
+packages = ["MASS", "arrow"]
+
+[py-dependencies]
+version = "python314"
+packages = ["pandas", "scikit-learn", "numpy", "pyarrow"]
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
 [t]
 min_version = "0.51.2"
 
-[r-dependencies]
-packages = ["MASS"]
-
-[py-dependencies]
-packages = ["pandas", "scikit-learn", "numpy"]
+[nixpkgs]
+date = ""

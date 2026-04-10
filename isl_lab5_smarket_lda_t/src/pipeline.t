@@ -69,17 +69,17 @@ if (is_error(res)) {
     py_p = read_node("py_preds")
     
     -- Compare predictions
-    match = sum(to_integer(r_p.Direction .== py_p.Direction))
+    n_matches = sum(to_integer(r_p.Direction .== py_p.Direction))
     total = length(r_p.Direction)
     
     print("\nComparison of R and Python LDA predictions:")
     print("Total test observations: ", total)
-    print("Matching predictions: ", match)
+    print("Matching predictions: ", n_matches)
     
-    if (match == total) {
+    if (n_matches == total) {
         print("SUCCESS: R and Python predictions match perfectly.")
     } else {
         print("WARNING: R and Python predictions differ!")
-        print("Match rate: ", (match / total))
+        print("Match rate: ", (n_matches / total))
     }
 }
