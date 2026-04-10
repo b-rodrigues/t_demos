@@ -4,8 +4,8 @@ import dataframe
 
 p = pipeline {
     boston_raw = node(
-        command = <{ read_csv("tests/pipeline/data/Boston.csv") }>,
-        serializer = "arrow"
+        command = <{ read_csv("data/Boston.csv") }>,
+        serializer = ^arrow
     );
 
     data_node = node(
@@ -15,8 +15,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = "arrow",
-        deserializer = "arrow" -- Added explicit deserializer for T -> R
+        serializer = ^arrow,
+        deserializer = ^arrow -- Added explicit deserializer for T -> R
     );
 
     r_model = node(
@@ -25,8 +25,8 @@ p = pipeline {
             lm(medv ~ lstat, data = data_node)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     py_model = node(
@@ -39,8 +39,8 @@ y = y.iloc[:, 0]
 py_model = sm.OLS(y, X).fit()
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

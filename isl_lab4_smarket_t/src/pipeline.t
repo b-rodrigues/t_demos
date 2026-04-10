@@ -4,8 +4,8 @@ import dataframe
 
 p = pipeline {
     smarket_raw = node(
-        command = <{ read_csv("tests/pipeline/data/Smarket.csv") }>,
-        serializer = "arrow"
+        command = <{ read_csv("data/Smarket.csv") }>,
+        serializer = ^arrow
     );
 
     data_node = node(
@@ -16,8 +16,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = "arrow",
-        deserializer = "arrow"
+        serializer = ^arrow,
+        deserializer = ^arrow
     );
 
     r_model = node(
@@ -27,8 +27,8 @@ p = pipeline {
                 family = binomial)
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     py_model = node(
@@ -44,8 +44,8 @@ y = y.iloc[:, 1] # Usually Direction[Up] if Direction is the response
 py_model = sm.GLM(y, X, family=sm.families.Binomial()).fit()
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 

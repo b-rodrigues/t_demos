@@ -4,8 +4,8 @@ import dataframe
 
 p = pipeline {
     smarket_raw = node(
-        command = <{ read_csv("tests/pipeline/data/Smarket.csv") }>,
-        serializer = "arrow"
+        command = <{ read_csv("data/Smarket.csv") }>,
+        serializer = ^arrow
     );
 
     data_node = node(
@@ -16,8 +16,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = "arrow",
-        deserializer = "arrow"
+        serializer = ^arrow,
+        deserializer = ^arrow
     );
 
     -- LDA model in R and Python (results as predictions because PMML support varies)
@@ -31,8 +31,8 @@ p = pipeline {
             data.frame(Direction = as.character(preds))
         }>,
         runtime = R,
-        serializer = "arrow",
-        deserializer = "arrow"
+        serializer = ^arrow,
+        deserializer = ^arrow
     );
 
     py_preds = node(
@@ -53,8 +53,8 @@ preds = py_lda.predict(X_test)
 py_preds = pd.DataFrame({'Direction': preds})
         }>,
         runtime = Python,
-        serializer = "arrow",
-        deserializer = "arrow"
+        serializer = ^arrow,
+        deserializer = ^arrow
     );
 }
 

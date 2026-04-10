@@ -4,8 +4,8 @@ import dataframe
 
 p = pipeline {
     hitters_raw = node(
-        command = <{ read_csv("tests/pipeline/data/Hitters.csv") }>,
-        serializer = "arrow"
+        command = <{ read_csv("data/Hitters.csv") }>,
+        serializer = ^arrow
     );
 
     data_node = node(
@@ -16,8 +16,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = "arrow",
-        deserializer = "arrow"
+        serializer = ^arrow,
+        deserializer = ^arrow
     );
 
     r_model = node(
@@ -31,8 +31,8 @@ p = pipeline {
             fit
         }>,
         runtime = R,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     );
 
     py_model = node(
@@ -56,8 +56,8 @@ py_model = PMMLPipeline([
 py_model.fit(X, y)
         }>,
         runtime = Python,
-        serializer = "pmml",
-        deserializer = "arrow"
+        serializer = ^pmml,
+        deserializer = ^arrow
     )
 }
 
