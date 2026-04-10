@@ -1,15 +1,15 @@
-name: Tlang E2E Test - labs_t
+name: Tlang E2E Test - isl_lab4_smarket_t
 
 on:
   push:
     branches: [ main, master ]
     paths:
-      - 'labs_t/**'
-      - '.github/workflows/test_labs_t.yml'
+      - 'isl_lab4_smarket_t/**'
+      - '.github/workflows/test_isl_lab4_smarket_t.yml'
   pull_request:
     branches: [ main, master ]
     paths:
-      - 'labs_t/**'
+      - 'isl_lab4_smarket_t/**'
   workflow_dispatch:
   repository_dispatch:
     types: [ trigger-demo ]
@@ -36,10 +36,10 @@ jobs:
 
       - name: Get T commit
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${ secrets.GITHUB_TOKEN }
         run: |
-          REPO="${{ github.event.client_payload.repo }}"
-          SHA="${{ github.event.client_payload.sha }}"
+          REPO="${ github.event.client_payload.repo }"
+          SHA="${ github.event.client_payload.sha }"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             REPO="b-rodrigues/tlang"
             SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
@@ -49,17 +49,23 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./labs_t
+        working-directory: ./isl_lab4_smarket_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-          # Run one to trigger dep resolution
-          nix develop --command t run src/pipeline.t || echo "Ignoring initial failure due to cold cache"
+
+      - name: Inject pipeline dependencies
+        working-directory: ./isl_lab4_smarket_t
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Rebuild flake with new dependencies
+        working-directory: ./isl_lab4_smarket_t
+        run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Run Full Pipeline
-        working-directory: ./labs_t
+        working-directory: ./isl_lab4_smarket_t
         run: |
-          for f in src/test_lab*.t; do
-            echo "--- Running $f ---"
-            nix develop --command t run "$f"
-          done
+          nix develop --command t run src/pipeline.t

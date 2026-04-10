@@ -1,0 +1,12 @@
+[project]
+name = "isl_lab2_boston_t"
+description = "ISL Lab Migration: test_lab2_boston.t"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+packages = []

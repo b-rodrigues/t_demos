@@ -1,0 +1,12 @@
+[project]
+name = "isl_lab5_smarket_lda_t"
+description = "ISL Lab Migration: test_lab5_smarket_lda.t"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+packages = []

@@ -1,0 +1,12 @@
+[project]
+name = "isl_lab12_poly_t"
+description = "ISL Lab Migration: pipeline.t"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+packages = []

@@ -1,0 +1,12 @@
+[project]
+name = "isl_lab10_hitters_t"
+description = "ISL Lab Migration: test_lab10_hitters.t"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+packages = []
