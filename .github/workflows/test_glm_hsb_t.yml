@@ -52,10 +52,8 @@ jobs:
         working-directory: ./glm_hsb_t
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
-          TLANG_REPO_ROOT_FOR_DEPS: "github:$TLANG_REPO/$TLANG_SHA"
         run: |
-          # Use the latest t binary to auto-add deps
-          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t run src/pipeline.t || echo "Dependencies injected"
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
       - name: Rebuild flake with new dependencies
         working-directory: ./glm_hsb_t
@@ -65,4 +63,4 @@ jobs:
       - name: Run Full Pipeline
         working-directory: ./glm_hsb_t
         run: |
-          nix develop "github:$TLANG_REPO/$TLANG_SHA" --command t run src/pipeline.t
+          nix develop --command t run src/pipeline.t
