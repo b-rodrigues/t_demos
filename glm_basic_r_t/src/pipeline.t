@@ -1,16 +1,6 @@
 import stats
 import dataframe
 
--- Create sample data
-data = [
-    [x: 1.0, y: 0.0],
-    [x: 2.0, y: 0.0],
-    [x: 3.0, y: 1.0],
-    [x: 4.0, y: 1.0],
-    [x: 5.0, y: 1.0]
-]
-df = dataframe(data)
-
 p = pipeline {
     data_node = node(
         command = <{
@@ -57,7 +47,8 @@ print(model.link)
 print("Coefficients:")
 print(model.coefficients)
 
-preds = predict(df, model)
+df_test = read_node("data_node")
+preds = predict(df_test, model)
 print("Predictions type:")
 print(type(preds))
 print("Predictions:")
