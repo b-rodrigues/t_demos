@@ -2,16 +2,13 @@
 -- Lab 12: Polynomial Regression and Step Functions
 -- Source: https://www.science.smith.edu/~jcrouser/SDS293/labs/2016/
 
-import stats
-import dataframe
-
 p = pipeline {
     wage_raw = node(
         command = <{ 
             read_csv("data/Wage.csv")
         }>,
         serializer = ^arrow
-    );
+    )
 
     -- T node: Prepare data with poly
     -- We use degree 4 as in the lab.
@@ -25,7 +22,7 @@ p = pipeline {
         }>,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     -- T node: Fit model using T's lm
     t_model = node(
@@ -39,7 +36,7 @@ p = pipeline {
             }
         }>,
         deserializer = ^arrow
-    );
+    )
 
     -- R node: Fit model using R for comparison
     r_model = node(
@@ -57,7 +54,7 @@ p = pipeline {
         runtime = R,
         serializer = ^pmml,
         deserializer = ^arrow
-    );
+    )
 }
 
 print("Building Lab 12 (Polynomial Regression) pipeline...")

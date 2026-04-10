@@ -8,7 +8,7 @@ p = pipeline {
     -- NODE 1: T Language
     -- Load raw mtcars data and serialize it as CSV for other languages to consume.
     raw_data = node(
-        command = read_csv("tests/pipeline/data/mtcars.csv", separator = "|"),
+        command = read_csv("data/mtcars.csv", separator = "|"),
         runtime = T,
         serializer = ^csv
     )

@@ -6,10 +6,9 @@
 
 p = pipeline {
     raw_data = node(
-        command = read_csv("tests/pipeline/data/mtcars.csv", separator = "|"),
+        command = read_csv("data/mtcars.csv", separator = "|"),
         runtime = T,
-        serializer = ^csv,
-        functions = "tests/pipeline/iolib.t"
+        serializer = ^csv
     )
 
     summary_r = rn(

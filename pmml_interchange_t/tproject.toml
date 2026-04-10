@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A T data analysis project"
 
 [r-dependencies]
-packages = [ "r2pmml", "XML", "jsonlite",]
+packages = [ "r2pmml", "XML", "jsonlite", "randomForest"]
 
 [py-dependencies]
 packages = [ "sklearn2pmml", "numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "statsmodels",]

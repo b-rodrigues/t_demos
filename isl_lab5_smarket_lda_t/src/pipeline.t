@@ -1,6 +1,4 @@
 -- Source: https://www.science.smith.edu/~jcrouser/SDS293/labs/2016/
-import stats
-import dataframe
 
 p = pipeline {
     smarket_raw = node(
@@ -18,7 +16,7 @@ p = pipeline {
         runtime = R,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     -- LDA model in R and Python (results as predictions because PMML support varies)
     r_preds = node(
@@ -33,7 +31,7 @@ p = pipeline {
         runtime = R,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     py_preds = node(
         command = <{
@@ -55,7 +53,7 @@ py_preds = pd.DataFrame({'Direction': preds})
         runtime = Python,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 }
 
 print("Building Lab 5 (LDA on Smarket) pipeline...")

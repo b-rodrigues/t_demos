@@ -1,12 +1,10 @@
 -- Source: https://www.science.smith.edu/~jcrouser/SDS293/labs/2016/
-import stats
-import dataframe
 
 p = pipeline {
     hitters_raw = node(
         command = <{ read_csv("data/Hitters.csv") }>,
         serializer = ^arrow
-    );
+    )
 
     data_node = node(
         command = <{
@@ -18,7 +16,7 @@ p = pipeline {
         runtime = R,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     r_model = node(
         command = <{
@@ -33,7 +31,7 @@ p = pipeline {
         runtime = R,
         serializer = ^pmml,
         deserializer = ^arrow
-    );
+    )
 
     py_model = node(
         command = <{

@@ -6,7 +6,7 @@ description = "ISL Lab Migration: test_lab10_hitters.t"
 min_version = "0.51.2"
 
 [r-dependencies]
-packages = []
+packages = ["glmnet"]
 
 [py-dependencies]
-packages = []
+packages = ["pandas", "scikit-learn", "numpy"]

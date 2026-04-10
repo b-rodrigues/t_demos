@@ -49,12 +49,21 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./glm_examples_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-          # Run one to trigger dep resolution
-          nix develop --command t run src/pipeline.t || echo "Ignoring initial failure due to cold cache"
-          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          # Ensure flake.nix points to the correct version for the build
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
+
+      - name: Inject pipeline dependencies
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
 
       - name: Run Full Pipeline
         working-directory: ./glm_examples_t
