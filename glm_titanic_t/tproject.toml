@@ -6,10 +6,10 @@ description = "GLM Example: Titanic survival logistic regression"
 min_version = "0.51.2"
 
 [r-dependencies]
-packages = ["arrow"]
+packages = ["arrow", "XML", "jsonlite", "r2pmml"]
 
 [py-dependencies]
-packages = ["statsmodels", "pandas", "pyarrow"]
+packages = ["statsmodels", "pandas", "pyarrow", "numpy", "scikit-learn", "scipy", "sklearn2pmml"]
 
 [additional-tools]
-packages = ["jpmml-evaluator", "jre"]
+packages = ["jpmml-evaluator", "jpmml-statsmodels", "jre"]

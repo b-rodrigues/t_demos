@@ -6,7 +6,7 @@ description = "GLM Example: Basic Python logistic regression"
 min_version = "0.51.2"
 
 [py-dependencies]
-packages = ["statsmodels", "pandas", "pyarrow"]
+packages = ["statsmodels", "pandas", "pyarrow", "scikit-learn", "sklearn2pmml", "numpy", "scipy"]
 
 [additional-tools]
-packages = ["jpmml-evaluator", "jre"]
+packages = ["jpmml-evaluator", "jpmml-statsmodels", "jre"]

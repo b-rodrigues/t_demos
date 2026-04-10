@@ -56,9 +56,8 @@ if (is_error(res)) {
 
     print("Computing predictions in T (Python Model)...")
     t_preds_py = predict(df_clean, py_model)
-
     -- Compare R-model vs Python-model predictions in T
-    diff = t_preds_r .- t_preds_py
+    diff = (t_preds_r |> pull("probability(1)")) .- (t_preds_py |> pull("probability(1)"))
     mae = mean(abs(diff))
     
     print("MAE between predictions from R and Python models (evaluated in T):")
