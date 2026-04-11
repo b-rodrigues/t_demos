@@ -28,14 +28,14 @@ p = pipeline {
 #!/bin/sh
 set -eu
 
---# @deps raw_data, summary_r, summary_py
 printf 'Polyglot summary report\n'
 printf 'raw_data artifact: %s\n' "$T_NODE_raw_data/artifact"
 printf '\nR summary\n'
 cat "$T_NODE_summary_r/artifact"
 printf '\nPython summary\n'
 cat "$T_NODE_summary_py/artifact"
-        }>
+        }>,
+        deps = [raw_data, summary_r, summary_py]
     )
 }
 
