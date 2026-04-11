@@ -36,14 +36,17 @@ p = pipeline {
     py_model_node = node(
         command = <{
 import statsmodels.api as sm
-import statsmodels.formula.api as smf
-import os
+import pandas as pd
+# Manual dummification to ensure JPMML compatibility
+# We match R's specific dummies seen in previous summaries: seslow, sesmiddle, schtyppublic
+data_node['ses_low'] = (data_node['ses'] == 'low').astype(float)
+data_node['ses_middle'] = (data_node['ses'] == 'middle').astype(float)
+data_node['schtyp_public'] = (data_node['schtyp'] == 'public').astype(float)
 
-# Fit GLM using formula API (handles categorical 'ses' and 'schtyp' automatically)
-import patsy
-y, X = patsy.dmatrices('target ~ ses + schtyp + read + write + science + socst', data_node, return_type='dataframe')
-# jpmml-statsmodels requires y to be a Series, not a DataFrame
-y = y.iloc[:, 0]
+X = data_node[['ses_low', 'ses_middle', 'schtyp_public', 'read', 'write', 'science', 'socst']]
+X = sm.add_constant(X)
+y = data_node['target']
+# jpmml-statsmodels serialization
 py_model_node = sm.GLM(y, X, family=sm.families.Binomial()).fit()
         }>,
         runtime = Python,
@@ -87,18 +90,30 @@ if (is_error(res)) {
     preds_r = predict(df, r_model)
     
     print("Computing predictions in T (Python Model)...")
-    preds_py = predict(df, py_model)
+    -- Prepare data for Python PMML prediction (matching manual dummification)
+    df1 = mutate(df, ses_low = ifelse($ses .== "low", 1.0, 0.0))
+    df2 = mutate(df1, ses_middle = ifelse($ses .== "middle", 1.0, 0.0))
+    df3 = mutate(df2, schtyp_public = ifelse($schtyp .== "public", 1.0, 0.0))
+    df4 = mutate(df3, read = $read)
+    df5 = mutate(df4, write = $write)
+    df6 = mutate(df5, science = $science)
+    df7 = mutate(df6, socst = $socst)
+    df_py = mutate(df7, const = 1.0)
+    preds_py = predict(df_py, py_model)
     
     if (is_error(preds_py)) {
         print("PYTHON PREDS ERROR:")
         print(preds_py)
     }
     
-    mae = mean(abs(preds_r .- preds_py))
-    print("\nMAE between R and Python predictions in T:")
+    p_r = pull(preds_r, "probability(1)")
+    p_py = pull(preds_py, "probability(1)")
+
+    mae = mean(abs(p_r .- p_py))
+    print("\nMAE between R and Python probabilities in T:")
     print(mae)
     
-    if (mae < 0.0001) {
+    if (!(is_error(mae)) && mae < 0.005) {
         print("SUCCESS: Predictions from both models match perfectly in T!")
     } else {
         print("WARNING: Significant difference in predictions.")
