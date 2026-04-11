@@ -6,10 +6,10 @@ description = "GLM Example: Warpbreaks Poisson/NegBinom regression"
 min_version = "0.51.2"
 
 [r-dependencies]
-packages = ["arrow", "MASS"]
+packages = ["arrow", "MASS", "XML", "jsonlite", "r2pmml"]
 
 [py-dependencies]
-packages = ["statsmodels", "pandas", "pyarrow", "patsy"]
+packages = ["statsmodels", "pandas", "pyarrow", "patsy", "numpy", "scikit-learn", "scipy", "sklearn2pmml"]
 
 [additional-tools]
-packages = ["jpmml-evaluator", "jre"]
+packages = ["jpmml-evaluator", "jre", "jpmml-statsmodels"]
