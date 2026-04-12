@@ -27,12 +27,19 @@
             arrow
           ];
         };
+
+        # Python environment
+        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
+          pandas
+          pyarrow
+        ]);
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
             t-lang.packages.${system}.default
             r-env
+            py-env
           ];
 
           shellHook = ''
