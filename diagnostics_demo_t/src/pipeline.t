@@ -1,7 +1,7 @@
 -- Define a pipeline designed to surface various diagnostic states
 p = pipeline {
     -- --- R Nodes ---
-    
+
     -- Base data source
     raw_data = node(
         command = <{
@@ -13,7 +13,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^arrow
-    );
+    )
 
     -- R Node that triggers a native warning but completes successfully
     r_warn = node(
@@ -24,7 +24,7 @@ p = pipeline {
         runtime = R,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     -- R Node that fails with a terminal error
     -- This will demonstrate how the pipeline handles failure at the R boundary
@@ -33,7 +33,7 @@ p = pipeline {
             stop("Critical: R failed to allocate memory for large-scale join")
         }>,
         runtime = R
-    );
+    )
 
     -- --- Python Nodes ---
 
@@ -47,7 +47,7 @@ p = pipeline {
         runtime = Python,
         serializer = ^arrow,
         deserializer = ^arrow
-    );
+    )
 
     -- Python node that raises an exception
     py_err = node(
@@ -56,7 +56,7 @@ p = pipeline {
         }>,
         inputs = [py_warn], -- Depends on py_warn to show successful vs failed chains
         runtime = Python
-    );
+    )
 
     -- --- T Nodes (First-Class Diagnostics) ---
 
@@ -65,20 +65,20 @@ p = pipeline {
     t_warn = node(
         command = \(df) df |> filter($val > 20),
         inputs = [raw_data]
-    );
+    )
 
     -- T node that triggers a Runtime Error due to NA propagation
     -- sum() will fail because na_rm defaults to false and NAs are present
     t_err = node(
         command = \(df) sum(df.val),
         inputs = [raw_data]
-    );
+    )
 
     -- Successful aggregation node for comparison
     summary_stats = node(
         command = \(df) df |> group_by($category) |> summarize($avg = mean($val, na_rm = true)),
         inputs = [raw_data]
-    );
+    )
 }
 
 print("======================================================================")
