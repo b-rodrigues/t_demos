@@ -1,0 +1,12 @@
+[project]
+name = "diagnostics_demo_t"
+description = "Observability Demo: Node errors and warnings across T, R, and Python"
+
+[t]
+min_version = "0.51.2"
+
+[r-dependencies]
+packages = ["arrow"]
+
+[python-dependencies]
+packages = ["pyarrow", "pandas"]
