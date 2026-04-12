@@ -5,6 +5,7 @@ p = pipeline {
     -- Base data source
     raw_data = node(
         command = <{
+            # Rebuild with new serializer
             data.frame(
                 id = 1:5,
                 val = c(10, 22.5, NA, 40.1, 55.0),
@@ -63,21 +64,21 @@ p = pipeline {
     -- T node that triggers an NA exclusion warning (First-class diagnostic)
     -- The filter() function will exclude the row where val is NA
     t_warn = node(
-        command = \(df) df |> filter($val > 20),
-        inputs = [raw_data]
+        command = raw_data |> filter($val > 20),
+        deserializer = ^arrow
     )
 
     -- T node that triggers a Runtime Error due to NA propagation
     -- sum() will fail because na_rm defaults to false and NAs are present
-    t_err = node(
-        command = \(df) sum(df.val),
-        inputs = [raw_data]
-    )
+    -- t_err = node(
+    --     command = sum(raw_data.val),
+    --     deserializer = ^arrow
+    -- )
 
     -- Successful aggregation node for comparison
     summary_stats = node(
-        command = \(df) df |> group_by($category) |> summarize($avg = mean($val, na_rm = true)),
-        inputs = [raw_data]
+        command = raw_data |> group_by($category) |> summarize($avg = mean($val, na_rm = true)),
+        deserializer = ^arrow
     )
 }
 
@@ -102,13 +103,17 @@ print("Step 2: Inspecting accumulated node diagnostics via explain()...")
 explain(p)
 
 print("")
-print("Step 3: Checking individual node statuses...")
--- We can check specific node outputs if they built successfully
-if (identical(type(res.summary_stats), "DataFrame")) {
-    print("✓ Node 'summary_stats' success:")
-    print(res.summary_stats)
-} else {
-    print("✗ Node 'summary_stats' failed.")
+print("Step 4: Inspecting first-class errors from polyglot nodes...")
+print("Checking 'py_err' (which failed during build):")
+
+py_err_val = read_node("py_err")
+print(str_join(["Type: ", type(py_err_val)]))
+
+if (identical(type(py_err_val), "Error")) {
+    print(str_join(["Error message: ", py_err_val.message]))
+    print("Traceback preview:")
+    -- The traceback is in the context (via py_write_error)
+    print(py_err_val.context.runtime_traceback)
 }
 
 print("")
