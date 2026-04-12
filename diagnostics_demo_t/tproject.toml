@@ -5,7 +5,7 @@ description = "Observability Demo: Node errors and warnings across T, R, and Pyt
 [dependencies]
 
 [r-dependencies]
-packages = ["arrow"]
+packages = ["arrow", "jsonlite"]
 
 [py-dependencies]
 version = "python314"
