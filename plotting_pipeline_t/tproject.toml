@@ -3,10 +3,10 @@ name = "plotting_pipeline_t"
 description = "Demo of ggplot2 and matplotlib metadata capture"
 
 [t]
-min_version = "0.51.4"
+min_version = "0.51.3"
 
 [r-dependencies]
-packages = ["ggplot2"]
+packages = ["ggplot2", "jsonlite"]
 
 [py-dependencies]
 packages = ["matplotlib", "pandas"]
