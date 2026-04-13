@@ -6,7 +6,7 @@ description = "Demo of ggplot2 and matplotlib metadata capture"
 min_version = "0.51.3"
 
 [r-dependencies]
-packages = ["ggplot2", "jsonlite"]
+packages = ["ggplot2"]
 
 [py-dependencies]
 packages = ["matplotlib", "pandas"]
