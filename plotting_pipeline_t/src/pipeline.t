@@ -4,7 +4,7 @@ p = pipeline {
             data.frame(x = 1:10, y = (1:10)^2)
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^csv
     )
 
     ggplot_node = node(
@@ -16,7 +16,7 @@ p = pipeline {
                 labs(title = "R Plot", x = "Input X", y = "Squared Y")
         }>,
         runtime = R,
-        dependencies = ["data_node"]
+        deserializer = ^csv
     )
 
     matplotlib_node = node(
@@ -32,7 +32,7 @@ ax.set_ylabel("Squared Y")
 fig
         }>,
         runtime = Python,
-        dependencies = ["data_node"]
+        deserializer = ^csv
     )
 }
 
