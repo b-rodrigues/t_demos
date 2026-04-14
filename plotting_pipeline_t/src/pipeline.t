@@ -32,7 +32,6 @@ ax.set_ylabel("Squared Y")
 matplotlib_node = fig
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -50,7 +49,6 @@ plot.set_title("Seaborn Plot")
 seaborn_node = plot
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -64,7 +62,6 @@ fig = px.line(df, x='x', y='y', title="Plotly Plot")
 plotly_node = fig
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -78,7 +75,6 @@ chart = alt.Chart(df).mark_line().encode(x='x', y='y').properties(title="Altair 
 altair_node = chart
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -93,7 +89,6 @@ p.line(df['x'], df['y'], line_width=2)
 bokeh_node = p
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -109,7 +104,6 @@ p = (ggplot(df, aes(x='x', y='y'))
 plotnine_node = p
         }>,
         runtime = Python,
-        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 }
