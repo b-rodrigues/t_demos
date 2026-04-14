@@ -1,0 +1,47 @@
+Documentation: no docs.json found in any search path; proceeding without documentation.
+Building Plotting Demo pipeline... 
+
+Starting pipeline build...
+  + bokeh_node building
+  + seaborn_node building
+
+  ✖ Node bokeh_node failed! For full logs, run: read_log("bokeh_node")
+
+
+--- Logs for failed node `bokeh_node` ---
+[1;35mAttributeError[0m: [35mtype object 'StyledElement' has no attribute '<lambda>'[0m
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File [35m"/build/node_script.py"[0m, line [35m329[0m, in [35m<module>[0m
+    [31mserialize[0m[1;31m(bokeh_node, os.path.join(os.environ['out'], 'artifact'))[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"/build/node_script.py"[0m, line [35m274[0m, in [35mserialize[0m
+    [31mpickle.dump[0m[1;31m(obj, f)[0m
+    [31m~~~~~~~~~~~[0m[1;31m^^^^^^^^[0m
+[1;35m_pickle.PicklingError[0m: [35mCan't pickle <function StyledElement.<lambda> at 0x7fff77d13950>: it's not found as bokeh.models.ui.ui_element.StyledElement.<lambda>[0m
+when serializing tuple item 1
+when serializing list item 0
+when serializing dict item 'alternatives'
+when serializing bokeh.core.property.container.List state
+when serializing bokeh.core.property.container.List object
+when serializing dict item 'property'
+when serializing bokeh.core.property.descriptors.PropertyDescriptor state
+when serializing bokeh.core.property.descriptors.PropertyDescriptor object
+when serializing tuple item 1
+when serializing set element
+when serializing dict item '_owners'
+when serializing bokeh.core.property.wrappers.PropertyValueList state
+when serializing bokeh.core.property.wrappers.PropertyValueList object
+when serializing dict item 'css_classes'
+when serializing dict item '_unstable_default_values'
+when serializing bokeh.models.annotations.labels.Title state
+when serializing bokeh.models.annotations.labels.Title object
+when serializing dict item 'title'
+when serializing dict item '_property_values'
+when serializing bokeh.plotting._figure.figure state
+when serializing bokeh.plotting._figure.figure object
+
+✖ Pipeline build failed [1 nodes errored: bokeh_node]
+Error(FileError: "[src/pipeline.t:L112:C7] nix-build failed. See details above.")

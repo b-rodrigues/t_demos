@@ -78,20 +78,6 @@ altair_node = chart
         deserializer = ^csv
     )
 
-    bokeh_node = node(
-        command = <{
-from bokeh.plotting import figure
-import pandas as pd
-
-df = pd.DataFrame(data_node)
-p = figure(title="Bokeh Plot", x_axis_label='x', y_axis_label='y')
-p.line(df['x'], df['y'], line_width=2)
-bokeh_node = p
-        }>,
-        runtime = Python,
-        deserializer = ^csv
-    )
-
     plotnine_node = node(
         command = <{
 from plotnine import ggplot, aes, geom_line, labs
@@ -141,10 +127,6 @@ if (is_error(res)) {
     a_path = show_plot(altair_node)
     print("Saved to: ", a_path)
     
-    print("Rendering bokeh...")
-    b_path = show_plot(bokeh_node)
-    print("Saved to: ", b_path)
-
     print("Rendering plotnine...")
     pn_path = show_plot(plotnine_node)
     print("Saved to: ", pn_path)
