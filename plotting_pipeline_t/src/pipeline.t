@@ -118,8 +118,8 @@ if (is_error(res)) {
     print("Build successful.\n")
     
     print("--- Testing show_plot (renders to _pipeline/ and opens viewer) ---")
-    # In CI, show_plot will render the PNGs but opening the viewer might fail or be ignored.
-    # The PNGs will be saved in _pipeline/
+    -- In CI, show_plot will render the PNGs but opening the viewer might fail or be ignored.
+    -- The PNGs will be saved in _pipeline/
     
     print("Rendering ggplot2...")
     g_path = show_plot(ggplot_node)
