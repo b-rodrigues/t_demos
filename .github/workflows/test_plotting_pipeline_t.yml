@@ -64,3 +64,10 @@ jobs:
         working-directory: ./plotting_pipeline_t
         run: |
           nix develop --command t run src/pipeline.t
+
+      - name: Upload Plot Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plotting-demo-results
+          path: plotting_pipeline_t/_pipeline/*.png
