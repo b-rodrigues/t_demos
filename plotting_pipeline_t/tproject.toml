@@ -9,4 +9,4 @@ min_version = "0.51.3"
 packages = ["ggplot2"]
 
 [py-dependencies]
-packages = ["matplotlib", "pandas"]
+packages = ["matplotlib", "pandas", "seaborn", "plotly", "kaleido", "altair", "vl-convert-python", "bokeh", "selenium", "plotnine", "cloudpickle"]

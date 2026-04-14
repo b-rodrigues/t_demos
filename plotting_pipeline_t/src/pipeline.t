@@ -29,9 +29,10 @@ ax.plot(data_node['x'], data_node['y'], 'ro-')
 ax.set_title("Python Plot")
 ax.set_xlabel("Input X")
 ax.set_ylabel("Squared Y")
-fig
+matplotlib_node = fig
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -46,9 +47,10 @@ df = pd.DataFrame(data_node)
 plt.figure()
 plot = sns.lineplot(x='x', y='y', data=df)
 plot.set_title("Seaborn Plot")
-plot
+seaborn_node = plot
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -59,9 +61,10 @@ import pandas as pd
 
 df = pd.DataFrame(data_node)
 fig = px.line(df, x='x', y='y', title="Plotly Plot")
-fig
+plotly_node = fig
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -72,9 +75,10 @@ import pandas as pd
 
 df = pd.DataFrame(data_node)
 chart = alt.Chart(df).mark_line().encode(x='x', y='y').properties(title="Altair Plot")
-chart
+altair_node = chart
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -86,9 +90,10 @@ import pandas as pd
 df = pd.DataFrame(data_node)
 p = figure(title="Bokeh Plot", x_axis_label='x', y_axis_label='y')
 p.line(df['x'], df['y'], line_width=2)
-p
+bokeh_node = p
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 
@@ -101,9 +106,10 @@ df = pd.DataFrame(data_node)
 p = (ggplot(df, aes(x='x', y='y')) 
      + geom_line() 
      + labs(title="Plotnine Plot"))
-p
+plotnine_node = p
         }>,
         runtime = Python,
+        env_vars = { MPLCONFIGDIR = "_pipeline" },
         deserializer = ^csv
     )
 }
