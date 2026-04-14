@@ -1,0 +1,15 @@
+[project]
+name = "get_sym_demo_t"
+description = "Demo of get() and sym() functionalities"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[t]
+min_version = "0.51.2"
