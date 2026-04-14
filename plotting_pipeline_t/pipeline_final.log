@@ -1,0 +1,34 @@
+Documentation: no docs.json found in any search path; proceeding without documentation.
+Building Plotting Demo pipeline... 
+
+Starting pipeline build...
+  + data_node building
+  + altair_node building
+  + ggplot_node building
+  + matplotlib_node building
+  + plotly_node building
+  + plotnine_node building
+  + seaborn_node building
+
+✓ Pipeline build completed [7/7 nodes built successfully]
+Build successful.
+ 
+--- Testing show_plot (renders to _pipeline/ and opens viewer) --- 
+Rendering ggplot2... 
+Saved to:  _pipeline/show_plot_render_20260414_135157_71241.png 
+Rendering matplotlib... 
+Saved to:  _pipeline/show_plot_render_20260414_135201_71241.png 
+Rendering seaborn... 
+Saved to:  _pipeline/show_plot_render_20260414_135213_71241.png 
+Rendering plotly... 
+Saved to:  _pipeline/show_plot_render_20260414_135225_71241.png 
+Rendering altair... 
+Saved to:  _pipeline/show_plot_render_20260414_135240_71241.png 
+Rendering plotnine... 
+Saved to:  _pipeline/show_plot_render_20260414_135254_71241.png 
+
+--- Metadata check --- 
+ggplot2 Title:  R Plot 
+matplotlib Title:  Python Plot 
+seaborn Class:  matplotlib 
+plotly Class:  plotly 
