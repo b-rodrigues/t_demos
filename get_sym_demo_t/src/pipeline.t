@@ -1,4 +1,4 @@
-# get() and sym() Demo with Assertions
+-- get() and sym() Demo with Assertions
 
 p = pipeline {
   -- Define some nodes
