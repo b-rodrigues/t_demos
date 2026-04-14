@@ -34,10 +34,10 @@ p = pipeline {
   test_sym = assert(type(s) == "Symbol")
 
   -- Using get with a Dict and Lens
-  my_dict = {
-    a = 1,
-    b = 2
-  }
+  my_dict = [
+    a: 1,
+    b: 2
+  ]
   l = col_lens("b")
   val4 = get(my_dict, l)
   test_val4 = assert(val4 == 2)
