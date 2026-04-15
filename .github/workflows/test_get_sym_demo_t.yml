@@ -57,7 +57,7 @@ jobs:
 
       - name: Run Pipeline (Assertions inside)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --unsafe src/pipeline.t
 
       - name: Verify all_passed node
         run: |
