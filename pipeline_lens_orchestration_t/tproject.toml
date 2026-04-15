@@ -1,0 +1,8 @@
+[project]
+name = "pipeline_lens_orchestration_t"
+version = "0.1.0"
+description = "Demo of Pipeline Orchestration using Lenses"
+authors = ["Antigravity"]
+
+[dependencies]
+# Standard T library is enough
