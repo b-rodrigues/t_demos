@@ -6,11 +6,11 @@ p = pipeline {
   var_name = "my_var"
 
   -- Use get() to lookup nodes or variables
-  val1 = get("my_var")
+  val1 = node(command = get("my_var"), deps = [my_var])
   test_val1 = assert(val1 == 42)
 
   -- Use get() with sym()
-  val2 = get(sym(var_name))
+  val2 = node(command = get(sym(var_name)), deps = [my_var, var_name])
   test_val2 = assert(val2 == 42)
 
   -- Collection indexing with get()
@@ -18,14 +18,18 @@ p = pipeline {
   val3 = get(my_list, 2)
   test_val3 = assert(val3 == 30)
 
-  node_a = 100
-  node_b = 200
+  node_a = node(command = 100, serializer = "json")
+  node_b = node(command = 200, serializer = "json")
   
   -- A node that decides which node to access dynamically via node_lens
-  dynamic_access = \(p_self: Pipeline) {
-    target = "node_a"
-    get(p_self, node_lens(target))
-  }
+  dynamic_access = node(
+    command = {
+      target = "node_a"
+      get(node_lens(target))
+    },
+    deps = [node_a, node_b],
+    deserializer = [node_a: "json", node_b: "json"]
+  )
   test_dynamic = assert(dynamic_access == 100)
 
   -- Testing sym() construction
