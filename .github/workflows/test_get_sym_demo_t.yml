@@ -61,5 +61,5 @@ jobs:
 
       - name: Verify all_passed node
         run: |
-          echo "p = read_pipeline(); assert(p.all_passed == true)" > verify.t
+          echo "all_passed = read_node('all_passed'); assert(all_passed == true)" > verify.t
           nix develop --command t run --unsafe verify.t
