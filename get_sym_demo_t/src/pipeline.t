@@ -48,6 +48,8 @@ p = pipeline {
   )
 }
 
+populate_pipeline(p, build=true)
+
 -- Execution and results presentation
 print("--- get() and sym() Pipeline Results ---")
 print("All assertions passed:")
