@@ -28,7 +28,7 @@ p = pipeline {
     handled_node = node(
         command = risky_node ?|> \(input) {
             if (is_error(input)) {
-                print("Warning: Dependency failed with message:", error_message(input))
+                print(str_sprintf("Warning: Dependency failed with message: %s", error_message(input)))
                 "Fallback Data"
             } else {
                 input
@@ -52,6 +52,6 @@ p = pipeline {
 build_pipeline(p, verbose = 1)
 
 -- Verify results
-print("handled_node result:", p$handled_node)
-print("local_recovery result:", p$local_recovery)
-print("Is risky_node an error?", is_error(p$risky_node))
+print(str_sprintf("handled_node result: %s", p.handled_node))
+print(str_sprintf("local_recovery result: %s", p.local_recovery))
+print(str_sprintf("Is risky_node an error? %s", is_error(p.risky_node)))
