@@ -1,0 +1,15 @@
+[project]
+name = "error_recovery_t"
+description = "Demonstrates cross-node error recovery and using ?|> for resilient pipelines"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[t]
+min_version = "0.51.2"
