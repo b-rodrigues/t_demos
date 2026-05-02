@@ -10,11 +10,11 @@ p = pipeline {
         command = <{
             df <- data.frame(
                 id = 1:5,
-                age = c(25, -5, 30, 40, 22),              -- Violation: age < 0
-                score = c(85, 90, 150, 70, 60),           -- Violation: score > 100
+                age = c(25, -5, 30, 40, 22),              # Violation: age < 0
+                score = c(85, 90, 150, 70, 60),           # Violation: score > 100
                 signup_date = c("2023-01-01", "2023-01-10", "2023-02-01", "2023-03-01", "2023-04-01"),
-                last_login = c("2023-01-05", "2023-01-08", "2023-02-10", "2023-03-05", "2023-04-10"), -- Violation: id=2 login < signup
-                email = c("a@b.com", "b@c.com", NA, "d@e.com", "f@g.com"), -- Violation: NA in critical field
+                last_login = c("2023-01-05", "2023-01-08", "2023-02-10", "2023-03-05", "2023-04-10"), # Violation: id=2 login < signup
+                email = c("a@b.com", "b@c.com", NA, "d@e.com", "f@g.com"), # Violation: NA in critical field
                 stringsAsFactors = FALSE
             )
             df
@@ -35,8 +35,8 @@ p = pipeline {
             )
             
             -- Multi-step assertions with descriptive messages
-            assert(s.min_age[0] >= 0, "GUARDRAIL FAILURE: Negative age values detected in input data!")
-            assert(s.max_score[0] <= 100, "GUARDRAIL FAILURE: Scores exceeding 100 detected!")
+            assert(get(s.min_age, 0) >= 0, "GUARDRAIL FAILURE: Negative age values detected in input data!")
+            assert(get(s.max_score, 0) <= 100, "GUARDRAIL FAILURE: Scores exceeding 100 detected!")
             
             raw_data
         }>,
@@ -88,9 +88,13 @@ p = pipeline {
     final_analytics = node(
         [validate_ranges, validate_dates, validate_nulls],
         command = <{
-            print("✓ SUCCESS: All data guardrails passed. Proceeding with analysis...")
-            -- In a real scenario, this would be a complex model or report
-            validate_ranges |> summarize(avg_age = mean($age))
+            if (is_error(validate_ranges) || is_error(validate_dates) || is_error(validate_nulls)) {
+                print("✖ ERROR: One or more data guardrails failed. Analysis aborted.")
+                Error("Aborted due to upstream guardrail failures.")
+            } else {
+                print("✓ SUCCESS: All data guardrails passed. Proceeding with analysis...")
+                validate_ranges |> summarize(avg_age = mean($age))
+            }
         }>,
         runtime = T,
         deserializer = [validate_ranges: ^arrow]
@@ -110,6 +114,10 @@ print("\nPipeline Summary:")
 print(pipeline_summary(p))
 
 print("\nInspecting Guardrail Status:")
-print(str_join(["Range Check: ", explain(p.validate_ranges.error)]))
-print(str_join(["Date Check:  ", explain(p.validate_dates.error)]))
-print(str_join(["Null Check:  ", explain(p.validate_nulls.error)]))
+res_ranges = read_node(p, "validate_ranges")
+res_dates = read_node(p, "validate_dates")
+res_nulls = read_node(p, "validate_nulls")
+
+print(str_join(["Range Check: ", explain(res_ranges.error)]))
+print(str_join(["Date Check:  ", explain(res_dates.error)]))
+print(str_join(["Null Check:  ", explain(res_nulls.error)]))
