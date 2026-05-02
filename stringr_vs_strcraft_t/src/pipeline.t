@@ -1,7 +1,3 @@
-import strcraft
-import colcraft
-import dataframe
-
 p = pipeline {
     -- R node using stringr
     r_strings = node(
