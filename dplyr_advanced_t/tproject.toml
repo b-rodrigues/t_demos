@@ -4,4 +4,9 @@ version = "0.1.0"
 description = "Comparison of advanced dplyr features (across, relocate) with T-Lang equivalents"
 
 [dependencies]
-r = ["dplyr", "arrow"]
+
+[r-dependencies]
+packages = ["dplyr", "arrow", "jsonlite"]
+
+[t]
+min_version = "0.51.4"

@@ -1,6 +1,7 @@
 import colcraft
 import dataframe
 import stats
+import "src/across.t"
 
 p = pipeline {
     -- R node using advanced dplyr features like across()
@@ -28,17 +29,21 @@ p = pipeline {
         serializer = ^arrow
     );
 
-    -- T node showing native equivalents and additional transformations
     t_native = node(
         command = r_across
               |> mutate(
-                -- T performs per-row or vectorized mutation
                 val_a_log = log($val_a),
-                -- Complex conditional logic in T
                 status = if ($val_c > 0.15) { "High" } else { "Low" }
               )
-              -- T-Lang relocate supports symbol references
               |> relocate($status, .before = $tag),
+        runtime = T,
+        deserializer = ^arrow
+    );
+
+    -- T node using the across() implementation
+    t_across = node(
+        command = r_across
+              |> mutate_across(["val_a", "val_b", "val_c"], \(x) x * 2),
         runtime = T,
         deserializer = ^arrow
     )
@@ -47,8 +52,8 @@ p = pipeline {
 print("Running Advanced Dplyr (across, relocate) vs T-Lang pipeline...")
 populate_pipeline(p, build = true, verbose = 1)
 
-res = read_node("t_native")
-print("Transformed result preview:")
+res = read_node("t_across")
+print("T-Lang across() result preview:")
 glimpse(res)
 
 print("Columns relocated by T-Lang:")
