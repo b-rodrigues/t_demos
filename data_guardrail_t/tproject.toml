@@ -1,0 +1,12 @@
+[project]
+name = "data_guardrail_t"
+version = "0.1.0"
+authors = ["Antigravity"]
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr", "arrow", "jsonlite"]
+
+[t-dependencies]
+packages = ["core", "dataframe", "colcraft", "base", "stats", "chrono"]
