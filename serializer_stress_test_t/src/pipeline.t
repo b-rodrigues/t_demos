@@ -22,15 +22,13 @@ p = pipeline {
 
     -- Process in T
     summarized = node(
-        command = \(large_data) {
-            large_data 
+        command = large_data 
               |> group_by($label)
               |> summarize(
                 n = n(),
                 avg_f = mean($val_f),
                 sum_i = sum($val_i)
-              )
-        },
+              ),
         runtime = T
     )
 }

@@ -28,17 +28,14 @@ p = pipeline {
     -- We take r_dates as input just to demonstrate dependency, 
     -- but we could also just run it independently.
     comparison = node(
-        command = \(r_dates) {
-            -- r_dates is a DataFrame
-            r_dates
+        command = r_dates
               |> mutate(
                 t_parsed = ymd($date_str),
                 t_year = year($t_parsed),
                 t_month = month($t_parsed),
                 t_day = day($t_parsed),
                 t_plus_one_month = $t_parsed + months(1)
-              )
-        },
+              ),
         runtime = T
     )
 }

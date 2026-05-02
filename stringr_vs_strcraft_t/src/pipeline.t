@@ -23,15 +23,13 @@ p = pipeline {
 
     -- T node using strcraft
     comparison = node(
-        command = \(r_strings) {
-            r_strings
+        command = r_strings
               |> mutate(
                 t_trimmed = str_trim($raw),
                 t_upper = to_upper($raw),
                 t_has_digit = str_detect($raw, "\\d"),
                 t_replaced = str_replace($raw, "cool", "awesome")
-              )
-        },
+              ),
         runtime = T
     )
 }
