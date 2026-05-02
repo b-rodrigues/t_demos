@@ -36,7 +36,8 @@ p = pipeline {
                 t_day = day($t_parsed),
                 t_plus_one_month = $t_parsed + months(1)
               ),
-        runtime = T
+        runtime = T,
+        deserializer = ^arrow
     )
 }
 

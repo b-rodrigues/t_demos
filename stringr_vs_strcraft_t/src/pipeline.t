@@ -30,7 +30,8 @@ p = pipeline {
                 t_has_digit = str_detect($raw, "\\d"),
                 t_replaced = str_replace($raw, "cool", "awesome")
               ),
-        runtime = T
+        runtime = T,
+        deserializer = ^arrow
     )
 }
 

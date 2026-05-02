@@ -29,7 +29,8 @@ p = pipeline {
                 avg_f = mean($val_f),
                 sum_i = sum($val_i)
               ),
-        runtime = T
+        runtime = T,
+        deserializer = ^arrow
     )
 }
 
