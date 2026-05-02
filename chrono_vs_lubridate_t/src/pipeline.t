@@ -15,8 +15,8 @@ p = pipeline {
             df$r_year <- year(df$parsed)
             df$r_month <- month(df$parsed)
             df$r_day <- day(df$parsed)
-            -- Note: adding months in R might behave differently for end of month, 
-            -- but for these dates it's fine.
+            # Note: adding months in R might behave differently for end of month, 
+            # but for these dates it's fine.
             df$r_plus_one_month = df$parsed + months(1)
             df
         }>,
