@@ -1,0 +1,29 @@
+name: Test Polars vs T demo
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'polars_vs_t_t/**'
+      - '.github/workflows/test_polars_vs_t_t.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'polars_vs_t_t/**'
+
+jobs:
+  test-demo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v9
+
+    - name: Run T-Lang pipeline
+      run: |
+        nix shell github:b-rodrigues/tlang/v0.51.4#tlang --command bash -c "
+          cd polars_vs_t_t
+          t update
+          t run src/pipeline.t
+        "

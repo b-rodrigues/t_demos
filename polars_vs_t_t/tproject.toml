@@ -1,0 +1,8 @@
+[project]
+name = "polars_vs_t_t"
+version = "0.1.0"
+description = "Comparison of Python Polars and T-Lang native DataFrames"
+
+[dependencies]
+python = ["polars", "pyarrow"]
+r = ["arrow"]

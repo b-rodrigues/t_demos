@@ -1,0 +1,29 @@
+name: Test Advanced Dplyr demo
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'dplyr_advanced_t/**'
+      - '.github/workflows/test_dplyr_advanced_t.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'dplyr_advanced_t/**'
+
+jobs:
+  test-demo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@v9
+
+    - name: Run T-Lang pipeline
+      run: |
+        nix shell github:b-rodrigues/tlang/v0.51.4#tlang --command bash -c "
+          cd dplyr_advanced_t
+          t update
+          t run src/pipeline.t
+        "
