@@ -37,7 +37,8 @@ p = pipeline {
               )
               |> relocate($status, .before = $tag),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^arrow,
+        serializer = ^arrow
     );
 
     -- T node using the across() implementation
@@ -45,7 +46,17 @@ p = pipeline {
         command = r_across
               |> mutate_across(["val_a", "val_b", "val_c"], \(x) x * 2),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^arrow,
+        serializer = ^arrow
+    );
+
+    -- T node using summarize_across
+    t_summary = node(
+        command = r_across
+              |> summarize_across(["val_a", "val_b", "val_c"], mean),
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
     )
 }
 
@@ -55,6 +66,10 @@ populate_pipeline(p, build = true, verbose = 1)
 res = read_node("t_across")
 print("T-Lang across() result preview:")
 glimpse(res)
+
+print("T-Lang summarize_across() result:")
+res_sum = read_node("t_summary")
+print(res_sum)
 
 print("Columns relocated by T-Lang:")
 print(colnames(res))

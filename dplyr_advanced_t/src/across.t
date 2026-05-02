@@ -19,10 +19,10 @@ mutate_across = \(df: DataFrame, cols: List[String], fn: Any) {
 
 -- Implementation of summarize_across
 summarize_across = \(df: DataFrame, cols: List[String], fn: Any) {
-  results = map(cols, \(c: String) {
-     col_data = get(df, col_lens(c))
-     res = fn(col_data)
-     (c, [res])
-  })
-  dataframe(results)
+  muts = fold(cols, [], \(acc, c) {
+     col_sym = sym("$" + c)
+     e = expr(!!fn(!!col_sym))
+     [!!c := !!e, !!!acc]
+  }, fold)
+  eval(expr(!!df |> summarize(!!!muts)))
 }
