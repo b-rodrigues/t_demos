@@ -15,15 +15,26 @@ jobs:
   test-demo:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+    
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
 
-    - name: Install Nix
-    - uses: DeterminateSystems/nix-installer-action@main
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
 
-    - name: Run T-Lang pipeline
-      run: |
-        nix shell github:b-rodrigues/tlang/v0.51.4#tlang --command bash -c "
-          cd dplyr_advanced_t
-          t update
-          t run src/pipeline.t
-        "
+
+      - name: Run T-Lang pipeline
+        run: |
+          nix shell github:b-rodrigues/tlang/v0.51.4#tlang --command bash -c "
+            cd dplyr_advanced_t
+            t update
+            t run src/pipeline.t
+          " 
