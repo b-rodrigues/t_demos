@@ -1,0 +1,11 @@
+[project]
+name = "stringr_vs_strcraft_t"
+description = "Comparing T's strcraft package with R's stringr"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow", "stringr" ]
+
+[t]
+min_version = "0.51.2"

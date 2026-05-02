@@ -1,0 +1,11 @@
+[project]
+name = "serializer_stress_test_t"
+description = "Stress testing the Arrow serializer with 1,000,000 rows"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow" ]
+
+[t]
+min_version = "0.51.2"

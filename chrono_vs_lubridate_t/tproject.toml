@@ -1,0 +1,11 @@
+[project]
+name = "chrono_vs_lubridate_t"
+description = "Comparing T's chrono package with R's lubridate"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow", "lubridate" ]
+
+[t]
+min_version = "0.51.2"
