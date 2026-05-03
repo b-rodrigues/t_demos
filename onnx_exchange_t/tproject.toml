@@ -1,24 +1,43 @@
 [project]
 name = "onnx_exchange_t"
-description = "Train models in R and Python, exchange via ONNX, and predict in all runtimes."
+description = "A demo showcasing the exchange of a Python Scikit-Learn ONNX model to T-Lang"
 
 [dependencies]
+# T packages this project depends on
+# Format: package = { git = "repository-url", tag = "version" }
+# Example:
+# stats = { git = "https://github.com/t-lang/stats", tag = "v0.51.4" }
 
 [r-dependencies]
-packages = ["onnx", "dplyr", "arrow", "r2pmml"]
+# R packages this project depends on
+# Example:
+# packages = ["dplyr", "ggplot2"]
+packages = []
 
 [py-dependencies]
-version = "python313"
-packages = ["onnx", "onnxruntime", "sklearn2pmml", "scipy", "statsmodels"]
+# Python packages this project depends on
+version = "python314"
+# Example:
+# packages = ["pandas", "numpy"]
+packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]
+
+[visualization-tool]
+# Optional plot opener used by `show_plot()`
+# Example: command = "xdg-open"
+command = ""
 
 [additional-tools]
+# Additional Nix packages for the project (e.g., git, awk, jq, quarto)
+# If quarto is listed here, run `t update` and then `nix develop` to
+# provision `_extensions/tlang` automatically from the T flake so Quarto
+# can render `{t}` chunks.
 packages = []
 
 [latex]
+# LaTeX packages (starts from scheme-small, add packages here)
+# Example: packages = ["amsmath", "blindtext"]
 packages = []
 
 [t]
-min_version = "0.51.2"
-
-[nixpkgs]
-date = ""
+# Minimum T language version required
+min_version = "0.51.4"
