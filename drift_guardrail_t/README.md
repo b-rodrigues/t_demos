@@ -52,7 +52,14 @@ This project includes support for the **T Language Server (LSP)**.
 1. Configure your editor following the [Editor Support Guide](https://tstats-project.org/editors.html).
 2. Always launch your editor from within the `nix develop` environment (or use `direnv`).
 
-Once active, you'll get autocompletion for T functions, variables, and DataFrame columns (via `$`).
+## CI Simulation: Drift & Recovery
+
+This project includes a special GitHub Action ([simulate_drift_recovery.yml](.github/workflows/simulate_drift_recovery.yml)) that demonstrates a realistic data observability workflow:
+1. **Initial PASS**: Verifies the pipeline is healthy (Threshold = 15.0).
+2. **Detected DRIFT**: Tightens the threshold to 2.0 via `sed`, triggering an intentional guardrail failure.
+3. **RECOVERY**: Updates the threshold to 20.0 (simulating a policy adjustment), and verifies the pipeline returns to a healthy state.
+
+You can trigger this manually via the "Actions" tab in GitHub to see the "human-in-the-loop" simulation in the logs.
 
 ## License
 
