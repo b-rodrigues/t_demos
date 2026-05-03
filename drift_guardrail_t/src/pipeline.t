@@ -45,9 +45,9 @@ p = pipeline {
         command = <{
             live_stats = live_data |> summarize(avg_mpg = mean($mpg))
             
-            -- Use the enhanced 3-arg get() for safe baseline retrieval
-            b_mpg = get(baseline_stats, "avg_mpg", 0)
-            l_mpg = get(live_stats, "avg_mpg", 0)
+            -- Use the enhanced 3-arg get() with a Lens for safe column retrieval
+            b_mpg = get(baseline_stats, col_lens("avg_mpg"), 0)
+            l_mpg = get(live_stats, col_lens("avg_mpg"), 0)
             
             drift_val = abs(l_mpg - b_mpg)
             
