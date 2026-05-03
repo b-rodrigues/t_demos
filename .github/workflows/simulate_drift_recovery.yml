@@ -50,7 +50,7 @@ jobs:
       working-directory: ./drift_guardrail_t
       run: |
         echo "Verifying guardrail failure..."
-        nix develop --command t run --expr "import 'src/pipeline.t'; res = read_node('drift_guardrail'); if (is_error(res)) { print('✓ Guardrail failure detected:'); print(error_message(res)) } else { print('✖ FAILURE: Guardrail did not trigger!'); exit(1) }"
+        nix develop --command t run --expr "import 'src/pipeline.t'; node_res = read_node('drift_guardrail'); if (is_error(node_res)) { print('✓ Guardrail failure detected:'); print(error_message(node_res)) } else { print('✖ FAILURE: Guardrail did not trigger!'); exit(1) }"
 
     - name: 5. Recovery - Adjust Threshold (Policy Update)
       working-directory: ./drift_guardrail_t
@@ -64,4 +64,4 @@ jobs:
       run: |
         echo "Verifying recovery..."
         nix develop --command t run src/pipeline.t --unsafe
-        nix develop --command t run --expr "import 'src/pipeline.t'; res = read_node('drift_guardrail'); if (is_error(res)) { print('✖ FAILURE: Guardrail failed after recovery!'); print(error_message(res)); exit(1) } else { print('✓ Recovery successful: Guardrail passed.') }"
+        nix develop --command t run --expr "import 'src/pipeline.t'; node_res = read_node('drift_guardrail'); if (is_error(node_res)) { print('✖ FAILURE: Guardrail failed after recovery!'); print(error_message(node_res)); exit(1) } else { print('✓ Recovery successful: Guardrail passed.') }"
