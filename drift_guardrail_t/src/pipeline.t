@@ -63,7 +63,7 @@ p = pipeline {
         }>,
         runtime = T,
         deserializer = [ live_data: ^arrow, baseline_stats: ^arrow ],
-        serializer = ^arrow
+        serializer = ^json
     )
 }
 
