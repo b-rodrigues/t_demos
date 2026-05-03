@@ -1,3 +1,9 @@
+import core
+import colcraft
+import dataframe
+import stats
+import strcraft
+
 p = pipeline {
     -- 1. Load Baseline Data
     baseline_data = node(
