@@ -20,18 +20,6 @@ model
         serializer = ^onnx
     )
 
-    -- Inspect model metadata in T
-    model_stats = node(
-        train_model,
-        command = <{
-            stats = train_model.metadata
-            stats
-        }>,
-        runtime = T,
-        deserializer = [train_model: ^onnx],
-        serializer = ^json
-    )
-
     -- Read the ONNX model in T and score some new data
     score_model = node(
         train_model,
@@ -64,8 +52,5 @@ if (is_error(res)) {
 }
 
 print("\nModel trained in Python and scored in T-Lang successfully.")
-print("\nModel Metadata:")
-print(read_node("model_stats"))
-
-print("\nPredictions on test data:")
+print("Predictions on test data:")
 print(read_node("score_model"))
