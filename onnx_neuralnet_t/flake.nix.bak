@@ -1,5 +1,5 @@
 {
-  description = "onnx_neuralnet_t — a T data analysis project";
+  description = "onnx_classification_t — a T data analysis project";
 
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
@@ -39,7 +39,7 @@
 
           shellHook = ''
             echo "=================================================="
-            echo "T Project: onnx_neuralnet_t"
+            echo "T Project: onnx_classification_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
