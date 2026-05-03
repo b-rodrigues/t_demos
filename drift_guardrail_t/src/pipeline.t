@@ -53,9 +53,13 @@ p = pipeline {
             
             -- Guardrail Failure Condition (set to 15.0 to PASS by default)
             -- Change to 2.0 to trigger drift detection!
-            assert(drift_val < 15.0, str_join(["GUARDRAIL FAILURE: mpg drift is ", drift_val]))
+            res = assert(drift_val < 15.0, str_join(["GUARDRAIL FAILURE: mpg drift is ", drift_val]))
             
-            live_data
+            if (is_error(res)) {
+                res
+            } else {
+                live_data
+            }
         }>,
         runtime = T,
         deserializer = [ live_data: ^arrow, baseline_stats: ^arrow ],
