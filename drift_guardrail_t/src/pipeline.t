@@ -41,8 +41,8 @@ p = pipeline {
             
             -- Use the enhanced 3-arg get() with a Lens for safe column retrieval
             -- We pipe to get(0) to ensure we have a scalar Number for the abs() function
-            b_mpg = get(baseline_stats, col_lens("avg_mpg"), 0) |> get(0)
-            l_mpg = get(live_stats, col_lens("avg_mpg"), 0) |> get(0)
+            b_mpg = get(baseline_stats, col_lens("avg_mpg")) |> get(0)
+            l_mpg = get(live_stats, col_lens("avg_mpg")) |> get(0)
             
             drift_val = abs(l_mpg - b_mpg)
             
@@ -53,7 +53,7 @@ p = pipeline {
             if (is_error(res)) {
                 res
             } else {
-                live_data
+                true
             }
         }>,
         runtime = T,
