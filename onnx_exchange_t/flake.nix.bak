@@ -1,5 +1,5 @@
 {
-  description = "onnx_exchange_t — a T data analysis project";
+  description = "drift_guardrail_t — a T data analysis project";
 
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
@@ -20,26 +20,16 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-
-        # Python environment
-        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
-          scikit-learn
-          skl2onnx
-          onnxruntime
-          pandas
-          numpy
-        ]);
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
             t-lang.packages.${system}.default
-            py-env
           ];
 
           shellHook = ''
             echo "=================================================="
-            echo "T Project: onnx_exchange_t"
+            echo "T Project: drift_guardrail_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
