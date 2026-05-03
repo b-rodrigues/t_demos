@@ -1,0 +1,10 @@
+[project]
+name = "dynamic_features_t"
+version = "0.1.0"
+description = "Dynamic feature engineering pipeline with T-Lang"
+
+[r-dependencies]
+packages = ["dplyr", "readr", "jsonlite", "arrow"]
+
+[additional-tools]
+packages = ["jq"]
