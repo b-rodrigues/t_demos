@@ -1,30 +1,29 @@
 import core
 import colcraft
 import dataframe
+import strcraft
 
-pipeline {
+p = pipeline {
     -- 1. Load Baseline Data
     baseline_data = node(
-        command = <{ read_csv("data/mtcars.csv") }>,
+        command = <{ read_csv("data/mtcars.csv", separator = "|") }>,
         runtime = T,
         serializer = ^arrow
-    );
+    )
 
     -- 2. Compute Baseline Statistics
     baseline_stats = node(
         baseline_data,
         command = <{
             baseline_data |> summarize(
-                avg_mpg = mean($mpg),
-                avg_hp = mean($hp)
+                avg_mpg = mean($mpg)
             )
         }>,
         runtime = T,
         serializer = ^arrow
-    );
+    )
 
     -- 3. Simulate "Live" Data with a drift in mpg
-    -- (We add 10.0 to mpg to trigger the guardrail)
     live_data = node(
         baseline_data,
         command = <{
@@ -34,45 +33,45 @@ pipeline {
         }>,
         runtime = T,
         serializer = ^arrow
-    );
+    )
 
     -- 4. The Statistical Guardrail Node
-    -- This node monitors the drift and fails if it exceeds a threshold.
     drift_guardrail = node(
         live_data, baseline_stats,
         command = <{
-            -- Calculate current "live" stats
-            live_stats = live_data |> summarize(
-                avg_mpg = mean($mpg),
-                avg_hp = mean($hp)
-            )
-
-            -- Use the enhanced get() for safe data retrieval from the baseline node
-            -- We fallback to 0 if for some reason the baseline statistics are missing
+            live_stats = live_data |> summarize(avg_mpg = mean($mpg))
+            
+            -- Use the enhanced 3-arg get() for safe baseline retrieval
             b_mpg = get(baseline_stats, "avg_mpg", 0)
             l_mpg = get(live_stats, "avg_mpg", 0)
-
-            -- Compute the drift (absolute difference)
+            
             drift_val = abs(l_mpg - b_mpg)
             
-            -- Threshold for mpg drift
-            threshold = 2.0
-
-            -- Guardrail Assertion: 
-            -- Fails with a clear message if drift is too high
-            assert(
-                drift_val < threshold, 
-                str_join([
-                    "GUARDRAIL FAILURE: Significant drift detected in 'mpg'! ",
-                    "Observed: ", to_string(drift_val), 
-                    ", Limit: ", to_string(threshold)
-                ])
-            )
-
-            -- If we pass, return the data for downstream nodes
+            -- Guardrail Failure Condition
+            assert(drift_val < 2.0, str_join(["GUARDRAIL FAILURE: mpg drift is ", drift_val]))
+            
             live_data
         }>,
         runtime = T,
         serializer = ^arrow
-    );
+    )
+}
+
+print("==================================================")
+print("T-LANG DEMO: STATISTICAL DRIFT GUARDRAIL")
+print("==================================================")
+
+-- Populate and build the pipeline
+populate_pipeline(p, build = true)
+
+print("\nPipeline Summary:")
+print(pipeline_summary(p))
+
+-- Read the guardrail result
+res = read_node(p, "drift_guardrail")
+if (is_error(res.value)) {
+    print("\nGuardrail Status: FAILED (Expected)")
+    print(error_message(res.value))
+} else {
+    print("\nGuardrail Status: PASSED")
 }
