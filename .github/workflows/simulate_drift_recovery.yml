@@ -6,6 +6,7 @@ on:
     branches: [ master ]
     paths:
       - 'drift_guardrail_t/**'
+      - '.github/workflows/simulate_drift_recovery.yml'
 
 jobs:
   simulate-workflow:
