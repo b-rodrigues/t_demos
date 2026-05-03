@@ -28,7 +28,7 @@ jobs:
       working-directory: ./drift_guardrail_t
       run: |
         echo "Starting initial run with threshold 15.0..."
-        nix develop --command t run src/pipeline.t --unsafe
+        nix develop --command t run src/pipeline.t --unsafe --failfast
 
     - name: 2. Trigger Guardrail Failure (Set threshold to 2.0)
       working-directory: ./drift_guardrail_t
@@ -43,7 +43,7 @@ jobs:
       continue-on-error: true
       run: |
         echo "Running pipeline with tight threshold..."
-        nix develop --command t run src/pipeline.t --unsafe
+        nix develop --command t run src/pipeline.t --unsafe --failfast
 
     - name: 4. Inspect Failure
       if: steps.run_fail.outcome == 'failure'
@@ -67,5 +67,5 @@ jobs:
       working-directory: ./drift_guardrail_t
       run: |
         echo "Verifying recovery..."
-        nix develop --command t run src/pipeline.t --unsafe
+        nix develop --command t run src/pipeline.t --unsafe --failfast
         echo "✓ Recovery successful. Pipeline is healthy."
