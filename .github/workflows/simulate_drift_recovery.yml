@@ -46,16 +46,11 @@ jobs:
         echo "Running pipeline with tight threshold..."
         nix develop --command t run src/pipeline.t --unsafe
 
-    - name: 4. Inspect Failure
-      if: steps.run_fail.outcome == 'failure'
+    - name: 4. Inspect Failure (Verify Guardrail Triggered)
       working-directory: ./drift_guardrail_t
       run: |
-        echo "Guardrail triggered as expected!"
-        echo "Inspecting drift_guardrail node output..."
-        # In a real scenario, one might use t repl or read_node here.
-        # Since the build failed, we can check the _pipeline logs if we didn't use -L,
-        # but populate_pipeline(verbose=1) already printed them.
-        echo "The 'mpg' drift was ~10.0, which exceeded the 2.0 threshold."
+        echo "Verifying guardrail failure..."
+        nix develop --command t run --unsafe --expr "import pipeline; res = read_node('drift_guardrail'); if (is_error(res)) { print('✓ Guardrail failure detected:'); print(error_message(res)) } else { print('✖ FAILURE: Guardrail did not trigger!'); exit(1) }"
 
     - name: 5. Recovery - Adjust Threshold (Policy Update)
       working-directory: ./drift_guardrail_t
@@ -64,9 +59,9 @@ jobs:
         sed -i 's/drift_val < 2.0/drift_val < 20.0/' src/pipeline.t
         grep "assert" src/pipeline.t
 
-    - name: 6. Final Run (Passing)
+    - name: 6. Final Run & Verification (Recovery Success)
       working-directory: ./drift_guardrail_t
       run: |
         echo "Verifying recovery..."
         nix develop --command t run src/pipeline.t --unsafe
-        echo "✓ Recovery successful. Pipeline is healthy."
+        nix develop --command t run --unsafe --expr "import pipeline; res = read_node('drift_guardrail'); if (is_error(res)) { print('✖ FAILURE: Guardrail failed after recovery!'); print(error_message(res)); exit(1) } else { print('✓ Recovery successful: Guardrail passed.') }"

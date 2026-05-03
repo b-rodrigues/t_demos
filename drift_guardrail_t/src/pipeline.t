@@ -74,14 +74,3 @@ print("==================================================")
 -- Populate and build the pipeline
 populate_pipeline(p, build = true, verbose = 1)
 
-print("\nPipeline Summary:")
-print(pipeline_summary(p))
-
--- Read the guardrail result
-res = read_node(p, "drift_guardrail")
-if (is_error(res.value)) {
-    print("\nGuardrail Status: FAILED (Expected)")
-    print(error_message(res.value))
-} else {
-    print("\nGuardrail Status: PASSED")
-}
