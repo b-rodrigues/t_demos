@@ -71,6 +71,11 @@ print("==================================================")
 print("T-LANG DEMO: STATISTICAL DRIFT GUARDRAIL")
 print("==================================================")
 
--- Populate and build the pipeline
-populate_pipeline(p, build = true, verbose = 1)
+-- Populate and build the pipeline. We capture the result to prevent a hard exit(1) 
+-- on node failure, allowing the GitHub Action to perform programmatic inspection.
+res = populate_pipeline(p, build = true, verbose = 1)
+if (is_error(res)) {
+    print("\n[SOFT ERROR] Pipeline build completed with node failures.")
+}
+"Pipeline build finished."
 
