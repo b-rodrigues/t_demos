@@ -1,0 +1,43 @@
+[project]
+name = "onnx_neuralnet_t"
+description = "A demo showcasing ONNX exchange for a Scikit-Learn MLPClassifier neural network"
+
+[dependencies]
+# T packages this project depends on
+# Format: package = { git = "repository-url", tag = "version" }
+# Example:
+# stats = { git = "https://github.com/t-lang/stats", tag = "v0.51.4" }
+
+[r-dependencies]
+# R packages this project depends on
+# Example:
+# packages = ["dplyr", "ggplot2"]
+packages = []
+
+[py-dependencies]
+# Python packages this project depends on
+version = "python314"
+# Example:
+# packages = ["pandas", "numpy"]
+packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]
+
+[visualization-tool]
+# Optional plot opener used by `show_plot()`
+# Example: command = "xdg-open"
+command = ""
+
+[additional-tools]
+# Additional Nix packages for the project (e.g., git, awk, jq, quarto)
+# If quarto is listed here, run `t update` and then `nix develop` to
+# provision `_extensions/tlang` automatically from the T flake so Quarto
+# can render `{t}` chunks.
+packages = []
+
+[latex]
+# LaTeX packages (starts from scheme-small, add packages here)
+# Example: packages = ["amsmath", "blindtext"]
+packages = []
+
+[t]
+# Minimum T language version required
+min_version = "0.51.4"
