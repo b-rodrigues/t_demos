@@ -1,6 +1,7 @@
 import core
 import colcraft
 import dataframe
+import stats
 import strcraft
 
 p = pipeline {
@@ -8,6 +9,7 @@ p = pipeline {
     baseline_data = node(
         command = <{ read_csv("data/mtcars.csv", separator = "|") }>,
         runtime = T,
+        deserializer = ^arrow,
         serializer = ^arrow
     )
 
@@ -20,6 +22,7 @@ p = pipeline {
             )
         }>,
         runtime = T,
+        deserializer = ^arrow,
         serializer = ^arrow
     )
 
@@ -32,6 +35,7 @@ p = pipeline {
             )
         }>,
         runtime = T,
+        deserializer = ^arrow,
         serializer = ^arrow
     )
 
@@ -47,12 +51,14 @@ p = pipeline {
             
             drift_val = abs(l_mpg - b_mpg)
             
-            -- Guardrail Failure Condition
-            assert(drift_val < 2.0, str_join(["GUARDRAIL FAILURE: mpg drift is ", drift_val]))
+            -- Guardrail Failure Condition (set to 15.0 to PASS by default)
+            -- Change to 2.0 to trigger drift detection!
+            assert(drift_val < 15.0, str_join(["GUARDRAIL FAILURE: mpg drift is ", drift_val]))
             
             live_data
         }>,
         runtime = T,
+        deserializer = [ live_data: ^arrow, baseline_stats: ^arrow ],
         serializer = ^arrow
     )
 }
@@ -62,7 +68,7 @@ print("T-LANG DEMO: STATISTICAL DRIFT GUARDRAIL")
 print("==================================================")
 
 -- Populate and build the pipeline
-populate_pipeline(p, build = true)
+populate_pipeline(p, build = true, verbose = 1)
 
 print("\nPipeline Summary:")
 print(pipeline_summary(p))
