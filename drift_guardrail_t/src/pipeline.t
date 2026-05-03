@@ -1,9 +1,3 @@
-import core
-import colcraft
-import dataframe
-import stats
-import strcraft
-
 p = pipeline {
     -- 1. Load Baseline Data
     baseline_data = node(
@@ -46,8 +40,9 @@ p = pipeline {
             live_stats = live_data |> summarize(avg_mpg = mean($mpg))
             
             -- Use the enhanced 3-arg get() with a Lens for safe column retrieval
-            b_mpg = get(baseline_stats, col_lens("avg_mpg"), 0)
-            l_mpg = get(live_stats, col_lens("avg_mpg"), 0)
+            -- We pipe to get(0) to ensure we have a scalar Number for the abs() function
+            b_mpg = get(baseline_stats, col_lens("avg_mpg"), 0) |> get(0)
+            l_mpg = get(live_stats, col_lens("avg_mpg"), 0) |> get(0)
             
             drift_val = abs(l_mpg - b_mpg)
             
