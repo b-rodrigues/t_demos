@@ -5,7 +5,10 @@ on:
   repository_dispatch:
     types: [ coverage-run ]
   schedule:
-    - cron: '0 3 * * 1'
+    - cron: '0 3 * * 1' # weekly, Monday 03:00 UTC
+
+permissions:
+  contents: read
 
 env:
   BISECT_DIR: /tmp/tlang-coverage
@@ -63,15 +66,7 @@ jobs:
             )
           done
 
-          for script in \
-            pipeline_lens_orchestration_t/src/main.t \
-            lens_demo_t/src/pipeline.t \
-            deep_data_lenses_t/src/pipeline.t \
-            dynamic_pipeline_operator_t/src/pipeline.t \
-            error_propagation_circuit_t/src/pipeline.t \
-            get_sym_demo_t/src/pipeline.t \
-            pipeline_ops_t/src/pipeline.t \
-          ; do
+          find . -path '*/src/main.t' | sort | while read -r script; do
             if [ -f "$script" ]; then
               demo_dir=$(dirname "$(dirname "$script")")
               script_path=$(realpath --relative-to="$demo_dir" "$script")
@@ -82,7 +77,7 @@ jobs:
                   "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
                   --command t run --unsafe "$script_path" \
                 || true
-              ) || true
+              )
             fi
           done
 
