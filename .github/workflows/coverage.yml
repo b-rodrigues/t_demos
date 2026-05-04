@@ -42,22 +42,32 @@ jobs:
         run: |
           REPO="${{ github.event.client_payload.repo }}"
           SHA="${{ github.event.client_payload.sha }}"
-          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+          if [[ -z "$REPO" || "$REPO" == "null" ]]; then
             REPO="$DEFAULT_TLANG_REPO"
-            SHA=$(gh api repos/$DEFAULT_TLANG_REPO/commits/main --jq '.sha')
-            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            SHA=$(gh api repos/$REPO/commits/main --jq '.sha')
+            echo "No dispatch payload SHA, falling back to $REPO/main: $SHA"
           fi
           echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Collect coverage across all demos
         run: |
+          set -euo pipefail
+
           mkdir -p "$BISECT_DIR"
 
-          find . -path './.git' -prune -o -type f -path '*/src/pipeline.t' -print | sort | while read -r script; do
+          run_coverage_script() {
+            local script="$1"
+            local label="$2"
+            local demo_dir
+            local script_path
+
             demo_dir=$(dirname "$(dirname "$script")")
             script_path=$(realpath --relative-to="$demo_dir" "$script")
-            echo "--- Running $script ---"
+
+            echo "--- Running $label: $script ---"
             (
               cd "$demo_dir"
               if ! nix shell \
@@ -67,21 +77,14 @@ jobs:
                 echo "Coverage run failed for $script_path (continuing)"
               fi
             )
+          }
+
+          find . -path './.git' -prune -o -type f -path '*/src/pipeline.t' -print | sort | while read -r script; do
+            run_coverage_script "$script" "pipeline"
           done
 
           find . -path './.git' -prune -o -type f -path '*/src/main.t' -print | sort | while read -r script; do
-            demo_dir=$(dirname "$(dirname "$script")")
-            script_path=$(realpath --relative-to="$demo_dir" "$script")
-            echo "--- Running standalone: $script ---"
-            (
-              cd "$demo_dir"
-              if ! nix shell \
-                "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                --command t run --unsafe "$script_path"
-              then
-                echo "Coverage run failed for $script_path (continuing)"
-              fi
-            )
+            run_coverage_script "$script" "standalone"
           done
 
           echo "Coverage files collected:"
