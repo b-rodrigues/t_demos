@@ -59,26 +59,28 @@ jobs:
             echo "--- Running $script ---"
             (
               cd "$demo_dir"
-              nix shell \
+              if ! nix shell \
                 "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                --command t run --unsafe "$script_path" \
-              || true
+                --command t run --unsafe "$script_path"
+              then
+                echo "Coverage run failed for $script_path (continuing)"
+              fi
             )
           done
 
           find . -path '*/src/main.t' | sort | while read -r script; do
-            if [ -f "$script" ]; then
-              demo_dir=$(dirname "$(dirname "$script")")
-              script_path=$(realpath --relative-to="$demo_dir" "$script")
-              echo "--- Running standalone: $script ---"
-              (
-                cd "$demo_dir"
-                nix shell \
-                  "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                  --command t run --unsafe "$script_path" \
-                || true
-              )
-            fi
+            demo_dir=$(dirname "$(dirname "$script")")
+            script_path=$(realpath --relative-to="$demo_dir" "$script")
+            echo "--- Running standalone: $script ---"
+            (
+              cd "$demo_dir"
+              if ! nix shell \
+                "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+                --command t run --unsafe "$script_path"
+              then
+                echo "Coverage run failed for $script_path (continuing)"
+              fi
+            )
           done
 
           echo "Coverage files collected:"
