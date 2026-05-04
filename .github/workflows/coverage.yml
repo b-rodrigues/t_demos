@@ -53,6 +53,10 @@ jobs:
             SHA=$(gh api repos/$REPO/commits/main --jq '.sha')
             echo "No dispatch payload SHA, falling back to $REPO/main: $SHA"
           fi
+          if [[ ! "$SHA" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo "Invalid TLANG_SHA: $SHA" >&2
+            exit 1
+          fi
           echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
