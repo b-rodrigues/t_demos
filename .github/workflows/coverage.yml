@@ -11,6 +11,7 @@ permissions:
   contents: read
 
 env:
+  DEFAULT_TLANG_REPO: b-rodrigues/tlang
   BISECT_DIR: /tmp/tlang-coverage
   BISECT_FILE: /tmp/tlang-coverage/bisect
 
@@ -42,8 +43,8 @@ jobs:
           REPO="${{ github.event.client_payload.repo }}"
           SHA="${{ github.event.client_payload.sha }}"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
-            REPO="b-rodrigues/tlang"
-            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            REPO="$DEFAULT_TLANG_REPO"
+            SHA=$(gh api repos/$DEFAULT_TLANG_REPO/commits/main --jq '.sha')
             echo "No dispatch payload, falling back to tlang/main: $SHA"
           fi
           echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
@@ -53,7 +54,7 @@ jobs:
         run: |
           mkdir -p "$BISECT_DIR"
 
-          find . -name 'pipeline.t' -path '*/src/*' | sort | while read -r script; do
+          find . -path './.git' -prune -o -type f -path '*/src/pipeline.t' -print | sort | while read -r script; do
             demo_dir=$(dirname "$(dirname "$script")")
             script_path=$(realpath --relative-to="$demo_dir" "$script")
             echo "--- Running $script ---"
@@ -68,7 +69,7 @@ jobs:
             )
           done
 
-          find . -path '*/src/main.t' | sort | while read -r script; do
+          find . -path './.git' -prune -o -type f -path '*/src/main.t' -print | sort | while read -r script; do
             demo_dir=$(dirname "$(dirname "$script")")
             script_path=$(realpath --relative-to="$demo_dir" "$script")
             echo "--- Running standalone: $script ---"
