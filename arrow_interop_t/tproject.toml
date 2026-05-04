@@ -1,8 +1,8 @@
 [r-dependencies]
-packages = [ "arrow",]
+packages = [ "arrow", "reticulate"]
 
 [py-dependencies]
-packages = [ "pandas", "pyarrow",]
+packages = [ "pandas", "pyarrow"]
 
 [project]
 name = "arrow_interop_t"
