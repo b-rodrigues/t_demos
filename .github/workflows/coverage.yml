@@ -52,12 +52,13 @@ jobs:
 
           find . -name 'pipeline.t' -path '*/src/*' | sort | while read -r script; do
             demo_dir=$(dirname "$(dirname "$script")")
+            script_path=$(realpath --relative-to="$demo_dir" "$script")
             echo "--- Running $script ---"
             (
               cd "$demo_dir"
               nix shell \
                 "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                --command t run --unsafe "$script" \
+                --command t run --unsafe "$script_path" \
               || true
             )
           done
@@ -73,12 +74,13 @@ jobs:
           ; do
             if [ -f "$script" ]; then
               demo_dir=$(dirname "$(dirname "$script")")
+              script_path=$(realpath --relative-to="$demo_dir" "$script")
               echo "--- Running standalone: $script ---"
               (
                 cd "$demo_dir"
                 nix shell \
                   "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                  --command t run --unsafe "$(basename "$script")" \
+                  --command t run --unsafe "$script_path" \
                 || true
               ) || true
             fi
