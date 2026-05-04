@@ -58,11 +58,12 @@ for demo_dir in */; do
         nix shell github:b-rodrigues/tlang/main --command t update
         sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
         
-        # Inject dependencies
+        # Inject dependencies and rebuild flake
         TLANG_AUTO_ADD_PIPELINE_DEPS=1 nix develop --command t run --unsafe "$ABS_ENTRY" || echo "Injected"
         cat tproject.toml
         nix shell github:b-rodrigues/tlang/main --command t update
-        
+        sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
+
         nix develop --command t run --unsafe "$ABS_ENTRY"
         
         # 3. Extract metadata from tproject.toml
