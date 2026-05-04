@@ -45,7 +45,7 @@ All demos in this repository are automatically tested via GitHub Actions. Since 
 3. Build and execute the entire DAG to verify serialization and runtime correctness.
 
 ## Build Site
-The repository includes a `rebuild_demos_site.sh` script that generates a `docs/` site by running each demo, rendering Quarto pages for the pipeline nodes, and assembling a browsable index. The `build-site.yml` workflow uses that script to rebuild and publish the generated site content.
+The repository includes a `rebuild_demos_site.sh` script that generates a `docs/` site by running each demo, rendering Quarto pages for the pipeline nodes, and assembling a browsable index. The `.github/workflows/build-site.yml` workflow uses that script to rebuild and publish the generated site content.
 
 ---
 [T Orchestration Engine](https://github.com/b-rodrigues/tlang/)
