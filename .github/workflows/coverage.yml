@@ -45,6 +45,10 @@ jobs:
           if [[ -z "$REPO" || "$REPO" == "null" ]]; then
             REPO="$DEFAULT_TLANG_REPO"
           fi
+          if [[ ! "$REPO" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ ]]; then
+            echo "Invalid TLANG_REPO: $REPO" >&2
+            exit 1
+          fi
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             SHA=$(gh api repos/$REPO/commits/main --jq '.sha')
             echo "No dispatch payload SHA, falling back to $REPO/main: $SHA"
