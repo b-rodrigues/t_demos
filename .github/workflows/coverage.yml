@@ -109,15 +109,6 @@ jobs:
           echo "Coverage files collected:"
           ls -lh "$BISECT_DIR/"
 
-
-      - name: Check bisect-ppx-report version
-        run: |
-          nix shell \
-            "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-            --accept-flake-config \
-            --command bash -c \
-            'bisect-ppx-report --help; bisect-ppx-report html --help'
-
       - name: Generate coverage report
         run: |
           nix shell \
