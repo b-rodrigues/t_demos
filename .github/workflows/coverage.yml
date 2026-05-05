@@ -1,0 +1,163 @@
+name: Coverage
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 1 * * 1' # weekly, Monday 03:00 UTC
+
+permissions:
+  contents: write
+
+env:
+  DEFAULT_TLANG_REPO: b-rodrigues/tlang
+  BISECT_DIR: /tmp/tlang-coverage
+  BISECT_FILE: /tmp/tlang-coverage/bisect
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Resolve T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$REPO" || "$REPO" == "null" ]]; then
+            REPO="$DEFAULT_TLANG_REPO"
+          fi
+          if [[ ! "$REPO" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ ]]; then
+            echo "Invalid TLANG_REPO: $REPO" >&2
+            exit 1
+          fi
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            SHA=$(gh api repos/$REPO/commits/main --jq '.sha')
+            echo "No dispatch payload SHA, falling back to $REPO/main: $SHA"
+          fi
+          if [[ ! "$SHA" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo "Invalid TLANG_SHA: $SHA" >&2
+            exit 1
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Collect coverage across all demos
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          set -euo pipefail
+
+          mkdir -p "$BISECT_DIR"
+
+          run_coverage_script() {
+            local script="$1"
+            local label="$2"
+            local demo_dir
+            local script_path
+
+            demo_dir=$(dirname "$(dirname "$script")")
+            script_path=$(realpath --relative-to="$demo_dir" "$script")
+
+            echo "--- Running $label: $script ---"
+            (
+              cd "$demo_dir"
+              
+              # 1. Update to the specific T version
+              if [ -f flake.nix ]; then
+                 nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
+                 sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+              fi
+
+              # 2. Inject dependencies and rebuild if needed
+              # We run once to discover and inject deps, then update, then run for coverage
+              nix develop --accept-flake-config --command t run --unsafe "$script_path" || echo "Dependencies injected or initial failure, rebuilding flake..."
+              nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
+
+              if ! nix develop --accept-flake-config --command t run --unsafe "$script_path"
+              then
+                echo "Coverage run failed for $script_path (continuing)"
+              fi
+            )
+          }
+
+          find . -path './.git' -prune -o -type f -path '*/src/pipeline.t' -print | sort | while read -r script; do
+            run_coverage_script "$script" "pipeline"
+          done
+
+          find . -path './.git' -prune -o -type f -path '*/src/main.t' -print | sort | while read -r script; do
+            run_coverage_script "$script" "standalone"
+          done
+
+          echo "Coverage files collected:"
+          ls -lh "$BISECT_DIR/"
+
+      - name: Generate coverage report
+        run: |
+          nix shell \
+            "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+            --accept-flake-config \
+            --command bash -c '
+              files=$(find "$BISECT_DIR" -name "*.coverage")
+              if [ -z "$files" ]; then
+                echo "No coverage files found, skipping report" >&2
+                exit 0
+              fi
+              bisect-ppx-report html --ignore-missing-files -o _coverage/ $files
+            '
+
+      - name: Generate summary (text)
+        run: |
+          nix shell \
+            "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+            --accept-flake-config \
+            --command bash -c '
+              files=$(find "$BISECT_DIR" -name "*.coverage")
+              if [ -z "$files" ]; then
+                echo "No coverage files found, skipping summary" >&2
+                exit 0
+              fi
+              bisect-ppx-report summary --ignore-missing-files $files | tee _coverage/summary.txt
+            '
+
+      - name: Deploy coverage report to GitHub Pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Save the report out of the way
+          cp -r _coverage /tmp/coverage-report
+
+          # Orphan branch — no history baggage
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout --orphan gh-pages-new
+          git rm -rf . --quiet
+
+          cp -r /tmp/coverage-report/. .
+          touch .nojekyll  # prevents GitHub Pages from running Jekyll
+
+          git add .
+          git commit -m "Coverage report for $TLANG_SHA"
+
+          git push origin gh-pages-new:gh-pages --force
+
+      - name: Print summary to job log
+        run: cat _coverage/summary.txt
+
