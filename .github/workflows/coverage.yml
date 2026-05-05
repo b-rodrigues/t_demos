@@ -82,16 +82,18 @@ jobs:
               
               # 1. Update to the specific T version
               if [ -f flake.nix ]; then
-                 nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
-                 sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+                nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
+                sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
               fi
 
-              # 2. Inject dependencies and rebuild if needed
-              # We run once to discover and inject deps, then update, then run for coverage
-              nix develop --accept-flake-config --command t run --unsafe "$script_path" || echo "Dependencies injected or initial failure, rebuilding flake..."
+              # 2. Inject deps with uninstrumented t (just for dep resolution)
+              nix develop --accept-flake-config --command t run --unsafe "$script_path" || echo "Dep injection pass done"
               nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
 
-              if ! nix develop --accept-flake-config --command t run --unsafe "$script_path"
+              # 3. Actual coverage run — use instrumented binary
+              if ! nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+                    --accept-flake-config \
+                    --command t run --unsafe "$script_path"
               then
                 echo "Coverage run failed for $script_path (continuing)"
               fi
