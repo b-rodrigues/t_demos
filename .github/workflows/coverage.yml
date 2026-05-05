@@ -97,21 +97,21 @@ jobs:
           echo "Coverage files collected:"
           ls -lh "$BISECT_DIR/"
 
-      - name: Generate HTML coverage report
+      - name: Generate coverage report
         run: |
           nix shell \
             "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-            --command bisect-ppx-report html \
-              --coverage-path "$BISECT_DIR" \
-              -o _coverage/
+            --accept-flake-config \
+            --command bash -c \
+            'bisect-ppx-report html --output _coverage/ $(find "$BISECT_DIR" -name "*.coverage")'
 
       - name: Generate summary (text)
         run: |
           nix shell \
             "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-            --command bisect-ppx-report summary \
-              --coverage-path "$BISECT_DIR" \
-          | tee _coverage/summary.txt
+            --accept-flake-config \
+            --command bash -c \
+            'bisect-ppx-report summary $(find "$BISECT_DIR" -name "*.coverage") | tee _coverage/summary.txt'
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
