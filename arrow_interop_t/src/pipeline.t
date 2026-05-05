@@ -11,7 +11,7 @@ df_r <- data.frame(
 )
     }>,
     runtime = R,
-    serializer = "arrow"
+    serializer = ^arrow
 )
 
 df_py = node(
@@ -24,8 +24,8 @@ res['val'] = res['val'] * 2
 df_py = res
     }>,
     runtime = Python,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
 )
 
 final_t = node(
@@ -35,7 +35,7 @@ glimpse(df_py)
 df_py
     }>,
     runtime = T,
-    deserializer = "arrow"
+    deserializer = ^arrow
 )
 
 p = pipeline {
