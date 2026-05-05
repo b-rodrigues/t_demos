@@ -81,3 +81,4 @@ jobs:
         run: |
           echo "read_node('both_updated')" > view.t
           nix develop --command t run --unsafe view.t
+
