@@ -60,6 +60,8 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Collect coverage across all demos
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           set -euo pipefail
 
@@ -77,9 +79,19 @@ jobs:
             echo "--- Running $label: $script ---"
             (
               cd "$demo_dir"
-              if ! nix shell \
-                "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
-                --command t run --unsafe "$script_path"
+              
+              # 1. Update to the specific T version
+              if [ -f flake.nix ]; then
+                 nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
+                 sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+              fi
+
+              # 2. Inject dependencies and rebuild if needed
+              # We run once to discover and inject deps, then update, then run for coverage
+              nix develop --accept-flake-config --command t run --unsafe "$script_path" || echo "Dependencies injected or initial failure, rebuilding flake..."
+              nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t update
+
+              if ! nix develop --accept-flake-config --command t run --unsafe "$script_path"
               then
                 echo "Coverage run failed for $script_path (continuing)"
               fi
@@ -103,7 +115,7 @@ jobs:
             "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
             --accept-flake-config \
             --command bash -c \
-            'bisect-ppx-report html --output _coverage/ $(find "$BISECT_DIR" -name "*.coverage")'
+            'bisect-ppx-report html -o _coverage/ $(find "$BISECT_DIR" -name "*.coverage")'
 
       - name: Generate summary (text)
         run: |
