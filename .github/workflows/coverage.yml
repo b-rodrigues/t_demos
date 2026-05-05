@@ -7,7 +7,7 @@ on:
     - cron: '0 1 * * 1' # weekly, Monday 03:00 UTC
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   DEFAULT_TLANG_REPO: b-rodrigues/tlang
@@ -137,12 +137,28 @@ jobs:
               bisect-ppx-report summary --ignore-missing-files $files | tee _coverage/summary.txt
             '
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: tlang-coverage-${{ env.TLANG_SHA }}
-          path: _coverage/
-          retention-days: 30
+      - name: Deploy coverage report to GitHub Pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Save the report out of the way
+          cp -r _coverage /tmp/coverage-report
+
+          # Orphan branch — no history baggage
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout --orphan gh-pages-new
+          git rm -rf . --quiet
+
+          cp -r /tmp/coverage-report/. .
+          touch .nojekyll  # prevents GitHub Pages from running Jekyll
+
+          git add .
+          git commit -m "Coverage report for $TLANG_SHA"
+
+          git push origin gh-pages-new:gh-pages --force
+
+          git checkout -
 
       - name: Print summary to job log
         run: cat _coverage/summary.txt
