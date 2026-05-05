@@ -114,16 +114,28 @@ jobs:
           nix shell \
             "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
             --accept-flake-config \
-            --command bash -c \
-            'bisect-ppx-report html -o _coverage/ $(find "$BISECT_DIR" -name "*.coverage")'
+            --command bash -c '
+              files=$(find "$BISECT_DIR" -name "*.coverage")
+              if [ -z "$files" ]; then
+                echo "No coverage files found, skipping report" >&2
+                exit 0
+              fi
+              bisect-ppx-report html --ignore-missing-files -o _coverage/ $files
+            '
 
       - name: Generate summary (text)
         run: |
           nix shell \
             "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
             --accept-flake-config \
-            --command bash -c \
-            'bisect-ppx-report summary $(find "$BISECT_DIR" -name "*.coverage") | tee _coverage/summary.txt'
+            --command bash -c '
+              files=$(find "$BISECT_DIR" -name "*.coverage")
+              if [ -z "$files" ]; then
+                echo "No coverage files found, skipping summary" >&2
+                exit 0
+              fi
+              bisect-ppx-report summary --ignore-missing-files $files | tee _coverage/summary.txt
+            '
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
