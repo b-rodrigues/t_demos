@@ -141,6 +141,50 @@ jobs:
               bisect-ppx-report summary --ignore-missing-files $files | tee _coverage/summary.txt
             '
 
+      - name: Generate uncovered lines summary
+        run: |
+          nix shell \
+            "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+            --accept-flake-config \
+            --command bash -c '
+              files=$(find "$BISECT_DIR" -name "*.coverage")
+              [ -z "$files" ] && exit 0
+              bisect-ppx-report cobertura --ignore-missing-files \
+                -o _coverage/coverage.xml $files
+            '
+
+          python3 - <<'EOF'
+          import xml.etree.ElementTree as ET
+
+          tree = ET.parse("_coverage/coverage.xml")
+          root = tree.getroot()
+
+          lines = []
+          for cls in root.iter("class"):
+              filename = cls.get("filename", "")
+              uncovered = [
+                  int(l.get("number"))
+                  for l in cls.iter("line")
+                  if l.get("hits") == "0"
+              ]
+              if uncovered:
+                  ranges = []
+                  start = prev = uncovered[0]
+                  for n in uncovered[1:]:
+                      if n == prev + 1:
+                          prev = n
+                      else:
+                          ranges.append(f"{start}-{prev}" if start != prev else str(start))
+                          start = prev = n
+                  ranges.append(f"{start}-{prev}" if start != prev else str(start))
+                  lines.append(f"{filename}: {', '.join(ranges)}")
+
+          output = "\n".join(lines)
+          print(output)
+          with open("_coverage/uncovered.txt", "w") as f:
+              f.write(output + "\n")
+          EOF
+
       - name: Deploy coverage report to GitHub Pages
         run: |
           git config user.name "github-actions[bot]"
@@ -161,6 +205,8 @@ jobs:
           git commit -m "Coverage report for $TLANG_SHA"
 
           git push origin gh-pages-new:gh-pages --force
+
+
 
       - name: Print summary to job log
         run: cat _coverage/summary.txt
