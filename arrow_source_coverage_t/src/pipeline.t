@@ -1,6 +1,7 @@
 import dataframe
 import colcraft
 import stats
+import math
 
 p = pipeline {
     source_csv = node(
@@ -42,10 +43,17 @@ p = pipeline {
                     $gap = abs($amount - 18.0),
                     $log_amount = log($amount),
                     $sqrt_amount = sqrt($amount),
+                    $amount_sq = pow($amount, 2.0),
+                    $exp_offset = exp($offset / 10.0),
                     $row_id = row_number($amount),
+                    $min_rank = min_rank($amount),
                     $dense = dense_rank($amount),
+                    $pct_rank = percent_rank($amount),
+                    $cume = cume_dist($amount),
                     $prev_amount = lag($amount),
+                    $prev_two = lag($amount, 2),
                     $next_amount = lead($amount),
+                    $next_two = lead($amount, 2),
                     $running_amount = cumsum($amount)
                 )
                 |> relocate($note, .before = $team)
@@ -81,13 +89,30 @@ p = pipeline {
 
     grouped_summary = node(
         command = compute_features
+            |> mutate(stage_s = str_string($stage))
             |> group_by($segment)
             |> summarize(
                 avg_amount = mean($amount),
+                min_amount = min($amount),
+                max_amount = max($amount),
+                unique_stages = n_distinct($stage_s),
                 total_bonus = sum($bonus, na_rm = true),
                 last_running = max($running_amount)
             )
             |> arrange($segment),
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    aggregate_snapshot = node(
+        command = compute_features
+            |> summarize(
+                min_amount = min($amount),
+                max_amount = max($amount),
+                unique_segments = n_distinct($segment),
+                avg_exp_offset = mean($exp_offset)
+            ),
         runtime = T,
         deserializer = ^arrow,
         serializer = ^arrow
@@ -107,12 +132,91 @@ p = pipeline {
 
     model_diagnostics = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             add_diagnostics(model, data = compute_features)
         }>,
         runtime = T,
         deserializer = ^arrow,
         serializer = ^arrow
+    )
+
+    model_predictions = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            predict(compute_features, model)
+        }>,
+        runtime = T,
+        deserializer = ^arrow
+    )
+
+    model_augmented = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            augment(compute_features, model)
+        }>,
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    model_residuals = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            residuals(compute_features, model)
+        }>,
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    model_coefficients = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            coef(model)
+        }>,
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    model_confidence = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            conf_int(model)
+        }>,
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    model_fit_stats = node(
+        command = <{
+            reduced = lm(data = compute_features, formula = amount ~ offset)
+            full = lm(data = compute_features, formula = amount ~ offset + stage)
+            fit_stats([reduced: reduced, full: full])
+        }>,
+        runtime = T,
+        deserializer = ^arrow
+    )
+
+    model_anova = node(
+        command = <{
+            reduced = lm(data = compute_features, formula = amount ~ offset)
+            full = lm(data = compute_features, formula = amount ~ offset + stage)
+            anova(reduced, full)
+        }>,
+        runtime = T,
+        deserializer = ^arrow,
+        serializer = ^arrow
+    )
+
+    model_wald = node(
+        command = <{
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            wald_test(model, terms = ["offset"])
+        }>,
+        runtime = T,
+        deserializer = ^arrow
     )
 
     validation_report = node(
@@ -124,15 +228,24 @@ p = pipeline {
             assert(ncol(active_projection) == 5, "select() should project the requested columns")
             assert(sum(pull(segment_counts, $n)) == 6, "count() totals should match the input rows")
             assert(nrow(grouped_summary) == 3, "summarize() should emit one row per segment")
+            assert(get(pull(aggregate_snapshot, $unique_segments), 0) == 3, "aggregate snapshot should see three segments")
             assert(nrow(roundtrip_nested) == nrow(compute_features), "nest()/unnest() should preserve row count")
             assert(ncol(model_diagnostics) > ncol(compute_features), "add_diagnostics() should append diagnostic columns")
+            assert(nrow(model_predictions) == nrow(compute_features), "predict() should return one row per input row")
+            assert(ncol(model_augmented) > ncol(compute_features), "augment() should append fitted values")
+            assert(nrow(model_residuals) == nrow(compute_features), "residuals() should return one row per input row")
+            assert(nrow(model_coefficients) == 4, "coef() should expose all model terms")
+            assert(nrow(model_confidence) == 4, "conf_int() should expose all confidence intervals")
+            assert(nrow(model_fit_stats) == 2, "fit_stats() should stack the reduced and full models")
+            assert(nrow(model_anova) >= 1, "anova() should produce a comparison table")
+            assert(nrow(model_wald) == 1, "wald_test() should return a single summary row")
 
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             model_summary = summary(model)
             corr = cor(pull(compute_features, $amount), pull(compute_features, $net))
-            expected_model_terms = length(["(Intercept)", "offset", "id"])
+            expected_model_terms = 4 -- (Intercept), offset, stage.medium, stage.high
 
-            assert(nrow(model_summary._tidy_df) == expected_model_terms, "lm() summary should expose intercept plus two predictors")
+            assert(nrow(model_summary._tidy_df) == expected_model_terms, "lm() summary should expose all model terms")
             assert(!is_na(corr), "cor() should produce a numeric result")
 
             [
@@ -151,9 +264,15 @@ p = pipeline {
             active_projection: ^arrow,
             segment_counts: ^arrow,
             grouped_summary: ^arrow,
+            aggregate_snapshot: ^arrow,
             roundtrip_nested: ^arrow,
             compute_features: ^arrow,
-            model_diagnostics: ^arrow
+            model_diagnostics: ^arrow,
+            model_augmented: ^arrow,
+            model_residuals: ^arrow,
+            model_coefficients: ^arrow,
+            model_confidence: ^arrow,
+            model_anova: ^arrow
         ]
     )
 }
