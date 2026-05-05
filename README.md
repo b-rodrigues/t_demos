@@ -19,7 +19,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`
 
 ### Interchange, serialization, and model portability demos
-- `arrow_interop_t`, `arrow_source_coverage_t`, `custom_polyglot_serializer_t`, `json_interchange_t`, `multi_deserializer_t`, `r_py_json_t`
+- `arrow_interop_t`, `arrow_source_coverage_t`, `arrow_edge_cases_t`, `custom_polyglot_serializer_t`, `json_interchange_t`, `multi_deserializer_t`, `r_py_json_t`
 - `factor_roundtrip_t`, `pmml_interchange_t`, `onnx_exchange_t`, `onnx_classification_t`, `onnx_neuralnet_t`
 - `onnx-exchange-deps-inject-test`, `r_py_xgboost_t`, `serializer_stress_test_t`
 

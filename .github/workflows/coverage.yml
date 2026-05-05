@@ -110,6 +110,15 @@ jobs:
             run_coverage_script "$script" "standalone"
           done
 
+          echo "--- Running arrow fallback validation: ./arrow_edge_cases_t/src/fallback.t ---"
+          (
+            cd ./arrow_edge_cases_t
+            TLANG_DISABLE_ARROW=1 \
+              nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
+                --accept-flake-config \
+                --command t run --unsafe src/fallback.t
+          ) || echo "Arrow fallback validation failed for ./arrow_edge_cases_t/src/fallback.t (continuing)"
+
           echo "Coverage files collected:"
           ls -lh "$BISECT_DIR/"
 
@@ -210,4 +219,3 @@ jobs:
 
       - name: Print summary to job log
         run: cat _coverage/summary.txt
-

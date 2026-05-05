@@ -1,0 +1,18 @@
+[dependencies]
+base = "*"
+pipeline = "*"
+dataframe = "*"
+chrono = "*"
+
+[r-dependencies]
+packages = [ "arrow" ]
+
+[py-dependencies]
+packages = [ "pandas", "pyarrow" ]
+
+[project]
+name = "arrow_edge_cases_t"
+description = "A T demo covering Arrow edge cases, Parquet ingestion, and fallback CSV parsing"
+
+[t]
+min_version = "0.51.2"
