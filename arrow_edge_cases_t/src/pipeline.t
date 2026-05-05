@@ -4,21 +4,21 @@ import dataframe
 p = pipeline {
     seed_csv_files = node(
         command = <{
-            native_csv = str_join(
+            content_native = str_join(
                 "id,quoted,note,all_na,date_str,datetime_str,amount\n",
                 "1,\"alpha,beta\",keep,,2024-01-31,2024-01-31 23:59:59,1.5\n",
                 "2,\"say \"\"hello\"\"\",,,2024-02-29,2024-02-29 12:30:00,2.5\n",
                 "3,plain text,\"final,row\",,2024-03-31,2024-03-31 00:15:45,3.5\n"
             )
-            fallback_csv = str_join(
+            content_fallback = str_join(
                 "id;quoted;all_na;flag;date_str\n",
                 "1;\"alpha,beta\";;true;2024-01-31\n",
                 "2;\"two words\";;false;2024-02-29\n",
                 "3;\"say \"\"hello\"\"\";;true;2024-03-31\n"
             )
 
-            write_text("arrow_edge_native.csv", native_csv)
-            write_text("arrow_edge_fallback.csv", fallback_csv)
+            write_text("arrow_edge_native.csv", content_native)
+            write_text("arrow_edge_fallback.csv", content_fallback)
 
             [status: "ready"]
         }>,
