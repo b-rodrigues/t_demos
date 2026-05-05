@@ -132,8 +132,9 @@ p = pipeline {
             model = lm(data = compute_features, formula = amount ~ offset + id)
             model_summary = summary(model)
             corr = cor(pull(compute_features, $amount), pull(compute_features, $net))
+            expected_model_terms = length(["(Intercept)", "offset", "id"])
 
-            assert(nrow(model_summary._tidy_df) == 3, "lm() summary should expose intercept plus two predictors")
+            assert(nrow(model_summary._tidy_df) == expected_model_terms, "lm() summary should expose intercept plus two predictors")
             assert(!is_na(corr), "cor() should produce a numeric result")
 
             [
