@@ -96,14 +96,12 @@ p = pipeline {
     nested_groups = node(
         command = compute_features |> group_by($segment) |> nest(),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^arrow
     )
 
     roundtrip_nested = node(
         command = nested_groups |> unnest($data) |> arrange($id),
         runtime = T,
-        deserializer = ^arrow,
         serializer = ^arrow
     )
 
