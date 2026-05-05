@@ -76,3 +76,4 @@ jobs:
           TLANG_DISABLE_ARROW: "1"
         run: |
           nix develop --command t run src/fallback.t
+
