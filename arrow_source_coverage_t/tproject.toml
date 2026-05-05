@@ -1,0 +1,14 @@
+[project]
+name = "arrow_source_coverage_t"
+description = "A T demo that exercises Arrow I/O, compute, nested data, and stats bridges"
+
+[dependencies]
+base = "*"
+pipeline = "*"
+dataframe = "*"
+colcraft = "*"
+stats = "*"
+math = "*"
+
+[t]
+min_version = "0.51.2"
