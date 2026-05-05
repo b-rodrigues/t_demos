@@ -2,28 +2,34 @@ import chrono
 import dataframe
 
 p = pipeline {
-    seed_csv_files = node(
+    seed_native_df = node(
         command = <{
-            content_native = str_join(
+            content = str_join([
                 "id,quoted,note,all_na,date_str,datetime_str,amount\n",
                 "1,\"alpha,beta\",keep,,2024-01-31,2024-01-31 23:59:59,1.5\n",
                 "2,\"say \"\"hello\"\"\",,,2024-02-29,2024-02-29 12:30:00,2.5\n",
                 "3,plain text,\"final,row\",,2024-03-31,2024-03-31 00:15:45,3.5\n"
-            )
-            content_fallback = str_join(
+            ])
+            write_text("n.csv", content)
+            read_csv("n.csv")
+        }>,
+        runtime = T,
+        serializer = ^arrow
+    )
+
+    seed_fallback_df = node(
+        command = <{
+            content = str_join([
                 "id;quoted;all_na;flag;date_str\n",
                 "1;\"alpha,beta\";;true;2024-01-31\n",
                 "2;\"two words\";;false;2024-02-29\n",
                 "3;\"say \"\"hello\"\"\";;true;2024-03-31\n"
-            )
-
-            write_text("arrow_edge_native.csv", content_native)
-            write_text("arrow_edge_fallback.csv", content_fallback)
-
-            [status: "ready"]
+            ])
+            write_text("f.csv", content)
+            read_csv("f.csv", separator = ";")
         }>,
         runtime = T,
-        serializer = ^json
+        serializer = ^arrow
     )
 
     seed_parquet = node(
@@ -42,30 +48,28 @@ parquet_df = pd.DataFrame({
     "amount": [10.0, 12.5, 15.0]
 })
 
-parquet_df.to_parquet("arrow_edge.parquet", index = False)
-seed_parquet = {"status": "ready"}
+import os
+out_dir = os.environ.get("out", ".")
+parquet_path = os.path.join(out_dir, "arrow_edge.parquet")
+parquet_df.to_parquet(parquet_path, index = False)
+print(f"Wrote parquet to {parquet_path}")
+seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
         }>,
         runtime = Python,
         serializer = ^json
     )
 
     native_csv = node(
-        command = <{
-            seed_csv_files
-            read_csv("arrow_edge_native.csv")
-        }>,
+        command = seed_native_df,
         runtime = T,
-        deserializer = ^json,
+        deserializer = ^arrow,
         serializer = ^arrow
     )
 
     fallback_csv = node(
-        command = <{
-            seed_csv_files
-            read_csv("arrow_edge_fallback.csv", separator = ";")
-        }>,
+        command = seed_fallback_df,
         runtime = T,
-        deserializer = ^json,
+        deserializer = ^arrow,
         serializer = ^arrow
     )
 
@@ -84,8 +88,10 @@ seed_parquet = {"status": "ready"}
 
     parquet_scan = node(
         command = <{
-            seed_parquet
-            read_parquet("arrow_edge.parquet")
+            _ = seed_parquet
+            root = env("T_NODE_seed_parquet")
+            parquet_file = path_join(root, "arrow_edge.parquet")
+            read_parquet(parquet_file)
         }>,
         runtime = T,
         deserializer = ^json,
