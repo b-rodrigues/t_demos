@@ -14,7 +14,7 @@ p = pipeline {
                 [id: 6, team: "gamma", amount: 30.0, offset: 7.0, bonus: 5.0, flag: true, note: "final,row", stage: "low"]
             ])
 
-            csv_path = "/tmp/arrow_source_coverage_seed.csv"
+            csv_path = "arrow_source_coverage_seed.csv"
             write_csv(seed, csv_path)
             read_csv(csv_path)
         }>,
@@ -24,7 +24,7 @@ p = pipeline {
 
     arrow_roundtrip = node(
         command = <{
-            arrow_path = "/tmp/arrow_source_coverage.arrow"
+            arrow_path = "arrow_source_coverage.arrow"
             write_arrow(source_csv, arrow_path)
             read_arrow(arrow_path)
         }>,

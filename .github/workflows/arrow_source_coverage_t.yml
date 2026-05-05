@@ -9,6 +9,9 @@ on:
   repository_dispatch:
     types: [ trigger-demo ]
 
+permissions:
+  contents: read
+
 jobs:
   arrow-source-coverage-t:
     runs-on: ubuntu-latest
