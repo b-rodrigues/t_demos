@@ -1,11 +1,10 @@
 name: Coverage
 
 on:
-  workflow_dispatch:
-  repository_dispatch:
-    types: [ coverage-run ]
+  pull_request:
+    branches: [ main, master ]
   schedule:
-    - cron: '0 3 * * 1' # weekly, Monday 03:00 UTC
+    - cron: '0 1 * * 1' # weekly, Monday 03:00 UTC
 
 permissions:
   contents: read
