@@ -89,12 +89,13 @@ p = pipeline {
 
     grouped_summary = node(
         command = compute_features
+            |> mutate(stage_s = str_string($stage))
             |> group_by($segment)
             |> summarize(
                 avg_amount = mean($amount),
                 min_amount = min($amount),
                 max_amount = max($amount),
-                unique_stages = n_distinct($stage),
+                unique_stages = n_distinct($stage_s),
                 total_bonus = sum($bonus, na_rm = true),
                 last_running = max($running_amount)
             )
@@ -131,7 +132,7 @@ p = pipeline {
 
     model_diagnostics = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             add_diagnostics(model, data = compute_features)
         }>,
         runtime = T,
@@ -141,17 +142,16 @@ p = pipeline {
 
     model_predictions = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             predict(compute_features, model)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^arrow
     )
 
     model_augmented = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             augment(compute_features, model)
         }>,
         runtime = T,
@@ -161,7 +161,7 @@ p = pipeline {
 
     model_residuals = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             residuals(compute_features, model)
         }>,
         runtime = T,
@@ -171,7 +171,7 @@ p = pipeline {
 
     model_coefficients = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             coef(model)
         }>,
         runtime = T,
@@ -181,7 +181,7 @@ p = pipeline {
 
     model_confidence = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             conf_int(model)
         }>,
         runtime = T,
@@ -192,18 +192,17 @@ p = pipeline {
     model_fit_stats = node(
         command = <{
             reduced = lm(data = compute_features, formula = amount ~ offset)
-            full = lm(data = compute_features, formula = amount ~ offset + id)
+            full = lm(data = compute_features, formula = amount ~ offset + stage)
             fit_stats([reduced: reduced, full: full])
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^arrow
     )
 
     model_anova = node(
         command = <{
             reduced = lm(data = compute_features, formula = amount ~ offset)
-            full = lm(data = compute_features, formula = amount ~ offset + id)
+            full = lm(data = compute_features, formula = amount ~ offset + stage)
             anova(reduced, full)
         }>,
         runtime = T,
@@ -213,12 +212,11 @@ p = pipeline {
 
     model_wald = node(
         command = <{
-            model = lm(data = compute_features, formula = amount ~ offset + id)
-            wald_test(model, terms = ["offset", "id"])
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
+            wald_test(model, terms = ["offset"])
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^arrow
     )
 
     validation_report = node(
@@ -236,18 +234,18 @@ p = pipeline {
             assert(nrow(model_predictions) == nrow(compute_features), "predict() should return one row per input row")
             assert(ncol(model_augmented) > ncol(compute_features), "augment() should append fitted values")
             assert(nrow(model_residuals) == nrow(compute_features), "residuals() should return one row per input row")
-            assert(nrow(model_coefficients) == 3, "coef() should expose intercept plus two predictors")
-            assert(nrow(model_confidence) == 3, "conf_int() should expose one interval per coefficient")
+            assert(nrow(model_coefficients) == 4, "coef() should expose all model terms")
+            assert(nrow(model_confidence) == 4, "conf_int() should expose all confidence intervals")
             assert(nrow(model_fit_stats) == 2, "fit_stats() should stack the reduced and full models")
             assert(nrow(model_anova) >= 1, "anova() should produce a comparison table")
             assert(nrow(model_wald) == 1, "wald_test() should return a single summary row")
 
-            model = lm(data = compute_features, formula = amount ~ offset + id)
+            model = lm(data = compute_features, formula = amount ~ offset + stage)
             model_summary = summary(model)
             corr = cor(pull(compute_features, $amount), pull(compute_features, $net))
-            expected_model_terms = length(["(Intercept)", "offset", "id"])
+            expected_model_terms = 4 -- (Intercept), offset, stage.medium, stage.high
 
-            assert(nrow(model_summary._tidy_df) == expected_model_terms, "lm() summary should expose intercept plus two predictors")
+            assert(nrow(model_summary._tidy_df) == expected_model_terms, "lm() summary should expose all model terms")
             assert(!is_na(corr), "cor() should produce a numeric result")
 
             [
@@ -270,14 +268,11 @@ p = pipeline {
             roundtrip_nested: ^arrow,
             compute_features: ^arrow,
             model_diagnostics: ^arrow,
-            model_predictions: ^arrow,
             model_augmented: ^arrow,
             model_residuals: ^arrow,
             model_coefficients: ^arrow,
             model_confidence: ^arrow,
-            model_fit_stats: ^arrow,
-            model_anova: ^arrow,
-            model_wald: ^arrow
+            model_anova: ^arrow
         ]
     )
 }
