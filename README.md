@@ -31,7 +31,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - `chrono_vs_lubridate_t`, `dplyr_advanced_t`, `stringr_vs_strcraft_t`, `polars_vs_t_t`, `plotting_pipeline_t`
 
 ### Modeling and comparison demos
-- `model_comparison_t`, `model_comparison_with_glance_t`
+- `model_comparison_t`, `model_comparison_with_glance_t`, `stats_functions_t`
 - `glm_basic_r_t`, `glm_basic_py_t`, `glm_discoveries_t`, `glm_hsb_t`, `glm_titanic_t`, `glm_warpbreaks_t`
 
 ### Case studies and end-to-end examples

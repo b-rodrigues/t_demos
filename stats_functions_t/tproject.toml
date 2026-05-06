@@ -1,0 +1,20 @@
+[project]
+name = "stats_functions_t"
+description = "A T demo that exercises stats package functions against R references"
+
+[dependencies]
+base = "*"
+pipeline = "*"
+dataframe = "*"
+colcraft = "*"
+stats = "*"
+math = "*"
+
+[r-dependencies]
+packages = ["arrow", "dplyr"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jre"]
+
+[t]
+min_version = "0.51.2"
