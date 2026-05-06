@@ -658,7 +658,7 @@ p = pipeline {
                 sigma: round(sigma(full), 8),
                 vcov_intercept: round(get(pull(vc, "(Intercept)"), 0), 8),
                 vcov_feature_a: round(get(pull(vc, "feature_a"), 1), 8),
-                vcov_cross: round(get(pull(vc, "basis_x"), 2), 8)
+                vcov_feature_b_basis_x: round(get(pull(vc, "feature_b"), 3), 8)
             ]
         }>,
         runtime = T,
@@ -677,7 +677,7 @@ p = pipeline {
                 sigma = round(sigma(full), 8),
                 vcov_intercept = round(vc["(Intercept)", "(Intercept)"], 8),
                 vcov_feature_a = round(vc["feature_a", "feature_a"], 8),
-                vcov_cross = round(vc["feature_b", "basis_x"], 8)
+                vcov_feature_b_basis_x = round(vc["basis_x", "feature_b"], 8)
             )
         }>,
         runtime = R,
