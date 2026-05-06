@@ -1,0 +1,15 @@
+[project]
+name = "pipeline_functions_t"
+description = "A T demo that exercises the pipeline helper APIs"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.51.2"
