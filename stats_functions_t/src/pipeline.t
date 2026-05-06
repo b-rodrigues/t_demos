@@ -564,35 +564,33 @@ p = pipeline {
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
             round_with_na = \(x) { if (is_na(x)) { na_float() } else { round(x, 8) } }
-            anova_raw = anova(reduced, full)
-            df_residual = pull(anova_raw, $df_residual)
-            deviance = pull(anova_raw, $deviance)
-            delta_df = pull(anova_raw, $delta_df)
-            delta_deviance = pull(anova_raw, $delta_deviance)
-            statistic = pull(anova_raw, $statistic)
-            p_value = pull(anova_raw, $p_value)
-            dataframe([
+            anova(reduced, full)
+            delta_df = df_residual(reduced) - df_residual(full)
+            delta_dev = deviance(reduced) - deviance(full)
+            f_stat = (delta_dev / delta_df) / (deviance(full) / df_residual(full))
+            p_val = 1 - pf(f_stat, delta_df, df_residual(full))
+            [
                 [
-                    df_residual: round_with_na(get(df_residual, 0)),
-                    deviance: round_with_na(get(deviance, 0)),
-                    delta_df: round_with_na(get(delta_df, 0)),
-                    delta_deviance: round_with_na(get(delta_deviance, 0)),
-                    statistic: round_with_na(get(statistic, 0)),
-                    p_value: round_with_na(get(p_value, 0))
+                    df_residual: round_with_na(df_residual(reduced)),
+                    deviance: round_with_na(deviance(reduced)),
+                    delta_df: na_float(),
+                    delta_deviance: na_float(),
+                    statistic: na_float(),
+                    p_value: na_float()
                 ],
                 [
-                    df_residual: round_with_na(get(df_residual, 1)),
-                    deviance: round_with_na(get(deviance, 1)),
-                    delta_df: round_with_na(get(delta_df, 1)),
-                    delta_deviance: round_with_na(get(delta_deviance, 1)),
-                    statistic: round_with_na(get(statistic, 1)),
-                    p_value: round_with_na(get(p_value, 1))
+                    df_residual: round_with_na(df_residual(full)),
+                    deviance: round_with_na(deviance(full)),
+                    delta_df: round_with_na(delta_df),
+                    delta_deviance: round_with_na(delta_dev),
+                    statistic: round_with_na(f_stat),
+                    p_value: round_with_na(p_val)
                 ]
-            ])
+            ]
         }>,
         runtime = T,
         deserializer = ^arrow,
-        serializer = ^arrow
+        serializer = ^json
     )
 
     model_anova_r = node(
@@ -601,7 +599,7 @@ p = pipeline {
             reduced <- lm(response ~ feature_a + feature_b, data = stats_data)
             full <- lm(response ~ feature_a + feature_b + basis_x, data = stats_data)
             rows <- list(
-                data.frame(
+                list(
                     df_residual = round(as.numeric(df.residual(reduced)), 8),
                     deviance = round(as.numeric(deviance(reduced)), 8),
                     delta_df = NA_real_,
@@ -614,7 +612,7 @@ p = pipeline {
             delta_dev <- deviance(reduced) - deviance(full)
             f_stat <- (delta_dev / delta_df) / (deviance(full) / df.residual(full))
             p_val <- 1 - pf(f_stat, delta_df, df.residual(full))
-            rows[[2]] <- data.frame(
+            rows[[2]] <- list(
                 df_residual = round(as.numeric(df.residual(full)), 8),
                 deviance = round(as.numeric(deviance(full)), 8),
                 delta_df = round(as.numeric(delta_df), 8),
@@ -622,11 +620,11 @@ p = pipeline {
                 statistic = round(as.numeric(f_stat), 8),
                 p_value = round(as.numeric(p_val), 8)
             )
-            do.call(rbind, rows)
+            rows
         }>,
         runtime = R,
         deserializer = ^arrow,
-        serializer = ^arrow
+        serializer = ^json
     )
 
     model_wald_t = node(
@@ -795,8 +793,8 @@ p = pipeline {
             model_compare_r: ^arrow,
             model_score_t: ^arrow,
             model_score_r: ^arrow,
-            model_anova_t: ^arrow,
-            model_anova_r: ^arrow,
+            model_anova_t: ^json,
+            model_anova_r: ^json,
             model_wald_t: ^arrow,
             model_wald_r: ^arrow,
             model_scalars_t: ^json,
