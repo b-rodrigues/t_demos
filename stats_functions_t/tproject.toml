@@ -3,18 +3,22 @@ name = "stats_functions_t"
 description = "A T demo that exercises stats package functions against R references"
 
 [dependencies]
-base = "*"
-pipeline = "*"
-dataframe = "*"
-colcraft = "*"
-stats = "*"
-math = "*"
 
 [r-dependencies]
-packages = ["arrow", "dplyr"]
+packages = ["arrow", "dplyr", "XML", "jsonlite", "r2pmml"]
+
+[py-dependencies]
+version = "python314"
+packages = []
 
 [additional-tools]
 packages = ["jpmml-evaluator", "jre"]
 
+[latex]
+packages = []
+
 [t]
 min_version = "0.51.2"
+
+[nixpkgs]
+date = ""
