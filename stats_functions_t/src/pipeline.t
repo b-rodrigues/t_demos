@@ -563,17 +563,32 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            anova_df = anova(reduced, full)
-                |> select($df_residual, $deviance, $delta_df, $delta_deviance, $statistic, $p_value)
-                |> mutate(
-                    $df_residual = round($df_residual, 8),
-                    $deviance = round($deviance, 8),
-                    $delta_df = round($delta_df, 8),
-                    $delta_deviance = round($delta_deviance, 8),
-                    $statistic = round($statistic, 8),
-                    $p_value = round($p_value, 8)
-                )
-            anova_df
+            round_cell = \(x) { if (is_na(x)) { na_float() } else { round(x, 8) } }
+            anova_raw = anova(reduced, full)
+            df_residual = pull(anova_raw, $df_residual)
+            deviance = pull(anova_raw, $deviance)
+            delta_df = pull(anova_raw, $delta_df)
+            delta_deviance = pull(anova_raw, $delta_deviance)
+            statistic = pull(anova_raw, $statistic)
+            p_value = pull(anova_raw, $p_value)
+            dataframe([
+                [
+                    df_residual: round_cell(get(df_residual, 0)),
+                    deviance: round_cell(get(deviance, 0)),
+                    delta_df: round_cell(get(delta_df, 0)),
+                    delta_deviance: round_cell(get(delta_deviance, 0)),
+                    statistic: round_cell(get(statistic, 0)),
+                    p_value: round_cell(get(p_value, 0))
+                ],
+                [
+                    df_residual: round_cell(get(df_residual, 1)),
+                    deviance: round_cell(get(deviance, 1)),
+                    delta_df: round_cell(get(delta_df, 1)),
+                    delta_deviance: round_cell(get(delta_deviance, 1)),
+                    statistic: round_cell(get(statistic, 1)),
+                    p_value: round_cell(get(p_value, 1))
+                ]
+            ])
         }>,
         runtime = T,
         deserializer = ^arrow,
