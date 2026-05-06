@@ -563,7 +563,7 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            round_cell = \(x) { if (is_na(x)) { na_float() } else { round(x, 8) } }
+            round_with_na = \(x) { if (is_na(x)) { na_float() } else { round(x, 8) } }
             anova_raw = anova(reduced, full)
             df_residual = pull(anova_raw, $df_residual)
             deviance = pull(anova_raw, $deviance)
@@ -573,20 +573,20 @@ p = pipeline {
             p_value = pull(anova_raw, $p_value)
             dataframe([
                 [
-                    df_residual: round_cell(get(df_residual, 0)),
-                    deviance: round_cell(get(deviance, 0)),
-                    delta_df: round_cell(get(delta_df, 0)),
-                    delta_deviance: round_cell(get(delta_deviance, 0)),
-                    statistic: round_cell(get(statistic, 0)),
-                    p_value: round_cell(get(p_value, 0))
+                    df_residual: round_with_na(get(df_residual, 0)),
+                    deviance: round_with_na(get(deviance, 0)),
+                    delta_df: round_with_na(get(delta_df, 0)),
+                    delta_deviance: round_with_na(get(delta_deviance, 0)),
+                    statistic: round_with_na(get(statistic, 0)),
+                    p_value: round_with_na(get(p_value, 0))
                 ],
                 [
-                    df_residual: round_cell(get(df_residual, 1)),
-                    deviance: round_cell(get(deviance, 1)),
-                    delta_df: round_cell(get(delta_df, 1)),
-                    delta_deviance: round_cell(get(delta_deviance, 1)),
-                    statistic: round_cell(get(statistic, 1)),
-                    p_value: round_cell(get(p_value, 1))
+                    df_residual: round_with_na(get(df_residual, 1)),
+                    deviance: round_with_na(get(deviance, 1)),
+                    delta_df: round_with_na(get(delta_df, 1)),
+                    delta_deviance: round_with_na(get(delta_deviance, 1)),
+                    statistic: round_with_na(get(statistic, 1)),
+                    p_value: round_with_na(get(p_value, 1))
                 ]
             ])
         }>,
