@@ -174,8 +174,8 @@ p = pipeline {
         command = <{
             poly_cols = poly(pull(stats_data, $basis_x), 3, raw = true)
             basis_core = stats_data |> select($id, $basis_x)
-            with_poly = eval(expr(mutate(!!basis_core, !!!poly_cols)))
-            with_poly
+            basis_df = eval(expr(mutate(basis_core, !!!poly_cols)))
+            basis_df = basis_df
                 |> mutate(
                     $bucket = str_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
                     $poly1 = round($poly1, 8),
@@ -183,6 +183,7 @@ p = pipeline {
                     $poly3 = round($poly3, 8)
                 )
                 |> select($id, $bucket, $poly1, $poly2, $poly3)
+            basis_df
         }>,
         runtime = T,
         deserializer = ^arrow,
