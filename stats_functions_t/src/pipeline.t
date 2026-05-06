@@ -248,8 +248,9 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            coef(full)
+            coef_df = coef(full)
                 |> mutate($estimate = round($estimate, 8))
+            coef_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -272,8 +273,9 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            conf_int(full)
+            conf_int_df = conf_int(full)
                 |> mutate($lower = round($lower, 8), $upper = round($upper, 8))
+            conf_int_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -333,12 +335,13 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            residuals(stats_data, full)
+            resid_df = residuals(stats_data, full)
                 |> mutate(
                     $actual = round($actual, 8),
                     $fitted = round($fitted, 8),
                     $resid = round($resid, 8)
                 )
+            resid_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -364,13 +367,14 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            augment(stats_data, full)
+            augment_df = augment(stats_data, full)
                 |> select($id, $fitted, $resid, $std_resid)
                 |> mutate(
                     $fitted = round($fitted, 8),
                     $resid = round($resid, 8),
                     $std_resid = round($std_resid, 8)
                 )
+            augment_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -398,7 +402,7 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            add_diagnostics(stats_data, full)
+            diag_df = add_diagnostics(stats_data, full)
                 |> select($id, $fitted, $resid, $hat, $sigma, $cooksd, $std_resid)
                 |> mutate(
                     $fitted = round($fitted, 8),
@@ -408,6 +412,7 @@ p = pipeline {
                     $cooksd = round($cooksd, 8),
                     $std_resid = round($std_resid, 8)
                 )
+            diag_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -439,7 +444,7 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            fit_stats([reduced: reduced, full: full])
+            fit_stats_df = fit_stats([reduced: reduced, full: full])
                 |> select($model, $r_squared, $adj_r_squared, $sigma, $AIC, $BIC, $df_residual, $nobs)
                 |> mutate(
                     $r_squared = round($r_squared, 8),
@@ -450,6 +455,7 @@ p = pipeline {
                     $df_residual = round($df_residual, 8),
                     $nobs = round($nobs, 8)
                 )
+            fit_stats_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -486,7 +492,7 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            compare(reduced, full)
+            compare_df = compare(reduced, full)
                 |> select($term, $estimate_1, $estimate_2, $std_error_1, $std_error_2)
                 |> mutate(
                     $estimate_1 = round($estimate_1, 8),
@@ -494,6 +500,7 @@ p = pipeline {
                     $std_error_1 = round($std_error_1, 8),
                     $std_error_2 = round($std_error_2, 8)
                 )
+            compare_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -526,8 +533,9 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            score(stats_data, full)
+            score_df = score(stats_data, full)
                 |> mutate($rmse = round($rmse, 8), $mae = round($mae, 8), $r2 = round($r2, 8))
+            score_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -555,7 +563,7 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            anova(reduced, full)
+            anova_df = anova(reduced, full)
                 |> select($df_residual, $deviance, $delta_df, $delta_deviance, $statistic, $p_value)
                 |> mutate(
                     $df_residual = round($df_residual, 8),
@@ -565,6 +573,7 @@ p = pipeline {
                     $statistic = round($statistic, 8),
                     $p_value = round($p_value, 8)
                 )
+            anova_df
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -609,13 +618,14 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            wald_test(full, terms = ["feature_b", "basis_x"])
+            wald_df = wald_test(full, terms = ["feature_b", "basis_x"])
                 |> select($terms, $statistic, $df, $p_value, $test_type)
                 |> mutate(
                     $statistic = round($statistic, 8),
                     $df = round($df, 8),
                     $p_value = round($p_value, 8)
                 )
+            wald_df
         }>,
         runtime = T,
         deserializer = ^arrow,
