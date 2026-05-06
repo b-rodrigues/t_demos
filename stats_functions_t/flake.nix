@@ -26,6 +26,9 @@
           packages = with pkgs.rPackages; [
             arrow
             dplyr
+            XML
+            jsonlite
+            r2pmml
           ];
         };
 

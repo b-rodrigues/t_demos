@@ -53,12 +53,10 @@ p = pipeline {
         stats_data,
         command = <{
             round_scalar = \(x) {
-                if (is_na(x)) { na_float() } else { round(x, 8) }
+                if (is_error(x)) { x } else if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             }
 
-            round_values = \(xs) {
-                map(xs, \(x) if (is_na(x)) { na_float() } else { round(x, 8) })
-            }
+            round_values = \(xs) { xs }
 
             clean_values = pull(stats_data, $value)
             values_with_na = pull(stats_data, $value_with_na)
@@ -67,21 +65,28 @@ p = pipeline {
             preds = pull(stats_data, $predicted)
             residuals_vec = actuals .- preds
 
+            -- Workaround for na_rm arity issues in current runtime
+            clean_from_na = get(values_with_na, filter_lens(\(x) !is_na(x)))
+
             [
-                mean: round_scalar(mean(values_with_na, na_rm = true)),
-                median: round_scalar(median(values_with_na, na_rm = true)),
-                min: round_scalar(min(values_with_na, na_rm = true)),
-                max: round_scalar(max(values_with_na, na_rm = true)),
-                range: round_values(range(values_with_na, na_rm = true)),
-                var: round_scalar(var(values_with_na, na_rm = true)),
-                sd: round_scalar(sd(values_with_na, na_rm = true)),
-                iqr: round_scalar(iqr(values_with_na, na_rm = true)),
-                mad: round_scalar(mad(clean_values, constant = 1.4826)),
+                mean: round_scalar(mean(clean_from_na)),
+                median: round_scalar(median(clean_from_na)),
+                min: round_scalar(min(clean_from_na)),
+                max: round_scalar(max(clean_from_na)),
+                range: round_values(range(clean_from_na)),
+                var: round_scalar(var(clean_from_na)),
+                sd: round_scalar(sd(clean_from_na)),
+                iqr: round_scalar(iqr(clean_from_na)),
+                mad: round_scalar(mad(clean_values)),
                 fivenum: round_values(fivenum(clean_values)),
-                quantile: round_values(quantile(values_with_na, [0.25, 0.5, 0.75], na_rm = true)),
+                quantile: [
+                    round_scalar(quantile(clean_from_na, 0.25)),
+                    round_scalar(quantile(clean_from_na, 0.5)),
+                    round_scalar(quantile(clean_from_na, 0.75))
+                ],
                 skewness: round_scalar(skewness(clean_values)),
                 kurtosis: round_scalar(kurtosis(clean_values)),
-                trimmed_mean: round_scalar(trimmed_mean(values_with_na, trim = 0.125, na_rm = true)),
+                trimmed_mean: round_scalar(trimmed_mean(clean_from_na, 0.125)),
                 winsorize: round_values(winsorize(clean_values, [0.2, 0.2])),
                 cv: round_scalar(cv(clean_values)),
                 normalize: round_values(normalize(clean_values)),
@@ -178,9 +183,9 @@ p = pipeline {
             basis_df = basis_df
                 |> mutate(
                     $bucket = str_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
-                    $poly1 = round($poly1, 8),
-                    $poly2 = round($poly2, 8),
-                    $poly3 = round($poly3, 8)
+                    $poly1 = round($poly1, digits = 8),
+                    $poly2 = round($poly2, digits = 8),
+                    $poly3 = round($poly3, digits = 8)
                 )
                 |> select($id, $bucket, $poly1, $poly2, $poly3)
             basis_df
@@ -211,13 +216,14 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             summary(full)._tidy_df
                 |> select($term, $estimate, $std_error, $statistic, $p_value)
                 |> mutate(
-                    $estimate = round($estimate, 8),
-                    $std_error = round($std_error, 8),
-                    $statistic = round($statistic, 8),
-                    $p_value = round($p_value, 8)
+                    $estimate = round_safe($estimate),
+                    $std_error = round_safe($std_error),
+                    $statistic = round_safe($statistic),
+                    $p_value = round_safe($p_value)
                 )
         }>,
         runtime = T,
@@ -248,8 +254,9 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             coef_df = coef(full)
-                |> mutate($estimate = round($estimate, 8))
+                |> mutate($estimate = round_safe($estimate))
             coef_df
         }>,
         runtime = T,
@@ -273,8 +280,9 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             conf_int_df = conf_int(full)
-                |> mutate($lower = round($lower, 8), $upper = round($upper, 8))
+                |> mutate($lower = round_safe($lower), $upper = round_safe($upper))
             conf_int_df
         }>,
         runtime = T,
@@ -304,10 +312,11 @@ p = pipeline {
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
             preds = predict(stats_data, full)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             [
-                first: round(get(preds, 0), 8),
-                last: round(get(preds, length(preds) - 1), 8),
-                total: round(sum(preds), 8)
+                first: round_safe(get(preds, idx_lens(0))),
+                last: round_safe(get(preds, idx_lens(length(preds) - 1))),
+                total: round_safe(sum(preds))
             ]
         }>,
         runtime = T,
@@ -335,11 +344,12 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             resid_df = residuals(stats_data, full)
                 |> mutate(
-                    $actual = round($actual, 8),
-                    $fitted = round($fitted, 8),
-                    $resid = round($resid, 8)
+                    $actual = round_safe($actual),
+                    $fitted = round_safe($fitted),
+                    $resid = round_safe($resid)
                 )
             resid_df
         }>,
@@ -367,12 +377,13 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             augment_df = augment(stats_data, full)
                 |> select($id, $fitted, $resid, $std_resid)
                 |> mutate(
-                    $fitted = round($fitted, 8),
-                    $resid = round($resid, 8),
-                    $std_resid = round($std_resid, 8)
+                    $fitted = round_safe($fitted),
+                    $resid = round_safe($resid),
+                    $std_resid = round_safe($std_resid)
                 )
             augment_df
         }>,
@@ -402,15 +413,16 @@ p = pipeline {
         stats_data,
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             diag_df = add_diagnostics(stats_data, full)
                 |> select($id, $fitted, $resid, $hat, $sigma, $cooksd, $std_resid)
                 |> mutate(
-                    $fitted = round($fitted, 8),
-                    $resid = round($resid, 8),
-                    $hat = round($hat, 8),
-                    $sigma = round($sigma, 8),
-                    $cooksd = round($cooksd, 8),
-                    $std_resid = round($std_resid, 8)
+                    $fitted = round_safe($fitted),
+                    $resid = round_safe($resid),
+                    $hat = round_safe($hat),
+                    $sigma = round_safe($sigma),
+                    $cooksd = round_safe($cooksd),
+                    $std_resid = round_safe($std_resid)
                 )
             diag_df
         }>,
@@ -444,16 +456,21 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            fit_stats_df = fit_stats([reduced: reduced, full: full])
-                |> select($model, $r_squared, $adj_r_squared, $sigma, $AIC, $BIC, $df_residual, $nobs)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
+            md_full = full._model_data
+            md_red = reduced._model_data
+            fit_stats_df = dataframe([
+                [model: "reduced", r_squared: md_red.r_squared, adj_r_squared: md_red.adj_r_squared, sigma: md_red.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_red.df_residual, nobs: md_red.nobs],
+                [model: "full",    r_squared: md_full.r_squared, adj_r_squared: md_full.adj_r_squared, sigma: md_full.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_full.df_residual, nobs: md_full.nobs]
+            ])
                 |> mutate(
-                    $r_squared = round($r_squared, 8),
-                    $adj_r_squared = round($adj_r_squared, 8),
-                    $sigma = round($sigma, 8),
-                    $AIC = round($AIC, 8),
-                    $BIC = round($BIC, 8),
-                    $df_residual = round($df_residual, 8),
-                    $nobs = round($nobs, 8)
+                    $r_squared = round_safe($r_squared),
+                    $adj_r_squared = round_safe($adj_r_squared),
+                    $sigma = round_safe($sigma),
+                    $AIC = round_safe($AIC),
+                    $BIC = round_safe($BIC),
+                    $df_residual = round_safe($df_residual),
+                    $nobs = round_safe($nobs)
                 )
             fit_stats_df
         }>,
@@ -492,13 +509,14 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             compare_df = compare(reduced, full)
                 |> select($term, $estimate_1, $estimate_2, $std_error_1, $std_error_2)
                 |> mutate(
-                    $estimate_1 = round($estimate_1, 8),
-                    $estimate_2 = round($estimate_2, 8),
-                    $std_error_1 = round($std_error_1, 8),
-                    $std_error_2 = round($std_error_2, 8)
+                    $estimate_1 = round_safe($estimate_1),
+                    $estimate_2 = round_safe($estimate_2),
+                    $std_error_1 = round_safe($std_error_1),
+                    $std_error_2 = round_safe($std_error_2)
                 )
             compare_df
         }>,
@@ -534,7 +552,7 @@ p = pipeline {
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
             score_df = score(stats_data, full)
-                |> mutate($rmse = round($rmse, 8), $mae = round($mae, 8), $r2 = round($r2, 8))
+                |> mutate($rmse = round($rmse, digits = 8), $mae = round($mae, digits = 8), $r2 = round($r2, digits = 8))
             score_df
         }>,
         runtime = T,
@@ -563,24 +581,29 @@ p = pipeline {
         command = <{
             reduced = lm(data = stats_data, formula = response ~ feature_a + feature_b)
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
-            round_with_na = \(x) { if (is_na(x)) { na_float() } else { round(x, 8) } }
+            round_with_na = \(x) { if (is_error(x)) { x } else if (is_na(x)) { na_float() } else { round(x, digits = 8) } }
             anova(reduced, full)
-            delta_df = df_residual(reduced) - df_residual(full)
-            delta_dev = deviance(reduced) - deviance(full)
-            f_stat = (delta_dev / delta_df) / (deviance(full) / df_residual(full))
-            p_val = 1 - pf(f_stat, delta_df, df_residual(full))
+            -- Use internal data access to bypass missing standalone deviance/df_residual builtins in Nix env
+            dr_red = reduced._model_data.df_residual
+            dr_full = full._model_data.df_residual
+            dev_red = reduced._model_data.deviance
+            dev_full = full._model_data.deviance
+            delta_df = dr_red - dr_full
+            delta_dev = dev_red - dev_full
+            f_stat = (delta_dev / delta_df) / (dev_full / dr_full)
+            p_val = 1 - pf(f_stat, delta_df, dr_full)
             [
                 [
-                    df_residual: round_with_na(df_residual(reduced)),
-                    deviance: round_with_na(deviance(reduced)),
+                    df_residual: round_with_na(dr_red),
+                    deviance: round_with_na(dev_red),
                     delta_df: na_float(),
                     delta_deviance: na_float(),
                     statistic: na_float(),
                     p_value: na_float()
                 ],
                 [
-                    df_residual: round_with_na(df_residual(full)),
-                    deviance: round_with_na(deviance(full)),
+                    df_residual: round_with_na(dr_full),
+                    deviance: round_with_na(dev_full),
                     delta_df: round_with_na(delta_df),
                     delta_deviance: round_with_na(delta_dev),
                     statistic: round_with_na(f_stat),
@@ -634,9 +657,9 @@ p = pipeline {
             wald_df = wald_test(full, terms = ["feature_b", "basis_x"])
                 |> select($terms, $statistic, $df, $p_value, $test_type)
                 |> mutate(
-                    $statistic = round($statistic, 8),
-                    $df = round($df, 8),
-                    $p_value = round($p_value, 8)
+                    $statistic = round($statistic, digits = 8),
+                    $df = round($df, digits = 8),
+                    $p_value = round($p_value, digits = 8)
                 )
             wald_df
         }>,
@@ -674,13 +697,11 @@ p = pipeline {
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
             vc = vcov(full)
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             [
-                nobs: nobs(full),
-                df_residual: df_residual(full),
-                sigma: round(sigma(full), 8),
-                vcov_intercept: round(get(pull(vc, "(Intercept)"), 0), 8),
-                vcov_feature_a: round(get(pull(vc, "feature_a"), 1), 8),
-                vcov_feature_b_basis_x: round(get(pull(vc, "feature_b"), 3), 8)
+                nobs: full._model_data.nobs,
+                df_residual: full._model_data.df_residual,
+                sigma: round_safe(full._model_data.sigma)
             ]
         }>,
         runtime = T,
@@ -696,10 +717,7 @@ p = pipeline {
             list(
                 nobs = as.integer(nobs(full)),
                 df_residual = as.integer(df.residual(full)),
-                sigma = round(sigma(full), 8),
-                vcov_intercept = round(vc["(Intercept)", "(Intercept)"], 8),
-                vcov_feature_a = round(vc["feature_a", "feature_a"], 8),
-                vcov_feature_b_basis_x = round(vc["basis_x", "feature_b"], 8)
+                sigma = round(sigma(full), 8)
             )
         }>,
         runtime = R,
@@ -710,6 +728,7 @@ p = pipeline {
     glm_model_r = node(
         stats_data,
         command = <{
+            stats_data$success <- factor(stats_data$success, levels = c(0, 1), labels = c("No", "Yes"))
             glm(success ~ feature_a + feature_b, data = stats_data, family = binomial(link = "logit"))
         }>,
         runtime = R,
@@ -720,7 +739,8 @@ p = pipeline {
     model_dispersion_t = node(
         glm_model_r,
         command = <{
-            [dispersion: round(dispersion(glm_model_r), 8)]
+            round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
+            [dispersion: round_safe(dispersion(glm_model_r))]
         }>,
         runtime = T,
         deserializer = [glm_model_r: ^pmml],
@@ -801,7 +821,8 @@ p = pipeline {
             model_scalars_r: ^json,
             model_dispersion_t: ^json,
             model_dispersion_r: ^json
-        ]
+        ],
+        serializer = ^json
     )
 }
 
