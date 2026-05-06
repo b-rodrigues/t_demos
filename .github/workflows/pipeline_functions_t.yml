@@ -12,6 +12,8 @@ on:
 jobs:
   pipeline-functions-t:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: ./pipeline_functions_t
