@@ -103,15 +103,14 @@ p = pipeline {
     ]
   }
 
-  summary = [
-    package_workspace: package_workspace,
-    project_workspace: project_workspace,
-    package: package_checks,
-    project: project_checks
-  ]
 }
 
 build_pipeline(p, verbose = 1)
 
 print("=== Package manager demo summary ===")
-print(read_node("summary"))
+print([
+  package_workspace: package_workspace,
+  project_workspace: project_workspace,
+  package: read_node("package_checks"),
+  project: read_node("project_checks")
+])
