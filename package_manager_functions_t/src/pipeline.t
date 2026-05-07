@@ -8,8 +8,6 @@ package_root = path_join(package_workspace, "pm_demo_pkg")
 project_root = path_join(project_workspace, "pm_demo_project")
 consumer_script = path_join(demo_root, "src", "consumer_import.t")
 
-assert_dir_exists = \(path: String) assert(dir_exists(path), str_sprintf("Expected directory to exist: %s", path))
-
 p = pipeline {
   package_checks = {
     run(str_sprintf("sh -lc 'rm -rf \"%s\" && mkdir -p \"%s\"'", package_workspace, package_workspace))
