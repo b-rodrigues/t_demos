@@ -1,0 +1,15 @@
+[project]
+name = "package_manager_functions_t"
+description = "A T demo that exercises package manager scaffolding, docs, tests, updates, and package loading"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[t]
+min_version = "0.51.2"
