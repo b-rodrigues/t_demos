@@ -14,7 +14,7 @@ This repository contains a large collection of demonstration projects for the **
 Each subdirectory is a complete T project with its own `tproject.toml` and pipeline logic.
 
 ### Core pipeline and language demos
-- `basic_t`, `check_nodes_pipeline_t`, `dynamic_pipeline_operator_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_lens_orchestration_t`
+- `basic_t`, `check_nodes_pipeline_t`, `dynamic_pipeline_operator_t`, `package_manager_functions_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_lens_orchestration_t`
 - `dynamic_features_t`, `skip_nodes_t`, `many_inputs_t`, `many_unserialize_t`, `get_sym_demo_t`
 - `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`
 
