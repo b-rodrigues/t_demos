@@ -6,7 +6,7 @@ package_workspace = path_join(demo_root, "outputs", "package_manager_package_wor
 project_workspace = path_join(demo_root, "outputs", "package_manager_project_workspace")
 package_root = path_join(package_workspace, "pm_demo_pkg")
 project_root = path_join(project_workspace, "pm_demo_project")
-consumer_script = path_join(package_workspace, "consumer.t")
+consumer_script = path_join(demo_root, "src", "consumer_import.t")
 
 assert_file_exists = \(path) assert(file_exists(path), str_sprintf("Expected file to exist: %s", path))
 assert_dir_exists = \(path) assert(dir_exists(path), str_sprintf("Expected directory to exist: %s", path))
@@ -50,16 +50,12 @@ p = pipeline {
     run(str_sprintf("sh -lc 'cd \"%s\" && t update'", package_root))
     assert_file_exists(path_join(package_root, "flake.lock"))
 
-    write_text(
-      "import pm_demo_pkg\nimport pm_demo_pkg[hello = greet]\nresult = greet(\"world\")\nalias_result = hello(\"T\")\nassert(result == \"Hello, world!\")\nassert(alias_result == \"Hello, T!\")\nprint(alias_result)\n",
-      consumer_script
-    )
-
     package_import_output = run(
       str_sprintf(
-        "sh -lc 'cd \"%s\" && T_PACKAGE_PATH=\"%s\" t run consumer.t'",
+        "sh -lc 'cd \"%s\" && T_PACKAGE_PATH=\"%s\" t run \"%s\"'",
         package_workspace,
-        package_workspace
+        package_workspace,
+        consumer_script
       )
     )
 
