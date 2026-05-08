@@ -58,7 +58,7 @@ predict_jl_pmml_r = jl_node(
         
         # This uses the JPMML bridge in Julia
         res = predict(model_r, data_node)
-        # JPMML output usually contains the target name as column
+        println("JPMML output columns: ", names(res))
         rename!(res, names(res)[1] => :prediction)
         res
     }>,
@@ -85,17 +85,17 @@ verify_node = node(
         
         -- Compare R native vs T-Lang scoring of R model
         -- T-Lang's predict returns a vector, no pull needed
-        diff_r = (predict_r_native |> pull($prediction) .- p_r) |> abs() |> max(na_rm = true)
+        diff_r = ((predict_r_native |> pull($prediction)) .- p_r) |> abs() |> max(na_rm = true)
         print("Max absolute difference (R native vs T-Lang R-Model):")
         print(diff_r)
         
         -- Compare Julia native vs T-Lang scoring of Julia model
-        diff_jl = (predict_jl_native |> pull($prediction) .- p_jl) |> abs() |> max(na_rm = true)
+        diff_jl = ((predict_jl_native |> pull($prediction)) .- p_jl) |> abs() |> max(na_rm = true)
         print("Max absolute difference (Julia native vs T-Lang Julia-Model):")
         print(diff_jl)
         
         -- Compare Julia scoring of R model vs R native
-        diff_jl_r = (predict_jl_pmml_r |> pull($prediction) .- (predict_r_native |> pull($prediction))) |> abs() |> max(na_rm = true)
+        diff_jl_r = ((predict_jl_pmml_r |> pull($prediction)) .- (predict_r_native |> pull($prediction))) |> abs() |> max(na_rm = true)
         print("Max absolute difference (Julia PMML-R vs R native):")
         print(diff_jl_r)
         
