@@ -10,4 +10,4 @@ packages = ["DataFrames", "CSV"]
 min_version = "0.52.0"
 
 [nixpkgs]
-date = "2024-05-01"
+date = ""
