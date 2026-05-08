@@ -4,7 +4,7 @@ description = "A demo of T and Julia interoperation in a pipeline"
 
 [julia-dependencies]
 version = "lts"
-packages = ["DataFrames", "CSV"]
+packages = ["DataFrames", "CSV", "StatsModels"]
 
 [t]
 min_version = "0.52.0"
