@@ -1,0 +1,16 @@
+[project]
+name = "pmml_julia_r_interop_t"
+version = "0.1.0"
+description = "PMML interchange between R and Julia"
+
+[r-dependencies]
+packages = [ "pmml", "XML", "jsonlite" ]
+
+[julia-dependencies]
+packages = [ "GLM", "DataFrames", "CSV", "JavaCall" ]
+
+[additional-tools]
+packages = [ "jpmml-evaluator", "jre" ]
+
+[t]
+min_version = "0.51.2"
