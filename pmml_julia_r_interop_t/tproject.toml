@@ -7,7 +7,7 @@ description = "PMML interchange between R and Julia"
 packages = [ "pmml", "XML", "jsonlite", "r2pmml" ]
 
 [julia-dependencies]
-packages = [ "GLM", "DataFrames", "CSV", "JavaCall" ]
+packages = [ "GLM", "DataFrames", "CSV", "JavaCall", "StatsModels" ]
 
 [additional-tools]
 packages = [ "jpmml-evaluator", "jre" ]
