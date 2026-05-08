@@ -54,16 +54,15 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1773234997,
-        "narHash": "sha256-7U+KAv6DCOcr1KmLxzthnt8WmdMIi2CQbSdm7kxqbfc=",
+        "lastModified": 1777298544,
+        "narHash": "sha256-fRjf/Bky2z6CayY4ke8j6H7+zM5QCQohJojPzM05GOk=",
         "owner": "rstats-on-nix",
         "repo": "nixpkgs",
-        "rev": "19801a2d602f870f9f4d7e54a4cfb4d3036e8d94",
+        "rev": "7b74e320f417dfdf93fffb2a4c102a3ac6e054bc",
         "type": "github"
       },
       "original": {
         "owner": "rstats-on-nix",
-        "ref": "2026-03-11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -111,18 +110,14 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1774728744,
-        "narHash": "sha256-86y8J4/R4nrTlJNv2F9tMA3flUli2rfqAGW6wjy4rLs=",
-        "owner": "b-rodrigues",
-        "repo": "tlang",
-        "rev": "da843cfd7a349c5cd67a6024c1093d49aae66f05",
-        "type": "github"
+        "lastModified": 1778249237,
+        "narHash": "sha256-63AMx9mEB83vx8tsPZFX2zhfcQSBGyRfsU3XAEiY1FQ=",
+        "path": "/home/brodrigues/Documents/repos/tlang",
+        "type": "path"
       },
       "original": {
-        "owner": "b-rodrigues",
-        "ref": "v0.51.2",
-        "repo": "tlang",
-        "type": "github"
+        "path": "/home/brodrigues/Documents/repos/tlang",
+        "type": "path"
       }
     }
   },

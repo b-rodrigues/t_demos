@@ -22,7 +22,7 @@ model_r = rn(
 -- 2. Train GLM in Julia and export as PMML (using our new native exporter)
 model_jl = jl_node(
     command = <{
-        using GLM, DataFrames
+        using GLM
         # In Julia: mpg ~ wt + hp
         model = lm(@formula(mpg ~ wt + hp), data_node)
         model
@@ -44,7 +44,7 @@ predict_r_native = rn(
 -- 4. Native Julia Prediction (Baseline)
 predict_jl_native = jl_node(
     command = <{
-        using GLM, DataFrames
+        using GLM
         model = lm(@formula(mpg ~ wt + hp), data_node)
         DataFrame(prediction = predict(model, data_node))
     }>,
@@ -55,11 +55,12 @@ predict_jl_native = jl_node(
 -- 5. Julia scoring R model via PMML
 predict_jl_pmml_r = jl_node(
     command = <{
-        using DataFrames
+        
         # This uses the JPMML bridge in Julia
         res = predict(model_r, data_node)
         # JPMML output usually contains the target name as column
-        rename(res, names(res)[1] => :prediction)
+        rename!(res, 1 => :prediction)
+        res
     }>,
     deserializer = [ model_r: ^pmml, data_node: ^csv ],
     serializer = ^csv
@@ -83,17 +84,20 @@ verify_node = node(
         print("--- PHASE 2: CROSS-LANGUAGE COMPARISON ---")
         
         -- Compare R native vs T-Lang scoring of R model
-        diff_r = (pull(predict_r_native, $prediction) - pull(p_r, $1)) |> abs() |> max(na_rm = true)
+        -- T-Lang's predict returns a vector, no pull needed
+        diff_r = (pull(predict_r_native, "prediction") .- p_r) |> abs() |> max(na_rm = true)
         print("Max absolute difference (R native vs T-Lang R-Model):")
         print(diff_r)
-
+        
         -- Compare Julia native vs T-Lang scoring of Julia model
-        diff_jl = (pull(predict_jl_native, $prediction) - pull(p_jl, $1)) |> abs() |> max(na_rm = true)
+        diff_jl = (pull(predict_jl_native, "prediction") .- p_jl) |> abs() |> max(na_rm = true)
         print("Max absolute difference (Julia native vs T-Lang Julia-Model):")
         print(diff_jl)
-
+        
         -- Compare Julia scoring of R model vs R native
-        diff_jl_r = (pull(predict_jl_pmml_r, $prediction) - pull(predict_r_native, $prediction)) |> abs() |> max(na_rm = true)
+        diff_jl_r = (pull(predict_jl_pmml_r, "prediction") .- pull(predict_r_native, "prediction")) |> abs() |> max(na_rm = true)
+        print("Max absolute difference (Julia PMML-R vs R native):")
+        print(diff_jl_r)
         print("Max absolute difference (Julia PMML-R vs R native):")
         print(diff_jl_r)
         
