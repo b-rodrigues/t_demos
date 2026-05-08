@@ -27,11 +27,12 @@
             pmml
             XML
             jsonlite
+            r2pmml
           ];
         };
 
         # Julia environment
-        juliaPkg = pkgs.julia-lts.withPackages [ "GLM" "DataFrames" "CSV" "JavaCall" ];
+        juliaPkg = pkgs.julia-lts.withPackages [ "GLM" "DataFrames" "CSV" "JavaCall" "StatsModels" ];
 
         # Additional Tools
         additionalTools = with pkgs; [
