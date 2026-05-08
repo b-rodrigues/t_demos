@@ -16,7 +16,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 ### Core pipeline and language demos
 - `basic_t`, `check_nodes_pipeline_t`, `dynamic_pipeline_operator_t`, `package_manager_functions_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_lens_orchestration_t`
 - `dynamic_features_t`, `skip_nodes_t`, `many_inputs_t`, `many_unserialize_t`, `get_sym_demo_t`
-- `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`
+- `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`, `julia_interop_t`
 
 ### Interchange, serialization, and model portability demos
 - `arrow_interop_t`, `arrow_source_coverage_t`, `arrow_edge_cases_t`, `custom_polyglot_serializer_t`, `json_interchange_t`, `multi_deserializer_t`, `r_py_json_t`
