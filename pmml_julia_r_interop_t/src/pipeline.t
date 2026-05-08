@@ -98,8 +98,6 @@ verify_node = node(
         diff_jl_r = (pull(predict_jl_pmml_r, "prediction") .- pull(predict_r_native, "prediction")) |> abs() |> max(na_rm = true)
         print("Max absolute difference (Julia PMML-R vs R native):")
         print(diff_jl_r)
-        print("Max absolute difference (Julia PMML-R vs R native):")
-        print(diff_jl_r)
         
         "Verification complete"
     }>,
