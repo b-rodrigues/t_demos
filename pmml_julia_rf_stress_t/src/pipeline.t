@@ -43,8 +43,7 @@ rf_model_r = rn(
     serializer = ^pmml
 )
 
-glm_model_jl = node(
-    runtime = "Julia",
+glm_model_jl = jl_node(
     command = <{
         using GLM
         model = lm(@formula(y ~ x1 + x2 + x3 + x4), training_data)
