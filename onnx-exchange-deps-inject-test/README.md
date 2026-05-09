@@ -6,7 +6,7 @@ This demo showcases **multi-runtime model training and exchange using ONNX** wit
 ## Overview
 
 The pipeline (`src/pipeline.t`) demonstrates:
-1.  **Synthetic Training Data**: Generating data in T using `dataframe()`.
+1.  **Synthetic Training Data**: Generating data in T using `to_dataframe()`.
 2.  **Training in Python**: Using `scikit-learn` to train a model and exporting it via the first-class `^onnx` serializer.
 3.  **Training in R**: Using `lm()` in R and exporting it via `^onnx`.
 4.  **Native Prediction in T**: Using T's OCaml-based ONNX runtimes to score the model from BOTH R and Python WITHOUT needing a foreign runtime during scoring.

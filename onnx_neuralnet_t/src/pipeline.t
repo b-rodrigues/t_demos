@@ -56,7 +56,7 @@ py_preds
         train_nn,
         command = <{
             -- Create identical test samples in T
-            test_samples = dataframe([
+            test_samples = to_dataframe([
                 f0: [sin(0), cos(0), 0.5 * 0],
                 f1: [sin(1), cos(1), 0.5 * 1],
                 f2: [sin(2), cos(2), 0.5 * 2],

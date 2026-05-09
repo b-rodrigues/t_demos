@@ -34,7 +34,7 @@ print("Focused Country (Switzerland):")
 print(get(world, switzerland_l).name)
 
 -- 3. Precision Cell Edits in DataFrames: row_lens()
-df = dataframe([
+df = to_dataframe([
     [id: "A1", status: "pending", value: 100],
     [id: "A2", status: "pending", value: 200]
 ])

@@ -5,7 +5,7 @@ node_r = node(
     command = <{
         df_r <- data.frame(
             id = 1:3,
-            cat = factor(c("low", "high", "medium"), levels = c("low", "medium", "high")),
+            cat = to_factor(c("low", "high", "medium"), levels = c("low", "medium", "high")),
             stringsAsFactors = FALSE
         )
         print("R: Created data frame with factor")

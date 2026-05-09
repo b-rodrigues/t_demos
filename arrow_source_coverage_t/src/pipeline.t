@@ -6,7 +6,7 @@ import math
 p = pipeline {
     source_csv = node(
         command = <{
-            seed = dataframe([
+            seed = to_dataframe([
                 [id: 1, team: "alpha", amount: 10.0, offset: 2.0, bonus: 1.5, flag: true, note: "alpha,beta", stage: "low"],
                 [id: 2, team: "alpha", amount: 14.0, offset: 3.5, bonus: 2.0, flag: false, note: "plain text", stage: "medium"],
                 [id: 3, team: "beta", amount: 18.0, offset: 4.0, bonus: na_float(), flag: true, note: "beta,gamma", stage: "high"],
@@ -38,7 +38,7 @@ p = pipeline {
         command = <{
             arrow_roundtrip
                 |> mutate(
-                    $stage = factor($stage, levels = ["low", "medium", "high"], ordered = true),
+                    $stage = to_factor($stage, levels = ["low", "medium", "high"], ordered = true),
                     $net = $amount - $offset,
                     $gap = abs($amount - 18.0),
                     $log_amount = log($amount),
@@ -152,7 +152,7 @@ p = pipeline {
     model_augmented = node(
         command = <{
             model = lm(data = compute_features, formula = amount ~ offset + stage)
-            augment(compute_features, model)
+            add_diagnostics(compute_features, model)
         }>,
         runtime = T,
         deserializer = ^arrow,
@@ -232,7 +232,7 @@ p = pipeline {
             assert(nrow(roundtrip_nested) == nrow(compute_features), "nest()/unnest() should preserve row count")
             assert(ncol(model_diagnostics) > ncol(compute_features), "add_diagnostics() should append diagnostic columns")
             assert(nrow(model_predictions) == nrow(compute_features), "predict() should return one row per input row")
-            assert(ncol(model_augmented) > ncol(compute_features), "augment() should append fitted values")
+            assert(ncol(model_augmented) > ncol(compute_features), "add_diagnostics() should append fitted values")
             assert(nrow(model_residuals) == nrow(compute_features), "residuals() should return one row per input row")
             assert(nrow(model_coefficients) == 4, "coef() should expose all model terms")
             assert(nrow(model_confidence) == 4, "conf_int() should expose all confidence intervals")

@@ -76,7 +76,7 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
     parsed_native = node(
         command = native_csv
             |> mutate(
-                parsed_date = as_date($date_str),
+                parsed_date = to_date($date_str),
                 parsed_ts = parse_datetime($datetime_str, "%Y-%m-%d %H:%M:%S"),
                 parsed_day = day($parsed_date)
             )
@@ -102,7 +102,7 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
         command = <{
             data.frame(
                 id = 1:3,
-                category = factor(c("low", "medium", "high"), levels = c("low", "medium", "high"), ordered = TRUE),
+                category = to_factor(c("low", "medium", "high"), levels = c("low", "medium", "high"), ordered = TRUE),
                 event_date = as.Date(c("2024-01-31", "2024-02-29", "2024-03-31")),
                 event_ts = as.POSIXct(c("2024-01-31 23:59:59", "2024-02-29 12:30:00", "2024-03-31 00:15:45"), tz = "UTC"),
                 amount = c(10.0, 12.5, 15.0)
@@ -129,8 +129,8 @@ py_temporal = df
     temporal_roundtrip = node(
         command = py_temporal
             |> mutate(
-                event_date = as_date($event_date),
-                event_ts = as_datetime($event_ts),
+                event_date = to_date($event_date),
+                event_ts = to_datetime($event_ts),
                 event_day = day($event_date)
             )
             |> arrange($id),

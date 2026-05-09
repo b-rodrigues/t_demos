@@ -7,7 +7,7 @@ import math
 p = pipeline {
     stats_data = node(
         command = <{
-            dataframe([
+            to_dataframe([
                 [id: 1, group: "A", category: "apple",  value: 1.2, value_with_na: 1.2, basis_x: 1.0, feature_a: 2.0, feature_b: 1.0, response: 7.50, actual: 0.9, predicted: 1.1, success: 0],
                 [id: 2, group: "A", category: "apple",  value: 2.5, value_with_na: 2.5, basis_x: 2.0, feature_a: 3.8, feature_b: 1.6, response: 10.20, actual: 1.8, predicted: 1.7, success: 0],
                 [id: 3, group: "B", category: "banana", value: 3.1, value_with_na: 3.1, basis_x: 3.0, feature_a: 4.1, feature_b: 2.1, response: 11.00, actual: 3.2, predicted: 3.0, success: 0],
@@ -378,7 +378,7 @@ p = pipeline {
         command = <{
             full = lm(data = stats_data, formula = response ~ feature_a + feature_b + basis_x)
             round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
-            augment_df = augment(stats_data, full)
+            augment_df = add_diagnostics(stats_data, full)
                 |> select($id, $fitted, $resid, $std_resid)
                 |> mutate(
                     $fitted = round_safe($fitted),
@@ -459,7 +459,7 @@ p = pipeline {
             round_safe = \(x) if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             md_full = full._model_data
             md_red = reduced._model_data
-            fit_stats_df = dataframe([
+            fit_stats_df = to_dataframe([
                 [model: "reduced", r_squared: md_red.r_squared, adj_r_squared: md_red.adj_r_squared, sigma: md_red.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_red.df_residual, nobs: md_red.nobs],
                 [model: "full",    r_squared: md_full.r_squared, adj_r_squared: md_full.adj_r_squared, sigma: md_full.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_full.df_residual, nobs: md_full.nobs]
             ])
@@ -728,7 +728,7 @@ p = pipeline {
     glm_model_r = node(
         stats_data,
         command = <{
-            stats_data$success <- factor(stats_data$success, levels = c(0, 1), labels = c("No", "Yes"))
+            stats_data$success <- to_factor(stats_data$success, levels = c(0, 1), labels = c("No", "Yes"))
             glm(success ~ feature_a + feature_b, data = stats_data, family = binomial(link = "logit"))
         }>,
         runtime = R,
@@ -768,7 +768,7 @@ p = pipeline {
             assert(identical(model_conf_int_t, model_conf_int_r), "conf_int() results should match R")
             assert(identical(model_predict_t, model_predict_r), "predict() results should match R")
             assert(identical(model_residuals_t, model_residuals_r), "residuals() results should match R")
-            assert(identical(model_augment_t, model_augment_r), "augment() results should match R")
+            assert(identical(model_augment_t, model_augment_r), "add_diagnostics() results should match R")
             assert(identical(model_diagnostics_t, model_diagnostics_r), "add_diagnostics() results should match R")
             assert(identical(model_fit_stats_t, model_fit_stats_r), "fit_stats() results should match R")
             assert(identical(model_compare_t, model_compare_r), "compare() results should match R")

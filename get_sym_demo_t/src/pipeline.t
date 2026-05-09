@@ -1,4 +1,4 @@
--- get() and sym() Demo with Assertions
+-- get() and to_symbol() Demo with Assertions
 
 p = pipeline {
   -- Define some nodes
@@ -9,8 +9,8 @@ p = pipeline {
   val1 = node(command = get("my_var"), deps = [my_var])
   test_val1 = assert(val1 == 42)
 
-  -- Use get() with sym()
-  val2 = node(command = get(sym(var_name)), deps = [my_var, var_name])
+  -- Use get() with to_symbol()
+  val2 = node(command = get(to_symbol(var_name)), deps = [my_var, var_name])
   test_val2 = assert(val2 == 42)
 
   -- Collection indexing with get()
@@ -32,9 +32,9 @@ p = pipeline {
   )
   test_dynamic = assert(dynamic_access == 100)
 
-  -- Testing sym() construction
+  -- Testing to_symbol() construction
   target_col = "mpg"
-  s = sym(target_col)
+  s = to_symbol(target_col)
   test_sym = assert(type(s) == "Symbol")
 
   -- Using get with a Dict and Lens
@@ -55,7 +55,7 @@ p = pipeline {
 populate_pipeline(p, build=true)
 
 -- Execution and results presentation
-print("--- get() and sym() Pipeline Results ---")
+print("--- get() and to_symbol() Pipeline Results ---")
 print("All assertions passed:")
 print(p.all_passed)
 print("val1 (42):") 

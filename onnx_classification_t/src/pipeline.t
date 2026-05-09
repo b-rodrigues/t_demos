@@ -57,7 +57,7 @@ py_preds
     t_predictions = node(
         train_classifier,
         command = <{
-            test_samples = dataframe([
+            test_samples = to_dataframe([
                 f1: [0.1, -1.0, 2.0],
                 f2: [0.5, 0.0, -0.5],
                 f3: [-0.2, 1.2, 0.8],

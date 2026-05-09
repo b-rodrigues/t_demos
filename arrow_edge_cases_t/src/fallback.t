@@ -12,7 +12,7 @@ write_text("arrow_disable_arrow.csv", csv_text)
 df = read_csv("arrow_disable_arrow.csv", separator = ";")
 parsed = df
     |> mutate(
-        parsed_date = as_date($date_str),
+        parsed_date = to_date($date_str),
         parsed_day = day($parsed_date)
     )
     |> arrange($id)

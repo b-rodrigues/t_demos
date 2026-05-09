@@ -8,7 +8,7 @@ p = pipeline {
                 [x: 4.0, y: 1.0],
                 [x: 5.0, y: 1.0]
             ]
-            dataframe(data)
+            to_dataframe(data)
         }>,
         runtime = T,
         serializer = ^arrow

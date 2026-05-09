@@ -1,6 +1,6 @@
 -- 1. Create a base pipeline
 base_p = pipeline {
-  raw_data = node(command = dataframe([[x: 1, y: 3], [x: 2, y: 4]]))
+  raw_data = node(command = to_dataframe([[x: 1, y: 3], [x: 2, y: 4]]))
   process = node(command = raw_data |> mutate(z = $x + $y))
 }
 

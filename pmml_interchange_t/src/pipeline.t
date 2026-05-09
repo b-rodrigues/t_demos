@@ -4,7 +4,7 @@
 
 data_node = node(
     command = read_csv("data/mtcars.csv", separator = "|") |>
-      mutate($cyl = factor($cyl), $am = factor($am)),
+      mutate($cyl = to_factor($cyl), $am = to_factor($am)),
     serializer = ^csv
 )
 

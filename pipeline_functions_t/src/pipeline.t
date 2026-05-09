@@ -2,7 +2,7 @@
 -- Exercise the pipeline inspection, validation, and artifact helpers.
 
 base_p = pipeline {
-  raw_data = dataframe([
+  raw_data = to_dataframe([
     [id: 1, group: "alpha", value: 10],
     [id: 2, group: "alpha", value: na()],
     [id: 3, group: "beta", value: 5],

@@ -7,7 +7,7 @@ p = pipeline {
   -- 1. Create a synthetic dataset in T
   training_data = node(
     command = <{
-      dataframe([
+      to_dataframe([
         x: [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
         y: [2.1, 3.9, 6.2, 8.0, 9.8, 12.1, 14.2, 15.9, 17.8, 20.1]
       ])
