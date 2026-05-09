@@ -140,7 +140,6 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
   -- 10. Julia node predicting from Python's ONNX model
   pred_jl_py = jln(
     command = <{
-      using ONNXRunTime
       # model_py is loaded via jl_read_onnx (using ORT.load_inference)
       # We prepare a mock input to demonstrate the call
       input_data = Dict("input" => training_data.x)
