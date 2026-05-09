@@ -17,7 +17,7 @@ We can access the accuracy score calculated in Python.
 #| label: accuracy
 acc_node = read_node("accuracy")
 accuracy = t_read_json(acc_node.path)
-print(str_join(["Accuracy: ", str_string(accuracy * 100), "%"]))
+print(str_join(["Accuracy: ", to_string(accuracy * 100), "%"]))
 ```
 
 # Model Performance

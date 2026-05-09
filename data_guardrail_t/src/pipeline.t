@@ -59,7 +59,7 @@ p = pipeline {
                 |> filter(!$is_valid)
             
             n_err = nrow(violations)
-            assert(n_err == 0, str_join(["GUARDRAIL FAILURE: ", str_string(n_err), " relational date violations detected (login before signup)!"]))
+            assert(n_err == 0, str_join(["GUARDRAIL FAILURE: ", to_string(n_err), " relational date violations detected (login before signup)!"]))
             
             raw_data
         }>,

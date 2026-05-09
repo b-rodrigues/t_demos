@@ -89,7 +89,7 @@ p = pipeline {
 
     grouped_summary = node(
         command = compute_features
-            |> mutate(stage_s = str_string($stage))
+            |> mutate(stage_s = to_string($stage))
             |> group_by($segment)
             |> summarize(
                 avg_amount = mean($amount),

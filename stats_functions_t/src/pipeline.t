@@ -182,7 +182,7 @@ p = pipeline {
             basis_df = eval(expr(mutate(basis_core, !!!poly_cols)))
             basis_df = basis_df
                 |> mutate(
-                    $bucket = str_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
+                    $bucket = to_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
                     $poly1 = round($poly1, digits = 8),
                     $poly2 = round($poly2, digits = 8),
                     $poly3 = round($poly3, digits = 8)
