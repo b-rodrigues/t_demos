@@ -120,7 +120,21 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     deserializer = [model_py: ^onnx, model_r: ^pmml],
     serializer = ^arrow
   )
+  
+  -- 9. Final Results Comparison in T
+  results_base = node(
+    command = <{
+      -- Combine all predictions for initial comparison
+      res = pred_t_py 
+        |> bind_cols(pred_t_r |> select($t_pred_r))
+        |> bind_cols(pred_py_r |> select($py_pred_r))
+        |> bind_cols(pred_r_py |> select($r_pred_py))
 
+      res
+    }>,
+    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow],
+    serializer = ^arrow
+  )
 
 
   -- 10. Julia node predicting from Python's ONNX model
