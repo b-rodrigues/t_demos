@@ -51,7 +51,7 @@ predict_jl_native = jln(
 )
 
 -- 5. Julia scoring R model via PMML
-predict_jl_pmml_r = jl_node(
+predict_jl_pmml_r = jln(
     command = <{
         # This uses the JPMML bridge in Julia
         res = predict(model_r, data_node)
