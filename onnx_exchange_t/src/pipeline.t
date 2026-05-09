@@ -121,12 +121,7 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     serializer = ^arrow
   )
 
-  -- 9. Final Results Comparison in T
-      res
-    }>,
-    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow],
-    serializer = ^arrow
-  )
+
 
   -- 10. Julia node predicting from Python's ONNX model
   pred_jl_py = jln(
