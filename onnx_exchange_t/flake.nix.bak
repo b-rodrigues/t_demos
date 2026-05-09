@@ -21,17 +21,6 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        # R environment
-        r-env = pkgs.rWrapper.override {
-          packages = with pkgs.rPackages; [
-            XML
-            arrow
-            jsonlite
-            onnx
-            r2pmml
-          ];
-        };
-
         # Python environment
         py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
           scikit-learn
@@ -39,29 +28,14 @@
           onnxruntime
           pandas
           numpy
-          pyarrow
-          scipy
-          sklearn2pmml
-          statsmodels
         ]);
-
-        # Julia environment
-        juliaPkg = pkgs.julia-lts.withPackages [ "Arrow" "DataFrames" "ONNX" "ONNXRunTime" ];
-
-        # Additional Tools
-        additionalTools = with pkgs; [
-          jpmml-evaluator
-          jre
-        ];
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
             t-lang.packages.${system}.default
-            r-env
             py-env
-            juliaPkg
-          ] ++ additionalTools;
+          ];
 
           shellHook = ''
             echo "=================================================="
@@ -77,7 +51,6 @@
             echo "  * Add them to tproject.toml"
             echo "  * Run 't update' to sync flake.nix"
             echo ""
-            export T_JPMML_EVALUATOR_JAR="${pkgs.jpmml-evaluator}/share/java/jpmml-evaluator.jar"
           '';
         };
       }

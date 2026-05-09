@@ -16,9 +16,8 @@ p = pipeline {
     -- The <{ ... }> raw code block passes Julia code verbatim.
     -- Dependencies (raw_data) are auto-detected.
     -- We use DataFrames and CSV packages which must be declared in tproject.toml.
-    summary_jl = jl_node(
+    summary_jl = jln(
         command = <{
-            using DataFrames, Statistics
             # raw_data is available as a DataFrame thanks to automatic CSV deserialization
             gdf = groupby(raw_data, :cyl)
             combine(gdf, :mpg => mean => :avg_mpg)

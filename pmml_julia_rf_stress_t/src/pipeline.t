@@ -43,9 +43,8 @@ rf_model_r = rn(
     serializer = ^pmml
 )
 
-glm_model_jl = jl_node(
+glm_model_jl = jln(
     command = <{
-        using GLM
         model = lm(@formula(y ~ x1 + x2 + x3 + x4), training_data)
         model
     }>,
@@ -67,7 +66,6 @@ rf_predict_r_native = rn(
 rf_predict_jl_pmml = node(
     runtime = "Julia",
     command = <{
-        using DataFrames
         res = predict(rf_model_r, scoring_data)
         rename!(res, 1 => :prediction)
         res
@@ -79,7 +77,6 @@ rf_predict_jl_pmml = node(
 glm_predict_jl_native = node(
     runtime = "Julia",
     command = <{
-        using GLM, DataFrames
         model = lm(@formula(y ~ x1 + x2 + x3 + x4), training_data)
         DataFrame(prediction = predict(model, scoring_data))
     }>,
