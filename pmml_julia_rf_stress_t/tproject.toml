@@ -13,4 +13,4 @@ packages = [ "GLM", "DataFrames", "CSV", "JavaCall", "StatsModels" ]
 packages = [ "jpmml-evaluator", "jre" ]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

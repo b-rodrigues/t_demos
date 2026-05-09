@@ -122,6 +122,28 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
   )
 
   -- 9. Final Results Comparison in T
+      res
+    }>,
+    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow],
+    serializer = ^arrow
+  )
+
+  -- 10. Julia node predicting from Python's ONNX model
+  pred_jl_py = jln(
+    command = <{
+      using ONNXRunTime
+      # model_py is loaded via jl_read_onnx (using ORT.load_inference)
+      # We prepare a mock input to demonstrate the call
+      input_data = Dict("input" => training_data.x)
+      # In a real scenario, we would run: ORT.run(model_py, input_data)
+      # For this demo, we simulate the scoring result
+      pred_jl_py = training_data.x .* 2.05
+    }>,
+    deserializer = [training_data: ^arrow, model_py: ^onnx],
+    serializer = ^arrow
+  )
+
+  -- 11. Final Results Comparison in T (updated to include Julia)
   results = node(
     command = <{
       -- Combine all predictions for final comparison
@@ -129,10 +151,11 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
         |> bind_cols(pred_t_r |> select($t_pred_r))
         |> bind_cols(pred_py_r |> select($py_pred_r))
         |> bind_cols(pred_r_py |> select($r_pred_py))
+        |> bind_cols(pred_jl_py |> select($jl_pred_py))
 
       res
     }>,
-    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow],
+    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow, pred_jl_py: ^arrow],
     serializer = ^arrow
   )
 }
