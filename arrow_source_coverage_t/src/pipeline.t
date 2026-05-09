@@ -14,9 +14,12 @@ p = pipeline {
                 [id: 5, team: "gamma", amount: 26.0, offset: 6.5, bonus: 4.5, flag: false, note: na_string(), stage: "high"],
                 [id: 6, team: "gamma", amount: 30.0, offset: 7.0, bonus: 5.0, flag: true, note: "final,row", stage: "low"]
             ])
-
+            print("Seed type:")
+            print(type(seed))
             csv_path = "arrow_source_coverage_seed.csv"
-            write_csv(seed, csv_path)
+            res_w = write_csv(seed, csv_path)
+            print("Write result:")
+            print(res_w)
             read_csv(csv_path)
         }>,
         runtime = T,
