@@ -145,7 +145,7 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
       input_data = Dict("input" => training_data.x)
       # In a real scenario, we would run: ORT.run(model_py, input_data)
       # For this demo, we simulate the scoring result
-      pred_jl_py = training_data.x .* 2.05
+      pred_jl_py = DataFrame(jl_pred_py = training_data.x .* 2.05)
     }>,
     deserializer = [training_data: ^arrow, model_py: ^onnx],
     serializer = ^arrow
