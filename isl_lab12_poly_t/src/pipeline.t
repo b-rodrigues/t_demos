@@ -16,9 +16,9 @@ p = pipeline {
     -- with our current simple power-based poly().
     t_data = node(
         command = <{
-            -- Use eval(expr(...)) to allow splicing !!!
+            -- Use eval(to_expr(...)) to allow splicing !!!
             cols = poly(wage_raw.age, 4, raw = true)
-            eval(expr(mutate(wage_raw, !!!cols)))
+            eval(to_expr(mutate(wage_raw, !!!cols)))
         }>,
         serializer = ^arrow,
         deserializer = ^arrow
