@@ -1,18 +1,28 @@
-[dependencies]
-base = "*"
-pipeline = "*"
-dataframe = "*"
-chrono = "*"
-
-[r-dependencies]
-packages = [ "arrow" ]
-
-[py-dependencies]
-packages = [ "pandas", "pyarrow" ]
-
 [project]
 name = "arrow_edge_cases_t"
 description = "A T demo covering Arrow edge cases, Parquet ingestion, and fallback CSV parsing"
 
+[dependencies]
+
+[r-dependencies]
+packages = ["arrow", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = ["pandas", "pyarrow"]
+
+[julia-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
