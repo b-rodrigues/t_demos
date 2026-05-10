@@ -19,20 +19,20 @@ apply_transform = \(df, spec) {
   new_name = str_join([col, suffix])
   
   if (t_type == "log") {
-     e = expr(\(d) log(get(d, !!col)))
+     e = to_expr(\(d) log(get(d, !!col)))
      m = [!!new_name := !!e]
-     eval(expr(!!df |> mutate(!!!m)))
+     eval(to_expr(!!df |> mutate(!!!m)))
   } else if (t_type == "sqrt") {
-     e = expr(\(d) sqrt(get(d, !!col)))
+     e = to_expr(\(d) sqrt(get(d, !!col)))
      m = [!!new_name := !!e]
-     eval(expr(!!df |> mutate(!!!m)))
+     eval(to_expr(!!df |> mutate(!!!m)))
   } else if (t_type == "scale") {
      v = get(df, col)
      m_val = mean(v)
      s_val = sd(v)
-     e = expr(\(d) (get(d, !!col) - !!m_val) / !!s_val)
+     e = to_expr(\(d) (get(d, !!col) - !!m_val) / !!s_val)
      mut = [!!new_name := !!e]
-     eval(expr(!!df |> mutate(!!!mut)))
+     eval(to_expr(!!df |> mutate(!!!mut)))
   } else {
      df
   }

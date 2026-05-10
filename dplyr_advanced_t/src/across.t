@@ -21,8 +21,8 @@ mutate_across = \(df: DataFrame, cols: List[String], fn: Any) {
 summarize_across = \(df: DataFrame, cols: List[String], fn: Any) {
   muts = fold(cols, [], \(acc, c) {
      col_sym = to_symbol("$" + c)
-     e = expr(!!fn(!!col_sym))
+     e = to_expr(!!fn(!!col_sym))
      [!!c := !!e, !!!acc]
   }, fold)
-  eval(expr(!!df |> summarize(!!!muts)))
+  eval(to_expr(!!df |> summarize(!!!muts)))
 }

@@ -179,7 +179,7 @@ p = pipeline {
         command = <{
             poly_cols = poly(pull(stats_data, $basis_x), 3, raw = true)
             basis_core = stats_data |> select($id, $basis_x)
-            basis_df = eval(expr(mutate(basis_core, !!!poly_cols)))
+            basis_df = eval(to_expr(mutate(basis_core, !!!poly_cols)))
             basis_df = basis_df
                 |> mutate(
                     $bucket = to_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
