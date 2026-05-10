@@ -7,7 +7,7 @@ import pandas as pd
 data_node = {"x": [1, 2, 3], "y": [4, 5, 6]}
     }>,
     runtime = "Python",
-    serializer = "json"
+    serializer = ^json
 )
 
 model_node = node(
@@ -17,7 +17,7 @@ data <- data.frame(mpg=c(21.0, 21.0, 22.8), wt=c(2.62, 2.875, 2.32), hp=c(110, 1
 model_node <- lm(mpg ~ wt+hp, data = data)
     }>,
     runtime = "R",
-    serializer = "pmml"
+    serializer = ^pmml
 )
 
 combined_node = node(
@@ -48,7 +48,7 @@ combined_node = node(
         "SUCCESS"
     }>,
     runtime = "T",
-    deserializer = [data_node: "json", model_node: "pmml"]
+    deserializer = [data_node: ^json, model_node: ^pmml]
 )
 
 p = pipeline {

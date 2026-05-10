@@ -6,7 +6,7 @@ config_node = node(
 config_node <- list(alpha = 0.1, beta = 2)
     }>,
     runtime = R,
-    serializer = "json"
+    serializer = ^json
 )
 
 process_node = node(
@@ -16,13 +16,13 @@ res = config_node["alpha"] + config_node["beta"]
 process_node = {"result": res}
     }>,
     runtime = Python,
-    deserializer = "json",
-    serializer = "json"
+    deserializer = ^json,
+    serializer = ^json
 )
 
 final_node = node(
     command = process_node.result * 2,
-    deserializer = "json"
+    deserializer = ^json
 )
 
 p = pipeline {

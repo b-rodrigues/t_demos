@@ -18,8 +18,8 @@ p = pipeline {
   val3 = get(my_list, 2)
   test_val3 = assert(val3 == 30)
 
-  node_a = node(command = 100, serializer = "json")
-  node_b = node(command = 200, serializer = "json")
+  node_a = node(command = 100, serializer = ^json)
+  node_b = node(command = 200, serializer = ^json)
   
   -- A node that decides which node to access dynamically via node_lens
   dynamic_access = node(
@@ -28,7 +28,7 @@ p = pipeline {
       get(node_lens(target))
     },
     deps = [node_a, node_b],
-    deserializer = [node_a: "json", node_b: "json"]
+    deserializer = [node_a: ^json, node_b: ^json]
   )
   test_dynamic = assert(dynamic_access == 100)
 
