@@ -15,4 +15,4 @@ version = "python313"
 packages = [ "numpy", "pandas", "scikit-learn", "xgboost", "pyarrow",]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

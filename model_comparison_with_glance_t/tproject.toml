@@ -22,4 +22,4 @@ packages = [ "scikit-learn", "pandas", "pyarrow", "sklearn2pmml",]
 packages = [ "quarto",]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

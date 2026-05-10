@@ -13,4 +13,4 @@ packages = [ "sklearn2pmml", "numpy", "pandas", "pyarrow", "scikit-learn", "scip
 packages = [ "jpmml-evaluator", "jre",]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

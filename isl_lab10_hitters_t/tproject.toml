@@ -3,7 +3,7 @@ name = "isl_lab10_hitters_t"
 description = "ISL Lab Migration: test_lab10_hitters.t"
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"
 
 [r-dependencies]
 packages = ["glmnet"]

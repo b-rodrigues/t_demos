@@ -8,4 +8,4 @@ description = "Comparing T's strcraft package with R's stringr"
 packages = [ "arrow", "stringr" ]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

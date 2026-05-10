@@ -12,7 +12,7 @@ version = "python314"
 packages = []
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"
 
 [additional-tools]
 packages = [ "gawk",]

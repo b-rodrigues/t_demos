@@ -8,4 +8,4 @@ description = "Comparing T's chrono package with R's lubridate"
 packages = [ "arrow", "lubridate" ]
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"

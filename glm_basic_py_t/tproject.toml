@@ -3,7 +3,7 @@ name = "glm_basic_py_t"
 description = "GLM Example: Basic Python logistic regression"
 
 [t]
-min_version = "0.51.2"
+min_version = "0.52.0"
 
 [py-dependencies]
 packages = ["statsmodels", "pandas", "pyarrow", "scikit-learn", "sklearn2pmml", "numpy", "scipy"]

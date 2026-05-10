@@ -40,4 +40,4 @@ packages = []
 
 [t]
 # Minimum T language version required
-min_version = "0.51.4"
+min_version = "0.52.0"
