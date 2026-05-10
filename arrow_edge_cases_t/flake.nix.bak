@@ -25,6 +25,7 @@
         r-env = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [
             arrow
+            jsonlite
           ];
         };
 
