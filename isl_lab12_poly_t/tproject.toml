@@ -2,11 +2,27 @@
 name = "isl_lab12_poly_t"
 description = "ISL Lab Migration: pipeline.t"
 
+[dependencies]
+
+[r-dependencies]
+packages = ["XML", "arrow", "jsonlite", "r2pmml"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[julia-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = ["jre"]
+
+[latex]
+packages = []
+
 [t]
 min_version = "0.51.2"
 
-[r-dependencies]
-packages = []
-
-[py-dependencies]
-packages = []
+[nixpkgs]
+date = ""
