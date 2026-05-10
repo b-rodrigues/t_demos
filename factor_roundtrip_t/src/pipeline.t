@@ -5,7 +5,7 @@ node_r = node(
     command = <{
         df_r <- data.frame(
             id = 1:3,
-            cat = to_factor(c("low", "high", "medium"), levels = c("low", "medium", "high")),
+            cat = factor(c("low", "high", "medium"), levels = c("low", "medium", "high")),
             stringsAsFactors = FALSE
         )
         print("R: Created data frame with factor")
@@ -14,7 +14,7 @@ node_r = node(
         df_r
     }>,
     runtime = R,
-    serializer = "arrow"
+    serializer = ^arrow
 )
 
 node_t = node(
@@ -34,8 +34,8 @@ node_t = node(
         node_r
     }>,
     runtime = T,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
 )
 
 node_py = node(
@@ -61,8 +61,8 @@ print(output)
 output
     }>,
     runtime = Python,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
 )
 
 node_r_final = node(
@@ -86,8 +86,8 @@ node_r_final = node(
         node_py
     }>,
     runtime = R,
-    deserializer = "arrow",
-    serializer = "arrow"
+    deserializer = ^arrow,
+    serializer = ^arrow
 )
 
 p = pipeline {
