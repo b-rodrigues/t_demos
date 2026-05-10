@@ -1,3 +1,2 @@
-pn = read_node("parsed_native")
-print("Class of pn: ", type(pn))
-glimpse(pn)
+df = read_node("py_temporal")
+glimpse(df)
