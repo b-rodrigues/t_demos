@@ -1,0 +1,47 @@
+warning: Git tree '/home/brodrigues/Documents/repos/t_demos' is dirty
+Using saved setting for 'extra-substituters = https://rstats-on-nix.cachix.org' from ~/.local/share/nix/trusted-settings.json.
+Using saved setting for 'extra-trusted-public-keys = rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=' from ~/.local/share/nix/trusted-settings.json.
+==================================================
+T Project: arrow_edge_cases_t
+==================================================
+
+Available commands:
+  t repl              - Start T REPL
+  t run <file>        - Run a T file
+  t test              - Run tests
+
+To add dependencies:
+  * Add them to tproject.toml
+  * Run 't update' to sync flake.nix
+
+onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+Documentation: loaded from /nix/store/p2xrwp0yxh4wxnrhvvpfljq8v0qm2m53-t-lang-0.52.0-modified/share/tlang/help/docs.json
+Running arrow edge-case demo... 
+
+Starting pipeline build...
+  + r_temporal building
+  + seed_fallback_df building
+  + seed_native_df building
+  + seed_parquet building
+  + native_csv building
+  + py_temporal building
+  + fallback_csv building
+  + parsed_native building
+  + parquet_scan building
+  + temporal_roundtrip building
+
+  ✖ Node temporal_roundtrip failed! For full logs, run: read_log("temporal_roundtrip")
+
+
+--- Logs for failed node `temporal_roundtrip` ---
+Error in cpuinfo: failed to parse the list of possible processors in /sys/devices/system/cpu/possible
+Error in cpuinfo: failed to parse the list of present processors in /sys/devices/system/cpu/present
+Error in cpuinfo: failed to parse both lists of possible and present processors
+onnxruntime cpuid_info warning: Failed to initialize PyTorch cpuinfo library. May cause CPU EP performance degradation due to undetected CPU features.
+onnxruntime cpuid_info warning: Unknown CPU vendor. cpuinfo_vendor value: 0
+Documentation: loaded from /nix/store/p2xrwp0yxh4wxnrhvvpfljq8v0qm2m53-t-lang-0.52.0-modified/share/tlang/help/docs.json
+Serialization failed: 
+Error(TypeError: "[node_script.t:L5:C14] Function `write_arrow` expects a DataFrame as first argument, got Error instead (temporal_roundtrip)")
+
+✖ Pipeline build failed [1 nodes errored: temporal_roundtrip]
+Error(StructuralError: "[src/pipeline.t:L175:C7] nix-build failed. See details above.")
