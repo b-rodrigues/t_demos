@@ -12,7 +12,7 @@ p = pipeline {
     command = <{
       config = dict(api="https://api.tlang.org", v="0.51.2")
     }>,
-    serializer: ^yaml_ser
+    serializer: yaml_ser
   )
 
   -- Consumer: R node that reads the YAML artifact via the imported serializer
@@ -21,7 +21,7 @@ p = pipeline {
       print(config_py$api)
       res <- paste("URL:", config_py$api)
     }>,
-    deserializer: [ config_py: ^yaml_ser ]
+    deserializer: [ config_py: yaml_ser ]
   )
 }
 
