@@ -55,6 +55,12 @@ jobs:
             sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
           fi
 
+      - name: Inject pipeline dependencies
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
       - name: Run Pipeline
         run: |
           nix develop --command t run src/pipeline.t
