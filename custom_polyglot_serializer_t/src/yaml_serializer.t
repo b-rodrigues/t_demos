@@ -6,7 +6,7 @@
 -- function expressions. T generates a call: <snippet>(result, artifact_path)
 
 yaml_ser = [
-  format: "yaml",
+  format: ^yaml,
 
   -- R: inline function expressions (no external helper file needed)
   r_writer: <{ (function(obj, path) yaml::write_yaml(obj, path)) }>,
