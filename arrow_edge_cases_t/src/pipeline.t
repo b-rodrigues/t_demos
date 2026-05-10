@@ -102,7 +102,7 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
         command = <{
             data.frame(
                 id = 1:3,
-                category = to_factor(c("low", "medium", "high"), levels = c("low", "medium", "high"), ordered = TRUE),
+                category = factor(c("low", "medium", "high"), levels = c("low", "medium", "high"), ordered = TRUE),
                 event_date = as.Date(c("2024-01-31", "2024-02-29", "2024-03-31")),
                 event_ts = as.POSIXct(c("2024-01-31 23:59:59", "2024-02-29 12:30:00", "2024-03-31 00:15:45"), tz = "UTC"),
                 amount = c(10.0, 12.5, 15.0)
