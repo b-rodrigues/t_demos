@@ -22,6 +22,7 @@ model_r = rn(
 -- 2. Train GLM in Julia and export as PMML (using our new native exporter)
 model_jl = jln(
     command = <{
+        using GLM
         # In Julia: mpg ~ wt + hp
         model = lm(@formula(mpg ~ wt + hp), data_node)
         model
@@ -43,6 +44,7 @@ predict_r_native = rn(
 -- 4. Native Julia Prediction (Baseline)
 predict_jl_native = jln(
     command = <{
+        using GLM
         model = lm(@formula(mpg ~ wt + hp), data_node)
         DataFrame(prediction = predict(model, data_node))
     }>,
