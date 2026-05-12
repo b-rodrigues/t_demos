@@ -2,12 +2,18 @@
 name = "julia_plotting_t"
 description = "Demo of Julia plotting nodes and show_plot metadata capture"
 
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
 [julia-dependencies]
 version = "lts"
-packages = ["DataFrames", "CSV", "TidierPlots", "CairoMakie", "Plots"]
-
-[visualization-tool]
-command = ""
+packages = ["DataFrames", "CSV", "TidierPlots", "CairoMakie", "Plots", "JSON"]
 
 [additional-tools]
 packages = []
@@ -17,3 +23,6 @@ packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
