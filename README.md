@@ -28,7 +28,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - `error_propagation_circuit_t`, `error_recovery_t`
 
 ### Data wrangling, package comparison, and visualization demos
-- `chrono_vs_lubridate_t`, `dplyr_advanced_t`, `stringr_vs_strcraft_t`, `polars_vs_t_t`, `plotting_pipeline_t`
+- `chrono_vs_lubridate_t`, `dplyr_advanced_t`, `stringr_vs_strcraft_t`, `polars_vs_t_t`, `plotting_pipeline_t`, `julia_plotting_t`
 
 ### Modeling and comparison demos
 - `model_comparison_t`, `model_comparison_with_glance_t`, `stats_functions_t`
@@ -41,7 +41,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 ## Continuous Integration (CI)
 All demos in this repository are automatically tested via GitHub Actions. Since T is under active development, the CI is configured to:
 1. Run `t update` to sync with the version requested in `tproject.toml`.
-2. **Override the T version to `main`** to ensure all demos remain compatible with the latest development version of the language.
+2. **Usually override the T version to `main`** to ensure demos stay compatible with the latest development version of the language; branch-specific demos can target a different T branch when they exercise unreleased features.
 3. Build and execute the entire DAG to verify serialization and runtime correctness.
 
 ## Build Site
