@@ -1,4 +1,4 @@
-name: Tlang E2E Test - julia_plotting_t
+name: Julia plotting
 
 on:
   push:
@@ -9,12 +9,13 @@ on:
   repository_dispatch:
     types: [ trigger-demo ]
 
-permissions:
-  contents: read
-
 jobs:
-  test:
+  basic-t:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./julia_plotting_t
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,44 +35,56 @@ jobs:
 
       - name: Get T commit
         env:
-          DEFAULT_TLANG_REF: julia-support
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           REPO="${{ github.event.client_payload.repo }}"
           SHA="${{ github.event.client_payload.sha }}"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             REPO="b-rodrigues/tlang"
-            SHA=$(gh api repos/b-rodrigues/tlang/commits/$DEFAULT_TLANG_REF --jq '.sha')
-            echo "No dispatch payload, falling back to tlang/$DEFAULT_TLANG_REF: $SHA"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
           fi
           echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./julia_plotting_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          # Ensure flake.nix points to the correct version for the build
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
 
       - name: Inject pipeline dependencies
-        working-directory: ./julia_plotting_t
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
+
       - name: Rebuild flake with new dependencies
-        working-directory: ./julia_plotting_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
-      - name: Run Full Pipeline
-        working-directory: ./julia_plotting_t
+      - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run src/pipeline.t
+
+      - name: Inspect Built Nodes
+        run: |
+          echo "inspect_pipeline()" > inspect.t
+          nix develop --command t run --unsafe inspect.t
+
+      - name: Read one Node
+        run: |
+          echo "read_node('mtcars_mpg')" > view.t
+          nix develop --command t run --unsafe view.t
 
       - name: Upload Plot Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: julia-plotting-demo-results
-          path: julia_plotting_t/_pipeline/*.png
+          path: _pipeline/*.png
