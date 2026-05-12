@@ -65,7 +65,12 @@ jobs:
         run: |
           nix develop --command t run src/pipeline.t
 
+      - name: Verify Model
+        run: |
+          echo "read_node('model_jl')" > verify-model.t
+          nix develop --command t run --unsafe verify-model.t
+
       - name: Verify Numerical Parity
         run: |
-          echo "read_node('model_jl');read_log('verify_node')" > verify.t
+          echo "read_log('verify_node')" > verify.t
           nix develop --command t run --unsafe verify.t
