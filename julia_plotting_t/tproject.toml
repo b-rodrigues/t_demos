@@ -17,6 +17,3 @@ packages = []
 
 [t]
 min_version = "0.52.0"
-
-[nixpkgs]
-date = ""

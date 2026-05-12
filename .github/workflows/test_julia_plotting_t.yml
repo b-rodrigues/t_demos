@@ -9,6 +9,9 @@ on:
   repository_dispatch:
     types: [ trigger-demo ]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,14 +34,15 @@ jobs:
 
       - name: Get T commit
         env:
+          DEFAULT_TLANG_REF: julia-support
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           REPO="${{ github.event.client_payload.repo }}"
           SHA="${{ github.event.client_payload.sha }}"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             REPO="b-rodrigues/tlang"
-            SHA=$(gh api repos/b-rodrigues/tlang/commits/julia-support --jq '.sha')
-            echo "No dispatch payload, falling back to tlang/julia-support: $SHA"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/$DEFAULT_TLANG_REF --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/$DEFAULT_TLANG_REF: $SHA"
           fi
           echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
