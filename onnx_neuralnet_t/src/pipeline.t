@@ -44,7 +44,7 @@ test_samples = np.array([
     [0.5 * i for i in range(10)],
 ], dtype=np.float32)
 
-{
+python_reference = {
     "py_predictions": model.predict(test_samples).astype(np.float64).tolist(),
     "py_probabilities": model.predict_proba(test_samples)[:, 1].astype(np.float64).tolist(),
     "test_samples": test_samples.astype(np.float64).tolist(),
@@ -62,7 +62,7 @@ test_samples = np.array([
             python_reference.py_predictions
         }>,
         runtime = T,
-        deserializer = [py_reference: ^json],
+        deserializer = [python_reference: ^json],
         serializer = ^json
     )
 
