@@ -22,11 +22,10 @@ model
         serializer = ^onnx
     )
 
-    -- Capture Python-side predictions for the SAME model (deterministic)
-    python_predictions = node(
+    -- Capture deterministic Python reference predictions and trained weights
+    python_reference = node(
         command = <{
 import numpy as np
-import pandas as pd
 from sklearn.neural_network import MLPClassifier
 from sklearn.datasets import make_classification
 
@@ -38,16 +37,66 @@ X = X.astype(np.float32)
 model = MLPClassifier(hidden_layer_sizes=(10, 5), max_iter=1000, random_state=42)
 model.fit(X, y)
 
-# Define test samples for parity check
-test_samples = pd.DataFrame({
-    f"f{i}": [np.sin(i), np.cos(i), 0.5 * i] for i in range(10)
-}).astype(np.float32)
+# Define test samples for parity checks
+test_samples = np.array([
+    [np.sin(i) for i in range(10)],
+    [np.cos(i) for i in range(10)],
+    [0.5 * i for i in range(10)],
+], dtype=np.float32)
 
-# Get predictions using the native Scikit-Learn model in Python
-py_preds = model.predict(test_samples).astype(np.float64).tolist()
-py_preds
+{
+    "python_predictions": model.predict(test_samples).astype(np.float64).tolist(),
+    "python_probabilities": model.predict_proba(test_samples)[:, 1].astype(np.float64).tolist(),
+    "test_samples": test_samples.astype(np.float64).tolist(),
+    "weights": [coef.astype(np.float64).tolist() for coef in model.coefs_],
+    "biases": [bias.astype(np.float64).tolist() for bias in model.intercepts_],
+}
         }>,
         runtime = Python,
+        serializer = ^json
+    )
+
+    python_predictions = node(
+        python_reference,
+        command = <{
+            python_reference.python_predictions
+        }>,
+        runtime = T,
+        deserializer = [python_reference: ^json],
+        serializer = ^json
+    )
+
+    -- Rebuild the Python network in Julia/Flux using the exported weights
+    julia_flux_predictions = jln(
+        command = <{
+            using Flux
+
+            test_samples = Float32.(hcat(python_reference["test_samples"]...))
+            dense_weights = [Float32.(hcat(layer_weights...)) for layer_weights in python_reference["weights"]]
+            dense_biases = [Float32.(bias_values) for bias_values in python_reference["biases"]]
+
+            layer1 = Dense(size(dense_weights[1], 2), size(dense_weights[1], 1), relu)
+            layer1.weight .= dense_weights[1]
+            layer1.bias .= dense_biases[1]
+
+            layer2 = Dense(size(dense_weights[2], 2), size(dense_weights[2], 1), relu)
+            layer2.weight .= dense_weights[2]
+            layer2.bias .= dense_biases[2]
+
+            layer3 = Dense(size(dense_weights[3], 2), size(dense_weights[3], 1))
+            layer3.weight .= dense_weights[3]
+            layer3.bias .= dense_biases[3]
+
+            flux_network = Chain(layer1, layer2, layer3)
+            julia_probabilities = Float64.(vec(Flux.sigmoid.(flux_network(test_samples))))
+            julia_predictions = Float64.(julia_probabilities .>= 0.5)
+
+            Dict(
+                "julia_predictions" => julia_predictions,
+                "julia_probabilities" => julia_probabilities
+            )
+        }>,
+        deserializer = [python_reference: ^json],
         serializer = ^json
     )
 
@@ -77,15 +126,23 @@ py_preds
         serializer = ^json
     )
 
-    -- Parity validation: Compare T-Lang ONNX scoring with Python Scikit-Learn scoring
+    -- Parity validation across Python, Julia/Flux, and T-Lang ONNX scoring
     validate_parity = node(
-        t_predictions, python_predictions,
+        t_predictions, python_reference, julia_flux_predictions,
         command = <{
-            assert(t_predictions == python_predictions, "T-Lang ONNX Neural Network scoring does not match Python Scikit-Learn!")
-            true
+            assert(identical(t_predictions, python_reference.python_predictions), "T-Lang ONNX Neural Network scoring does not match Python Scikit-Learn!")
+            assert(identical(julia_flux_predictions.julia_predictions, python_reference.python_predictions), "Julia Flux predictions do not match Python Scikit-Learn!")
+
+            probability_diff = sum(abs(julia_flux_predictions.julia_probabilities - python_reference.python_probabilities))
+            assert(probability_diff < 0.000001, str_join(["Julia Flux probabilities differ from Python Scikit-Learn by ", to_string(probability_diff)]))
+
+            [
+                python_vs_julia_probability_diff: probability_diff,
+                all_label_parity_passed: true
+            ]
         }>,
         runtime = T,
-        deserializer = [t_predictions: ^json, python_predictions: ^json],
+        deserializer = [t_predictions: ^json, python_reference: ^json, julia_flux_predictions: ^json],
         serializer = ^json
     )
 }
@@ -103,6 +160,7 @@ if (is_error(res)) {
 
 print("\nNeural Network trained and validated successfully.")
 print("Python Predictions:", read_node("python_predictions"))
+print("Julia Flux Predictions:", read_node("julia_flux_predictions"))
 print("T-Lang Predictions:", read_node("t_predictions"))
 print("\nParity Check Result (assert passed):")
 print(read_node("validate_parity"))
