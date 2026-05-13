@@ -106,16 +106,50 @@ python_model_state = {
         serializer = ^json
     )
 
-    -- Build the Julia Flux model description from the learned Python weights
+    -- Train a Julia Flux model on the shared training data
     julia_flux_model = jln(
-        python_model_state,
+        demo_data,
         command = <{
+            using Flux
+            using Random
+
+            Random.seed!(42)
+
+            feature_names = demo_data["feature_names"]
+            training_columns = [Float32.(demo_data["training_features"][feature_name]) for feature_name in feature_names]
+            training_matrix = permutedims(hcat(training_columns...))
+            training_labels = reshape(Float32.(demo_data["training_labels"]), 1, :)
+
+            flux_model = Chain(
+                Dense(size(training_matrix, 1), 10, relu),
+                Dense(10, 5, relu),
+                Dense(5, 1)
+            )
+
+            optimizer = Flux.setup(Adam(0.01f0), flux_model)
+            training_data = [(training_matrix, training_labels)]
+
+            loss_fn(model, features, labels) = Flux.Losses.logitbinarycrossentropy(model(features), labels)
+
+            for _ in 1:400
+                Flux.train!(loss_fn, flux_model, training_data, optimizer)
+            end
+
             julia_flux_model = Dict(
-                "weights" => python_model_state["weights"],
-                "biases" => python_model_state["biases"]
+                "weights" => [
+                    Float64.(flux_model[1].weight),
+                    Float64.(flux_model[2].weight),
+                    Float64.(flux_model[3].weight)
+                ],
+                "biases" => [
+                    Float64.(flux_model[1].bias),
+                    Float64.(flux_model[2].bias),
+                    Float64.(flux_model[3].bias)
+                ],
+                "training_loss" => Float64(loss_fn(flux_model, training_matrix, training_labels))
             )
         }>,
-        deserializer = [python_model_state: ^json],
+        deserializer = [demo_data: ^json],
         serializer = ^json
     )
 
@@ -148,7 +182,7 @@ python_predictions = {
         serializer = ^json
     )
 
-    -- Score the same test data in Julia using the Flux reconstruction
+    -- Score the same test data in Julia using the Julia-trained Flux model
     julia_flux_predictions = jln(
         demo_data, julia_flux_model,
         command = <{
@@ -207,21 +241,22 @@ python_predictions = {
         serializer = ^json
     )
 
-    -- Validate parity across Python, Julia/Flux, and T-Lang ONNX scoring
+    -- Validate Python/T parity and summarize the independently trained Julia model outputs
     validate_parity = node(
         t_predictions, python_predictions, julia_flux_predictions,
         command = <{
-            probability_tolerance = 0.000001
-
             assert(identical(t_predictions, python_predictions.predictions), "T-Lang ONNX Neural Network scoring does not match Python predictions!")
-            assert(identical(julia_flux_predictions.predictions, python_predictions.predictions), "Julia Flux predictions do not match Python predictions!")
+            assert(length(julia_flux_predictions.predictions) == length(python_predictions.predictions), "Julia Flux predictions length does not match Python predictions length!")
+            assert(length(julia_flux_predictions.probabilities) == length(python_predictions.probabilities), "Julia Flux probabilities length does not match Python probabilities length!")
 
+            label_agreement = sum(julia_flux_predictions.predictions == python_predictions.predictions)
             probability_diff = sum(abs(julia_flux_predictions.probabilities - python_predictions.probabilities))
-            assert(probability_diff < probability_tolerance, str_join(["Julia Flux probabilities differ from Python by ", to_string(probability_diff)]))
 
             [
+                python_vs_t_label_parity_passed: true,
+                python_vs_julia_label_agreement: label_agreement,
                 python_vs_julia_probability_diff: probability_diff,
-                all_label_parity_passed: true
+                julia_model_trained_independently: true
             ]
         }>,
         runtime = T,
@@ -245,5 +280,5 @@ print("\nNeural Network trained and validated successfully.")
 print("Python Predictions:", read_node("python_predictions"))
 print("Julia Flux Predictions:", read_node("julia_flux_predictions"))
 print("T-Lang Predictions:", read_node("t_predictions"))
-print("\nParity Check Result (assert passed):")
+print("\nValidation Result (asserts passed):")
 print(read_node("validate_parity"))
