@@ -118,7 +118,11 @@ python_model_state = {
             feature_names = demo_data["feature_names"]
             training_columns = [Float32.(demo_data["training_features"][feature_name]) for feature_name in feature_names]
             training_matrix = permutedims(hcat(training_columns...))
-            training_labels = reshape(Float32.(demo_data["training_labels"]), 1, :)
+            training_labels = reshape(
+                Float32.([label > 0 ? 1.0f0 : 0.0f0 for label in demo_data["training_labels"]]),
+                1,
+                :
+            )
 
             flux_model = Chain(
                 Dense(size(training_matrix, 1), 10, relu),
@@ -188,7 +192,8 @@ python_predictions = {
         command = <{
             using Flux
 
-            test_samples = Float32.(hcat(demo_data["test_samples"]...))
+            test_rows = [Float32.(row) for row in demo_data["test_samples"]]
+            test_samples = permutedims(hcat(test_rows...))
             dense_weights = [Float32.(hcat(layer_weights...)) for layer_weights in julia_flux_model["weights"]]
             dense_biases = [Float32.(bias_values) for bias_values in julia_flux_model["biases"]]
 
@@ -245,7 +250,7 @@ python_predictions = {
     validate_parity = node(
         t_predictions, python_predictions, julia_flux_predictions,
         command = <{
-            assert(identical(t_predictions, python_predictions.predictions), "T-Lang ONNX Neural Network scoring does not match Python predictions!")
+            assert(t_predictions == python_predictions.predictions, "T-Lang ONNX Neural Network scoring does not match Python predictions!")
             assert(length(julia_flux_predictions.predictions) == length(python_predictions.predictions), "Julia Flux predictions length does not match Python predictions length!")
             assert(length(julia_flux_predictions.probabilities) == length(python_predictions.probabilities), "Julia Flux probabilities length does not match Python probabilities length!")
 
@@ -254,8 +259,9 @@ python_predictions = {
 
             [
                 python_vs_t_label_parity_passed: true,
-                python_vs_julia_label_agreement: label_agreement,
-                python_vs_julia_probability_diff: probability_diff,
+                evaluated_test_samples: length(python_predictions.predictions),
+                python_vs_julia_matching_labels: label_agreement,
+                python_vs_julia_total_probability_abs_diff: probability_diff,
                 julia_model_trained_independently: true
             ]
         }>,
