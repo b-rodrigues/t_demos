@@ -45,8 +45,8 @@ test_samples = np.array([
 ], dtype=np.float32)
 
 {
-    "python_predictions": model.predict(test_samples).astype(np.float64).tolist(),
-    "python_probabilities": model.predict_proba(test_samples)[:, 1].astype(np.float64).tolist(),
+    "py_predictions": model.predict(test_samples).astype(np.float64).tolist(),
+    "py_probabilities": model.predict_proba(test_samples)[:, 1].astype(np.float64).tolist(),
     "test_samples": test_samples.astype(np.float64).tolist(),
     "weights": [coef.astype(np.float64).tolist() for coef in model.coefs_],
     "biases": [bias.astype(np.float64).tolist() for bias in model.intercepts_],
@@ -59,10 +59,10 @@ test_samples = np.array([
     python_predictions = node(
         python_reference,
         command = <{
-            python_reference.python_predictions
+            python_reference.py_predictions
         }>,
         runtime = T,
-        deserializer = [python_reference: ^json],
+        deserializer = [py_reference: ^json],
         serializer = ^json
     )
 
@@ -130,10 +130,10 @@ test_samples = np.array([
     validate_parity = node(
         t_predictions, python_reference, julia_flux_predictions,
         command = <{
-            assert(identical(t_predictions, python_reference.python_predictions), "T-Lang ONNX Neural Network scoring does not match Python Scikit-Learn!")
-            assert(identical(julia_flux_predictions.julia_predictions, python_reference.python_predictions), "Julia Flux predictions do not match Python Scikit-Learn!")
+            assert(identical(t_predictions, python_reference.py_predictions), "T-Lang ONNX Neural Network scoring does not match Python Scikit-Learn!")
+            assert(identical(julia_flux_predictions.julia_predictions, python_reference.py_predictions), "Julia Flux predictions do not match Python Scikit-Learn!")
 
-            probability_diff = sum(abs(julia_flux_predictions.julia_probabilities - python_reference.python_probabilities))
+            probability_diff = sum(abs(julia_flux_predictions.julia_probabilities - python_reference.py_probabilities))
             assert(probability_diff < 0.000001, str_join(["Julia Flux probabilities differ from Python Scikit-Learn by ", to_string(probability_diff)]))
 
             [
