@@ -117,7 +117,7 @@ python_model_state = {
 
             feature_names = demo_data["feature_names"]
             training_columns = [Float32.(demo_data["training_features"][feature_name]) for feature_name in feature_names]
-            training_matrix = permutedims(hcat(training_columns...))
+            training_matrix = reduce(vcat, [permutedims(column) for column in training_columns])
             training_labels = reshape(
                 Float32.([label > 0 ? 1.0f0 : 0.0f0 for label in demo_data["training_labels"]]),
                 1,
@@ -193,8 +193,11 @@ python_predictions = {
             using Flux
 
             test_rows = [Float32.(row) for row in demo_data["test_samples"]]
-            test_samples = permutedims(hcat(test_rows...))
-            dense_weights = [Float32.(hcat(layer_weights...)) for layer_weights in julia_flux_model["weights"]]
+            test_samples = reduce(hcat, test_rows)
+            dense_weights = [
+                reduce(vcat, [permutedims(Float32.(row)) for row in layer_weights])
+                for layer_weights in julia_flux_model["weights"]
+            ]
             dense_biases = [Float32.(bias_values) for bias_values in julia_flux_model["biases"]]
 
             layer1 = Dense(size(dense_weights[1], 2), size(dense_weights[1], 1), relu)
