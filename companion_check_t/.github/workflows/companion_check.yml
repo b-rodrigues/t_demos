@@ -2,29 +2,69 @@ name: Companion Package Check
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ master ]
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
 
 jobs:
   check-companions:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Install Nix
-      uses: cachix/install-nix-action@v27
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Build Pipeline
-      run: nix develop --command t run src/pipeline.t
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
 
-    - name: Verify R Companion
-      run: nix develop --command Rscript verify_r.R
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
 
-    - name: Verify Python Companion
-      run: nix develop --command python verify_py.py
+      - name: Get T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            REPO="b-rodrigues/tlang"
+            # Fallback to main or a known stable branch
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
-    - name: Verify Julia Companion
-      run: nix develop --command julia verify_jl.jl
+      - name: Update to latest T version
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          # Ensure flake.nix points to the correct version for the build
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
+
+      - name: Build Pipeline
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Verify R Companion
+        run: |
+          nix develop --command Rscript verify_r.R
+
+      - name: Verify Python Companion
+        run: |
+          nix develop --command python verify_py.py
+
+      - name: Verify Julia Companion
+        run: |
+          nix develop --command julia verify_jl.jl
