@@ -31,11 +31,11 @@
 
         # Python environment
         py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
-          cronista
+          pandas
         ]);
 
         # Julia environment
-        juliaPkg = pkgs.julia-lts.withPackages [ "DataFrames" "JSON" ];
+        juliaPkg = pkgs.julia-lts.withPackages [ "DataFrames" "JSON" "CSV" ];
       in
       {
         devShells.default = pkgs.mkShell {
