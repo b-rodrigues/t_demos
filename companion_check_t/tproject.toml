@@ -1,0 +1,18 @@
+[project]
+name = "companion_check_t"
+description = "A demo to verify that the tlang companion packages load correctly in R, Python, and Julia"
+
+[r-dependencies]
+packages = ["dplyr"]
+
+[py-dependencies]
+packages = ["cronista"]
+
+[julia-dependencies]
+packages = ["DataFrames"]
+
+[t]
+min_version = "0.52.0"
+
+[nixpkgs]
+date = "2026-04-02"

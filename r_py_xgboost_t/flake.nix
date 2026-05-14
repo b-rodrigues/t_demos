@@ -1,5 +1,5 @@
 {
-  description = "quarto_latex_demo — a T data analysis project";
+  description = "r_py_xgboost_t — a T data analysis project";
 
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
@@ -24,51 +24,25 @@
         # R environment
         r-env = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [
-            ggplot2
-            jsonlite
-            knitr
-            rmarkdown
+            dplyr
+            yardstick
+            arrow
           ];
         };
 
         # Python environment
-        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
-          pandas
+        py-env = pkgs.python313.withPackages (python-pkgs: with python-pkgs; [
           numpy
-          ipykernel
-          nbclient
-          nbformat
-          pyyaml
+          pandas
+          scikit-learn
+          xgboost
+          pyarrow
         ]);
 
         # Additional Tools
         additionalTools = with pkgs; [
           quarto
-          which
         ];
-
-        # LaTeX Environment
-        latex-env = pkgs.texlive.combine {
-          inherit (pkgs.texlive) scheme-small;
-          inherit (pkgs.texlive) amsmath;
-          inherit (pkgs.texlive) geometry;
-          inherit (pkgs.texlive) hyperref;
-          inherit (pkgs.texlive) booktabs;
-          inherit (pkgs.texlive) caption;
-          inherit (pkgs.texlive) fancyhdr;
-          inherit (pkgs.texlive) lualatex-math;
-          inherit (pkgs.texlive) unicode-math;
-          inherit (pkgs.texlive) fontspec;
-          inherit (pkgs.texlive) selnolig;
-          inherit (pkgs.texlive) xurl;
-          inherit (pkgs.texlive) bookmark;
-          inherit (pkgs.texlive) framed;
-          inherit (pkgs.texlive) fvextra;
-          inherit (pkgs.texlive) titling;
-          inherit (pkgs.texlive) environ;
-          inherit (pkgs.texlive) trimspaces;
-          inherit (pkgs.texlive) etoolbox;
-        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -76,12 +50,11 @@
             t-lang.packages.${system}.default
             r-env
             py-env
-            latex-env
           ] ++ additionalTools;
 
           shellHook = ''
             echo "=================================================="
-            echo "T Project: quarto_latex_demo"
+            echo "T Project: r_py_xgboost_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
