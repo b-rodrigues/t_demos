@@ -18,7 +18,6 @@ packages = ["quarto", "which"]
 
 [latex]
 packages = [
-  "scheme-small",
   "amsmath",
   "geometry",
   "hyperref",
