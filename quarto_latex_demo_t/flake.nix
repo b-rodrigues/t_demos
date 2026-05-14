@@ -26,6 +26,8 @@
           packages = with pkgs.rPackages; [
             ggplot2
             jsonlite
+            knitr
+            rmarkdown
           ];
         };
 
@@ -33,12 +35,17 @@
         py-env = pkgs.python3.withPackages (ps: with ps; [
           pandas
           numpy
+          ipykernel
+          nbclient
+          nbformat
+          pyyaml
         ]);
 
         # Julia environment
         julia-env = pkgs.julia.withPackages [
           "DataFrames"
           "CSV"
+          "JSON"
         ];
 
         # Additional Tools
@@ -62,11 +69,6 @@
             echo "T Project: quarto_latex_demo"
             echo "=================================================="
             echo ""
-            echo "Available commands:"
-            echo "  t repl              - Start T REPL"
-            echo "  t run <file>        - Run a T file"
-            echo "  t test              - Run tests"
-            echo ""
             
             mkdir -p _extensions
             expected_quarto_ext="${t-lang.packages.${system}.default}/share/tlang/quarto/tlang"
@@ -80,19 +82,7 @@
           '';
         };
 
-        # Pipeline build support
-        packages.pipeline = t-lang.lib.${system}.mkPipeline {
-          inherit system;
-          name = "quarto_latex_demo-pipeline";
-          t_project = ./.;
-          additional_build_inputs = [
-            r-env
-            py-env
-            julia-env
-          ] ++ additionalTools;
-        };
-
-        packages.default = self.packages.${system}.pipeline;
+        packages.default = t-lang.packages.${system}.default;
       }
     );
 }

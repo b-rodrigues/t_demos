@@ -12,10 +12,10 @@ p = pipeline {
     -- 2. Python Node (Numeric data)
     py_data = node(
         command = <{
-            import pandas as pd
-            import numpy as np
-            df = pd.DataFrame({"val": np.random.normal(size=100), "group": ["Python"]*100})
-            df
+import pandas as pd
+import numpy as np
+df = pd.DataFrame({"val": np.random.normal(size=100), "group": ["Python"]*100})
+df
         }>,
         runtime = Python,
         serializer = ^csv
