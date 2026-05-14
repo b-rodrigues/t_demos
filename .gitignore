@@ -9,3 +9,5 @@ pipeline-output/
 _site/
 build_log.txt
 build_pid.txt
+flake.nix
+flake.lock

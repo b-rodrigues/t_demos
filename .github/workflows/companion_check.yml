@@ -12,6 +12,9 @@ on:
 jobs:
   check-companions:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./companion_check_t
 
     steps:
       - name: Checkout repository
