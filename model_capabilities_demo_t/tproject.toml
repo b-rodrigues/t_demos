@@ -1,0 +1,19 @@
+[project]
+name = "model_capabilities_demo"
+version = "0.1.0"
+authors = ["Bruno Rodrigues <bruno@brodrigues.co>"]
+description = "Demonstrating T-Lang native model inspection and diagnostic capabilities"
+
+[dependencies]
+tlang = ">=0.52.0"
+
+[py-dependencies]
+version = "python314"
+packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]
+
+[r-dependencies]
+version = "rstats"
+packages = ["pmml", "XML"]
+
+[nixpkgs]
+date = "2026-04-02"
