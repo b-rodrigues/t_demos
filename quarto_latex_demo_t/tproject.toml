@@ -2,8 +2,6 @@
 name = "quarto_latex_demo"
 description = "A polyglot demo of Quarto nodes with LaTeX PDF output in T-Lang"
 
-[dependencies]
-
 [r-dependencies]
 packages = ["ggplot2", "jsonlite", "knitr", "rmarkdown"]
 
@@ -16,13 +14,33 @@ version = "lts"
 packages = ["CSV", "DataFrames", "JSON"]
 
 [additional-tools]
-packages = ["quarto", "texliveFull", "which"]
+packages = ["quarto", "which"]
 
 [latex]
-packages = []
+packages = [
+  "scheme-small",
+  "amsmath",
+  "geometry",
+  "hyperref",
+  "booktabs",
+  "caption",
+  "fancyhdr",
+  "lualatex-math",
+  "unicode-math",
+  "fontspec",
+  "selnolig",
+  "xurl",
+  "bookmark",
+  "framed",
+  "fvextra",
+  "titling",
+  "environ",
+  "trimspaces",
+  "etoolbox"
+]
 
 [t]
-min_version = "0.52.0-modified"
+min_version = "0.52.0"
 
 [nixpkgs]
 date = "2026-04-02"
