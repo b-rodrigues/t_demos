@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/v0.52.0-modified";
   };
 
   nixConfig = {
@@ -24,6 +24,7 @@
         # R environment
         r-env = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [
+            t-lang.packages.${system}.tlang-r
             dplyr
             jsonlite
           ];
@@ -31,6 +32,7 @@
 
         # Python environment
         py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
+          t-lang.packages.${system}.tlang-python
           pandas
         ]);
 
@@ -47,6 +49,7 @@
           ];
 
           shellHook = ''
+            export JULIA_LOAD_PATH=":${t-lang.packages.${system}.tlang-julia-path}:''${JULIA_LOAD_PATH:-}"
             echo "=================================================="
             echo "T Project: companion_check_t"
             echo "=================================================="
