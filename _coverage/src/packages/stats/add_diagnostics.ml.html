@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>add_diagnostics.ml &mdash; Coverage report</title>
+    <meta name="description" content="3.77% coverage in src/packages/stats/add_diagnostics.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>add_diagnostics.ml
+        </a>
+      </h1>
+      <h2>3.77%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:25.56%"></span>
+      <span class="unvisited" style="top:26.67%"></span>
+      <span class="unvisited" style="top:28.89%"></span>
+      <span class="unvisited" style="top:30.00%"></span>
+      <span class="unvisited" style="top:33.33%"></span>
+      <span class="unvisited" style="top:34.44%"></span>
+      <span class="unvisited" style="top:35.56%"></span>
+      <span class="unvisited" style="top:40.00%"></span>
+      <span class="unvisited" style="top:41.11%"></span>
+      <span class="unvisited" style="top:44.44%"></span>
+      <span class="unvisited" style="top:45.56%"></span>
+      <span class="unvisited" style="top:47.78%"></span>
+      <span class="unvisited" style="bottom:48.89%"></span>
+      <span class="unvisited" style="bottom:47.78%"></span>
+      <span class="unvisited" style="bottom:45.56%"></span>
+      <span class="unvisited" style="bottom:44.44%"></span>
+      <span class="unvisited" style="bottom:43.33%"></span>
+      <span class="unvisited" style="bottom:40.00%"></span>
+      <span class="unvisited" style="bottom:38.89%"></span>
+      <span class="unvisited" style="bottom:35.56%"></span>
+      <span class="unvisited" style="bottom:34.44%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.22%"></span>
+      <span class="unvisited" style="bottom:31.11%"></span>
+      <span class="unvisited" style="bottom:27.78%"></span>
+      <span class="unvisited" style="bottom:26.67%"></span>
+      <span class="unvisited" style="bottom:25.56%"></span>
+      <span class="unvisited" style="bottom:24.44%"></span>
+      <span class="unvisited" style="bottom:23.33%"></span>
+      <span class="unvisited" style="bottom:21.11%"></span>
+      <span class="unvisited" style="bottom:17.78%"></span>
+      <span class="unvisited" style="bottom:15.56%"></span>
+      <span class="unvisited" style="bottom:13.33%"></span>
+      <span class="unvisited" style="bottom:11.11%"></span>
+      <span class="unvisited" style="bottom:8.89%"></span>
+      <span class="unvisited" style="bottom:6.67%"></span>
+      <span class="unvisited" style="bottom:5.56%"></span>
+      <span class="unvisited" style="bottom:3.33%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="unvisited"> </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(** add_diagnostics(model, data = df) — adds diagnostic columns to the data.
+    Equivalent to broom::augment(). Adds columns prefixed with '.' *)
+(*
+--# Add Model Diagnostics
+--#
+--# augments the data with model diagnostic columns (residuals, fitted values, etc.).
+--#
+--# @name add_diagnostics
+--# @param data :: DataFrame (Optional) The data to augment.
+--# @param model :: Model The model object.
+--# @return :: DataFrame The data with added diagnostic columns.
+--# @example
+--#   df = add_diagnostics(mtcars, model)
+--# @family stats
+--# @seealso lm
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "add_diagnostics"
+    (make_builtin_name<span data-count="136">d</span> ~name:"add_diagnostics" ~variadic:true 0 (fun args _env -&gt;
+      <span data-count="0">l</span>et named = List.filter_map (fun (n, v) -&gt;
+        <span data-count="0">m</span>atch n with <span data-count="0">S</span>ome name -&gt; Some (name, v) | <span data-count="0">N</span>one -&gt; None
+      ) args in
+      <span data-count="0">l</span>et positional = List.filter_map (fun (n, v) -&gt;
+        <span data-count="0">m</span>atch n with <span data-count="0">N</span>one -&gt; Some v | <span data-count="0">S</span>ome _ -&gt; None
+      ) args in
+      (* First positional or named "data" *)
+      <span data-count="0">l</span>et data_val = match List.assoc_opt "data" named with
+        | <span data-count="0">S</span>ome v -&gt; Some v
+        | <span data-count="0">N</span>one -&gt; (match positional with <span data-count="0">v</span> :: _ -&gt; Some v | <span data-count="0">[</span>] -&gt; None)
+      in
+      (* Second positional or named "model" *)
+      let model_val = match List.assoc_opt "model" named with
+        | <span data-count="0">S</span>ome (VDict _) as v -&gt; v
+        | <span data-count="0">_</span> -&gt; (match positional with <span data-count="0">_</span> :: v :: _ -&gt; Some v | <span data-count="0">_</span> -&gt; (match positional with <span data-count="0">v</span> :: _ when data_val &lt;&gt; Some v -&gt; <span data-count="0">S</span>ome v | <span data-count="0">_</span> -&gt; None))
+      in
+      match model_val with
+      | <span data-count="0">N</span>one -&gt; Error.make_error ArityError "Function `add_diagnostics` missing required argument 'model'."
+      | <span data-count="0">S</span>ome (VDict pairs) -&gt;
+        (match List.assoc_opt "_model_data" pairs with
+         | <span data-count="0">S</span>ome (VDict model) -&gt;
+           (* Get the data DataFrame *)
+           let df = match data_val with
+             | <span data-count="0">S</span>ome (VDataFrame df) -&gt; Some df
+             | <span data-count="0">N</span>one -&gt;
+               (match List.assoc_opt "_original_data" pairs with
+                | <span data-count="0">S</span>ome (VDataFrame df) -&gt; Some df
+                | <span data-count="0">_</span> -&gt; None)
+             | <span data-count="0">_</span> -&gt; None
+           in
+           (match df with
+            | <span data-count="0">N</span>one -&gt; Error.type_error "Function `add_diagnostics` requires a DataFrame for 'data'."
+            | <span data-count="0">S</span>ome data_df -&gt;
+              let nrows = Arrow_table.num_rows data_df.arrow_table in
+              (* Extract diagnostic arrays from model_data *)
+              <span data-count="0">l</span>et extract_float_array key =
+                <span data-count="0">m</span>atch List.assoc_opt key model with
+                | <span data-count="0">S</span>ome (VVector arr) -&gt;
+                  Array.map (fun v -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>Float f -&gt; Some f | <span data-count="0">_</span> -&gt; None) arr
+                | <span data-count="0">_</span> -&gt; Array.make nrows None
+              in
+              let fitted_arr = extract_float_array "fitted_values" in
+              <span data-count="0">l</span>et resid_arr = extract_float_array "residuals" in
+              <span data-count="0">l</span>et hat_arr = extract_float_array "hat_values" in
+              <span data-count="0">l</span>et cooksd_arr = extract_float_array "cooks_distance" in
+              <span data-count="0">l</span>et std_resid_arr = extract_float_array "std_residuals" in
+              <span data-count="0">l</span>et sigma_arr = extract_float_array "leave_one_out_sigma" in
+              (* Add columns to the DataFrame *)
+              <span data-count="0">l</span>et table = data_df.arrow_table in
+              let table = Arrow_table.add_column table "fitted"
+                (Arrow_table.FloatColumn fitted_arr) in
+              <span data-count="0">l</span>et table = Arrow_table.add_column table "resid"
+                (Arrow_table.FloatColumn resid_arr) in
+              <span data-count="0">l</span>et table = Arrow_table.add_column table "hat"
+                (Arrow_table.FloatColumn hat_arr) in
+              <span data-count="0">l</span>et table = Arrow_table.add_column table "sigma"
+                (Arrow_table.FloatColumn sigma_arr) in
+              <span data-count="0">l</span>et table = Arrow_table.add_column table "cooksd"
+                (Arrow_table.FloatColumn cooksd_arr) in
+              <span data-count="0">l</span>et table = Arrow_table.add_column table "std_resid"
+                (Arrow_table.FloatColumn std_resid_arr) in
+              <span data-count="0">V</span>DataFrame { arrow_table = table; group_keys = data_df.group_keys })
+         | <span data-count="0">_</span> -&gt;
+           Error.type_error "Function `add_diagnostics` expects a model returned by `lm`.")
+      | <span data-count="0">S</span>ome _ -&gt;
+        Error.type_error "Function `add_diagnostics` expects a model returned by `lm`."
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

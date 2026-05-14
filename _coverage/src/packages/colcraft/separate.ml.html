@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>separate.ml &mdash; Coverage report</title>
+    <meta name="description" content="1.94% coverage in src/packages/colcraft/separate.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>separate.ml
+        </a>
+      </h1>
+      <h2>1.94%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:21.95%"></span>
+      <span class="unvisited" style="top:22.76%"></span>
+      <span class="unvisited" style="top:23.58%"></span>
+      <span class="unvisited" style="top:26.02%"></span>
+      <span class="unvisited" style="top:26.83%"></span>
+      <span class="unvisited" style="top:28.46%"></span>
+      <span class="unvisited" style="top:29.27%"></span>
+      <span class="unvisited" style="top:30.89%"></span>
+      <span class="unvisited" style="top:32.52%"></span>
+      <span class="unvisited" style="top:33.33%"></span>
+      <span class="unvisited" style="top:36.59%"></span>
+      <span class="unvisited" style="top:37.40%"></span>
+      <span class="unvisited" style="top:40.65%"></span>
+      <span class="unvisited" style="top:41.46%"></span>
+      <span class="unvisited" style="top:44.72%"></span>
+      <span class="unvisited" style="top:45.53%"></span>
+      <span class="unvisited" style="top:46.34%"></span>
+      <span class="unvisited" style="top:47.15%"></span>
+      <span class="unvisited" style="top:47.97%"></span>
+      <span class="unvisited" style="top:48.78%"></span>
+      <span class="unvisited" style="bottom:49.59%"></span>
+      <span class="unvisited" style="bottom:48.78%"></span>
+      <span class="unvisited" style="bottom:47.15%"></span>
+      <span class="unvisited" style="bottom:46.34%"></span>
+      <span class="unvisited" style="bottom:45.53%"></span>
+      <span class="unvisited" style="bottom:44.72%"></span>
+      <span class="unvisited" style="bottom:43.90%"></span>
+      <span class="unvisited" style="bottom:43.09%"></span>
+      <span class="unvisited" style="bottom:41.46%"></span>
+      <span class="unvisited" style="bottom:40.65%"></span>
+      <span class="unvisited" style="bottom:39.84%"></span>
+      <span class="unvisited" style="bottom:39.02%"></span>
+      <span class="unvisited" style="bottom:35.77%"></span>
+      <span class="unvisited" style="bottom:34.96%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.52%"></span>
+      <span class="unvisited" style="bottom:31.71%"></span>
+      <span class="unvisited" style="bottom:30.89%"></span>
+      <span class="unvisited" style="bottom:30.08%"></span>
+      <span class="unvisited" style="bottom:28.46%"></span>
+      <span class="unvisited" style="bottom:27.64%"></span>
+      <span class="unvisited" style="bottom:26.83%"></span>
+      <span class="unvisited" style="bottom:25.20%"></span>
+      <span class="unvisited" style="bottom:24.39%"></span>
+      <span class="unvisited" style="bottom:21.14%"></span>
+      <span class="unvisited" style="bottom:20.33%"></span>
+      <span class="unvisited" style="bottom:19.51%"></span>
+      <span class="unvisited" style="bottom:18.70%"></span>
+      <span class="unvisited" style="bottom:17.89%"></span>
+      <span class="unvisited" style="bottom:16.26%"></span>
+      <span class="unvisited" style="bottom:13.82%"></span>
+      <span class="unvisited" style="bottom:13.01%"></span>
+      <span class="unvisited" style="bottom:11.38%"></span>
+      <span class="unvisited" style="bottom:10.57%"></span>
+      <span class="unvisited" style="bottom:8.94%"></span>
+      <span class="unvisited" style="bottom:8.13%"></span>
+      <span class="unvisited" style="bottom:5.69%"></span>
+      <span class="unvisited" style="bottom:4.07%"></span>
+      <span class="unvisited" style="bottom:2.44%"></span>
+      <span class="unvisited" style="bottom:1.63%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span class="unvisited"> </span>
+<a id="L74"></a><span class="unvisited"> </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span class="unvisited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span class="unvisited"> </span>
+<a id="L100"></a><span class="unvisited"> </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span class="unvisited"> </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Arrow_table
+
+(*
+--# Separate a character column into multiple columns
+--#
+--# Given either a regular expression or a fixed position, separate() splits
+--# a single character column into multiple new columns.
+--#
+--# @name separate
+--# @param df :: DataFrame The DataFrame.
+--# @param col :: Symbol The column to separate (use $col syntax).
+--# @param into :: List[String] Names of the new columns to create.
+--# @param sep :: String (Optional) Regular expression or position to separate at.
+--#   Defaults to "[^[:alnum:]]+".
+--# @param remove :: Bool (Optional) If true, remove the input column from the result. 
+--#   Defaults to true.
+--# @return :: DataFrame The separated DataFrame.
+--# @example
+--#   separate(df, $date, into = ["year", "month", "day"], sep = "-")
+--# @family colcraft
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "separate"
+    (make_builtin_name<span data-count="136">d</span> ~name:"separate" ~variadic:true 1 (fun named_args _env -&gt;
+      <span data-count="0">l</span>et df_arg = match named_args with
+        | <span data-count="0">(</span>_, VDataFrame df) :: _ -&gt; Some df
+        | <span data-count="0">_</span> -&gt; None
+      in
+      
+      let get_named k = <span data-count="0">L</span>ist.find_map (fun (nk, v) -&gt; <span data-count="0">i</span>f nk = Some k then <span data-count="0">S</span>ome v else <span data-count="0">N</span>one) named_args in
+      let positional = List.filter_map (fun (k, v) -&gt; <span data-count="0">i</span>f k = None then <span data-count="0">S</span>ome v else <span data-count="0">N</span>one) named_args in
+      
+      <span data-count="0">l</span>et col_val = match get_named "col" with <span data-count="0">S</span>ome v -&gt; Some v | <span data-count="0">N</span>one -&gt; (match positional with <span data-count="0">_</span>::v::_ -&gt; Some v | <span data-count="0">_</span> -&gt; None) in
+      let col_name = match col_val with <span data-count="0">S</span>ome v -&gt; (match Utils.extract_column_name v with <span data-count="0">S</span>ome s -&gt; s | <span data-count="0">N</span>one -&gt; "") | <span data-count="0">_</span> -&gt; "" in
+      
+      let into_val = match get_named "into" with <span data-count="0">S</span>ome v -&gt; Some v | <span data-count="0">N</span>one -&gt; (match positional with <span data-count="0">_</span>::_::v::_ -&gt; Some v | <span data-count="0">_</span> -&gt; None) in
+      let into_cols = match into_val with
+        | <span data-count="0">S</span>ome (VList items) -&gt; List.filter_ma<span data-count="0">p</span> (fun (_, v) -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>String s -&gt; Some s | <span data-count="0">_</span> -&gt; None) items
+        | <span data-count="0">_</span> -&gt; []
+      in
+      
+      let sep = match get_named "sep" with
+        | <span data-count="0">S</span>ome (VString s) -&gt; s
+        | <span data-count="0">_</span> -&gt; "[^[:alnum:]]+"  (* Default to splitting at non-alphanumeric chars *)
+      in
+      
+      let remove = match get_named "remove" with
+        | <span data-count="0">S</span>ome (VBool b) -&gt; b
+        | <span data-count="0">_</span> -&gt; true
+      in
+
+      match df_arg with
+      | <span data-count="0">N</span>one -&gt; Error.type_error "Function `separate` expects a DataFrame as first argument."
+      | <span data-count="0">S</span>ome df -&gt;
+          if col_name = "<span data-count="0">"</span> || into_cols = [<span data-count="0">]</span> then
+            <span data-count="0">E</span>rror.make_error ValueError "Function `separate` requires `col` and `into` arguments."
+          else <span data-count="0">i</span>f not (Arrow_table.has_colum<span data-count="0">n</span> df.arrow_table col_name) then
+            <span data-count="0">E</span>rror.make_error KeyError (Printf.sprint<span data-count="0">f</span> "Function `separate`: column `%s` not found." col_name)
+          else
+            <span data-count="0">l</span>et orig_nrows = Arrow_table.num_rows df.arrow_table in
+            <span data-count="0">l</span>et col_data = Arrow_table.get_column df.arrow_table col_name in
+            
+            <span data-count="0">l</span>et val_to_str = function
+              | <span data-count="0">V</span>String s -&gt; Some s
+              | <span data-count="0">V</span>Int n -&gt; Some (string_of_in<span data-count="0">t</span> n)
+              | <span data-count="0">V</span>Float f -&gt; Some (string_of_floa<span data-count="0">t</span> f)
+              | <span data-count="0">V</span>Bool b -&gt; Some (string_of_boo<span data-count="0">l</span> b)
+              | <span data-count="0">V</span>Date d -&gt; 
+                  let micros_per_day = 86_400_000_000L in
+                  Some (Chrono.format_datetime_valu<span data-count="0">e</span> (Int64.mu<span data-count="0">l</span> (Int64.of_in<span data-count="0">t</span> d) micros_per_day) None "%Y-%m-%d")
+              | <span data-count="0">V</span>Datetime (dt, tz) -&gt; Some (Chrono.format_datetime_valu<span data-count="0">e</span> dt tz "%Y-%m-%dT%H:%M:%S")
+              | <span data-count="0">V</span>NA _ -&gt; None
+              | <span data-count="0">o</span>ther -&gt; Some (Utils.value_to_raw_strin<span data-count="0">g</span> other)
+            in
+
+            match col_data with
+            | <span data-count="0">N</span>one -&gt; Error.make_error KeyError (Printf.sprint<span data-count="0">f</span> "Function `separate`: column `%s` not found." col_name)
+            | <span data-count="0">S</span>ome data -&gt;
+                let values = Arrow_bridge.column_to_values data in
+                <span data-count="0">l</span>et sep_re = Str.regexp sep in
+                <span data-count="0">l</span>et n_into = List.length into_cols in
+                <span data-count="0">l</span>et split_vals = Array.init orig_nrows (fun i -&gt;
+                  <span data-count="0">m</span>atch val_to_str values.(i) with
+                  | <span data-count="0">S</span>ome s -&gt;
+                      let parts = Str.split sep_re s in
+                      <span data-count="0">l</span>et n_parts = List.length parts in
+                      <span data-count="0">i</span>f n_parts &gt;= n_into then
+                        <span data-count="0">L</span>ist.filteri (fun i _ -&gt; <span data-count="0">i</span> &lt; n_into) parts
+                      else
+                        <span data-count="0">p</span>arts @ (List.ini<span data-count="0">t</span> (n_into - n_parts) (fun _ -&gt; <span data-count="0">"</span>"))
+                  | <span data-count="0">N</span>one -&gt; List.init n_into (fun _ -&gt; <span data-count="0">"</span>NA")
+                ) in
+                
+                (* Create new columns *)
+                <span data-count="0">l</span>et new_cols_data = List.mapi (fun i name -&gt;
+                  <span data-count="0">l</span>et col_vals = Array.map (fun parts -&gt; 
+                    <span data-count="0">m</span>atch List.nth_opt parts i with 
+                    | <span data-count="0">S</span>ome "NA" | <span data-count="0">N</span>one -&gt; None 
+                    | <span data-count="0">S</span>ome s -&gt; Some s
+                  ) split_vals in
+                  <span data-count="0">(</span>name, StringColumn col_vals)
+                ) into_cols in
+                
+                <span data-count="0">l</span>et all_names = Arrow_table.column_names df.arrow_table in
+                <span data-count="0">l</span>et final_columns = ref [] in
+                List.iter (fun name -&gt;
+                  <span data-count="0">i</span>f name = col_name then
+                    <span data-count="0">b</span>egin
+                      if not remove then
+                        <span data-count="0">f</span>inal_columns := (name, data) :: !final_columns;
+                      <span data-count="0">L</span>ist.iter (fun (n, d) -&gt; <span data-count="0">f</span>inal_columns := (n, d) :: !final_columns) new_cols_data
+                    end
+                  else
+                    <span data-count="0">f</span>inal_columns := (name, match Arrow_table.get_column df.arrow_table name with <span data-count="0">S</span>ome d -&gt; d | <span data-count="0">N</span>one -&gt; NAColumn orig_nrows) :: !final_columns
+                ) all_names;
+                <span data-count="0">l</span>et final_columns = List.rev !final_columns in
+                
+                <span data-count="0">l</span>et new_schema = List.map (fun (n, c) -&gt; <span data-count="0">(</span>n, Arrow_table.column_type_o<span data-count="0">f</span> c)) final_columns in
+                <span data-count="0">V</span>DataFrame { arrow_table = { schema = new_schema; columns = final_columns; nrows = orig_nrows; native_handle = None } |&gt; Arrow_table.materializ<span data-count="0">e</span>; group_keys = df.group_keys }
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

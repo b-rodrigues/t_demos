@@ -1,0 +1,82 @@
+[
+{
+  "node_name": "source_csv",
+  "depends": []
+},
+{
+  "node_name": "arrow_roundtrip",
+  "depends": ["source_csv"]
+},
+{
+  "node_name": "compute_features",
+  "depends": ["arrow_roundtrip"]
+},
+{
+  "node_name": "top_slice",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "active_projection",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "segment_counts",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "grouped_summary",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "aggregate_snapshot",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "nested_groups",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "roundtrip_nested",
+  "depends": ["nested_groups"]
+},
+{
+  "node_name": "model_diagnostics",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_predictions",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_augmented",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_residuals",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_coefficients",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_confidence",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_fit_stats",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_anova",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "model_wald",
+  "depends": ["compute_features"]
+},
+{
+  "node_name": "validation_report",
+  "depends": ["active_projection", "aggregate_snapshot", "arrow_roundtrip", "compute_features", "grouped_summary", "model_anova", "model_augmented", "model_coefficients", "model_confidence", "model_diagnostics", "model_fit_stats", "model_predictions", "model_residuals", "model_wald", "roundtrip_nested", "segment_counts", "source_csv", "top_slice"]
+}
+]

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>uncount.ml &mdash; Coverage report</title>
+    <meta name="description" content="2.90% coverage in src/packages/colcraft/uncount.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>uncount.ml
+        </a>
+      </h1>
+      <h2>2.90%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:5.21%"></span>
+      <span class="unvisited" style="top:6.25%"></span>
+      <span class="unvisited" style="top:7.29%"></span>
+      <span class="unvisited" style="top:8.33%"></span>
+      <span class="unvisited" style="top:9.38%"></span>
+      <span class="unvisited" style="top:11.46%"></span>
+      <span class="unvisited" style="top:14.58%"></span>
+      <span class="unvisited" style="top:15.62%"></span>
+      <span class="unvisited" style="top:17.71%"></span>
+      <span class="unvisited" style="top:19.79%"></span>
+      <span class="unvisited" style="top:20.83%"></span>
+      <span class="unvisited" style="top:21.88%"></span>
+      <span class="unvisited" style="top:25.00%"></span>
+      <span class="unvisited" style="top:26.04%"></span>
+      <span class="unvisited" style="top:27.08%"></span>
+      <span class="unvisited" style="top:29.17%"></span>
+      <span class="unvisited" style="top:31.25%"></span>
+      <span class="unvisited" style="top:32.29%"></span>
+      <span class="unvisited" style="top:34.38%"></span>
+      <span class="unvisited" style="top:36.46%"></span>
+      <span class="unvisited" style="top:37.50%"></span>
+      <span class="unvisited" style="top:38.54%"></span>
+      <span class="unvisited" style="top:40.62%"></span>
+      <span class="unvisited" style="top:41.67%"></span>
+      <span class="unvisited" style="top:42.71%"></span>
+      <span class="unvisited" style="top:45.83%"></span>
+      <span class="unvisited" style="top:46.88%"></span>
+      <span class="unvisited" style="top:47.92%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:48.96%"></span>
+      <span class="unvisited" style="bottom:46.88%"></span>
+      <span class="unvisited" style="bottom:45.83%"></span>
+      <span class="unvisited" style="bottom:43.75%"></span>
+      <span class="unvisited" style="bottom:42.71%"></span>
+      <span class="unvisited" style="bottom:41.67%"></span>
+      <span class="unvisited" style="bottom:37.50%"></span>
+      <span class="unvisited" style="bottom:36.46%"></span>
+      <span class="unvisited" style="bottom:34.38%"></span>
+      <span class="unvisited" style="bottom:30.21%"></span>
+      <span class="unvisited" style="bottom:29.17%"></span>
+      <span class="unvisited" style="bottom:28.12%"></span>
+      <span class="unvisited" style="bottom:25.00%"></span>
+      <span class="unvisited" style="bottom:23.96%"></span>
+      <span class="unvisited" style="bottom:20.83%"></span>
+      <span class="unvisited" style="bottom:14.58%"></span>
+      <span class="unvisited" style="bottom:13.54%"></span>
+      <span class="unvisited" style="bottom:12.50%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span class="unvisited"> </span>
+<a id="L6"></a><span class="unvisited"> </span>
+<a id="L7"></a><span class="unvisited"> </span>
+<a id="L8"></a><span class="unvisited"> </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="unvisited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span class="unvisited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+<a href="#L91">91</a>
+<a href="#L92">92</a>
+<a href="#L93">93</a>
+<a href="#L94">94</a>
+<a href="#L95">95</a>
+<a href="#L96">96</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Arrow_table
+
+let uncount_impl (named_args : (string option * value) list) _env =
+  <span data-count="0">m</span>atch named_args with
+  | <span data-count="0">(</span>_, VDataFrame df) :: rest -&gt;
+      let weights_col = match List.filter (fun (k, _) -&gt; <span data-count="0">k</span> = None) rest with
+        | <span data-count="0">[</span>(_, v)] -&gt; Utils.extract_column_nam<span data-count="0">e</span> v
+        | <span data-count="0">_</span> -&gt; (match List.assoc_opt (Some "weights") rest with <span data-count="0">S</span>ome v -&gt; Utils.extract_column_nam<span data-count="0">e</span> v | <span data-count="0">_</span> -&gt; None)
+      in
+      let remove = match List.assoc_opt (Some ".remove") rest with <span data-count="0">S</span>ome (VBool b) -&gt; b | <span data-count="0">_</span> -&gt; true in
+
+      (match weights_col with
+       | <span data-count="0">N</span>one -&gt; Error.make_error ArityError "uncount expects a weights column ($col)."
+       | <span data-count="0">S</span>ome col_name -&gt;
+           match Arrow_table.get_column df.arrow_table col_name with
+           | <span data-count="0">S</span>ome col -&gt;
+               let weights = Arrow_bridge.column_to_values col in
+               <span data-count="0">l</span>et len = Array.length weights in
+               <span data-count="0">l</span>et weight_ints = Array.make len 0 in
+               <span data-count="0">l</span>et error = ref None in
+               Array.iteri
+                 (fun i v -&gt;
+                   <span data-count="0">m</span>atch (!error, v) with
+                   | <span data-count="0">(</span>Some _, _) -&gt; ()
+                   | <span data-count="0">(</span>None, VInt n) -&gt;
+                       if n &lt; 0 then
+                         <span data-count="0">e</span>rror := Some (Error.make_erro<span data-count="0">r</span> ValueError "Function `uncount` expects non-negative weights.")
+                       else
+                         <span data-count="0">w</span>eight_ints.(i) &lt;- n
+                   | <span data-count="0">(</span>None, VFloat f) -&gt;
+                       if f &lt; 0. then
+                         <span data-count="0">e</span>rror := Some (Error.make_erro<span data-count="0">r</span> ValueError "Function `uncount` expects non-negative weights.")
+                       else
+                         <span data-count="0">l</span>et rounded = floor f in
+                         <span data-count="0">i</span>f rounded &lt;&gt; f then
+                           <span data-count="0">e</span>rror := Some (Error.make_erro<span data-count="0">r</span> ValueError "Function `uncount` expects integer weights (whole numbers) when provided as floats.")
+                         else
+                           <span data-count="0">w</span>eight_ints.(i) &lt;- int_of_floa<span data-count="0">t</span> f
+                   | <span data-count="0">(</span>None, _) -&gt;
+                       error := Some (Error.type_erro<span data-count="0">r</span> "Function `uncount` expects a numeric weights column.")
+                 )
+                 weights;
+               <span data-count="0">(</span>match !error with
+                | <span data-count="0">S</span>ome e -&gt; e
+                | <span data-count="0">N</span>one -&gt;
+                    let final_nrows = Array.fold_left (+) 0 weight_ints in
+                    <span data-count="0">i</span>f final_nrows &gt; 10_000_000 then
+                      <span data-count="0">E</span>rror.value_error (Printf.sprint<span data-count="0">f</span> "Function `uncount` would produce %d rows, exceeding the safety limit of 10,000,000." final_nrows)
+                    else
+                    <span data-count="0">l</span>et expansion_indices = Array.make final_nrows 0 in
+                    <span data-count="0">l</span>et curr = ref 0 in
+                    Array.iteri (fun i w -&gt;
+                      <span data-count="0">f</span>or _ = 1 to w do
+                        <span data-count="0">e</span>xpansion_indices.(!curr) &lt;- i;
+                        <span data-count="0">i</span>nc<span data-count="0">r</span> curr
+                      done
+                    ) weight_ints;
+
+                    <span data-count="0">l</span>et base_names = if remove then
+                      <span data-count="0">L</span>ist.filte<span data-count="0">r</span> (fun n -&gt; <span data-count="0">n</span> &lt;&gt; col_name) (Arrow_table.column_name<span data-count="0">s</span> df.arrow_table)
+                    else
+                      <span data-count="0">A</span>rrow_table.column_name<span data-count="0">s</span> df.arrow_table
+                    in
+
+                    let new_columns = List.map (fun name -&gt;
+                      <span data-count="0">m</span>atch Arrow_table.get_column df.arrow_table name with
+                      | <span data-count="0">S</span>ome c -&gt; (name, Arrow_table.take_co<span data-count="0">l</span> c expansion_indices final_nrows)
+                      | <span data-count="0">N</span>one -&gt; (name, Arrow_table.NAColumn final_nrows)
+                    ) base_names in
+
+                    <span data-count="0">l</span>et new_schema = List.filter_map (fun (n, t) -&gt;
+                      <span data-count="0">i</span>f remove &amp;&amp; <span data-count="0">n</span> = col_name then <span data-count="0">N</span>one else <span data-count="0">S</span>ome (n, t)
+                    ) df.arrow_table.schema in
+
+                    <span data-count="0">V</span>DataFrame { df with arrow_table = {
+                      schema = new_schema;
+                      columns = new_columns;
+                      nrows = final_nrows;
+                      native_handle = None
+                    } })
+           | <span data-count="0">N</span>one -&gt; Error.make_error KeyError (Printf.sprint<span data-count="0">f</span> "Column `%s` not found." col_name))
+  | <span data-count="0">_</span> :: _ -&gt; Error.type_error "Function `uncount` expects a DataFrame as first argument."
+  | <span data-count="0">[</span>] -&gt; Error.make_error ArityError "Function `uncount` requires a DataFrame."
+
+(*
+--# Expand rows by weight
+--#
+--# Repeats each row according to a count column or weight expression.
+--#
+--# @name uncount
+--# @family colcraft
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "uncount" (make_builtin_name<span data-count="136">d</span> ~name:"uncount" ~variadic:true 1 uncount_impl) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

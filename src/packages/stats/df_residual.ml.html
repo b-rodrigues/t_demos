@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>df_residual.ml &mdash; Coverage report</title>
+    <meta name="description" content="16.67% coverage in src/packages/stats/df_residual.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>df_residual.ml
+        </a>
+      </h1>
+      <h2>16.67%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="bottom:35.29%"></span>
+      <span class="unvisited" style="bottom:32.35%"></span>
+      <span class="unvisited" style="bottom:26.47%"></span>
+      <span class="unvisited" style="bottom:23.53%"></span>
+      <span class="unvisited" style="bottom:14.71%"></span>
+      <span class="unvisited" style="bottom:11.76%"></span>
+      <span class="unvisited" style="bottom:8.82%"></span>
+      <span class="unvisited" style="bottom:5.88%"></span>
+      <span class="unvisited" style="bottom:2.94%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/stats/df_residual.ml *)
+open Ast
+
+(** df_residual(model) — returns the residual degrees of freedom of the model. *)
+(*
+--# Residual Degrees of Freedom
+--#
+--# Returns the residual degrees of freedom of a model.
+--#
+--# @name df_residual
+--# @param model :: Model The model object.
+--# @return :: Int The residual degrees of freedom.
+--# @example
+--#   model = lm(mpg ~ wt, data = mtcars)
+--#   df = df_residual(model)
+--# @family stats
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "df_residual"
+    (make_builti<span data-count="136">n</span> ~name:"df_residual" 1 (fun args _env -&gt;
+      <span data-count="0">m</span>atch args with
+      | <span data-count="0">[</span>VDict pairs] -&gt;
+        let model_data = match List.assoc_opt "_model_data" pairs with
+          | <span data-count="0">S</span>ome (VDict d) -&gt; d
+          | <span data-count="0">_</span> -&gt; pairs
+        in
+        (match List.assoc_opt "df_residual" model_data with
+         | <span data-count="0">S</span>ome (VInt i) -&gt; VInt i
+         | <span data-count="0">S</span>ome (VFloat f) -&gt; VInt (int_of_floa<span data-count="0">t</span> f)
+         | <span data-count="0">_</span> -&gt; Error.type_error "Function `df_residual` could not find 'df_residual' in model object.")
+      | <span data-count="0">[</span>VError _ as e] -&gt; e
+      | <span data-count="0">_</span> -&gt; Error.type_error "Function `df_residual` expects a model (Dict)."
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

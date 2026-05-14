@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>builder_logs.ml &mdash; Coverage report</title>
+    <meta name="description" content="95.59% coverage in src/pipeline/builder_logs.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/pipeline/</span>builder_logs.ml
+        </a>
+      </h1>
+      <h2>95.59%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="top:6.58%"></span>
+      <span class="unvisited" style="bottom:36.84%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span class="some-visited"> </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span class="visited"> </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="visited"> </span>
+<a id="L10"></a><span class="visited"> </span>
+<a id="L11"></a><span class="visited"> </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span class="visited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="visited"> </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span class="visited"> </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span class="visited"> </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span class="visited"> </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span class="visited"> </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span class="visited"> </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+</pre>
+<pre><code class="ocaml">(* src/pipeline/builder_logs.ml *)
+open Builder_utils
+
+let get_all_logs () =
+  <span data-count="358">i</span>f not (Sys.file_exist<span data-count="358">s</span> pipeline_dir) then <span data-count="0">[</span>]
+  else
+    <span data-count="358">l</span>et logs =
+      Sys.readdir pipeline_dir
+      |&gt; <span data-count="358">A</span>rray.to_list
+      |&gt; <span data-count="358">L</span>ist.filter (fun f -&gt;
+        <span data-count="960">F</span>ilename.check_suffi<span data-count="960">x</span> f ".json"
+        &amp;&amp; <span data-count="580">S</span>tring.starts_with ~prefix:"build_log_" f)
+    in
+    <span data-count="358">l</span>ogs |&gt; List.sort (fun a b -&gt; <span data-count="4">c</span>ompare b a)
+
+let get_logs () =
+  <span data-count="523">i</span>f not (Sys.file_exist<span data-count="523">s</span> pipeline_dir) then <span data-count="165">[</span>]
+  else
+    <span data-count="358">l</span>et logs = get_all_logs () in
+    <span data-count="358">l</span>et logs =
+      if List.lengt<span data-count="358">h</span> logs &gt; 1 &amp;&amp; <span data-count="4">L</span>ist.exist<span data-count="4">s</span> (fun f -&gt; <span data-count="4">f</span> &lt;&gt; "build_log_ocaml_mock.json" &amp;&amp; <span data-count="4">f</span> &lt;&gt; "build_log_legacy_version.json") logs then
+        <span data-count="4">L</span>ist.filte<span data-count="4">r</span> (fun f -&gt;
+          <span data-count="8">f</span> &lt;&gt; "build_log_ocaml_mock.json"
+          &amp;&amp; <span data-count="8">f</span> &lt;&gt; "build_log_legacy_version.json"
+        ) logs
+      else <span data-count="354">l</span>ogs
+    in
+    logs
+
+let read_log path =
+  <span data-count="108">t</span>ry
+    let json = Yojson.Safe.from_file path in
+    <span data-count="108">l</span>et open Yojson.Safe.Util in
+    let nodes = json |&gt; member "nodes" |&gt; <span data-count="108">t</span>o_list in
+    <span data-count="108">l</span>et entries = List.map (fun node_json -&gt;
+      <span data-count="633">l</span>et name = node_json |&gt; member "node" |&gt; <span data-count="633">t</span>o_string in
+      <span data-count="633">l</span>et cn = {
+        Ast.cn_name = name;
+        cn_runtime = node_json |&gt; member "runtime" |&gt; <span data-count="633">t</span>o_strin<span data-count="633">g</span>;
+        cn_path = node_json |&gt; member "path" |&gt; <span data-count="633">t</span>o_strin<span data-count="633">g</span>;
+        cn_serializer = node_json |&gt; member "serializer" |&gt; <span data-count="633">t</span>o_strin<span data-count="633">g</span>;
+        cn_class = node_json |&gt; member "class" |&gt; <span data-count="633">t</span>o_strin<span data-count="633">g</span>;
+        cn_dependencies = node_json |&gt; member "dependencies" |&gt; <span data-count="633">t</span>o_list |&gt; <span data-count="633">f</span>ilter_strin<span data-count="633">g</span>;
+      } in
+      (name, cn)
+    ) nodes in
+    <span data-count="108">O</span>k entries
+  with <span data-count="0">e</span>xn -&gt; Error (Printexc.to_strin<span data-count="0">g</span> exn)
+
+let list_logs () =
+  <span data-count="1">l</span>et logs = get_logs () in
+  <span data-count="1">l</span>et nrows = List.length logs in
+  <span data-count="1">l</span>et arr_filename = Array.init nrows (fun i -&gt; <span data-count="1">S</span>ome (List.nt<span data-count="1">h</span> logs i)) in
+  <span data-count="1">l</span>et arr_mtime = Array.init nrows (fun i -&gt;
+    <span data-count="1">l</span>et f = List.nth logs i in
+    <span data-count="1">l</span>et path = Filename.concat pipeline_dir f in
+    <span data-count="1">l</span>et stats = Unix.stat path in
+    <span data-count="1">l</span>et tm = Unix.localtime stats.Unix.st_mtime in
+    <span data-count="1">S</span>ome (Printf.sprint<span data-count="1">f</span> "%04d-%02d-%02d %02d:%02d:%02d"
+      (tm.tm_year + 1900) (tm.tm_mon + 1) tm.tm_mday tm.tm_hour tm.tm_min tm.tm_sec)
+  ) in
+  <span data-count="1">l</span>et arr_size = Array.init nrows (fun i -&gt;
+    <span data-count="1">l</span>et f = List.nth logs i in
+    <span data-count="1">l</span>et path = Filename.concat pipeline_dir f in
+    <span data-count="1">l</span>et stats = Unix.stat path in
+    <span data-count="1">l</span>et raw_kb = float_of_in<span data-count="1">t</span> stats.Unix.st_size /. 1024.0 in
+    let size_kb = Float.roun<span data-count="1">d</span> (raw_kb *. 100.0) /. 100.0 in
+    Some size_kb
+  ) in
+  <span data-count="1">l</span>et columns = [
+    ("filename", Arrow_table.StringColumn arr_filename);
+    ("modification_time", Arrow_table.StringColumn arr_mtime);
+    ("size_kb", Arrow_table.FloatColumn arr_size);
+  ] in
+  let arrow_table = Arrow_table.create columns nrows in
+  <span data-count="1">A</span>st.VDataFrame { arrow_table; group_keys = [] }
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

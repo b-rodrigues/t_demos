@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083250",
+  "hash": "vg13pbnw0yjni7xifghxqxzfifzswkgr",
+  "out_path": "/nix/store/vg13pbnw0yjni7xifghxqxzfifzswkgr-pipeline_output",
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/vg13pbnw0yjni7xifghxqxzfifzswkgr-pipeline_output/raw_data/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/vg13pbnw0yjni7xifghxqxzfifzswkgr-pipeline_output/r_model/artifact",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/vg13pbnw0yjni7xifghxqxzfifzswkgr-pipeline_output/py_model/artifact",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "comparison_result",
+  "path": "/nix/store/vg13pbnw0yjni7xifghxqxzfifzswkgr-pipeline_output/comparison_result/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["py_model", "r_model"],
+  "success": true,
+  "warnings": false
+}
+]
+}

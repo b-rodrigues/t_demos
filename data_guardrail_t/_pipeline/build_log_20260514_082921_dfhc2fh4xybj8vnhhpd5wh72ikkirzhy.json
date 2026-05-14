@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260514_082921",
+  "hash": "dfhc2fh4xybj8vnhhpd5wh72ikkirzhy",
+  "out_path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output",
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output/raw_data/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "validate_ranges",
+  "path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output/validate_ranges/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "validate_dates",
+  "path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output/validate_dates/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "validate_nulls",
+  "path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output/validate_nulls/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "final_analytics",
+  "path": "/nix/store/dfhc2fh4xybj8vnhhpd5wh72ikkirzhy-pipeline_output/final_analytics/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["validate_dates", "validate_nulls", "validate_ranges"],
+  "success": false,
+  "warnings": false
+}
+]
+}

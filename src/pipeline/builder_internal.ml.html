@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>builder_internal.ml &mdash; Coverage report</title>
+    <meta name="description" content="82.64% coverage in src/pipeline/builder_internal.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/pipeline/</span>builder_internal.ml
+        </a>
+      </h1>
+      <h2>82.64%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="top:7.17%"></span>
+      <span class="unvisited" style="top:14.66%"></span>
+      <span class="unvisited" style="top:16.29%"></span>
+      <span class="unvisited" style="top:19.87%"></span>
+      <span class="unvisited" style="top:27.69%"></span>
+      <span class="some-visited" style="top:29.97%"></span>
+      <span class="some-visited" style="top:38.44%"></span>
+      <span class="unvisited" style="top:38.76%"></span>
+      <span class="unvisited" style="top:39.09%"></span>
+      <span class="unvisited" style="top:39.74%"></span>
+      <span class="unvisited" style="top:40.07%"></span>
+      <span class="some-visited" style="top:45.60%"></span>
+      <span class="unvisited" style="top:46.58%"></span>
+      <span class="some-visited" style="bottom:46.25%"></span>
+      <span class="unvisited" style="bottom:45.93%"></span>
+      <span class="unvisited" style="bottom:45.60%"></span>
+      <span class="unvisited" style="bottom:44.95%"></span>
+      <span class="unvisited" style="bottom:44.63%"></span>
+      <span class="unvisited" style="bottom:35.50%"></span>
+      <span class="unvisited" style="bottom:29.64%"></span>
+      <span class="unvisited" style="bottom:28.99%"></span>
+      <span class="unvisited" style="bottom:28.66%"></span>
+      <span class="unvisited" style="bottom:25.73%"></span>
+      <span class="some-visited" style="bottom:22.80%"></span>
+      <span class="some-visited" style="bottom:22.48%"></span>
+      <span class="some-visited" style="bottom:17.26%"></span>
+      <span class="some-visited" style="bottom:16.94%"></span>
+      <span class="some-visited" style="bottom:16.61%"></span>
+      <span class="some-visited" style="bottom:15.96%"></span>
+      <span class="unvisited" style="bottom:8.47%"></span>
+      <span class="unvisited" style="bottom:7.49%"></span>
+      <span class="unvisited" style="bottom:5.21%"></span>
+      <span class="unvisited" style="bottom:2.61%"></span>
+      <span class="unvisited" style="bottom:2.28%"></span>
+      <span class="unvisited" style="bottom:1.95%"></span>
+      <span class="unvisited" style="bottom:0.65%"></span>
+      <span class="unvisited" style="bottom:0.33%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="some-visited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="visited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span class="visited"> </span>
+<a id="L80"></a><span class="visited"> </span>
+<a id="L81"></a><span class="visited"> </span>
+<a id="L82"></a><span class="visited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="visited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="visited"> </span>
+<a id="L90"></a><span class="visited"> </span>
+<a id="L91"></a><span class="visited"> </span>
+<a id="L92"></a><span class="some-visited"> </span>
+<a id="L93"></a><span class="visited"> </span>
+<a id="L94"></a><span class="visited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span class="visited"> </span>
+<a id="L100"></a><span class="visited"> </span>
+<a id="L101"></a><span class="visited"> </span>
+<a id="L102"></a><span class="visited"> </span>
+<a id="L103"></a><span class="visited"> </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span class="visited"> </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span class="visited"> </span>
+<a id="L112"></a><span class="visited"> </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span class="visited"> </span>
+<a id="L118"></a><span class="some-visited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="visited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span class="visited"> </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span class="visited"> </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="visited"> </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span class="visited"> </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="visited"> </span>
+<a id="L134"></a><span class="visited"> </span>
+<a id="L135"></a><span > </span>
+<a id="L136"></a><span class="visited"> </span>
+<a id="L137"></a><span class="visited"> </span>
+<a id="L138"></a><span class="visited"> </span>
+<a id="L139"></a><span class="visited"> </span>
+<a id="L140"></a><span class="some-visited"> </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span > </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="visited"> </span>
+<a id="L146"></a><span > </span>
+<a id="L147"></a><span class="visited"> </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span class="visited"> </span>
+<a id="L151"></a><span class="visited"> </span>
+<a id="L152"></a><span class="visited"> </span>
+<a id="L153"></a><span class="visited"> </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span class="visited"> </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span class="visited"> </span>
+<a id="L158"></a><span class="visited"> </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span > </span>
+<a id="L161"></a><span class="visited"> </span>
+<a id="L162"></a><span class="visited"> </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span > </span>
+<a id="L165"></a><span class="some-visited"> </span>
+<a id="L166"></a><span class="unvisited"> </span>
+<a id="L167"></a><span class="unvisited"> </span>
+<a id="L168"></a><span class="visited"> </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span class="unvisited"> </span>
+<a id="L171"></a><span > </span>
+<a id="L172"></a><span class="visited"> </span>
+<a id="L173"></a><span class="visited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="visited"> </span>
+<a id="L176"></a><span > </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span class="visited"> </span>
+<a id="L182"></a><span > </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span class="visited"> </span>
+<a id="L185"></a><span > </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="visited"> </span>
+<a id="L188"></a><span class="visited"> </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span class="visited"> </span>
+<a id="L191"></a><span class="visited"> </span>
+<a id="L192"></a><span class="visited"> </span>
+<a id="L193"></a><span class="visited"> </span>
+<a id="L194"></a><span class="visited"> </span>
+<a id="L195"></a><span class="visited"> </span>
+<a id="L196"></a><span > </span>
+<a id="L197"></a><span class="visited"> </span>
+<a id="L198"></a><span class="unvisited"> </span>
+<a id="L199"></a><span class="visited"> </span>
+<a id="L200"></a><span class="visited"> </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span class="visited"> </span>
+<a id="L204"></a><span class="visited"> </span>
+<a id="L205"></a><span class="visited"> </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span class="visited"> </span>
+<a id="L208"></a><span class="visited"> </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span class="visited"> </span>
+<a id="L211"></a><span class="visited"> </span>
+<a id="L212"></a><span class="visited"> </span>
+<a id="L213"></a><span > </span>
+<a id="L214"></a><span class="visited"> </span>
+<a id="L215"></a><span class="visited"> </span>
+<a id="L216"></a><span class="unvisited"> </span>
+<a id="L217"></a><span > </span>
+<a id="L218"></a><span class="unvisited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span > </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span > </span>
+<a id="L223"></a><span > </span>
+<a id="L224"></a><span class="visited"> </span>
+<a id="L225"></a><span class="visited"> </span>
+<a id="L226"></a><span class="visited"> </span>
+<a id="L227"></a><span class="visited"> </span>
+<a id="L228"></a><span class="unvisited"> </span>
+<a id="L229"></a><span > </span>
+<a id="L230"></a><span > </span>
+<a id="L231"></a><span > </span>
+<a id="L232"></a><span class="visited"> </span>
+<a id="L233"></a><span class="visited"> </span>
+<a id="L234"></a><span class="visited"> </span>
+<a id="L235"></a><span class="visited"> </span>
+<a id="L236"></a><span > </span>
+<a id="L237"></a><span class="some-visited"> </span>
+<a id="L238"></a><span class="some-visited"> </span>
+<a id="L239"></a><span > </span>
+<a id="L240"></a><span class="visited"> </span>
+<a id="L241"></a><span class="visited"> </span>
+<a id="L242"></a><span class="visited"> </span>
+<a id="L243"></a><span > </span>
+<a id="L244"></a><span class="visited"> </span>
+<a id="L245"></a><span class="visited"> </span>
+<a id="L246"></a><span > </span>
+<a id="L247"></a><span > </span>
+<a id="L248"></a><span class="visited"> </span>
+<a id="L249"></a><span class="visited"> </span>
+<a id="L250"></a><span > </span>
+<a id="L251"></a><span class="visited"> </span>
+<a id="L252"></a><span class="visited"> </span>
+<a id="L253"></a><span class="visited"> </span>
+<a id="L254"></a><span class="some-visited"> </span>
+<a id="L255"></a><span class="some-visited"> </span>
+<a id="L256"></a><span class="some-visited"> </span>
+<a id="L257"></a><span > </span>
+<a id="L258"></a><span class="some-visited"> </span>
+<a id="L259"></a><span > </span>
+<a id="L260"></a><span class="visited"> </span>
+<a id="L261"></a><span class="visited"> </span>
+<a id="L262"></a><span > </span>
+<a id="L263"></a><span class="visited"> </span>
+<a id="L264"></a><span class="visited"> </span>
+<a id="L265"></a><span class="visited"> </span>
+<a id="L266"></a><span class="visited"> </span>
+<a id="L267"></a><span class="visited"> </span>
+<a id="L268"></a><span class="visited"> </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span > </span>
+<a id="L271"></a><span > </span>
+<a id="L272"></a><span > </span>
+<a id="L273"></a><span > </span>
+<a id="L274"></a><span class="visited"> </span>
+<a id="L275"></a><span > </span>
+<a id="L276"></a><span > </span>
+<a id="L277"></a><span > </span>
+<a id="L278"></a><span class="visited"> </span>
+<a id="L279"></a><span > </span>
+<a id="L280"></a><span class="visited"> </span>
+<a id="L281"></a><span class="unvisited"> </span>
+<a id="L282"></a><span class="visited"> </span>
+<a id="L283"></a><span > </span>
+<a id="L284"></a><span class="unvisited"> </span>
+<a id="L285"></a><span > </span>
+<a id="L286"></a><span class="visited"> </span>
+<a id="L287"></a><span class="visited"> </span>
+<a id="L288"></a><span class="visited"> </span>
+<a id="L289"></a><span class="visited"> </span>
+<a id="L290"></a><span class="visited"> </span>
+<a id="L291"></a><span class="unvisited"> </span>
+<a id="L292"></a><span > </span>
+<a id="L293"></a><span class="visited"> </span>
+<a id="L294"></a><span > </span>
+<a id="L295"></a><span class="visited"> </span>
+<a id="L296"></a><span > </span>
+<a id="L297"></a><span > </span>
+<a id="L298"></a><span > </span>
+<a id="L299"></a><span class="unvisited"> </span>
+<a id="L300"></a><span class="unvisited"> </span>
+<a id="L301"></a><span class="unvisited"> </span>
+<a id="L302"></a><span > </span>
+<a id="L303"></a><span class="visited"> </span>
+<a id="L304"></a><span class="visited"> </span>
+<a id="L305"></a><span class="unvisited"> </span>
+<a id="L306"></a><span class="unvisited"> </span>
+<a id="L307"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Builder_utils
+
+(*
+--# Build Pipeline Internally
+--#
+--# Calls `nix-build` on the generated `pipeline.nix` file. Extracts the store
+--# path of the result and saves a build log with an exact mapping of node names
+--# to artifact paths in the Nix store.
+--#
+--# @name build_pipeline_internal
+--# @param p :: PipelineResult The pipeline AST structure.
+--# @return :: Result[String] The output Nix store path or an error string.
+--# @family pipeline
+--# @export
+*)
+let nix_build_args = ref []
+let default_nix_build_verbose = ref 0
+
+let nix_verbosity_args verbose =
+  <span data-count="37">i</span>f verbose &lt;= 0 then <span data-count="2">[</span>"--quiet"]
+  else <span data-count="35">L</span>ist.init (ma<span data-count="35">x</span> 0 (verbose - 1)) (fun _ -&gt; <span data-count="0">"</span>--verbose")
+
+(*
+--# Print Failed Node Logs
+--#
+--# Prints stderr log sections for each failed node by resolving its
+--# derivation path through `nix log`.
+--#
+--# @param drv_paths :: Hashtbl Captured derivation paths keyed by node name.
+--# @param errored :: List[String] Node names that failed during the build.
+--# @family pipeline
+*)
+let print_failed_node_logs drv_paths errored =
+  <span data-count="9">L</span>ist.iter
+    (fun name -&gt;
+      <span data-count="57">m</span>atch Hashtbl.find_opt drv_paths name with
+      | <span data-count="57">S</span>ome drv_path -&gt;
+          Printf.eprintf "\n--- Logs for failed node `%s` ---\n%!" name;
+          <span data-count="57">l</span>et argv = [| "nix"; "log"; drv_path |] in
+          (match run_command_argv_capture argv with
+           | <span data-count="9">O</span>k output -&gt;
+               let output = String.trim output in
+               <span data-count="9">i</span>f output = "" then
+                 <span data-count="0">P</span>rintf.eprintf "(No log output returned for `%s`).\n%!" name
+               else
+                 <span data-count="9">P</span>rintf.eprintf "%s\n%!" output
+           | <span data-count="48">E</span>rror msg -&gt;
+               Printf.eprintf "Failed to fetch logs for `%s`: %s\n%!" name msg)
+      | <span data-count="0">N</span>one -&gt;
+          Printf.eprintf "\n--- Logs for failed node `%s` ---\nNo derivation path was captured for this node.\n%!" name)
+    errored
+
+let build_pipeline_internal ?verbose (p : Ast.pipeline_result) =
+  <span data-count="37">l</span>et verbose =
+    match verbose with
+    | <span data-count="35">S</span>ome level -&gt; level
+    | <span data-count="2">N</span>one -&gt; !default_nix_build_verbose
+  in
+  if not (command_exist<span data-count="37">s</span> "nix-build") then
+    <span data-count="0">E</span>rror "build_pipeline requires `nix-build` to be available."
+  else <span data-count="37">b</span>egin
+    let node_names = List.map fst p.p_exprs in
+    <span data-count="37">l</span>et statuses = Hashtbl.create (List.lengt<span data-count="37">h</span> node_names) in
+    <span data-count="37">L</span>ist.iter (fun n -&gt; <span data-count="239">H</span>ashtbl.add statuses n "Pending") node_names;
+    
+    <span data-count="37">l</span>et captured_output = Buffer.create 1024 in
+    <span data-count="37">l</span>et all_args = !nix_build_args @ (nix_verbosity_arg<span data-count="37">s</span> verbose) in
+    let argv = Array.of_list
+      (["nix-build"; "--impure"; pipeline_nix_path; "-A"; "pipeline_output"; "--no-out-link"] @ all_args)
+    in
+    
+    <span data-count="37">P</span>rintf.printf "\nStarting pipeline build...\n";
+    
+    <span data-count="37">l</span>et contains_substring line pattern =
+      <span data-count="16539">t</span>ry
+        let len_p = String.length pattern in
+        <span data-count="16539">l</span>et len_l = String.length line in
+        <span data-count="16539">l</span>et rec loop i =
+          <span data-count="967902">i</span>f i + len_p &gt; len_l then <span data-count="16114">f</span>alse
+          else <span data-count="951788">i</span>f String.su<span data-count="951788">b</span> line i len_p = pattern then <span data-count="425">t</span>rue
+          else <span data-count="951363">l</span>oop (i + 1)
+        in
+        loo<span data-count="16539">p</span> 0
+      with <span data-count="0">_</span> -&gt; false
+    in
+
+    let contains_substring_idx line pattern =
+      <span data-count="191">l</span>et len_p = String.length pattern in
+      <span data-count="191">l</span>et len_l = String.length line in
+      <span data-count="191">l</span>et rec loop i =
+        <span data-count="2651">i</span>f i + len_p &gt; len_l then <span data-count="0">-</span>1
+        else <span data-count="2651">i</span>f String.su<span data-count="2651">b</span> line i len_p = pattern then <span data-count="191">i</span>
+        else <span data-count="2460">l</span>oop (i + 1)
+      in
+      loop 0
+    in
+
+    let drv_paths = Hashtbl.create (List.lengt<span data-count="37">h</span> node_names) in
+    <span data-count="37">l</span>et node_has_warnings = Hashtbl.create (List.lengt<span data-count="37">h</span> node_names) in
+    <span data-count="37">l</span>et callback line =
+      <span data-count="4109">B</span>uffer.add_string captured_output line;
+      <span data-count="4109">B</span>uffer.add_char captured_output '\n';
+      
+      <span data-count="4109">l</span>et line = String.trim line in
+      (* Each branch performs a single List.find_opt scan to both detect and
+         identify the matching node, avoiding a separate exists + find_opt double
+         scan that the previous version performed per line. *)
+      <span data-count="4109">i</span>f String.starts_with ~prefix:"building '/nix/store/" line then <span data-count="201">(</span>
+        (* Building a derivation *)
+        match List.find_opt (fun name -&gt; <span data-count="763">c</span>ontains_substring line ("-" ^ name ^ ".drv")) node_names with
+        | <span data-count="141">S</span>ome name -&gt; 
+            let drv_path = 
+              try
+                let start_idx = contains_substring_idx line "/nix/store/" in
+                <span data-count="141">i</span>f start_idx &gt;= 0 then
+                  <span data-count="141">l</span>et sub = String.sub line start_idx (String.lengt<span data-count="141">h</span> line - start_idx) in
+                  <span data-count="141">l</span>et end_idx = try String.inde<span data-count="141">x</span> sub '\'' with <span data-count="0">_</span> -&gt;
+                                try String.inde<span data-count="0">x</span> sub ' ' with <span data-count="0">_</span> -&gt;
+                                String.lengt<span data-count="0">h</span> sub in
+                  String.su<span data-count="141">b</span> sub 0 end_idx
+                else <span data-count="0">"</span>"
+              with <span data-count="0">_</span> -&gt; ""
+            in
+            if drv_path &lt;&gt; "" then <span data-count="141">H</span>ashtbl.replac<span data-count="141">e</span> drv_paths name drv_path;
+
+            <span data-count="141">i</span>f Hashtbl.fin<span data-count="141">d</span> statuses name = "Pending" then <span data-count="141">(</span>
+              Hashtbl.replace statuses name "Building";
+              <span data-count="141">P</span>rintf.printf "  + %s building\n%!" name
+            )
+        | <span data-count="60">N</span>one -&gt; ()
+      )
+      else <span data-count="3908">i</span>f String.starts_wit<span data-count="3908">h</span> ~prefix:"/nix/store/" line
+           &amp;&amp; <span data-count="1718">n</span>ot (String.ends_wit<span data-count="1718">h</span> ~suffix:".drv" line) then <span data-count="1432">(</span>
+        (* Completed: nix-build prints the output store path without ".drv" *)
+        match List.find_opt (fun name -&gt; <span data-count="8190">c</span>ontains_substring line ("-" ^ name)) node_names with
+        | <span data-count="59">S</span>ome name -&gt;
+            if Hashtbl.fin<span data-count="59">d</span> statuses name &lt;&gt; "Completed" &amp;&amp; 
+               <span data-count="59">H</span>ashtbl.fin<span data-count="59">d</span> statuses name &lt;&gt; "SoftFailed" &amp;&amp;
+               <span data-count="59">H</span>ashtbl.fin<span data-count="59">d</span> statuses name &lt;&gt; "Errored" then <span data-count="0">(</span>
+              (* We'll refine this to SoftFailed later if artifact class is VError *)
+              Hashtbl.replace statuses name "Completed";
+              <span data-count="0">P</span>rintf.printf "  ✓ %s built\n%!" name
+            )
+        | <span data-count="1373">N</span>one -&gt; ()
+      )
+      else <span data-count="2476">(</span>
+        (* Error detection: only scan for a matching node when error keywords
+           are present, to avoid a find_opt scan on every non-build/output line. *)
+        if contains_substrin<span data-count="2476">g</span> line "error:<span data-count="79">"</span> || contains_substrin<span data-count="2397">g</span> line "failed<span data-count="87">"</span> then <span data-count="166">(</span>
+          match List.find_opt (fun name -&gt; <span data-count="2713">c</span>ontains_substring line ("-" ^ name ^ ".drv")) node_names with
+          | <span data-count="59">S</span>ome name -&gt;
+              if Hashtbl.fin<span data-count="59">d</span> statuses name &lt;&gt; "Errored" then <span data-count="59">(</span>
+                Hashtbl.replace statuses name "Errored";
+                <span data-count="59">l</span>et drv_path = 
+                  match Hashtbl.find_opt drv_paths name with
+                  | <span data-count="9">S</span>ome p -&gt; p
+                  | <span data-count="50">N</span>one -&gt;
+                    try
+                      let start_idx = contains_substring_idx line "/nix/store/" in
+                      <span data-count="50">i</span>f start_idx &gt;= 0 then
+                        <span data-count="50">l</span>et sub = String.sub line start_idx (String.lengt<span data-count="50">h</span> line - start_idx) in
+                        (* Stop at closing quote or whitespace; do NOT stop at '.' so that
+                           the full ".drv" suffix is preserved in the extracted path. *)
+                        <span data-count="50">l</span>et end_idx = try String.inde<span data-count="50">x</span> sub '\'' with <span data-count="0">_</span> -&gt;
+                                      try String.inde<span data-count="0">x</span> sub ' ' with <span data-count="0">_</span> -&gt;
+                                      String.lengt<span data-count="0">h</span> sub in
+                        String.su<span data-count="50">b</span> sub 0 end_idx
+                      else <span data-count="0">"</span>&lt;path&gt;"
+                    with <span data-count="0">_</span> -&gt; "&lt;path&gt;"
+                in
+                if drv_path &lt;&gt; "" &amp;&amp; <span data-count="59">d</span>rv_path &lt;&gt; "&lt;path&gt;" then <span data-count="59">H</span>ashtbl.replac<span data-count="59">e</span> drv_paths name drv_path;
+                <span data-count="59">P</span>rintf.eprintf "\n  ✖ Node %s failed! For full logs, run: read_log(\"%s\")\n\n%!" name name
+              )
+          | <span data-count="107">N</span>one -&gt; ()
+        )
+      )
+    in
+    
+    match run_command_stream_argv argv callback with
+    | <span data-count="37">O</span>k status -&gt;
+        (* Save drv_paths for later tool use (e.g. read_log) *)
+        let drv_entries = Hashtbl.fold (fun k v acc -&gt; 
+            <span data-count="191">(</span>Printf.sprint<span data-count="191">f</span> "\"%s\": \"%s\"" (Serialization.json_escap<span data-count="191">e</span> k) (Serialization.json_escap<span data-count="191">e</span> v)) :: acc
+          ) drv_paths [] in
+        
+        <span data-count="37">l</span>et drv_json = "{\n  " ^ (String.conca<span data-count="37">t</span> ",\n  " drv_entries) ^ "\n}" in
+        ignore (write_fil<span data-count="37">e</span> (Filename.conca<span data-count="37">t</span> pipeline_dir "last_build_drvs.json") drv_json);
+
+        let output = String.trim (Buffer.content<span data-count="37">s</span> captured_output) in
+        <span data-count="37">(</span>match status with
+         | <span data-count="27">U</span>nix.WEXITED 0 when output &lt;&gt; "" -&gt;
+            <span data-count="27">l</span>et lines = String.split_on_char '\n' output in
+            <span data-count="27">l</span>et store_paths = List.filter (fun l -&gt;
+              <span data-count="3326">S</span>tring.lengt<span data-count="3326">h</span> l &gt; 11 &amp;&amp; <span data-count="3212">S</span>tring.su<span data-count="3212">b</span> l 0 11 = "/nix/store/"
+            ) lines in
+            <span data-count="27">(</span>match store_paths with
+            | <span data-count="0">[</span>] -&gt; Error "nix-build succeeded but did not return a store path."
+            | <span data-count="27">_</span> -&gt;
+                let out_path = List.nth store_paths (List.lengt<span data-count="27">h</span> store_paths - 1) in
+                
+                (* Reconcile statuses: if nix-build succeeded, check which nodes were built (cached or otherwise) *)
+                <span data-count="27">L</span>ist.iter (fun name -&gt;
+                  <span data-count="144">l</span>et node_path = Filename.concat out_path name in
+                  <span data-count="144">i</span>f Sys.file_exists node_path then <span data-count="144">(</span>
+                    let class_path = Filename.concat node_path "class" in
+                    <span data-count="144">l</span>et warnings_path = Filename.concat node_path "warnings" in
+                    <span data-count="144">i</span>f Sys.file_exists warnings_path then <span data-count="3">H</span>ashtbl.replac<span data-count="3">e</span> node_has_warnings name true;
+                    
+                    <span data-count="144">i</span>f Hashtbl.fin<span data-count="144">d</span> statuses name &lt;&gt; "Completed" &amp;&amp; 
+                       <span data-count="144">H</span>ashtbl.fin<span data-count="144">d</span> statuses name &lt;&gt; "SoftFailed" &amp;&amp;
+                       <span data-count="144">H</span>ashtbl.fin<span data-count="144">d</span> statuses name &lt;&gt; "Errored" then <span data-count="144">(</span>
+                      (match read_file_first_line class_path with
+                       | <span data-count="2">S</span>ome "VError" | <span data-count="20">S</span>ome "Error" -&gt; Hashtbl.replace statuses name "SoftFailed"
+                       | <span data-count="122">_</span> -&gt; Hashtbl.replace statuses name "Completed")
+                    ) else <span data-count="0">i</span>f Hashtbl.fin<span data-count="0">d</span> statuses name = "Completed" then <span data-count="0">(</span>
+                      (* Refine "Completed" from Nix output if it was actually a soft-fail *)
+                      if (match read_file_first_line class_path with <span data-count="0">S</span>ome "VError" | <span data-count="0">S</span>ome "Error" -&gt; true | <span data-count="0">_</span> -&gt; false) then
+                         <span data-count="0">H</span>ashtbl.replace statuses name "SoftFailed"
+                    )
+                  )
+                ) node_names;
+
+                <span data-count="27">l</span>et timestamp = get_timestamp () in
+                <span data-count="27">l</span>et hash = try
+                  let parts = String.split_on_char '-' (Filename.basenam<span data-count="27">e</span> out_path) in
+                  <span data-count="27">L</span>ist.h<span data-count="27">d</span> parts
+                with <span data-count="0">_</span> -&gt; "no_hash"
+                in
+                
+                (* Success Summary *)
+                let completed = List.filter (fun n -&gt; <span data-count="144">H</span>ashtbl.fin<span data-count="144">d</span> statuses n = "Completed") node_names in
+                <span data-count="27">l</span>et soft_failed = List.filter (fun n -&gt; <span data-count="144">H</span>ashtbl.fin<span data-count="144">d</span> statuses n = "SoftFailed") node_names in
+                <span data-count="27">l</span>et with_warnings = List.filter (fun n -&gt; <span data-count="144">H</span>ashtbl.find_op<span data-count="144">t</span> node_has_warnings n = Some true) node_names in
+                <span data-count="27">l</span>et total_built = List.lengt<span data-count="27">h</span> completed + List.lengt<span data-count="27">h</span> soft_failed in
+                 
+                if List.lengt<span data-count="27">h</span> soft_failed &gt; <span data-count="9">0</span> || List.lengt<span data-count="18">h</span> with_warnings &gt; <span data-count="0">0</span> then <span data-count="9">(</span>
+                  let msg = if List.lengt<span data-count="9">h</span> soft_failed &gt; 0 then <span data-count="9">"</span>\n✖ Pipeline build captured node errors" else <span data-count="0">"</span>\n✓ Pipeline build completed" in
+                  Printf.eprintf "%s [%d succeeded, %d captured errors, %d had warnings]\n%!" 
+                    msg (List.lengt<span data-count="9">h</span> completed) (List.lengt<span data-count="9">h</span> soft_failed) (List.lengt<span data-count="9">h</span> with_warnings);
+                  <span data-count="9">L</span>ist.iter (fun n -&gt; <span data-count="22">P</span>rintf.eprintf "  ! Captured error in node: %s\n%!" n) soft_failed;
+                  <span data-count="9">L</span>ist.ite<span data-count="9">r</span> (fun n -&gt; <span data-count="3">P</span>rintf.eprintf "  ? Warnings in node: %s\n%!" n) with_warnings
+                ) else
+                  <span data-count="18">P</span>rintf.print<span data-count="18">f</span> "\n✓ Pipeline build completed [%d/%d nodes built successfully]\n%!" 
+                    total_built (List.lengt<span data-count="18">h</span> node_names);
+                
+                let log_name = Printf.sprintf "build_log_%s_%s.json" timestamp hash in
+                <span data-count="27">l</span>et log_path = Filename.concat pipeline_dir log_name in
+                <span data-count="27">l</span>et log_entries =
+                  List.map (fun (name, _) -&gt;
+                    <span data-count="144">l</span>et node_path = Filename.concat out_path name in
+                    <span data-count="144">l</span>et artifact_path = Filename.concat node_path "artifact" in
+                    <span data-count="144">l</span>et class_path = Filename.concat node_path "class" in
+                    <span data-count="144">l</span>et class_val = match read_file_first_line class_path with <span data-count="144">S</span>ome c -&gt; c | <span data-count="0">N</span>one -&gt; "Unknown" in
+                    let runtime = match List.assoc_opt name p.p_runtimes with <span data-count="144">S</span>ome r -&gt; r | <span data-count="0">N</span>one -&gt; "T" in
+                    let serializer_expr = match List.assoc_opt name p.p_serializers with <span data-count="144">S</span>ome s -&gt; s | <span data-count="0">N</span>one -&gt; Ast.mk_exp<span data-count="0">r</span> (Ast.Var "default") in
+                    let serializer = Nix_unparse.expr_to_string serializer_expr in
+                    <span data-count="144">l</span>et deps = match List.assoc_opt name p.p_deps with <span data-count="144">S</span>ome d -&gt; d| <span data-count="0">N</span>one -&gt; [] in
+                    let status = Hashtbl.find statuses name in
+                    <span data-count="144">l</span>et success = if status = "SoftFailed" then <span data-count="22">"</span>false" else <span data-count="122">"</span>true" in
+                    let has_warns = if Hashtbl.find_op<span data-count="144">t</span> node_has_warnings name = Some true then <span data-count="3">"</span>true" else <span data-count="141">"</span>false" in
+                    Serialization.json_dict [
+                      ("node", "\"" ^ Serialization.json_escap<span data-count="144">e</span> name ^ "\"");
+                      ("path", "\"" ^ Serialization.json_escap<span data-count="144">e</span> artifact_path ^ "\"");
+                      ("runtime", "\"" ^ Serialization.json_escap<span data-count="144">e</span> runtime ^ "\"");
+                      ("serializer", "\"" ^ Serialization.json_escap<span data-count="144">e</span> serializer ^ "\"");
+                      ("class", "\"" ^ Serialization.json_escap<span data-count="144">e</span> class_val ^ "\"");
+                      ("dependencies", Serialization.json_lis<span data-count="144">t</span> deps);
+                      ("success", success);
+                      ("warnings", has_warns)
+                    ]
+                  ) p.p_exprs
+                in
+                <span data-count="27">l</span>et log_json = Serialization.json_dict [
+                  ("timestamp", "\"" ^ timestamp ^ "\"");
+                  ("hash", "\"" ^ hash ^ "\"");
+                  ("out_path", "\"" ^ out_path ^ "\"");
+                  ("nodes", "[\n" ^ (String.conca<span data-count="27">t</span> ",\n" log_entries) ^ "\n]")
+                ] in
+                <span data-count="27">(</span>match write_file log_path log_json with
+                | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to write build log: " ^ msg)
+                | <span data-count="27">O</span>k () -&gt;
+                    Ok out_path))
+          | <span data-count="0">U</span>nix.WEXITED 0 -&gt;
+             Error "nix-build succeeded but did not return an output path."
+          | <span data-count="10">_</span> -&gt;
+             let errored = List.filter (fun n -&gt; <span data-count="95">H</span>ashtbl.fin<span data-count="95">d</span> statuses n = "Errored") node_names in
+             <span data-count="10">l</span>et error_summary =
+               if List.lengt<span data-count="10">h</span> errored &gt; 0 then
+                 <span data-count="10">P</span>rintf.sprint<span data-count="10">f</span> "%d nodes errored: %s" (List.lengt<span data-count="10">h</span> errored) (String.conca<span data-count="10">t</span> ", " errored)
+               else <span data-count="0">"</span>General Nix build failure (check dependencies or environment)."
+             in
+             if verbose &gt; 0 then <span data-count="9">(</span>
+               if errored &lt;&gt; [] then
+                 <span data-count="9">p</span>rint_failed_node_log<span data-count="9">s</span> drv_paths errored
+               else
+                 (* Fallback for general Nix failures that were not attributed to a
+                    specific node while streaming the build output. *)
+                 <span data-count="0">l</span>et output = String.trim (Buffer.content<span data-count="0">s</span> captured_output) in
+                 <span data-count="0">i</span>f output &lt;&gt; "" then
+                   <span data-count="0">P</span>rintf.eprint<span data-count="0">f</span> "\n--- nix-build failure output ---\n%s\n%!" output
+             );
+             <span data-count="10">P</span>rintf.eprintf "\n✖ Pipeline build failed [%s]\n%!" error_summary;
+             <span data-count="10">E</span>rror (Printf.sprint<span data-count="10">f</span> "nix-build failed. See details above."))
+    | <span data-count="0">E</span>rror msg -&gt;
+        Error (Printf.sprint<span data-count="0">f</span> "Failed to run nix-build: %s" msg)
+  end
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

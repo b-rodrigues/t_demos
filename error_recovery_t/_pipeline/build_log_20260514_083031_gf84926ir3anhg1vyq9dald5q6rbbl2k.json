@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083031",
+  "hash": "gf84926ir3anhg1vyq9dald5q6rbbl2k",
+  "out_path": "/nix/store/gf84926ir3anhg1vyq9dald5q6rbbl2k-pipeline_output",
+  "nodes": [
+{
+  "node": "risky_node",
+  "path": "/nix/store/gf84926ir3anhg1vyq9dald5q6rbbl2k-pipeline_output/risky_node/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": [],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "local_recovery",
+  "path": "/nix/store/gf84926ir3anhg1vyq9dald5q6rbbl2k-pipeline_output/local_recovery/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["val"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "handled_node",
+  "path": "/nix/store/gf84926ir3anhg1vyq9dald5q6rbbl2k-pipeline_output/handled_node/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["risky_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "error_info",
+  "path": "/nix/store/gf84926ir3anhg1vyq9dald5q6rbbl2k-pipeline_output/error_info/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["risky_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}

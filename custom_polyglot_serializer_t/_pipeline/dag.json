@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "config_py",
+  "depends": []
+},
+{
+  "node_name": "config_r",
+  "depends": ["config_py"]
+}
+]

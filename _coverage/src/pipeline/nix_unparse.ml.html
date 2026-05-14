@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nix_unparse.ml &mdash; Coverage report</title>
+    <meta name="description" content="64.29% coverage in src/pipeline/nix_unparse.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/pipeline/</span>nix_unparse.ml
+        </a>
+      </h1>
+      <h2>64.29%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="top:5.30%"></span>
+      <span class="unvisited" style="top:8.61%"></span>
+      <span class="unvisited" style="top:19.21%"></span>
+      <span class="some-visited" style="top:23.84%"></span>
+      <span class="unvisited" style="top:25.17%"></span>
+      <span class="unvisited" style="top:26.49%"></span>
+      <span class="unvisited" style="top:27.81%"></span>
+      <span class="unvisited" style="top:28.48%"></span>
+      <span class="unvisited" style="top:31.79%"></span>
+      <span class="unvisited" style="top:33.11%"></span>
+      <span class="unvisited" style="top:33.77%"></span>
+      <span class="unvisited" style="top:34.44%"></span>
+      <span class="unvisited" style="top:35.10%"></span>
+      <span class="unvisited" style="top:35.76%"></span>
+      <span class="unvisited" style="bottom:49.01%"></span>
+      <span class="unvisited" style="bottom:47.68%"></span>
+      <span class="unvisited" style="bottom:47.02%"></span>
+      <span class="unvisited" style="bottom:45.70%"></span>
+      <span class="unvisited" style="bottom:44.37%"></span>
+      <span class="unvisited" style="bottom:42.38%"></span>
+      <span class="unvisited" style="bottom:41.72%"></span>
+      <span class="unvisited" style="bottom:40.40%"></span>
+      <span class="unvisited" style="bottom:31.79%"></span>
+      <span class="some-visited" style="bottom:25.83%"></span>
+      <span class="some-visited" style="bottom:23.84%"></span>
+      <span class="unvisited" style="bottom:20.53%"></span>
+      <span class="unvisited" style="bottom:19.87%"></span>
+      <span class="unvisited" style="bottom:19.21%"></span>
+      <span class="unvisited" style="bottom:18.54%"></span>
+      <span class="unvisited" style="bottom:17.88%"></span>
+      <span class="unvisited" style="bottom:16.56%"></span>
+      <span class="unvisited" style="bottom:15.89%"></span>
+      <span class="unvisited" style="bottom:11.92%"></span>
+      <span class="unvisited" style="bottom:9.93%"></span>
+      <span class="unvisited" style="bottom:8.61%"></span>
+      <span class="unvisited" style="bottom:7.95%"></span>
+      <span class="unvisited" style="bottom:7.28%"></span>
+      <span class="unvisited" style="bottom:5.96%"></span>
+      <span class="unvisited" style="bottom:3.31%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span class="visited"> </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span class="visited"> </span>
+<a id="L8"></a><span class="some-visited"> </span>
+<a id="L9"></a><span class="visited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span class="visited"> </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span class="unvisited"> </span>
+<a id="L14"></a><span class="visited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="visited"> </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="some-visited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span class="visited"> </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="visited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span class="visited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="visited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span class="visited"> </span>
+<a id="L96"></a><span class="visited"> </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span class="visited"> </span>
+<a id="L99"></a><span class="visited"> </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="visited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="visited"> </span>
+<a id="L105"></a><span class="visited"> </span>
+<a id="L106"></a><span class="visited"> </span>
+<a id="L107"></a><span class="visited"> </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span class="visited"> </span>
+<a id="L111"></a><span class="visited"> </span>
+<a id="L112"></a><span class="some-visited"> </span>
+<a id="L113"></a><span class="visited"> </span>
+<a id="L114"></a><span class="visited"> </span>
+<a id="L115"></a><span class="some-visited"> </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span class="visited"> </span>
+<a id="L118"></a><span class="visited"> </span>
+<a id="L119"></a><span class="visited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span class="visited"> </span>
+<a id="L126"></a><span class="unvisited"> </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="visited"> </span>
+<a id="L131"></a><span class="visited"> </span>
+<a id="L132"></a><span class="visited"> </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span class="visited"> </span>
+<a id="L135"></a><span class="visited"> </span>
+<a id="L136"></a><span class="unvisited"> </span>
+<a id="L137"></a><span > </span>
+<a id="L138"></a><span class="unvisited"> </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span class="unvisited"> </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="visited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="visited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span class="visited"> </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span class="visited"> </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Nix_utils
+
+let dedent s =
+  <span data-count="179">l</span>et lines = String.split_on_char '\n' s in
+  (* Remove leading/trailing empty lines *)
+  <span data-count="179">l</span>et rec remove_leading = function
+    | <span data-count="358">l</span> :: ls when String.tri<span data-count="358">m</span> l = "" -&gt; <span data-count="0">r</span>emove_leading ls
+    | <span data-count="358">l</span>s -&gt; ls
+  in
+  let lines = remove_leading (List.re<span data-count="179">v</span> (remove_leadin<span data-count="179">g</span> (List.re<span data-count="179">v</span> lines))) in
+  <span data-count="179">m</span>atch lines with
+  | <span data-count="0">[</span>] -&gt; ""
+  | <span data-count="179">_</span> -&gt;
+    let min_indent =
+      List.fold_left (fun min_acc l -&gt;
+        <span data-count="1406">i</span>f String.tri<span data-count="1406">m</span> l = "" then <span data-count="85">m</span>in_acc
+        else
+          <span data-count="1321">l</span>et indent = ref 0 in
+          while !indent &lt; String.lengt<span data-count="12793">h</span> l &amp;&amp; <span data-count="12793">l</span>.[!indent] = ' ' do
+            <span data-count="11472">i</span>nc<span data-count="11472">r</span> indent
+          done;
+          min min_acc !indent
+      ) max_int lines
+    in
+    <span data-count="179">L</span>ist.map (fun l -&gt;
+      <span data-count="1406">i</span>f String.lengt<span data-count="1406">h</span> l &gt;= min_indent then
+        <span data-count="1406">S</span>tring.sub l min_indent (String.lengt<span data-count="1406">h</span> l - min_indent)
+      else <span data-count="0">"</span>"
+    ) lines
+    |&gt; <span data-count="179">S</span>tring.concat "\n"
+
+(** Extract a plain string from an expression if it wraps VString/VSymbol,
+    otherwise fall back to the general unparser. Used for serializer/deserializer fields.  *)
+let rec expr_to_string expr =
+  <span data-count="1088">l</span>et strip_hat s = <span data-count="0">i</span>f String.starts_with ~prefix:"^" s then <span data-count="0">S</span>tring.sub s 1 (String.lengt<span data-count="0">h</span> s - 1) else <span data-count="0">s</span> in
+  match expr.node with
+  | <span data-count="0">A</span>st.Value (Ast.VSymbol s) -&gt; strip_hat s
+  | <span data-count="627">A</span>st.Value (Ast.VSerializer s) -&gt; s.s_format
+  | <span data-count="0">A</span>st.Value (Ast.VNodeResult nr) -&gt; 
+      (match nr.v with
+       | <span data-count="0">A</span>st.VSerializer s -&gt; s.s_format
+       | <span data-count="0">_</span> -&gt; unparse_expr expr)
+  | <span data-count="461">_</span> -&gt; unparse_expr expr
+
+and unparse_expr expr =
+  <span data-count="1477">m</span>atch expr.node with
+  | <span data-count="0">V</span>alue (VComputedNode cn) -&gt;
+      Printf.sprintf "computed_node(name=\"%s\", runtime=\"%s\", path=\"%s\")"
+        (Serialization.json_escap<span data-count="0">e</span> cn.cn_name)
+        (Serialization.json_escap<span data-count="0">e</span> cn.cn_runtime)
+        (Serialization.json_escap<span data-count="0">e</span> cn.cn_path)
+  | <span data-count="0">V</span>alue (VNode un) -&gt;
+      Printf.sprintf "node(runtime=\"%s\")" (Serialization.json_escap<span data-count="0">e</span> un.un_runtime)
+  | <span data-count="195">V</span>alue v -&gt; Ast.Utils.value_to_string v
+  | <span data-count="762">V</span>ar s -&gt; s
+  | <span data-count="48">C</span>olumnRef c -&gt; "$" ^ c
+  | <span data-count="161">C</span>all { fn; args } -&gt;
+      let fn_s = unparse_expr fn in
+      <span data-count="161">l</span>et args_s =
+        args
+        |&gt; List.map (fun (name, e) -&gt;
+          <span data-count="246">m</span>atch name with
+          | <span data-count="44">S</span>ome n -&gt; n ^ " = " ^ unparse_exp<span data-count="44">r</span> e
+          | <span data-count="202">N</span>one -&gt; unparse_expr e)
+        |&gt; <span data-count="161">S</span>tring.concat ", "
+      in
+      <span data-count="161">P</span>rintf.sprintf "%s(%s)" fn_s args_s
+  | <span data-count="10">L</span>ambda { params; autoquote_params; body; _ } -&gt;
+      Printf.sprintf "\\(%s) %s"
+        (String.conca<span data-count="10">t</span> ", " (Ast.Utils.display_param<span data-count="10">s</span> params autoquote_params))
+        (unparse_exp<span data-count="10">r</span> body)
+  | <span data-count="6">I</span>fElse { cond; then_; else_ } -&gt;
+      Printf.sprintf "if (%s) %s else %s" (unparse_exp<span data-count="6">r</span> cond) (unparse_exp<span data-count="6">r</span> then_) (unparse_exp<span data-count="6">r</span> else_)
+  | <span data-count="1">M</span>atch { scrutinee; cases } -&gt;
+      let rec unparse_pattern = function
+        | <span data-count="0">P</span>Wildcard -&gt; "_"
+        | <span data-count="1">P</span>Var name -&gt; name
+        | <span data-count="0">P</span>NA -&gt; "NA"
+        | <span data-count="0">P</span>Error None -&gt; "Error"
+        | <span data-count="1">P</span>Error (Some field) -&gt; Printf.sprintf "Error { %s }" field
+        | <span data-count="0">P</span>List (patterns, rest) -&gt;
+            let items =
+              List.ma<span data-count="0">p</span> unparse_pattern patterns
+              @
+              match rest with
+              | <span data-count="0">S</span>ome name -&gt; [".." ^ name]
+              | <span data-count="0">N</span>one -&gt; []
+            in
+            Printf.sprintf "[%s]" (String.conca<span data-count="0">t</span> ", " items)
+      in
+      let cases_s =
+        cases
+        |&gt; List.map (fun (pattern, body) -&gt;
+          <span data-count="2">P</span>rintf.sprintf "%s =&gt; %s" (unparse_patter<span data-count="2">n</span> pattern) (unparse_exp<span data-count="2">r</span> body))
+        |&gt; <span data-count="1">S</span>tring.concat ", "
+      in
+      <span data-count="1">P</span>rintf.sprintf "match(%s) { %s }" (unparse_exp<span data-count="1">r</span> scrutinee) cases_s
+  | <span data-count="9">L</span>istLit xs -&gt;
+      xs
+      |&gt; List.map (fun (name, e) -&gt;
+        <span data-count="26">m</span>atch name with
+        | <span data-count="0">S</span>ome n -&gt; n ^ " = " ^ unparse_exp<span data-count="0">r</span> e
+        | <span data-count="26">N</span>one -&gt; unparse_expr e)
+      |&gt; <span data-count="9">S</span>tring.concat ", "
+      |&gt; <span data-count="9">P</span>rintf.sprintf "[%s]"
+  | <span data-count="15">D</span>ictLit xs -&gt;
+      xs
+      |&gt; List.map (fun (k, e) -&gt; <span data-count="44">P</span>rintf.sprintf "%s: %s" k (unparse_exp<span data-count="44">r</span> e))
+      |&gt; <span data-count="15">S</span>tring.concat ", "
+      |&gt; <span data-count="15">P</span>rintf.sprintf "[%s]"
+  | <span data-count="64">B</span>inOp { op; left; right } | <span data-count="0">B</span>roadcastOp { op; left; right } -&gt;
+      Printf.sprintf "(%s %s %s)" (unparse_exp<span data-count="64">r</span> left) (op_to_strin<span data-count="64">g</span> op) (unparse_exp<span data-count="64">r</span> right)
+  | <span data-count="3">U</span>nOp { op; operand } -&gt;
+      let tok = match op with <span data-count="0">N</span>ot -&gt; "!" | <span data-count="3">N</span>eg -&gt; "-" in
+      Printf.sprintf "%s%s" tok (unparse_exp<span data-count="3">r</span> operand)
+  | <span data-count="1">D</span>otAccess { target; field } -&gt;
+      Printf.sprintf "%s.%s" (unparse_exp<span data-count="1">r</span> target) field
+  | <span data-count="179">R</span>awCode { raw_text; _ } -&gt; dedent raw_text
+  | <span data-count="0">U</span>nquote e -&gt; "!!" ^ unparse_exp<span data-count="0">r</span> e
+  | <span data-count="0">U</span>nquoteSplice e -&gt; "!!!" ^ unparse_exp<span data-count="0">r</span> e
+  | <span data-count="0">S</span>hellExpr cmd -&gt; "?&lt;{ " ^ cmd ^ " }&gt;"
+  | <span data-count="0">P</span>ipelineDef nodes -&gt;
+      "pipeline { " ^ String.conca<span data-count="0">t</span> "; " (List.ma<span data-count="0">p</span> (fun (n, e) -&gt; <span data-count="0">n</span> ^ " = " ^ unparse_exp<span data-count="0">r</span> e) nodes) ^ " }"
+  | <span data-count="23">B</span>lock stmts -&gt; "{ " ^ (List.map unparse_stmt stmts |&gt; <span data-count="23">S</span>tring.conca<span data-count="23">t</span> "; ") ^ " }"
+  | <span data-count="0">L</span>istComp _ -&gt; "[...]"
+  | <span data-count="0">I</span>ntentDef _ -&gt; "intent { ... }"
+
+and unparse_stmt stmt =
+  <span data-count="99">m</span>atch stmt.node with
+  | <span data-count="46">E</span>xpression e -&gt; unparse_expr e
+  | <span data-count="13">A</span>ssignment { name; expr; _ } -&gt; name ^ " = " ^ unparse_exp<span data-count="13">r</span> expr
+  | <span data-count="0">R</span>eassignment { name; expr } -&gt; name ^ " := " ^ unparse_exp<span data-count="0">r</span> expr
+  | <span data-count="2">I</span>mport filename -&gt; Printf.sprintf "import \"%s\"" filename
+  | <span data-count="37">I</span>mportPackage pkg -&gt; Printf.sprintf "import %s" pkg
+  | <span data-count="0">I</span>mportFrom { package; names } -&gt; 
+      let name_strs = List.map (fun (s : Ast.import_spec) -&gt;
+        <span data-count="0">m</span>atch s.import_alias with
+        | <span data-count="0">S</span>ome alias -&gt; Printf.sprintf "%s=%s" alias s.import_name
+        | <span data-count="0">N</span>one -&gt; s.import_name
+      ) names in
+      <span data-count="0">P</span>rintf.sprintf "import %s[%s]" package (String.conca<span data-count="0">t</span> ", " name_strs)
+  | <span data-count="1">I</span>mportFileFrom { filename; names } -&gt; 
+      let name_strs = List.map (fun (s : Ast.import_spec) -&gt;
+        <span data-count="1">m</span>atch s.import_alias with
+        | <span data-count="0">S</span>ome alias -&gt; Printf.sprintf "%s=%s" alias s.import_name
+        | <span data-count="1">N</span>one -&gt; s.import_name
+      ) names in
+      <span data-count="1">P</span>rintf.sprintf "import \"%s\"[%s]" filename (String.conca<span data-count="1">t</span> ", " name_strs)
+
+let unparse_import_stmt = unparse_stmt
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

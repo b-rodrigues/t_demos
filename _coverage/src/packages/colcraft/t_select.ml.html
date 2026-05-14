@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_select.ml &mdash; Coverage report</title>
+    <meta name="description" content="32.26% coverage in src/packages/colcraft/t_select.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>t_select.ml
+        </a>
+      </h1>
+      <h2>32.26%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:45.16%"></span>
+      <span class="unvisited" style="top:46.77%"></span>
+      <span class="unvisited" style="top:48.39%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:48.39%"></span>
+      <span class="unvisited" style="bottom:46.77%"></span>
+      <span class="unvisited" style="bottom:45.16%"></span>
+      <span class="unvisited" style="bottom:43.55%"></span>
+      <span class="unvisited" style="bottom:38.71%"></span>
+      <span class="unvisited" style="bottom:37.10%"></span>
+      <span class="unvisited" style="bottom:35.48%"></span>
+      <span class="unvisited" style="bottom:33.87%"></span>
+      <span class="unvisited" style="bottom:32.26%"></span>
+      <span class="unvisited" style="bottom:30.65%"></span>
+      <span class="unvisited" style="bottom:29.03%"></span>
+      <span class="some-visited" style="bottom:24.19%"></span>
+      <span class="unvisited" style="bottom:22.58%"></span>
+      <span class="some-visited" style="bottom:19.35%"></span>
+      <span class="unvisited" style="bottom:14.52%"></span>
+      <span class="some-visited" style="bottom:9.68%"></span>
+      <span class="unvisited" style="bottom:6.45%"></span>
+      <span class="unvisited" style="bottom:4.84%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="some-visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span class="some-visited"> </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span class="some-visited"> </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Select columns
+--#
+--# Selects specific columns from a DataFrame.
+--#
+--# @name select
+--# @param df :: DataFrame The input DataFrame.
+--# @param ... :: Symbol Variable number of column names (e.g., $col1, $col2).
+--# @return :: DataFrame The DataFrame with selected columns.
+--# @example
+--#   select(mtcars, $mpg, $wt)
+--# @family colcraft
+--# @seealso filter, mutate
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "select"
+    (make_builti<span data-count="136">n</span> ~name:"select" ~variadic:true 1 (fun args _env -&gt;
+      <span data-count="2">m</span>atch args with
+      | <span data-count="2">V</span>DataFrame df :: col_args -&gt;
+          let process_col v =
+            <span data-count="2">m</span>atch v with
+            | <span data-count="2">V</span>Symbol _ -&gt;
+                (match Utils.extract_column_name v with
+                 | <span data-count="2">S</span>ome s -&gt; Ok [s]
+                 | <span data-count="0">N</span>one -&gt; Error (Error.type_erro<span data-count="0">r</span> "Function `select` invalid symbol."))
+            | <span data-count="0">V</span>String s -&gt; Ok [s]
+            | <span data-count="0">V</span>List items -&gt;
+                let names = List.map (fun (_, v) -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>String s -&gt; Ok s | <span data-count="0">_</span> -&gt; Error (Error.type_erro<span data-count="0">r</span> "List in `select` must contain strings.")) items in
+                <span data-count="0">(</span>match List.find_opt Result.is_error names with
+                 | <span data-count="0">S</span>ome (Error e) -&gt; Error e
+                 | <span data-count="0">_</span> -&gt; Ok (List.ma<span data-count="0">p</span> (fun r -&gt; <span data-count="0">m</span>atch r with <span data-count="0">O</span>k s -&gt; s | <span data-count="0">_</span> -&gt; "") names))
+            | <span data-count="0">V</span>Builtin b -&gt;
+                (* Special Case: Selection Helper Matcher *)
+                (match b.b_func [(None, VDataFrame df)] (ref Env.empty) with
+                 | <span data-count="0">V</span>List items -&gt; 
+                     let names = List.map (fun (_, v) -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>String s -&gt; Ok s | <span data-count="0">_</span> -&gt; Error (Error.type_erro<span data-count="0">r</span> "Matcher must return list of strings.")) items in
+                     <span data-count="0">(</span>match List.find_opt Result.is_error names with
+                      | <span data-count="0">S</span>ome (Error e) -&gt; Error e
+                      | <span data-count="0">_</span> -&gt; Ok (List.ma<span data-count="0">p</span> (fun r -&gt; <span data-count="0">m</span>atch r with <span data-count="0">O</span>k s -&gt; s | <span data-count="0">_</span> -&gt; "") names))
+                 | <span data-count="0">o</span>ther -&gt; Error (Error.type_erro<span data-count="0">r</span> ("Matcher returned " ^ Utils.value_to_strin<span data-count="0">g</span> other)))
+            | <span data-count="0">_</span> -&gt; Error (Error.type_erro<span data-count="0">r</span> "Function `select` expects $column syntax.")
+          in
+          let all_names_results = List.map process_col col_args in
+          <span data-count="2">(</span>match List.find_opt (fun r -&gt; <span data-count="2">m</span>atch r with <span data-count="0">E</span>rror _ -&gt; true | <span data-count="2">_</span> -&gt; false) all_names_results with
+           | <span data-count="0">S</span>ome (Error e) -&gt; e
+           | <span data-count="2">_</span> -&gt;
+             let names = List.concat_map (fun r -&gt; <span data-count="2">m</span>atch r with <span data-count="2">O</span>k ns -&gt; ns | <span data-count="0">_</span> -&gt; []) all_names_results in
+             <span data-count="2">l</span>et missing = List.filter (fun n -&gt; <span data-count="2">n</span>ot (Arrow_table.has_colum<span data-count="2">n</span> df.arrow_table n)) names in
+             <span data-count="2">i</span>f missing &lt;&gt; [] then
+               <span data-count="0">E</span>rror.make_error KeyError (Printf.sprint<span data-count="0">f</span> "Column(s) not found: %s." (String.conca<span data-count="0">t</span> ", " missing))
+             else
+               <span data-count="2">l</span>et new_table = Arrow_compute.project df.arrow_table names in
+               <span data-count="2">l</span>et remaining_keys = List.filter (fun k -&gt; <span data-count="0">L</span>ist.mem k names) df.group_keys in
+               <span data-count="2">V</span>DataFrame { arrow_table = new_table; group_keys = remaining_keys })
+      | <span data-count="0">_</span> :: _ -&gt; Error.type_error "Function `select` expects a DataFrame as first argument."
+      | <span data-count="0">_</span> -&gt; Error.make_error ArityError "Function `select` requires a DataFrame and at least one $column."
+    ))
+    env
+
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083025",
+  "hash": "ys8rwan1ii4jd8sr8qzi969i23xnc978",
+  "out_path": "/nix/store/ys8rwan1ii4jd8sr8qzi969i23xnc978-pipeline_output",
+  "nodes": [
+{
+  "node": "good_val",
+  "path": "/nix/store/ys8rwan1ii4jd8sr8qzi969i23xnc978-pipeline_output/good_val/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Float",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "recovered_with_match",
+  "path": "/nix/store/ys8rwan1ii4jd8sr8qzi969i23xnc978-pipeline_output/recovered_with_match/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["risky"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "recovered_with_maybe_pipe",
+  "path": "/nix/store/ys8rwan1ii4jd8sr8qzi969i23xnc978-pipeline_output/recovered_with_maybe_pipe/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["risky"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "short_circuit_then_recover",
+  "path": "/nix/store/ys8rwan1ii4jd8sr8qzi969i23xnc978-pipeline_output/short_circuit_then_recover/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["piped", "risky"],
+  "success": true,
+  "warnings": false
+}
+]
+}

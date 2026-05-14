@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cli_args.ml &mdash; Coverage report</title>
+    <meta name="description" content="29.47% coverage in src/cli_args.ml">
+    <link rel="stylesheet" href="../coverage.css"/>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../index.html">
+          <span class="dirname">src/</span>cli_args.ml
+        </a>
+      </h1>
+      <h2>29.47%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:15.20%"></span>
+      <span class="unvisited" style="top:16.00%"></span>
+      <span class="unvisited" style="top:19.20%"></span>
+      <span class="unvisited" style="top:20.80%"></span>
+      <span class="unvisited" style="top:24.80%"></span>
+      <span class="unvisited" style="top:25.60%"></span>
+      <span class="unvisited" style="top:26.40%"></span>
+      <span class="unvisited" style="top:28.80%"></span>
+      <span class="unvisited" style="top:37.60%"></span>
+      <span class="unvisited" style="top:39.20%"></span>
+      <span class="unvisited" style="top:40.80%"></span>
+      <span class="unvisited" style="top:42.40%"></span>
+      <span class="unvisited" style="top:43.20%"></span>
+      <span class="unvisited" style="top:44.00%"></span>
+      <span class="unvisited" style="top:44.80%"></span>
+      <span class="unvisited" style="top:45.60%"></span>
+      <span class="unvisited" style="bottom:46.40%"></span>
+      <span class="unvisited" style="bottom:44.80%"></span>
+      <span class="unvisited" style="bottom:44.00%"></span>
+      <span class="unvisited" style="bottom:43.20%"></span>
+      <span class="unvisited" style="bottom:42.40%"></span>
+      <span class="unvisited" style="bottom:38.40%"></span>
+      <span class="unvisited" style="bottom:37.60%"></span>
+      <span class="unvisited" style="bottom:36.00%"></span>
+      <span class="unvisited" style="bottom:35.20%"></span>
+      <span class="unvisited" style="bottom:34.40%"></span>
+      <span class="unvisited" style="bottom:33.60%"></span>
+      <span class="unvisited" style="bottom:32.80%"></span>
+      <span class="some-visited" style="bottom:28.80%"></span>
+      <span class="unvisited" style="bottom:25.60%"></span>
+      <span class="unvisited" style="bottom:24.00%"></span>
+      <span class="some-visited" style="bottom:23.20%"></span>
+      <span class="unvisited" style="bottom:22.40%"></span>
+      <span class="some-visited" style="bottom:21.60%"></span>
+      <span class="unvisited" style="bottom:20.80%"></span>
+      <span class="unvisited" style="bottom:16.80%"></span>
+      <span class="unvisited" style="bottom:15.20%"></span>
+      <span class="unvisited" style="bottom:14.40%"></span>
+      <span class="unvisited" style="bottom:12.00%"></span>
+      <span class="unvisited" style="bottom:10.40%"></span>
+      <span class="unvisited" style="bottom:8.00%"></span>
+      <span class="unvisited" style="bottom:7.20%"></span>
+      <span class="unvisited" style="bottom:6.40%"></span>
+      <span class="unvisited" style="bottom:4.80%"></span>
+      <span class="unvisited" style="bottom:2.40%"></span>
+      <span class="unvisited" style="bottom:1.60%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span class="visited"> </span>
+<a id="L19"></a><span class="unvisited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span class="visited"> </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="visited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="visited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="some-visited"> </span>
+<a id="L90"></a><span class="visited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span class="visited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="visited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span class="some-visited"> </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="some-visited"> </span>
+<a id="L99"></a><span class="unvisited"> </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span class="visited"> </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+</pre>
+<pre><code class="ocaml">type path_kind =
+  | File
+  | Directory
+
+type test_options = {
+  verbose : bool;
+  target_dir : string;
+}
+
+type mode_parse = {
+  args : string list;
+  mode : Typecheck.mode;
+  mode_flag : bool;
+  failfast : bool;
+}
+
+let validate_path ~kind path =
+  <span data-count="71">l</span>et kind_name = function
+    | <span data-count="0">F</span>ile -&gt; "File"
+    | <span data-count="0">D</span>irectory -&gt; "Directory"
+  in
+  try
+    if path = "" then
+      <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "%s path must not be empty." (kind_nam<span data-count="0">e</span> kind))
+    else <span data-count="71">i</span>f not (Sys.file_exist<span data-count="71">s</span> path) then
+      <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "%s not found: %s" (kind_nam<span data-count="0">e</span> kind) path)
+    else
+      <span data-count="71">l</span>et is_directory = Sys.is_directory path in
+      <span data-count="71">m</span>atch kind with
+      | <span data-count="71">F</span>ile when is_directory -&gt;
+          <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Expected a file path but received a directory: %s" path)
+      | <span data-count="0">D</span>irectory when not is_directory -&gt;
+          <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Expected a directory path but received a file: %s" path)
+      | <span data-count="71">_</span> -&gt; Ok ()
+  with
+  | <span data-count="0">S</span>ys_error msg -&gt; Error msg
+
+let parse_mode_args (args : string list) : (mode_parse, string) result =
+  <span data-count="136">l</span>et rec extract acc mode seen failfast = function
+    | <span data-count="136">[</span>] -&gt;
+        Ok {
+          args = List.re<span data-count="136">v</span> acc;
+          mode;
+          mode_flag = seen;
+          failfast;
+        }
+    | <span data-count="0">"</span>--mode" :: [] -&gt;
+        Error "Missing value for --mode. Use --mode repl|strict"
+    | <span data-count="0">"</span>--mode" :: m :: rest -&gt;
+        if seen then
+          <span data-count="0">E</span>rror "Duplicate --mode flag. Use --mode repl|strict only once."
+        else
+          <span data-count="0">(</span>match Typecheck.mode_of_string m with
+           | <span data-count="0">S</span>ome mode' -&gt; extract acc mode' true failfast rest
+           | <span data-count="0">N</span>one -&gt;
+               Error (Printf.sprint<span data-count="0">f</span> "Invalid mode '%s'. Use --mode repl|strict" m))
+    | <span data-count="0">"</span>--failfast" :: rest -&gt; extract acc mode seen true rest
+    | <span data-count="414">x</span> :: xs -&gt; extract (x :: acc) mode seen failfast xs
+  in
+  extract [] Typecheck.Repl false false args
+
+let validate_cli_flags ~mode_flag ~unsafe_flag ~failfast_flag (args : string list) : (unit, string) result =
+  <span data-count="136">l</span>et commands = ["run"; "repl"; "test"; "explain"; "init"; "doc"; "doctor"; "docs"; "update"; "publish"; "--help"; "-h"; "--version"; "-v"] in
+  let command =
+    match args with
+    | <span data-count="71">_</span> :: "run" :: _ -&gt; Some "run"
+    | <span data-count="0">_</span> :: "repl" :: _ -&gt; Some "repl"
+    | <span data-count="65">_</span> :: cmd :: _ when List.me<span data-count="65">m</span> cmd commands -&gt; <span data-count="65">S</span>ome cmd
+    | <span data-count="0">_</span> :: file :: _ when String.ends_wit<span data-count="0">h</span> ~suffix:".t" file -&gt; <span data-count="0">S</span>ome "run"
+    | <span data-count="0">_</span> :: (<span data-count="0">"</span>help" | <span data-count="0">"</span>--help" | <span data-count="0">"</span>-h") :: _ -&gt; Some "--help"
+    | <span data-count="0">_</span> :: (<span data-count="0">"</span>version" | <span data-count="0">"</span>--version" | <span data-count="0">"</span>-v") :: _ -&gt; Some "--version"
+    | <span data-count="0">_</span> -&gt; None
+  in
+  let run_expr = (command = Some "run") &amp;&amp; <span data-count="71">L</span>ist.me<span data-count="71">m</span> "--expr" args in
+  let mode_allowed =
+    match command with
+    | <span data-count="0">N</span>one
+    | <span data-count="0">S</span>ome "repl"
+    | <span data-count="71">S</span>ome "run"
+    | <span data-count="0">S</span>ome "explain"
+    | <span data-count="0">S</span>ome "--help"
+    | <span data-count="0">S</span>ome "--version"
+    | <span data-count="0">S</span>ome "-h"
+    | <span data-count="0">S</span>ome "-v" -&gt; true
+    | <span data-count="65">_</span> -&gt; false
+  in
+  let unsafe_allowed =
+    match command with
+    | <span data-count="0">N</span>one | <span data-count="71">S</span>ome "run" | <span data-count="0">S</span>ome "repl" -&gt; true
+    | <span data-count="65">_</span> -&gt; false
+  in
+  if unsafe_flag &amp;&amp; <span data-count="71">n</span>ot unsafe_allowed then
+    <span data-count="0">E</span>rror "--unsafe is only valid with `t run &lt;file.t&gt;` or `t` (REPL)."
+  else <span data-count="136">i</span>f unsafe_flag &amp;&amp; <span data-count="71">r</span>un_expr then
+    <span data-count="0">E</span>rror "--unsafe cannot be used with `t run --expr`."
+  else <span data-count="136">i</span>f mode_flag &amp;&amp; <span data-count="0">(</span>not mode_allowed) then
+    <span data-count="0">E</span>rror "--mode only applies to repl/run/explain."
+  else <span data-count="136">i</span>f failfast_flag &amp;&amp; <span data-count="0">(</span>not mode_allowed) then
+    <span data-count="0">E</span>rror "--failfast only applies to repl/run/explain."
+  else
+    <span data-count="136">O</span>k ()
+
+let parse_test_args ~cwd (args : string list) : (test_options, string) result =
+  <span data-count="0">l</span>et verbose = ref false in
+  let target_dir = ref None in
+  let rec parse = <span data-count="0">f</span>unction
+    | <span data-count="0">[</span>] -&gt;
+        Ok {
+          verbose = !verbose;
+          target_dir = (match !target_dir with <span data-count="0">S</span>ome dir -&gt; dir | <span data-count="0">N</span>one -&gt; cwd);
+        }
+    | <span data-count="0">(</span><span data-count="0">"</span>--verbose" | <span data-count="0">"</span>-v") :: rest -&gt;
+        verbose := true;
+        parse rest
+    | <span data-count="0">a</span>rg :: _ when String.lengt<span data-count="0">h</span> arg &gt; 0 &amp;&amp; <span data-count="0">a</span>rg.[0] = '-' -&gt;
+        <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Unknown option: %s" arg)
+    | <span data-count="0">a</span>rg :: rest -&gt;
+        (match !target_dir with
+         | <span data-count="0">N</span>one -&gt;
+             target_dir := Some arg;
+             parse rest
+         | <span data-count="0">S</span>ome _ -&gt;
+             Error (Printf.sprint<span data-count="0">f</span> "Unexpected argument: %s" arg))
+  in
+  parse args
+</code></pre>
+      </div>
+    </div>
+    <script src="../coverage.js"></script>
+  </body>
+</html>

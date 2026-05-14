@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "train_classifier",
+  "depends": []
+},
+{
+  "node_name": "python_predictions",
+  "depends": []
+},
+{
+  "node_name": "t_predictions",
+  "depends": ["train_classifier"]
+},
+{
+  "node_name": "validate_parity",
+  "depends": ["python_predictions", "t_predictions"]
+}
+]

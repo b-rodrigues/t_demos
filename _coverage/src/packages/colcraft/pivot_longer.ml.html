@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pivot_longer.ml &mdash; Coverage report</title>
+    <meta name="description" content="1.46% coverage in src/packages/colcraft/pivot_longer.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>pivot_longer.ml
+        </a>
+      </h1>
+      <h2>1.46%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:17.04%"></span>
+      <span class="unvisited" style="top:17.78%"></span>
+      <span class="unvisited" style="top:18.52%"></span>
+      <span class="unvisited" style="top:20.74%"></span>
+      <span class="unvisited" style="top:21.48%"></span>
+      <span class="unvisited" style="top:22.96%"></span>
+      <span class="unvisited" style="top:23.70%"></span>
+      <span class="unvisited" style="top:24.44%"></span>
+      <span class="unvisited" style="top:25.19%"></span>
+      <span class="unvisited" style="top:25.93%"></span>
+      <span class="unvisited" style="top:28.89%"></span>
+      <span class="unvisited" style="top:29.63%"></span>
+      <span class="unvisited" style="top:30.37%"></span>
+      <span class="unvisited" style="top:31.11%"></span>
+      <span class="unvisited" style="top:34.07%"></span>
+      <span class="unvisited" style="top:34.81%"></span>
+      <span class="unvisited" style="top:35.56%"></span>
+      <span class="unvisited" style="top:36.30%"></span>
+      <span class="unvisited" style="top:38.52%"></span>
+      <span class="unvisited" style="top:40.74%"></span>
+      <span class="unvisited" style="top:41.48%"></span>
+      <span class="unvisited" style="top:42.22%"></span>
+      <span class="unvisited" style="top:44.44%"></span>
+      <span class="unvisited" style="top:46.67%"></span>
+      <span class="unvisited" style="top:47.41%"></span>
+      <span class="unvisited" style="top:49.63%"></span>
+      <span class="unvisited" style="bottom:49.63%"></span>
+      <span class="unvisited" style="bottom:48.89%"></span>
+      <span class="unvisited" style="bottom:43.70%"></span>
+      <span class="unvisited" style="bottom:42.96%"></span>
+      <span class="unvisited" style="bottom:42.22%"></span>
+      <span class="unvisited" style="bottom:40.00%"></span>
+      <span class="unvisited" style="bottom:39.26%"></span>
+      <span class="unvisited" style="bottom:38.52%"></span>
+      <span class="unvisited" style="bottom:37.78%"></span>
+      <span class="unvisited" style="bottom:35.56%"></span>
+      <span class="unvisited" style="bottom:34.81%"></span>
+      <span class="unvisited" style="bottom:34.07%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.59%"></span>
+      <span class="unvisited" style="bottom:31.85%"></span>
+      <span class="unvisited" style="bottom:31.11%"></span>
+      <span class="unvisited" style="bottom:30.37%"></span>
+      <span class="unvisited" style="bottom:29.63%"></span>
+      <span class="unvisited" style="bottom:25.19%"></span>
+      <span class="unvisited" style="bottom:24.44%"></span>
+      <span class="unvisited" style="bottom:21.48%"></span>
+      <span class="unvisited" style="bottom:20.74%"></span>
+      <span class="unvisited" style="bottom:20.00%"></span>
+      <span class="unvisited" style="bottom:19.26%"></span>
+      <span class="unvisited" style="bottom:18.52%"></span>
+      <span class="unvisited" style="bottom:17.78%"></span>
+      <span class="unvisited" style="bottom:15.56%"></span>
+      <span class="unvisited" style="bottom:14.81%"></span>
+      <span class="unvisited" style="bottom:14.07%"></span>
+      <span class="unvisited" style="bottom:13.33%"></span>
+      <span class="unvisited" style="bottom:12.59%"></span>
+      <span class="unvisited" style="bottom:11.85%"></span>
+      <span class="unvisited" style="bottom:11.11%"></span>
+      <span class="unvisited" style="bottom:10.37%"></span>
+      <span class="unvisited" style="bottom:9.63%"></span>
+      <span class="unvisited" style="bottom:6.67%"></span>
+      <span class="unvisited" style="bottom:5.93%"></span>
+      <span class="unvisited" style="bottom:5.19%"></span>
+      <span class="unvisited" style="bottom:3.70%"></span>
+      <span class="unvisited" style="bottom:1.48%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span class="unvisited"> </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span class="unvisited"> </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span class="unvisited"> </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Arrow_table
+
+(*
+--# Pivot longer
+--#
+--# Lengthens data, increasing the number of rows and decreasing the number of columns.
+--#
+--# @name pivot_longer
+--# @param df :: DataFrame The DataFrame.
+--# @param ... :: Symbol The columns to pivot into longer format (use $col syntax).
+--# @param names_to :: String (Optional) The name of the new column to hold the column names. Defaults to "name".
+--# @param values_to :: String (Optional) The name of the new column to hold the values. Defaults to "value".
+--# @return :: DataFrame The pivoted DataFrame.
+--# @example
+--#   pivot_longer(df, $A, $B, names_to = "name", values_to = "value")
+--# @family colcraft
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "pivot_longer"
+    (make_builtin_name<span data-count="136">d</span> ~name:"pivot_longer" ~variadic:true 1 (fun named_args _env -&gt;
+      <span data-count="0">l</span>et df_arg = match named_args with
+        | <span data-count="0">(</span>_, VDataFrame df) :: _ -&gt; Some df
+        | <span data-count="0">_</span> -&gt; None
+      in
+      
+      let get_named k = <span data-count="0">L</span>ist.find_map (fun (nk, v) -&gt; <span data-count="0">i</span>f nk = Some k then <span data-count="0">S</span>ome v else <span data-count="0">N</span>one) named_args in
+      let positional = List.filter_map (fun (k, v) -&gt; <span data-count="0">i</span>f k = None then <span data-count="0">S</span>ome v else <span data-count="0">N</span>one) named_args in
+      
+      <span data-count="0">m</span>atch df_arg with
+      | <span data-count="0">N</span>one -&gt; Error.type_error "Function `pivot_longer` expects a DataFrame as first argument."
+      | <span data-count="0">S</span>ome df -&gt;
+          let names_to = match get_named "names_to" with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "name" in
+          let values_to = match get_named "values_to" with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "value" in
+          
+          let cols_to_pivot =
+            match get_named "cols" with
+            | <span data-count="0">S</span>ome (VList items) -&gt; 
+                List.filter_ma<span data-count="0">p</span> (fun (_, v) -&gt; <span data-count="0">U</span>tils.extract_column_name v) items
+            | <span data-count="0">S</span>ome v -&gt; (match Utils.extract_column_name v with <span data-count="0">S</span>ome s -&gt; [s] | <span data-count="0">N</span>one -&gt; [])
+            | <span data-count="0">N</span>one -&gt;
+                (* Extract from positional arguments, excluding the first one (df)
+                   and excluding trailing strings which might be names_to/values_to *)
+                match positional with
+                | <span data-count="0">_</span> :: rest -&gt;
+                    let col_candidates = List.filter (fun v -&gt; <span data-count="0">n</span>ot (Utils.is_strin<span data-count="0">g</span> v)) rest in
+                    <span data-count="0">L</span>ist.filter_ma<span data-count="0">p</span> Utils.extract_column_name col_candidates
+                | <span data-count="0">_</span> -&gt; []
+          in
+          
+          if cols_to_pivot = [] then <span data-count="0">E</span>rror.make_error ValueError "Function `pivot_longer` requires at least one column to pivot (use $col syntax)." else
+
+          (* Validate that all requested pivot columns exist *)
+          <span data-count="0">l</span>et all_cols = Arrow_table.column_names df.arrow_table in
+          <span data-count="0">l</span>et missing_cols = List.filter (fun c -&gt; <span data-count="0">n</span>ot (List.me<span data-count="0">m</span> c all_cols)) cols_to_pivot in
+          <span data-count="0">i</span>f missing_cols &lt;&gt; [] then <span data-count="0">E</span>rror.make_error KeyError (Printf.sprint<span data-count="0">f</span> "Function `pivot_longer`: column(s) not found in DataFrame: %s" (String.conca<span data-count="0">t</span> ", " missing_cols)) else
+
+          (* Identify id cols (columns not being pivoted) *)
+          <span data-count="0">l</span>et id_cols = List.filter (fun c -&gt; <span data-count="0">n</span>ot (List.me<span data-count="0">m</span> c cols_to_pivot)) all_cols in
+          
+          (* Check for name collisions with existing id columns *)
+          <span data-count="0">i</span>f List.mem names_to id_cols then <span data-count="0">E</span>rror.make_error ValueError (Printf.sprint<span data-count="0">f</span> "Function `pivot_longer`: `names_to` value \"%s\" already exists as a column name." names_to) else
+          <span data-count="0">i</span>f List.mem values_to id_cols then <span data-count="0">E</span>rror.make_error ValueError (Printf.sprint<span data-count="0">f</span> "Function `pivot_longer`: `values_to` value \"%s\" already exists as a column name." values_to) else
+
+          (* Calculate new number of rows *)
+          <span data-count="0">l</span>et n_pivot_cols = List.length cols_to_pivot in
+          <span data-count="0">l</span>et orig_nrows = Arrow_table.num_rows df.arrow_table in
+          <span data-count="0">l</span>et new_nrows = orig_nrows * n_pivot_cols in
+          
+          (* Determine the output type for the values column:
+             - All-integer columns → IntColumn
+             - Mixed int/float    → FloatColumn (ints promoted)
+             - Anything else      → StringColumn (all values coerced to string) *)
+           
+          let pivot_types = List.map (fun c -&gt; <span data-count="0">A</span>rrow_table.get_column df.arrow_table c |&gt; <span data-count="0">f</span>unction <span data-count="0">S</span>ome col -&gt; Arrow_table.column_type_of col | <span data-count="0">N</span>one -&gt; ArrowNA) cols_to_pivot in
+          <span data-count="0">l</span>et is_all_int = List.for_all (<span data-count="0">f</span>unction <span data-count="0">A</span>rrowInt64 | <span data-count="0">A</span>rrowNA -&gt; true | <span data-count="0">_</span> -&gt; false) pivot_types in
+          <span data-count="0">l</span>et is_numeric = List.for_all (<span data-count="0">f</span>unction <span data-count="0">A</span>rrowInt64 | <span data-count="0">A</span>rrowFloat64 | <span data-count="0">A</span>rrowNA -&gt; true | <span data-count="0">_</span> -&gt; false) pivot_types in
+          
+          (* Create the ID columns by repeating rows *)
+          <span data-count="0">l</span>et new_id_columns = List.map (fun col_name -&gt;
+            <span data-count="0">l</span>et col_data = match Arrow_table.get_column df.arrow_table col_name with
+              | <span data-count="0">S</span>ome d -&gt; d
+              | <span data-count="0">N</span>one -&gt; NAColumn orig_nrows
+            in
+            let rep_col = match col_data with
+              | <span data-count="0">I</span>ntColumn a -&gt; IntColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+              | <span data-count="0">F</span>loatColumn a -&gt; FloatColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+              | <span data-count="0">S</span>tringColumn a -&gt; StringColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+              | <span data-count="0">B</span>oolColumn a -&gt; BoolColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+              | <span data-count="0">D</span>ateColumn a -&gt; DateColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+              | <span data-count="0">D</span>atetimeColumn (a, tz) -&gt; DatetimeColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)), tz)
+              | <span data-count="0">N</span>AColumn _ -&gt; NAColumn new_nrows
+              | <span data-count="0">D</span>ictionaryColumn (a, levels, ordered) -&gt; DictionaryColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)), levels, ordered)
+              | <span data-count="0">L</span>istColumn a -&gt; ListColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>.(i / n_pivot_cols)))
+            in
+            (col_name, rep_col)
+          ) id_cols in
+          
+          (* Create names column *)
+          <span data-count="0">l</span>et pivot_names_arr = Array.of_list cols_to_pivot in
+          <span data-count="0">l</span>et names_col_data = StringColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">S</span>ome pivot_names_arr.(i mod n_pivot_cols))) in
+          
+          (* Create values column *)
+          let build_values () = 
+            <span data-count="0">i</span>f is_all_int then
+              <span data-count="0">l</span>et arrays = List.map (fun c -&gt; <span data-count="0">A</span>rrow_table.get_int_column df.arrow_table c) cols_to_pivot |&gt; <span data-count="0">A</span>rray.of_list in
+              <span data-count="0">I</span>ntColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>rrays.(i mod n_pivot_cols).(i / n_pivot_cols)))
+            else <span data-count="0">i</span>f is_numeric then
+              <span data-count="0">l</span>et arrays = List.map (fun c -&gt; <span data-count="0">A</span>rrow_table.get_float_column df.arrow_table c) cols_to_pivot |&gt; <span data-count="0">A</span>rray.of_list in
+              <span data-count="0">F</span>loatColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>rrays.(i mod n_pivot_cols).(i / n_pivot_cols)))
+            else
+              (* Mixed types: coerce all column values to string to preserve data *)
+              <span data-count="0">l</span>et arrays = List.map (fun c -&gt;
+                <span data-count="0">m</span>atch Arrow_table.get_column df.arrow_table c with
+                | <span data-count="0">S</span>ome (StringColumn a) -&gt; a
+                | <span data-count="0">S</span>ome (IntColumn a) -&gt; Array.map (Option.ma<span data-count="0">p</span> string_of_int) a
+                | <span data-count="0">S</span>ome (FloatColumn a) -&gt; Array.map (Option.ma<span data-count="0">p</span> string_of_float) a
+                | <span data-count="0">S</span>ome (BoolColumn a) -&gt; Array.map (Option.ma<span data-count="0">p</span> string_of_bool) a
+                | <span data-count="0">_</span> -&gt; Array.make orig_nrows None
+              ) cols_to_pivot |&gt; <span data-count="0">A</span>rray.of_list in
+              <span data-count="0">S</span>tringColumn (Array.ini<span data-count="0">t</span> new_nrows (fun i -&gt; <span data-count="0">a</span>rrays.(i mod n_pivot_cols).(i / n_pivot_cols)))
+          in
+          let values_col_data = build_values () in
+          
+          <span data-count="0">l</span>et new_columns = new_id_columns @ [(names_to, names_col_data); (values_to, values_col_data)] in
+          let new_schema = List.map (fun (n, c) -&gt; <span data-count="0">(</span>n, Arrow_table.column_type_o<span data-count="0">f</span> c)) new_columns in
+          <span data-count="0">l</span>et new_group_keys =
+            let existing_cols = List.map fst new_schema in
+            <span data-count="0">L</span>ist.filte<span data-count="0">r</span> (fun k -&gt; <span data-count="0">L</span>ist.mem k existing_cols) df.group_keys
+          in
+          
+          VDataFrame { arrow_table = { schema = new_schema; columns = new_columns; nrows = new_nrows; native_handle = None } |&gt; Arrow_table.materializ<span data-count="0">e</span>; group_keys = new_group_keys }
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "package_checks",
+  "depends": ["package_import_output", "package_init_output"]
+},
+{
+  "node_name": "project_checks",
+  "depends": ["project_init_output"]
+}
+]

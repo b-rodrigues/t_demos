@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pipeline_copy.ml &mdash; Coverage report</title>
+    <meta name="description" content="46.15% coverage in src/packages/pipeline/pipeline_copy.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>pipeline_copy.ml
+        </a>
+      </h1>
+      <h2>46.15%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="top:32.81%"></span>
+      <span class="unvisited" style="top:34.38%"></span>
+      <span class="unvisited" style="top:37.50%"></span>
+      <span class="some-visited" style="top:39.06%"></span>
+      <span class="some-visited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:48.44%"></span>
+      <span class="unvisited" style="bottom:46.88%"></span>
+      <span class="unvisited" style="bottom:45.31%"></span>
+      <span class="unvisited" style="bottom:37.50%"></span>
+      <span class="unvisited" style="bottom:35.94%"></span>
+      <span class="unvisited" style="bottom:34.38%"></span>
+      <span class="unvisited" style="bottom:28.12%"></span>
+      <span class="unvisited" style="bottom:23.44%"></span>
+      <span class="unvisited" style="bottom:18.75%"></span>
+      <span class="unvisited" style="bottom:9.38%"></span>
+      <span class="unvisited" style="bottom:7.81%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="some-visited"> </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="some-visited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="some-visited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/pipeline/pipeline_copy.ml *)
+open Ast
+
+(*
+--# Copy Pipeline Node Artifacts to Local Directory
+--#
+--# Copies built artifacts from the Nix store to a local directory for easier inspection.
+--# By default copies all nodes from the latest build to `pipeline-output/`.
+--#
+--# @name pipeline_copy
+--# @param node :: String (Optional) The node name to copy. If null, copies all nodes.
+--# @param target_dir :: String (Optional) The destination directory. Default is "pipeline-output".
+--# @param dir_mode :: String (Optional) POSIX mode for directories (e.g. "0755").
+--# @param file_mode :: String (Optional) POSIX mode for files (e.g. "0644").
+--# @return :: String A success message or Error.
+--# @family pipeline
+--# @export
+-*)
+let register env =
+  <span data-count="136">l</span>et get_arg name pos default named_args =
+    <span data-count="4">m</span>atch List.assoc_opt name (List.filter_ma<span data-count="4">p</span> (fun (k, v) -&gt; <span data-count="0">m</span>atch k with <span data-count="0">S</span>ome s -&gt; Some (s, v) | <span data-count="0">N</span>one -&gt; None) named_args) with
+    | <span data-count="0">S</span>ome v -&gt; v
+    | <span data-count="4">N</span>one -&gt;
+        let positionals = List.filter_map (fun (k, v) -&gt; <span data-count="0">m</span>atch k with <span data-count="0">N</span>one -&gt; Some v | <span data-count="0">S</span>ome _ -&gt; None) named_args in
+        <span data-count="4">i</span>f List.lengt<span data-count="4">h</span> positionals &gt;= pos then <span data-count="0">L</span>ist.nth positionals (pos - 1)
+        else <span data-count="4">d</span>efault
+  in
+
+  let copy_fn named_args _env =
+    <span data-count="1">l</span>et parse_string_like field pos default =
+      <span data-count="1">m</span>atch get_arg field pos default named_args with
+      | <span data-count="1">V</span>String s | <span data-count="0">V</span>Symbol s -&gt; Ok s
+      | <span data-count="0">_</span> -&gt;
+          Error (Error.type_erro<span data-count="0">r</span>
+                   (Printf.sprint<span data-count="0">f</span> "Function `pipeline_copy` expects `%s` to be a String or Symbol." field))
+    in
+    let parse_string field pos default =
+      <span data-count="2">m</span>atch get_arg field pos default named_args with
+      | <span data-count="2">V</span>String s -&gt; Ok s
+      | <span data-count="0">_</span> -&gt;
+          Error (Error.type_erro<span data-count="0">r</span>
+                   (Printf.sprint<span data-count="0">f</span> "Function `pipeline_copy` expects `%s` to be a String." field))
+    in
+    let run_copy node_name =
+      <span data-count="1">m</span>atch parse_string_like "target_dir" 2 (VString "pipeline-output") with
+      | <span data-count="0">E</span>rror err -&gt; err
+      | <span data-count="1">O</span>k target_dir -&gt;
+          (match parse_string "dir_mode" 3 (VString "0755") with
+           | <span data-count="0">E</span>rror err -&gt; err
+           | <span data-count="1">O</span>k dir_mode -&gt;
+               (match parse_string "file_mode" 4 (VString "0644") with
+                | <span data-count="0">E</span>rror err -&gt; err
+                | <span data-count="1">O</span>k file_mode -&gt;
+                    Builder.pipeline_copy ~node_name ~target_dir ~dir_mode ~file_mode ()))
+    in
+    match get_arg "node" 1 (VNA NAGeneric) named_args with
+    | <span data-count="1">V</span>NA _ -&gt; run_copy None
+    | <span data-count="0">V</span>String node_name | <span data-count="0">V</span>Symbol node_name -&gt; run_copy (Some node_name)
+    | <span data-count="0">_</span> -&gt;
+        Error.type_error "Function `pipeline_copy` expects `node` to be a String, Symbol, or NA."
+  in
+
+  env
+  |&gt; Env.add "pipeline_copy" (make_builtin_name<span data-count="136">d</span> ~name:"pipeline_copy" ~variadic:true 0 copy_fn)
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

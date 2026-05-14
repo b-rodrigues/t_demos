@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "summary_jl",
+  "depends": ["DataFrames", "Statistics", "avg_mpg", "combine", "cyl", "gdf", "groupby", "mpg", "raw_data", "using"]
+},
+{
+  "node_name": "final_results",
+  "depends": ["summary_jl"]
+}
+]

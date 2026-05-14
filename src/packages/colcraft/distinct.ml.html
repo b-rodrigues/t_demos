@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>distinct.ml &mdash; Coverage report</title>
+    <meta name="description" content="5.88% coverage in src/packages/colcraft/distinct.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>distinct.ml
+        </a>
+      </h1>
+      <h2>5.88%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:7.84%"></span>
+      <span class="unvisited" style="top:9.80%"></span>
+      <span class="unvisited" style="top:13.73%"></span>
+      <span class="unvisited" style="top:15.69%"></span>
+      <span class="unvisited" style="top:17.65%"></span>
+      <span class="unvisited" style="top:21.57%"></span>
+      <span class="unvisited" style="top:29.41%"></span>
+      <span class="unvisited" style="top:31.37%"></span>
+      <span class="unvisited" style="top:33.33%"></span>
+      <span class="unvisited" style="top:35.29%"></span>
+      <span class="unvisited" style="top:41.18%"></span>
+      <span class="unvisited" style="top:43.14%"></span>
+      <span class="unvisited" style="top:47.06%"></span>
+      <span class="unvisited" style="top:49.02%"></span>
+      <span class="unvisited" style="bottom:47.06%"></span>
+      <span class="unvisited" style="bottom:37.25%"></span>
+      <span class="unvisited" style="bottom:31.37%"></span>
+      <span class="unvisited" style="bottom:27.45%"></span>
+      <span class="unvisited" style="bottom:25.49%"></span>
+      <span class="unvisited" style="bottom:23.53%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span class="unvisited"> </span>
+<a id="L5"></a><span class="unvisited"> </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span class="unvisited"> </span>
+<a id="L8"></a><span class="unvisited"> </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span class="unvisited"> </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+let distinct_impl (named_args : (string option * value) list) _env =
+  <span data-count="0">m</span>atch named_args with
+  | <span data-count="0">(</span>_, VDataFrame df) :: rest -&gt;
+      let all_names = Arrow_table.column_names df.arrow_table in
+      <span data-count="0">l</span>et key_names = List.filter_map (fun (k, v) -&gt; 
+        <span data-count="0">i</span>f k = None then <span data-count="0">U</span>tils.extract_column_name v else <span data-count="0">N</span>one) rest in
+      <span data-count="0">l</span>et keep_all = match List.assoc_opt (Some ".keep_all") rest with <span data-count="0">S</span>ome (VBool b) -&gt; b | <span data-count="0">_</span> -&gt; false in
+      
+      let keys = if key_names = [] then <span data-count="0">a</span>ll_names else <span data-count="0">k</span>ey_names in
+      let nrows = Arrow_table.num_rows df.arrow_table in
+      
+      (* Get key column values for hash calculation *)
+      <span data-count="0">l</span>et key_col_values = List.map (fun k -&gt;
+        <span data-count="0">m</span>atch Arrow_table.get_column df.arrow_table k with
+        | <span data-count="0">S</span>ome col -&gt; Arrow_bridge.column_to_values col
+        | <span data-count="0">N</span>one -&gt; Array.make nrows (VNA NAGeneric)
+      ) keys in
+      
+      <span data-count="0">l</span>et seen = Hashtbl.create nrows in
+      <span data-count="0">l</span>et row_indices = ref [] in
+      for i = 0 to nrows - 1 do
+        <span data-count="0">l</span>et key_vals = List.map (fun col -&gt; <span data-count="0">c</span>ol.(i)) key_col_values in
+        <span data-count="0">i</span>f not (Hashtbl.me<span data-count="0">m</span> seen key_vals) then <span data-count="0">b</span>egin
+          Hashtbl.add seen key_vals true;
+          <span data-count="0">r</span>ow_indices := i :: !row_indices
+        end
+      done;
+      
+      let unique_indices = List.rev !row_indices in
+      <span data-count="0">l</span>et final_names = if keep_al<span data-count="0">l</span> || key_names = [<span data-count="0">]</span> then <span data-count="0">a</span>ll_names else <span data-count="0">k</span>ey_names in
+      
+      let sub_table = Arrow_compute.take_rows df.arrow_table unique_indices in
+      <span data-count="0">l</span>et project_table = Arrow_compute.project sub_table final_names in
+      
+      <span data-count="0">V</span>DataFrame { df with arrow_table = project_table }
+  | <span data-count="0">_</span> :: _ -&gt; Error.type_error "Function `distinct` expects a DataFrame as first argument."
+  | <span data-count="0">[</span>] -&gt; Error.make_error ArityError "Function `distinct` requires a DataFrame."
+
+(*
+--# Keep unique rows
+--#
+--# Returns the distinct rows of a DataFrame, optionally using selected columns as uniqueness keys.
+--#
+--# @name distinct
+--# @family colcraft
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "distinct" (make_builtin_name<span data-count="136">d</span> ~name:"distinct" ~variadic:true 1 distinct_impl) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

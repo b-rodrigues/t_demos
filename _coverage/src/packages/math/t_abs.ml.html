@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_abs.ml &mdash; Coverage report</title>
+    <meta name="description" content="37.84% coverage in src/packages/math/t_abs.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/math/</span>t_abs.ml
+        </a>
+      </h1>
+      <h2>37.84%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:47.06%"></span>
+      <span class="unvisited" style="bottom:45.10%"></span>
+      <span class="unvisited" style="bottom:43.14%"></span>
+      <span class="unvisited" style="bottom:29.41%"></span>
+      <span class="unvisited" style="bottom:25.49%"></span>
+      <span class="unvisited" style="bottom:23.53%"></span>
+      <span class="unvisited" style="bottom:21.57%"></span>
+      <span class="some-visited" style="bottom:17.65%"></span>
+      <span class="unvisited" style="bottom:15.69%"></span>
+      <span class="unvisited" style="bottom:13.73%"></span>
+      <span class="unvisited" style="bottom:11.76%"></span>
+      <span class="unvisited" style="bottom:9.80%"></span>
+      <span class="unvisited" style="bottom:7.84%"></span>
+      <span class="unvisited" style="bottom:5.88%"></span>
+      <span class="unvisited" style="bottom:3.92%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="some-visited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Absolute value
+--#
+--# Returns the absolute value of a number or vector/ndarray elements.
+--# Raises a TypeError if an NA value is encountered. Use `filter` or explicit
+--# missingness handling before calling `abs` on data that may contain NAs.
+--#
+--# @name abs
+--# @param x :: Number | Vector | NDArray The input value.
+--# @param na_ignore :: Bool Whether to preserve NA values in inputs. Default is false.
+--# @return :: Number | Vector | NDArray The absolute value.
+--# @example
+--#   abs(-5)
+--#   -- Returns = 5
+--# @family math
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "abs"
+    (make_builtin_name<span data-count="136">d</span> ~name:"abs" ~variadic:true 1 (fun named_args _env -&gt;
+      <span data-count="5">m</span>atch Math_common.get_bool_flag "na_ignore" false named_args with
+      | <span data-count="0">E</span>rror e -&gt; e
+      | <span data-count="5">O</span>k na_ignore -&gt;
+          let args = Math_common.positional_args_without [ "na_ignore" ] named_args in
+          <span data-count="5">m</span>atch args with
+          | <span data-count="0">[</span>VInt n] -&gt; VInt (Int.ab<span data-count="0">s</span> n)
+          | <span data-count="0">[</span>VFloat f] -&gt; VFloat (Float.ab<span data-count="0">s</span> f)
+          | <span data-count="5">[</span>VVector arr] -&gt;
+              let result = Array.make (Array.lengt<span data-count="5">h</span> arr) (VNA NAGeneric) in
+              <span data-count="5">l</span>et had_error = ref None in
+              Array.iteri (fun i v -&gt;
+                <span data-count="2724">i</span>f !had_error = None then
+                  <span data-count="2724">m</span>atch v with
+                  | <span data-count="0">V</span>Int n -&gt; result.(i) &lt;- VInt (Int.ab<span data-count="0">s</span> n)
+                  | <span data-count="2724">V</span>Float f -&gt; result.(i) &lt;- VFloat (Float.ab<span data-count="2724">s</span> f)
+                  | <span data-count="0">V</span>NA na_t when na_ignore -&gt; <span data-count="0">r</span>esult.(i) &lt;- VNA na_t
+                  | <span data-count="0">V</span>NA _ -&gt; had_error := Some (Error.type_erro<span data-count="0">r</span> "Function `abs` encountered NA value. Handle missingness explicitly.")
+                  | <span data-count="0">_</span> -&gt; had_error := Some (Error.type_erro<span data-count="0">r</span> "Function `abs` requires numeric values.")
+               ) arr;
+               <span data-count="5">(</span>match !had_error with <span data-count="0">S</span>ome e -&gt; e | <span data-count="5">N</span>one -&gt; VVector result)
+          | <span data-count="0">[</span>VNDArray arr] -&gt;
+              let result = Array.map (fun f -&gt; <span data-count="0">F</span>loat.abs f) arr.data in
+              <span data-count="0">V</span>NDArray { shape = arr.shape; data = result }
+          | <span data-count="0">[</span>VNA na_t] when na_ignore -&gt; <span data-count="0">V</span>NA na_t
+          | <span data-count="0">[</span>VNA _] -&gt; Error.type_error "Function `abs` encountered NA value. Handle missingness explicitly."
+          | <span data-count="0">[</span>_] -&gt; Error.type_error "Function `abs` expects a number, numeric Vector, or NDArray."
+          | <span data-count="0">_</span> -&gt; Error.arity_error_named "abs" 1 (List.lengt<span data-count="0">h</span> args)
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

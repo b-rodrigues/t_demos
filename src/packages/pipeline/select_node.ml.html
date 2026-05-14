@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>select_node.ml &mdash; Coverage report</title>
+    <meta name="description" content="58.62% coverage in src/packages/pipeline/select_node.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>select_node.ml
+        </a>
+      </h1>
+      <h2>58.62%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:36.08%"></span>
+      <span class="unvisited" style="top:40.21%"></span>
+      <span class="unvisited" style="top:41.24%"></span>
+      <span class="unvisited" style="top:42.27%"></span>
+      <span class="unvisited" style="top:43.30%"></span>
+      <span class="unvisited" style="bottom:44.33%"></span>
+      <span class="unvisited" style="bottom:41.24%"></span>
+      <span class="unvisited" style="bottom:39.18%"></span>
+      <span class="unvisited" style="bottom:37.11%"></span>
+      <span class="unvisited" style="bottom:32.99%"></span>
+      <span class="unvisited" style="bottom:31.96%"></span>
+      <span class="unvisited" style="bottom:30.93%"></span>
+      <span class="unvisited" style="bottom:29.90%"></span>
+      <span class="unvisited" style="bottom:28.87%"></span>
+      <span class="unvisited" style="bottom:27.84%"></span>
+      <span class="unvisited" style="bottom:18.56%"></span>
+      <span class="unvisited" style="bottom:12.37%"></span>
+      <span class="unvisited" style="bottom:7.22%"></span>
+      <span class="unvisited" style="bottom:4.12%"></span>
+      <span class="unvisited" style="bottom:3.09%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="visited"> </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="visited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="visited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="visited"> </span>
+<a id="L84"></a><span class="visited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span class="visited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="visited"> </span>
+<a id="L89"></a><span class="visited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+<a href="#L91">91</a>
+<a href="#L92">92</a>
+<a href="#L93">93</a>
+<a href="#L94">94</a>
+<a href="#L95">95</a>
+<a href="#L96">96</a>
+<a href="#L97">97</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Select Node Metadata Fields
+--#
+--# Returns a DataFrame summarising the requested metadata fields for all
+--# nodes in the pipeline. This is a read-only inspection operation — it does
+--# not return a Pipeline.
+--#
+--# Available fields: `$name`, `$runtime`, `$serializer`, `$deserializer`,
+--# `$noop`, `$deps`, `$depth`, `$command_type`.
+--#
+--# @name select_node
+--# @param p :: Pipeline The pipeline to inspect.
+--# @param ... :: Symbol One or more metadata field references (e.g. `$name`, `$runtime`).
+--# @return :: DataFrame A DataFrame with the requested metadata columns.
+--# @example
+--#   p |&gt; select_node($name, $runtime, $deps)
+--#   p |&gt; select_node($name, $depth, $noop)
+--# @family pipeline
+--# @seealso pipeline_to_frame, filter_node, arrange_node
+--# @export
+*)
+
+let all_metadata_fields =
+  ["name"; "runtime"; "serializer"; "deserializer"; "noop"; "deps"; "depth"; "command_type"]
+
+let register env =
+  <span data-count="136">E</span>nv.add "select_node"
+    (make_builti<span data-count="136">n</span> ~name:"select_node" ~variadic:true 1 (fun args _env -&gt;
+      <span data-count="1">m</span>atch args with
+      | <span data-count="1">V</span>Pipeline p :: col_args when col_args &lt;&gt; [] -&gt;
+          <span data-count="1">l</span>et col_names = List.filter_map Utils.extract_column_name col_args in
+          <span data-count="1">i</span>f List.lengt<span data-count="1">h</span> col_names &lt;&gt; List.lengt<span data-count="1">h</span> col_args then
+            <span data-count="0">E</span>rror.type_error "Function `select_node` expects `$field` column references."
+          else
+            <span data-count="1">l</span>et missing = List.filter (fun c -&gt; <span data-count="2">n</span>ot (List.me<span data-count="2">m</span> c all_metadata_fields)) col_names in
+            <span data-count="1">i</span>f missing &lt;&gt; [] then
+              <span data-count="0">E</span>rror.make_error KeyError
+                (Printf.sprint<span data-count="0">f</span> "Unknown node metadata field(s): %s. Available: %s."
+                   (String.conca<span data-count="0">t</span> ", " missing)
+                   (String.conca<span data-count="0">t</span> ", " all_metadata_fields))
+            else
+              (* Build the full frame and project the requested columns *)
+              <span data-count="1">l</span>et depths = Pipeline_to_frame.compute_depths p.p_deps in
+              <span data-count="1">l</span>et node_names = List.map fst p.p_exprs in
+              <span data-count="1">l</span>et nrows = List.length node_names in
+              (* Helper to build a column by extracting a field from each node's metadata dict *)
+              <span data-count="1">l</span>et get_field field_name =
+                <span data-count="1">A</span>rray.init nrows (fun i -&gt;
+                  <span data-count="4">l</span>et n = List.nth node_names i in
+                  <span data-count="4">l</span>et meta = Pipeline_to_frame.node_metadata_dict n p depths in
+                  <span data-count="4">m</span>atch List.assoc_opt field_name meta with
+                  | <span data-count="0">S</span>ome (VList items) -&gt;
+                      (* Render dep lists as comma-separated strings *)
+                      let strs = List.filter_map (fun (_, v) -&gt;
+                        <span data-count="0">m</span>atch v with <span data-count="0">V</span>String s -&gt; Some s | <span data-count="0">_</span> -&gt; None
+                      ) items in
+                      <span data-count="0">S</span>ome (String.conca<span data-count="0">t</span> ", " strs)
+                  | <span data-count="4">S</span>ome v -&gt; Some (Utils.value_to_raw_strin<span data-count="4">g</span> v)
+                  | <span data-count="0">N</span>one -&gt; None
+                )
+              in
+              let get_int_field field_name =
+                <span data-count="0">A</span>rray.init nrows (fun i -&gt;
+                  <span data-count="0">l</span>et n = List.nth node_names i in
+                  <span data-count="0">l</span>et meta = Pipeline_to_frame.node_metadata_dict n p depths in
+                  <span data-count="0">m</span>atch List.assoc_opt field_name meta with
+                  | <span data-count="0">S</span>ome (VInt v) -&gt; Some v
+                  | <span data-count="0">_</span> -&gt; None
+                )
+              in
+              let get_bool_field field_name =
+                <span data-count="1">A</span>rray.init nrows (fun i -&gt;
+                  <span data-count="4">l</span>et n = List.nth node_names i in
+                  <span data-count="4">l</span>et meta = Pipeline_to_frame.node_metadata_dict n p depths in
+                  <span data-count="4">m</span>atch List.assoc_opt field_name meta with
+                  | <span data-count="4">S</span>ome (VBool v) -&gt; Some v
+                  | <span data-count="0">_</span> -&gt; None
+                )
+              in
+              let columns = List.filter_map (fun col -&gt;
+                <span data-count="2">m</span>atch col with
+                | <span data-count="1">"</span>noop"  -&gt; Some (col, Arrow_table.BoolColumn (get_bool_fiel<span data-count="1">d</span> col))
+                | <span data-count="0">"</span>depth" -&gt; Some (col, Arrow_table.IntColumn (get_int_fiel<span data-count="0">d</span> col))
+                | <span data-count="1">_</span>       -&gt; Some (col, Arrow_table.StringColumn (get_fiel<span data-count="1">d</span> col))
+              ) col_names in
+              <span data-count="1">l</span>et arrow_table = Arrow_table.create columns nrows in
+              <span data-count="1">V</span>DataFrame { arrow_table; group_keys = [] }
+      | <span data-count="0">[</span>VPipeline _] -&gt;
+          Error.make_error ArityError
+            "Function `select_node` requires at least one `$field` argument."
+      | <span data-count="0">_</span> :: _ -&gt; Error.type_error "Function `select_node` expects a Pipeline as first argument."
+      | <span data-count="0">[</span>] -&gt; Error.arity_error_named "select_node" 1 0
+    ))
+    env
+
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "r_warn",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "r_err",
+  "depends": []
+},
+{
+  "node_name": "py_warn",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "py_err",
+  "depends": []
+},
+{
+  "node_name": "t_warn",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "summary_stats",
+  "depends": ["raw_data"]
+}
+]

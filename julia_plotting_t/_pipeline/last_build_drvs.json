@@ -1,0 +1,6 @@
+{
+  "plots_node": "/nix/store/2ss8vyanfpbq06jvk9kml8zx3xwrnhvg-plots_node.drv",
+  "raw_data": "/nix/store/lbk64qcwrcbn97yxnc6g4smsdn37f67c-raw_data.drv",
+  "makie_node": "/nix/store/01rggawalciq8gnb93wgv08wh8d0w3px-makie_node.drv",
+  "tidierplots_node": "/nix/store/bccm9kbjaq6mcpg0a18kgai3qqppxn5j-tidierplots_node.drv"
+}

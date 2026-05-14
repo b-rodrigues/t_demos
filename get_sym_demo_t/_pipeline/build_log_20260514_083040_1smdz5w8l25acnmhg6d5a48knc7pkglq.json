@@ -1,0 +1,217 @@
+{
+  "timestamp": "20260514_083040",
+  "hash": "1smdz5w8l25acnmhg6d5a48knc7pkglq",
+  "out_path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output",
+  "nodes": [
+{
+  "node": "my_var",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/my_var/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "var_name",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/var_name/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "val1",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/val1/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["my_var"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "test_val1",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_val1/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["val1"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "val2",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/val2/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["my_var", "var_name"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "test_val2",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_val2/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["val2"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "my_list",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/my_list/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "val3",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/val3/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["my_list"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "test_val3",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_val3/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["val3"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "node_a",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/node_a/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Int",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "node_b",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/node_b/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Int",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "dynamic_access",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/dynamic_access/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["node_a", "node_b"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "test_dynamic",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_dynamic/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["dynamic_access"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "target_col",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/target_col/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "s",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/s/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["target_col"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "test_sym",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_sym/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["s"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "my_dict",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/my_dict/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "l",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/l/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Lens",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "val4",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/val4/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["l", "my_dict"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "test_val4",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/test_val4/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["val4"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "all_passed",
+  "path": "/nix/store/1smdz5w8l25acnmhg6d5a48knc7pkglq-pipeline_output/all_passed/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["test_dynamic", "test_sym", "test_val1", "test_val2", "test_val3", "test_val4"],
+  "success": false,
+  "warnings": false
+}
+]
+}

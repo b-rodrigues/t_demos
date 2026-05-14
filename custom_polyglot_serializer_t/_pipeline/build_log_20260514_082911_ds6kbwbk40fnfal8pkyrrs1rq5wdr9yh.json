@@ -1,0 +1,27 @@
+{
+  "timestamp": "20260514_082911",
+  "hash": "ds6kbwbk40fnfal8pkyrrs1rq5wdr9yh",
+  "out_path": "/nix/store/ds6kbwbk40fnfal8pkyrrs1rq5wdr9yh-pipeline_output",
+  "nodes": [
+{
+  "node": "config_py",
+  "path": "/nix/store/ds6kbwbk40fnfal8pkyrrs1rq5wdr9yh-pipeline_output/config_py/artifact",
+  "runtime": "Python",
+  "serializer": "{`format`: ^yaml, `r_writer`: <{ (function(obj, path) yaml::write_yaml(obj, path)) }>, `r_reader`: <{ (function(path) yaml::read_yaml(path)) }>, `py_writer`: <{ (lambda obj, path: __import__('yaml').dump(obj, open(path, 'w'), default_flow_style=False)) }>, `py_reader`: <{ (lambda path: __import__('yaml').safe_load(open(path))) }>}",
+  "class": "dict",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "config_r",
+  "path": "/nix/store/ds6kbwbk40fnfal8pkyrrs1rq5wdr9yh-pipeline_output/config_r/artifact",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "character",
+  "dependencies": ["config_py"],
+  "success": true,
+  "warnings": false
+}
+]
+}

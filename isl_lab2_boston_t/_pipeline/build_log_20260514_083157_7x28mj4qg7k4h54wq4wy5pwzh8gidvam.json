@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083157",
+  "hash": "7x28mj4qg7k4h54wq4wy5pwzh8gidvam",
+  "out_path": "/nix/store/7x28mj4qg7k4h54wq4wy5pwzh8gidvam-pipeline_output",
+  "nodes": [
+{
+  "node": "boston_raw",
+  "path": "/nix/store/7x28mj4qg7k4h54wq4wy5pwzh8gidvam-pipeline_output/boston_raw/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "data_node",
+  "path": "/nix/store/7x28mj4qg7k4h54wq4wy5pwzh8gidvam-pipeline_output/data_node/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "tbl_df",
+  "dependencies": ["boston_raw"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/7x28mj4qg7k4h54wq4wy5pwzh8gidvam-pipeline_output/r_model/artifact",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/7x28mj4qg7k4h54wq4wy5pwzh8gidvam-pipeline_output/py_model/artifact",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "RegressionResultsWrapper",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}

@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "risky_node",
+  "depends": []
+},
+{
+  "node_name": "local_recovery",
+  "depends": ["val"]
+},
+{
+  "node_name": "handled_node",
+  "depends": ["risky_node"]
+},
+{
+  "node_name": "error_info",
+  "depends": ["risky_node"]
+}
+]

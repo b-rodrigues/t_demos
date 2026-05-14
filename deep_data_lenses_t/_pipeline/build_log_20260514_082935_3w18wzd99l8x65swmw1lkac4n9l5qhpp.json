@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_082935",
+  "hash": "3w18wzd99l8x65swmw1lkac4n9l5qhpp",
+  "out_path": "/nix/store/3w18wzd99l8x65swmw1lkac4n9l5qhpp-pipeline_output",
+  "nodes": [
+{
+  "node": "base_data",
+  "path": "/nix/store/3w18wzd99l8x65swmw1lkac4n9l5qhpp-pipeline_output/base_data/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "updated_version",
+  "path": "/nix/store/3w18wzd99l8x65swmw1lkac4n9l5qhpp-pipeline_output/updated_version/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data", "l"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "updated_retry",
+  "path": "/nix/store/3w18wzd99l8x65swmw1lkac4n9l5qhpp-pipeline_output/updated_retry/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["l", "updated_version"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "both_updated",
+  "path": "/nix/store/3w18wzd99l8x65swmw1lkac4n9l5qhpp-pipeline_output/both_updated/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data", "rl", "vl"],
+  "success": true,
+  "warnings": false
+}
+]
+}

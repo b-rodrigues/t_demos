@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>vcov.ml &mdash; Coverage report</title>
+    <meta name="description" content="4.76% coverage in src/packages/stats/vcov.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>vcov.ml
+        </a>
+      </h1>
+      <h2>4.76%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:39.58%"></span>
+      <span class="unvisited" style="top:40.62%"></span>
+      <span class="unvisited" style="top:42.71%"></span>
+      <span class="unvisited" style="top:43.75%"></span>
+      <span class="unvisited" style="top:46.88%"></span>
+      <span class="unvisited" style="top:47.92%"></span>
+      <span class="unvisited" style="bottom:48.96%"></span>
+      <span class="unvisited" style="bottom:47.92%"></span>
+      <span class="unvisited" style="bottom:45.83%"></span>
+      <span class="unvisited" style="bottom:42.71%"></span>
+      <span class="unvisited" style="bottom:41.67%"></span>
+      <span class="unvisited" style="bottom:39.58%"></span>
+      <span class="unvisited" style="bottom:38.54%"></span>
+      <span class="unvisited" style="bottom:37.50%"></span>
+      <span class="unvisited" style="bottom:36.46%"></span>
+      <span class="unvisited" style="bottom:35.42%"></span>
+      <span class="unvisited" style="bottom:34.38%"></span>
+      <span class="unvisited" style="bottom:32.29%"></span>
+      <span class="unvisited" style="bottom:30.21%"></span>
+      <span class="unvisited" style="bottom:29.17%"></span>
+      <span class="unvisited" style="bottom:25.00%"></span>
+      <span class="unvisited" style="bottom:23.96%"></span>
+      <span class="unvisited" style="bottom:20.83%"></span>
+      <span class="unvisited" style="bottom:19.79%"></span>
+      <span class="unvisited" style="bottom:18.75%"></span>
+      <span class="unvisited" style="bottom:17.71%"></span>
+      <span class="unvisited" style="bottom:16.67%"></span>
+      <span class="unvisited" style="bottom:8.33%"></span>
+      <span class="unvisited" style="bottom:7.29%"></span>
+      <span class="unvisited" style="bottom:6.25%"></span>
+      <span class="unvisited" style="bottom:5.21%"></span>
+      <span class="unvisited" style="bottom:4.17%"></span>
+      <span class="unvisited" style="bottom:3.12%"></span>
+      <span class="unvisited" style="bottom:2.08%"></span>
+      <span class="unvisited" style="bottom:1.04%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="visited"> </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span class="unvisited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+<a href="#L91">91</a>
+<a href="#L92">92</a>
+<a href="#L93">93</a>
+<a href="#L94">94</a>
+<a href="#L95">95</a>
+<a href="#L96">96</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/stats/vcov.ml *)
+open Ast
+
+(** vcov(model) — returns the variance-covariance matrix of the coefficients.
+    For imported models without a full matrix, returns a diagonal matrix. *)
+(*
+--# Variance-Covariance Matrix
+--#
+--# Returns the variance-covariance matrix of the model coefficients.
+--# For native T models, the full matrix is returned. For imported models,
+--# a diagonal matrix based on standard errors is returned as a fallback.
+--#
+--# @name vcov
+--# @param model :: Model The model object.
+--# @return :: DataFrame A square matrix representation with term names.
+--#
+--# @details
+--# The Variance-Covariance matrix ($\Sigma$) is a fundamental diagnostic tool:
+--#
+--# * **Diagonal elements**: represent the variance of each coefficient estimate ($Var(\hat{\beta}_j)$).
+--#   The square root of these values gives the Standard Errors (SE).
+--# * **Off-diagonal elements**: represent the covariance between pairs of coefficient 
+--#   estimates ($Cov(\hat{\beta}_j, \hat{\beta}_k)$).
+--#
+--# For native models, this is calculated directly from the $(X^T X)^{-1} \cdot \hat{\sigma}^2$
+--# matrix. For imported models, we provide a diagonal matrix based on the reported 
+--# standard errors as a fallback.
+--#
+--# @example
+--#   model = lm(mpg ~ wt, data = mtcars)
+--#   v = vcov(model)
+--# @family stats
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "vcov"
+    (make_builti<span data-count="136">n</span> ~name:"vcov" 1 (fun args _env -&gt;
+      <span data-count="0">m</span>atch args with
+      | <span data-count="0">[</span>VDict pairs] -&gt;
+        let model_data = match List.assoc_opt "_model_data" pairs with
+          | <span data-count="0">S</span>ome (VDict d) -&gt; d
+          | <span data-count="0">_</span> -&gt; pairs
+        in
+        let tidy = match List.assoc_opt "_tidy_df" pairs with
+          | <span data-count="0">S</span>ome (VDataFrame df) -&gt; Some df
+          | <span data-count="0">_</span> -&gt; None
+        in
+        (match tidy with
+         | <span data-count="0">N</span>one -&gt; Error.type_error "Function `vcov` expects a model with a tidy coefficient table."
+         | <span data-count="0">S</span>ome tidy_df -&gt;
+           let terms = Arrow_table.get_string_column tidy_df.arrow_table "term" in
+           <span data-count="0">l</span>et n = Array.length terms in
+           
+           (* Try to get full vcov matrix *)
+           <span data-count="0">l</span>et matrix_opt = match List.assoc_opt "vcov" model_data with
+             | <span data-count="0">S</span>ome (VList rows) -&gt;
+                let mat = Array.make_matrix n n 0.0 in
+                <span data-count="0">L</span>ist.iteri (fun i (_, row) -&gt;
+                  <span data-count="0">m</span>atch row with
+                  | <span data-count="0">V</span>Vector v when i &lt; n -&gt;
+                      <span data-count="0">A</span>rray.iteri (fun j x -&gt;
+                        <span data-count="0">i</span>f j &lt; n then
+                          <span data-count="0">m</span>atch x with <span data-count="0">V</span>Float f -&gt; mat.(i).(j) &lt;- f | <span data-count="0">_</span> -&gt; ()
+                      ) v
+                  | <span data-count="0">_</span> -&gt; ()
+                ) rows;
+                <span data-count="0">S</span>ome mat
+             | <span data-count="0">_</span> -&gt; None
+           in
+           
+           let final_mat = match matrix_opt with
+             | <span data-count="0">S</span>ome m -&gt; m
+             | <span data-count="0">N</span>one -&gt;
+               (* Fallback: diagonal matrix from std_errors *)
+               let ses = Arrow_table.get_float_column tidy_df.arrow_table "std_error" in
+               <span data-count="0">l</span>et mat = Array.make_matrix n n 0.0 in
+               <span data-count="0">f</span>or i = 0 to n - 1 do
+                 <span data-count="0">m</span>atch ses.(i) with
+                 | <span data-count="0">S</span>ome se -&gt; mat.(i).(i) &lt;- se *. se
+                 | <span data-count="0">N</span>one -&gt; ()
+               done;
+               mat
+           in
+           
+           (* Convert to DataFrame: term column + one column per term *)
+           let term_col = ("term", Arrow_table.StringColumn terms) in
+           let data_cols = List.mapi (fun j name_opt -&gt;
+             <span data-count="0">l</span>et name = match name_opt with <span data-count="0">S</span>ome s -&gt; s | <span data-count="0">N</span>one -&gt; Printf.sprint<span data-count="0">f</span> "V%d" j in
+             let col_data = Array.init n (fun i -&gt; <span data-count="0">S</span>ome final_mat.(i).(j)) in
+             <span data-count="0">(</span>name, Arrow_table.FloatColumn col_data)
+           ) (Array.to_lis<span data-count="0">t</span> terms) in
+           <span data-count="0">l</span>et table = Arrow_table.create (term_col :: data_cols) n in
+           <span data-count="0">V</span>DataFrame { arrow_table = table; group_keys = [] })
+      | <span data-count="0">[</span>VError _ as e] -&gt; e
+      | <span data-count="0">_</span> -&gt; Error.type_error "Function `vcov` expects a model (Dict)."
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

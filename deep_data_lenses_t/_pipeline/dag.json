@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "base_data",
+  "depends": []
+},
+{
+  "node_name": "updated_version",
+  "depends": ["base_data", "l"]
+},
+{
+  "node_name": "updated_retry",
+  "depends": ["l", "updated_version"]
+},
+{
+  "node_name": "both_updated",
+  "depends": ["base_data", "rl", "vl"]
+}
+]

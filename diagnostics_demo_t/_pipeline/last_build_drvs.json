@@ -1,0 +1,9 @@
+{
+  "r_warn": "/nix/store/58rq43mqwnbi4d84mz0iqnhxppws01sx-r_warn.drv",
+  "t_warn": "/nix/store/b43svq4hkxhac3swbiqf91y3d6dgas9h-t_warn.drv",
+  "raw_data": "/nix/store/sj0mnf742hnaydvvnw1gh3f5g7zgv90w-raw_data.drv",
+  "r_err": "/nix/store/0a3ygp91mxgif3985jvw7cl6rxprbbir-r_err.drv",
+  "py_err": "/nix/store/42m01smyxdpnjhxw99g08lmpyx0g8nj4-py_err.drv",
+  "summary_stats": "/nix/store/a0qpi3gwqz5xl1lisrsr7lrczj7cj89a-summary_stats.drv",
+  "py_warn": "/nix/store/szb9vi5r31jkrflf48qnyibkl19ixkxy-py_warn.drv"
+}

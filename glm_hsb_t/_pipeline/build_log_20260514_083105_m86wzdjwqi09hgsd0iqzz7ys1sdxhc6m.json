@@ -1,0 +1,37 @@
+{
+  "timestamp": "20260514_083105",
+  "hash": "m86wzdjwqi09hgsd0iqzz7ys1sdxhc6m",
+  "out_path": "/nix/store/m86wzdjwqi09hgsd0iqzz7ys1sdxhc6m-pipeline_output",
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/m86wzdjwqi09hgsd0iqzz7ys1sdxhc6m-pipeline_output/data_node/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_model_node",
+  "path": "/nix/store/m86wzdjwqi09hgsd0iqzz7ys1sdxhc6m-pipeline_output/r_model_node/artifact",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "glm",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "py_model_node",
+  "path": "/nix/store/m86wzdjwqi09hgsd0iqzz7ys1sdxhc6m-pipeline_output/py_model_node/artifact",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}

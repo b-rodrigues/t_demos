@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>anova.ml &mdash; Coverage report</title>
+    <meta name="description" content="2.60% coverage in src/packages/stats/anova.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>anova.ml
+        </a>
+      </h1>
+      <h2>2.60%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:20.35%"></span>
+      <span class="unvisited" style="top:21.24%"></span>
+      <span class="unvisited" style="top:22.12%"></span>
+      <span class="unvisited" style="top:23.01%"></span>
+      <span class="unvisited" style="top:25.66%"></span>
+      <span class="unvisited" style="top:26.55%"></span>
+      <span class="unvisited" style="top:27.43%"></span>
+      <span class="unvisited" style="top:30.09%"></span>
+      <span class="unvisited" style="top:30.97%"></span>
+      <span class="unvisited" style="top:31.86%"></span>
+      <span class="unvisited" style="top:32.74%"></span>
+      <span class="unvisited" style="top:34.51%"></span>
+      <span class="unvisited" style="top:35.40%"></span>
+      <span class="unvisited" style="top:37.17%"></span>
+      <span class="unvisited" style="top:38.05%"></span>
+      <span class="unvisited" style="top:40.71%"></span>
+      <span class="unvisited" style="top:43.36%"></span>
+      <span class="unvisited" style="top:46.02%"></span>
+      <span class="unvisited" style="top:48.67%"></span>
+      <span class="unvisited" style="bottom:46.90%"></span>
+      <span class="unvisited" style="bottom:46.02%"></span>
+      <span class="unvisited" style="bottom:43.36%"></span>
+      <span class="unvisited" style="bottom:38.94%"></span>
+      <span class="unvisited" style="bottom:38.05%"></span>
+      <span class="unvisited" style="bottom:36.28%"></span>
+      <span class="unvisited" style="bottom:35.40%"></span>
+      <span class="unvisited" style="bottom:31.86%"></span>
+      <span class="unvisited" style="bottom:30.97%"></span>
+      <span class="unvisited" style="bottom:30.09%"></span>
+      <span class="unvisited" style="bottom:27.43%"></span>
+      <span class="unvisited" style="bottom:22.12%"></span>
+      <span class="unvisited" style="bottom:19.47%"></span>
+      <span class="unvisited" style="bottom:18.58%"></span>
+      <span class="unvisited" style="bottom:17.70%"></span>
+      <span class="unvisited" style="bottom:16.81%"></span>
+      <span class="unvisited" style="bottom:15.93%"></span>
+      <span class="unvisited" style="bottom:15.04%"></span>
+      <span class="unvisited" style="bottom:14.16%"></span>
+      <span class="unvisited" style="bottom:13.27%"></span>
+      <span class="unvisited" style="bottom:11.50%"></span>
+      <span class="unvisited" style="bottom:10.62%"></span>
+      <span class="unvisited" style="bottom:9.73%"></span>
+      <span class="unvisited" style="bottom:8.85%"></span>
+      <span class="unvisited" style="bottom:7.96%"></span>
+      <span class="unvisited" style="bottom:7.08%"></span>
+      <span class="unvisited" style="bottom:6.19%"></span>
+      <span class="unvisited" style="bottom:5.31%"></span>
+      <span class="unvisited" style="bottom:2.65%"></span>
+      <span class="unvisited" style="bottom:1.77%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span class="unvisited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span class="unvisited"> </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span class="unvisited"> </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span class="unvisited"> </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span class="unvisited"> </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/stats/anova.ml *)
+open Ast
+
+(** anova(model1, model2, ...) — performs analysis of variance (ANOVA) or likelihood ratio test. *)
+(*
+--# Analysis of Variance (ANOVA)
+--#
+--# Compares nested models using F-tests (for linear models) or Chi-square tests (for GLMs).
+--#
+--# @name anova
+--# @param ... :: Model One or more model objects to compare.
+--# @return :: DataFrame ANOVA table with statistics and p-values.
+--# @example
+--#   m1 = lm(mpg ~ wt, data = mtcars)
+--#   m2 = lm(mpg ~ wt + hp, data = mtcars)
+--#   anova(m1, m2)
+--# @family stats
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "anova"
+    (make_builtin_name<span data-count="136">d</span> ~name:"anova" ~variadic:true 0 (fun args _env -&gt;
+      <span data-count="0">l</span>et models = List.filter_map (fun (lbl, v) -&gt;
+        <span data-count="0">m</span>atch v with
+        | <span data-count="0">V</span>Dict d -&gt; Some (lbl, d)
+        | <span data-count="0">_</span> -&gt; None
+      ) args in
+      
+      <span data-count="0">i</span>f List.lengt<span data-count="0">h</span> models &lt; 2 then
+        <span data-count="0">E</span>rror.value_error "Function `anova` requires at least two models to compare."
+      else <span data-count="0">b</span>egin
+        (* 1. Extract stats for all models *)
+        let get_stats lbl m =
+          <span data-count="0">m</span>atch List.assoc_opt "_model_data" m with
+          | <span data-count="0">S</span>ome (VDict d) -&gt;
+              let get_f k = <span data-count="0">m</span>atch List.assoc_opt k d with <span data-count="0">S</span>ome (VFloat f) -&gt; f | <span data-count="0">_</span> -&gt; 0.0 in
+              let get_i k = <span data-count="0">m</span>atch List.assoc_opt k d with <span data-count="0">S</span>ome (VInt i) -&gt; i | <span data-count="0">_</span> -&gt; 0 in
+              let deviance = get_f "deviance" in
+              <span data-count="0">l</span>et df_resid = get_i "df_residual" in
+              <span data-count="0">l</span>et family = match List.assoc_opt "family" d with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "gaussian" in
+              let name = match lbl with
+                | <span data-count="0">S</span>ome s -&gt; s
+                | <span data-count="0">N</span>one -&gt; (match List.assoc_opt "name" m with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "(model)")
+              in
+              (name, deviance, df_resid, family)
+          | <span data-count="0">_</span> -&gt; ("", 0.0, 0, "gaussian")
+        in
+        
+        let stats = List.map (fun (lbl, m) -&gt; <span data-count="0">g</span>et_stats lbl m) models in
+        
+        (* 2. Sort by df_residual descending (smaller model first) *)
+        <span data-count="0">l</span>et sorted_stats = List.sort (fun (_, _, df1, _) (_, _, df2, _) -&gt; <span data-count="0">c</span>ompare df2 df1) stats in
+        
+        (* 3. Compute row-wise comparisons *)
+        <span data-count="0">l</span>et results = ref [] in
+        let prev_dev = ref 0.0 in
+        let prev_df = ref 0 in
+        
+        List.iteri (fun i (name, dev, df, family) -&gt;
+          <span data-count="0">i</span>f i = 0 then <span data-count="0">b</span>egin
+            results := (name, float_of_in<span data-count="0">t</span> df, dev, nan, nan, nan, nan) :: !results;
+            prev_dev := dev;
+            prev_df := df;
+          end else <span data-count="0">b</span>egin
+            let delta_df = !prev_df - df in
+            let delta_dev = !prev_dev -. dev in
+            
+            let statistic, p_val = 
+              if delta_df &lt;= 0 then <span data-count="0">(</span>nan, nan)
+              else <span data-count="0">i</span>f family = "gaussian" then
+                (* F-test *)
+                <span data-count="0">l</span>et f_stat = (delta_dev /. float_of_in<span data-count="0">t</span> delta_df) /. (dev /. float_of_in<span data-count="0">t</span> df) in
+                let p = 1.0 -. Distributions.p<span data-count="0">f</span> f_stat delta_df df in
+                (f_stat, p)
+              else
+                (* Chi-square test (LRT) *)
+                <span data-count="0">l</span>et chi_stat = Float.abs delta_dev in
+                <span data-count="0">l</span>et p = Distributions.pchisq chi_stat delta_df in
+                <span data-count="0">(</span>chi_stat, 1.0 -. p)
+            in
+            
+            results := (name, float_of_in<span data-count="0">t</span> df, dev, float_of_in<span data-count="0">t</span> delta_df, delta_dev, statistic, p_val) :: !results;
+            prev_dev := dev;
+            prev_df := df;
+          end
+        ) sorted_stats;
+        
+        <span data-count="0">l</span>et results = List.rev !results in
+        
+        (* 4. Build DataFrame *)
+        <span data-count="0">l</span>et mk_col f = <span data-count="0">A</span>rrow_table.FloatColumn (Array.of_lis<span data-count="0">t</span> (List.ma<span data-count="0">p</span> (fun v -&gt; <span data-count="0">i</span>f Float.is_nan v then <span data-count="0">N</span>one else <span data-count="0">S</span>ome v) f)) in
+        let names = List.map (fun (n, _, _, _, _, _, _) -&gt; <span data-count="0">S</span>ome n) results in
+        <span data-count="0">l</span>et df_resid = List.map (fun (_, d, _, _, _, _, _) -&gt; <span data-count="0">d</span>) results in
+        <span data-count="0">l</span>et deviance = List.map (fun (_, _, d, _, _, _, _) -&gt; <span data-count="0">d</span>) results in
+        <span data-count="0">l</span>et delta_df = List.map (fun (_, _, _, d, _, _, _) -&gt; <span data-count="0">d</span>) results in
+        <span data-count="0">l</span>et delta_dev = List.map (fun (_, _, _, _, d, _, _) -&gt; <span data-count="0">d</span>) results in
+        <span data-count="0">l</span>et stat = List.map (fun (_, _, _, _, _, s, _) -&gt; <span data-count="0">s</span>) results in
+        <span data-count="0">l</span>et pvals = List.map (fun (_, _, _, _, _, _, p) -&gt; <span data-count="0">p</span>) results in
+        
+        <span data-count="0">l</span>et columns = [
+          ("model", Arrow_table.StringColumn (Array.of_lis<span data-count="0">t</span> names));
+          ("df_residual", mk_co<span data-count="0">l</span> df_resid);
+          ("deviance", mk_co<span data-count="0">l</span> deviance);
+          ("delta_df", mk_co<span data-count="0">l</span> delta_df);
+          ("delta_deviance", mk_co<span data-count="0">l</span> delta_dev);
+          ("statistic", mk_co<span data-count="0">l</span> stat);
+          ("p_value", mk_co<span data-count="0">l</span> pvals);
+        ] in
+        
+        let table = Arrow_table.create columns (List.lengt<span data-count="0">h</span> results) in
+        <span data-count="0">V</span>DataFrame { arrow_table = table; group_keys = [] }
+      end
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

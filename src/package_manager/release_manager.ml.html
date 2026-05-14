@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>release_manager.ml &mdash; Coverage report</title>
+    <meta name="description" content="22.34% coverage in src/package_manager/release_manager.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/package_manager/</span>release_manager.ml
+        </a>
+      </h1>
+      <h2>22.34%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="top:12.68%"></span>
+      <span class="unvisited" style="top:16.90%"></span>
+      <span class="unvisited" style="top:17.84%"></span>
+      <span class="unvisited" style="top:28.17%"></span>
+      <span class="unvisited" style="top:28.64%"></span>
+      <span class="unvisited" style="top:29.11%"></span>
+      <span class="unvisited" style="top:29.58%"></span>
+      <span class="unvisited" style="top:30.05%"></span>
+      <span class="unvisited" style="top:30.52%"></span>
+      <span class="unvisited" style="top:32.86%"></span>
+      <span class="unvisited" style="top:33.80%"></span>
+      <span class="unvisited" style="top:34.74%"></span>
+      <span class="unvisited" style="top:35.21%"></span>
+      <span class="unvisited" style="top:36.15%"></span>
+      <span class="unvisited" style="top:37.09%"></span>
+      <span class="unvisited" style="top:37.56%"></span>
+      <span class="unvisited" style="top:38.03%"></span>
+      <span class="unvisited" style="top:38.97%"></span>
+      <span class="unvisited" style="top:39.44%"></span>
+      <span class="unvisited" style="top:40.38%"></span>
+      <span class="unvisited" style="top:40.85%"></span>
+      <span class="unvisited" style="top:41.78%"></span>
+      <span class="unvisited" style="top:42.25%"></span>
+      <span class="unvisited" style="top:42.72%"></span>
+      <span class="unvisited" style="top:43.66%"></span>
+      <span class="unvisited" style="top:44.13%"></span>
+      <span class="unvisited" style="top:44.60%"></span>
+      <span class="unvisited" style="top:45.07%"></span>
+      <span class="unvisited" style="top:45.54%"></span>
+      <span class="unvisited" style="top:46.01%"></span>
+      <span class="unvisited" style="top:46.48%"></span>
+      <span class="unvisited" style="top:47.89%"></span>
+      <span class="unvisited" style="top:48.36%"></span>
+      <span class="unvisited" style="top:48.83%"></span>
+      <span class="unvisited" style="top:49.30%"></span>
+      <span class="unvisited" style="top:49.77%"></span>
+      <span class="unvisited" style="bottom:47.42%"></span>
+      <span class="unvisited" style="bottom:46.95%"></span>
+      <span class="unvisited" style="bottom:46.48%"></span>
+      <span class="unvisited" style="bottom:46.01%"></span>
+      <span class="unvisited" style="bottom:45.54%"></span>
+      <span class="unvisited" style="bottom:45.07%"></span>
+      <span class="unvisited" style="bottom:44.60%"></span>
+      <span class="unvisited" style="bottom:44.13%"></span>
+      <span class="unvisited" style="bottom:43.19%"></span>
+      <span class="unvisited" style="bottom:42.72%"></span>
+      <span class="unvisited" style="bottom:42.25%"></span>
+      <span class="unvisited" style="bottom:39.91%"></span>
+      <span class="unvisited" style="bottom:39.44%"></span>
+      <span class="unvisited" style="bottom:38.97%"></span>
+      <span class="unvisited" style="bottom:38.03%"></span>
+      <span class="unvisited" style="bottom:37.56%"></span>
+      <span class="unvisited" style="bottom:37.09%"></span>
+      <span class="unvisited" style="bottom:36.62%"></span>
+      <span class="unvisited" style="bottom:35.68%"></span>
+      <span class="unvisited" style="bottom:35.21%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.86%"></span>
+      <span class="unvisited" style="bottom:32.39%"></span>
+      <span class="unvisited" style="bottom:31.92%"></span>
+      <span class="unvisited" style="bottom:31.46%"></span>
+      <span class="unvisited" style="bottom:29.58%"></span>
+      <span class="unvisited" style="bottom:29.11%"></span>
+      <span class="unvisited" style="bottom:28.64%"></span>
+      <span class="unvisited" style="bottom:28.17%"></span>
+      <span class="unvisited" style="bottom:27.23%"></span>
+      <span class="unvisited" style="bottom:26.76%"></span>
+      <span class="unvisited" style="bottom:24.88%"></span>
+      <span class="unvisited" style="bottom:24.41%"></span>
+      <span class="unvisited" style="bottom:23.94%"></span>
+      <span class="unvisited" style="bottom:23.47%"></span>
+      <span class="unvisited" style="bottom:21.60%"></span>
+      <span class="unvisited" style="bottom:21.13%"></span>
+      <span class="unvisited" style="bottom:20.66%"></span>
+      <span class="unvisited" style="bottom:19.72%"></span>
+      <span class="unvisited" style="bottom:19.25%"></span>
+      <span class="unvisited" style="bottom:18.78%"></span>
+      <span class="unvisited" style="bottom:18.31%"></span>
+      <span class="unvisited" style="bottom:17.84%"></span>
+      <span class="unvisited" style="bottom:17.37%"></span>
+      <span class="unvisited" style="bottom:15.49%"></span>
+      <span class="unvisited" style="bottom:15.02%"></span>
+      <span class="unvisited" style="bottom:14.55%"></span>
+      <span class="unvisited" style="bottom:13.62%"></span>
+      <span class="unvisited" style="bottom:13.15%"></span>
+      <span class="unvisited" style="bottom:12.68%"></span>
+      <span class="unvisited" style="bottom:11.74%"></span>
+      <span class="unvisited" style="bottom:11.27%"></span>
+      <span class="unvisited" style="bottom:10.80%"></span>
+      <span class="unvisited" style="bottom:9.86%"></span>
+      <span class="unvisited" style="bottom:9.39%"></span>
+      <span class="unvisited" style="bottom:7.51%"></span>
+      <span class="unvisited" style="bottom:7.04%"></span>
+      <span class="unvisited" style="bottom:6.57%"></span>
+      <span class="unvisited" style="bottom:5.16%"></span>
+      <span class="unvisited" style="bottom:4.23%"></span>
+      <span class="unvisited" style="bottom:3.76%"></span>
+      <span class="unvisited" style="bottom:1.41%"></span>
+      <span class="unvisited" style="bottom:0.47%"></span>
+      <span class="unvisited" style="bottom:0.00%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span class="visited"> </span>
+<a id="L11"></a><span class="visited"> </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span class="visited"> </span>
+<a id="L15"></a><span class="visited"> </span>
+<a id="L16"></a><span class="visited"> </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span class="some-visited"> </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="unvisited"> </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span class="unvisited"> </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span class="unvisited"> </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span class="unvisited"> </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span class="unvisited"> </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span class="unvisited"> </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span class="unvisited"> </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span class="unvisited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span class="unvisited"> </span>
+<a id="L139"></a><span > </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span class="unvisited"> </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span class="unvisited"> </span>
+<a id="L151"></a><span class="unvisited"> </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span class="unvisited"> </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span class="unvisited"> </span>
+<a id="L156"></a><span class="unvisited"> </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span class="unvisited"> </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span class="unvisited"> </span>
+<a id="L164"></a><span > </span>
+<a id="L165"></a><span > </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span class="unvisited"> </span>
+<a id="L168"></a><span class="unvisited"> </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span > </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span class="unvisited"> </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span class="unvisited"> </span>
+<a id="L175"></a><span class="unvisited"> </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span class="unvisited"> </span>
+<a id="L181"></a><span class="unvisited"> </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span class="unvisited"> </span>
+<a id="L185"></a><span class="unvisited"> </span>
+<a id="L186"></a><span class="unvisited"> </span>
+<a id="L187"></a><span > </span>
+<a id="L188"></a><span class="unvisited"> </span>
+<a id="L189"></a><span class="unvisited"> </span>
+<a id="L190"></a><span class="unvisited"> </span>
+<a id="L191"></a><span > </span>
+<a id="L192"></a><span class="unvisited"> </span>
+<a id="L193"></a><span class="unvisited"> </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span > </span>
+<a id="L197"></a><span class="unvisited"> </span>
+<a id="L198"></a><span class="unvisited"> </span>
+<a id="L199"></a><span class="unvisited"> </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span class="unvisited"> </span>
+<a id="L203"></a><span > </span>
+<a id="L204"></a><span class="unvisited"> </span>
+<a id="L205"></a><span class="unvisited"> </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span class="unvisited"> </span>
+<a id="L211"></a><span > </span>
+<a id="L212"></a><span class="unvisited"> </span>
+<a id="L213"></a><span class="unvisited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+</pre>
+<pre><code class="ocaml">(* src/package_manager/release_manager.ml *)
+(* Handles release validation and git tagging for t publish *)
+
+open Package_types
+
+(** Execute a shell command and return Ok stdout or Error stderr/exit_code.
+    SECURITY NOTE: Only use this for fixed, trusted command strings.
+    For commands that include user-supplied data, use [run_command_argv] instead. *)
+let run_command cmd : (string, string) result =
+  <span data-count="130">t</span>ry
+    let (ch_in, ch_out, ch_err) = Unix.open_process_full cmd (Unix.environmen<span data-count="130">t</span> ()) in
+    <span data-count="130">c</span>lose_out ch_out; (* Close stdin to the process *)
+
+    <span data-count="130">l</span>et out_buf = Buffer.create 1024 in
+    <span data-count="130">l</span>et err_buf = Buffer.create 1024 in
+    <span data-count="130">l</span>et buf = Bytes.create 4096 in
+
+    (* Drain stdout and stderr concurrently to avoid deadlock on full pipe buffers. *)
+    <span data-count="130">l</span>et fd_out = Unix.descr_of_in_channel ch_in in
+    <span data-count="130">l</span>et fd_err = Unix.descr_of_in_channel ch_err in
+
+    <span data-count="130">l</span>et rec drain out_open err_open =
+      <span data-count="393">i</span>f not out_open &amp;&amp; <span data-count="130">n</span>ot err_open then
+        <span data-count="130">(</span>)
+      else
+        <span data-count="263">l</span>et read_fds =
+          [] |&gt; (fun acc -&gt; <span data-count="263">i</span>f out_open then <span data-count="263">f</span>d_out :: acc else <span data-count="0">a</span>cc)
+             |&gt; <span data-count="263">(</span>fun acc -&gt; <span data-count="263">i</span>f err_open then <span data-count="262">f</span>d_err :: acc else <span data-count="1">a</span>cc)
+        in
+        <span data-count="263">l</span>et ready, _, _ = Unix.select read_fds [] [] (-1.) in
+        <span data-count="263">l</span>et out_open =
+          if out_open &amp;&amp; <span data-count="263">L</span>ist.me<span data-count="263">m</span> fd_out ready then <span data-count="130">(</span>
+            let n = input ch_in buf 0 (Bytes.lengt<span data-count="130">h</span> buf) in
+            <span data-count="130">i</span>f n = 0 then
+              <span data-count="130">f</span>alse
+            else <span data-count="0">(</span>
+              Buffer.add_subbytes out_buf buf 0 n;
+              <span data-count="0">t</span>rue
+            )
+          ) else <span data-count="133">o</span>ut_open
+        in
+        let err_open =
+          if err_open &amp;&amp; <span data-count="262">L</span>ist.me<span data-count="262">m</span> fd_err ready then <span data-count="262">(</span>
+            let n = input ch_err buf 0 (Bytes.lengt<span data-count="262">h</span> buf) in
+            <span data-count="262">i</span>f n = 0 then
+              <span data-count="130">f</span>alse
+            else <span data-count="132">(</span>
+              Buffer.add_subbytes err_buf buf 0 n;
+              <span data-count="132">t</span>rue
+            )
+          ) else <span data-count="1">e</span>rr_open
+        in
+        drain out_open err_open
+    in
+    drain true true;
+
+    <span data-count="130">l</span>et status = Unix.close_process_full (ch_in, ch_out, ch_err) in
+    <span data-count="130">m</span>atch status with
+    | <span data-count="130">U</span>nix.WEXITED 0 -&gt; Ok (String.tri<span data-count="130">m</span> (Buffer.content<span data-count="130">s</span> out_buf))
+    | <span data-count="0">U</span>nix.WEXITED n -&gt; 
+        let err_msg = String.trim (Buffer.content<span data-count="0">s</span> err_buf) in
+        <span data-count="0">i</span>f err_msg &lt;&gt; "" then <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Command '%s' failed (exit %d): %s" cmd n err_msg)
+        else <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Command '%s' failed with exit code %d" cmd n)
+    | <span data-count="0">_</span> -&gt; Error (Printf.sprint<span data-count="0">f</span> "Command '%s' failed unexpectedly" cmd)
+  with <span data-count="0">e</span> -&gt; Error (Printexc.to_strin<span data-count="0">g</span> e)
+
+(** Execute a command with an explicit argument vector, bypassing shell interpretation.
+    This prevents shell injection when arguments contain user-supplied data. *)
+let run_command_argv (argv : string array) : (string, string) result =
+  <span data-count="0">i</span>f Array.lengt<span data-count="0">h</span> argv = 0 then <span data-count="0">E</span>rror "run_command_argv: empty argument vector"
+  else
+    <span data-count="0">t</span>ry
+      let prog = argv.(0) in
+      <span data-count="0">l</span>et (ch_in, ch_out, ch_err) =
+        Unix.open_process_args_full prog argv (Unix.environmen<span data-count="0">t</span> ())
+      in
+      <span data-count="0">c</span>lose_out ch_out;
+
+      <span data-count="0">l</span>et out_buf = Buffer.create 1024 in
+      <span data-count="0">l</span>et err_buf = Buffer.create 1024 in
+      <span data-count="0">l</span>et buf = Bytes.create 4096 in
+
+      <span data-count="0">l</span>et fd_out = Unix.descr_of_in_channel ch_in in
+      <span data-count="0">l</span>et fd_err = Unix.descr_of_in_channel ch_err in
+
+      <span data-count="0">l</span>et rec drain out_open err_open =
+        <span data-count="0">i</span>f not out_open &amp;&amp; <span data-count="0">n</span>ot err_open then <span data-count="0">(</span>)
+        else
+          <span data-count="0">l</span>et read_fds =
+            [] |&gt; (fun acc -&gt; <span data-count="0">i</span>f out_open then <span data-count="0">f</span>d_out :: acc else <span data-count="0">a</span>cc)
+               |&gt; <span data-count="0">(</span>fun acc -&gt; <span data-count="0">i</span>f err_open then <span data-count="0">f</span>d_err :: acc else <span data-count="0">a</span>cc)
+          in
+          <span data-count="0">l</span>et ready, _, _ = Unix.select read_fds [] [] (-1.) in
+          <span data-count="0">l</span>et out_open =
+            if out_open &amp;&amp; <span data-count="0">L</span>ist.me<span data-count="0">m</span> fd_out ready then <span data-count="0">(</span>
+              let n = input ch_in buf 0 (Bytes.lengt<span data-count="0">h</span> buf) in
+              <span data-count="0">i</span>f n = 0 then <span data-count="0">f</span>alse
+              else <span data-count="0">(</span>Buffer.add_subbytes out_buf buf 0 n; <span data-count="0">t</span>rue)
+            ) else <span data-count="0">o</span>ut_open
+          in
+          let err_open =
+            if err_open &amp;&amp; <span data-count="0">L</span>ist.me<span data-count="0">m</span> fd_err ready then <span data-count="0">(</span>
+              let n = input ch_err buf 0 (Bytes.lengt<span data-count="0">h</span> buf) in
+              <span data-count="0">i</span>f n = 0 then <span data-count="0">f</span>alse
+              else <span data-count="0">(</span>Buffer.add_subbytes err_buf buf 0 n; <span data-count="0">t</span>rue)
+            ) else <span data-count="0">e</span>rr_open
+          in
+          drain out_open err_open
+      in
+      drain true true;
+
+      <span data-count="0">l</span>et cmd_display = String.concat " " (Array.to_lis<span data-count="0">t</span> argv) in
+      <span data-count="0">l</span>et status = Unix.close_process_full (ch_in, ch_out, ch_err) in
+      <span data-count="0">m</span>atch status with
+      | <span data-count="0">U</span>nix.WEXITED 0 -&gt; Ok (String.tri<span data-count="0">m</span> (Buffer.content<span data-count="0">s</span> out_buf))
+      | <span data-count="0">U</span>nix.WEXITED n -&gt;
+          let err_msg = String.trim (Buffer.content<span data-count="0">s</span> err_buf) in
+          <span data-count="0">i</span>f err_msg &lt;&gt; "" then
+            <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Command '%s' failed (exit %d): %s" cmd_display n err_msg)
+          else
+            <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Command '%s' failed with exit code %d" cmd_display n)
+      | <span data-count="0">_</span> -&gt; Error (Printf.sprint<span data-count="0">f</span> "Command '%s' failed unexpectedly" cmd_display)
+    with <span data-count="0">e</span> -&gt; Error (Printexc.to_strin<span data-count="0">g</span> e)
+
+(** Validate that a version string contains only safe characters.
+    Accepts semver-like versions: digits, dots, hyphens, and alphanumerics. *)
+let validate_version_format version =
+  <span data-count="0">l</span>et is_safe c =
+    <span data-count="0">(</span>c &gt;= '0' &amp;&amp; <span data-count="0">c</span> &lt;= '9'<span data-count="0">)</span> || (c &gt;= 'a' &amp;&amp; <span data-count="0">c</span> &lt;= 'z'<span data-count="0">)</span> || (c &gt;= 'A' &amp;&amp; <span data-count="0">c</span> &lt;= 'Z'<span data-count="0">)</span>
+    || c = '.<span data-count="0">'</span> || c = '-<span data-count="0">'</span> || c = '_<span data-count="0">'</span>
+  in
+  if String.lengt<span data-count="0">h</span> version = 0 then
+    <span data-count="0">E</span>rror "Version string is empty."
+  else <span data-count="0">i</span>f String.for_all is_safe version then
+    <span data-count="0">O</span>k ()
+  else
+    <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Version `%s` contains invalid characters. Only alphanumerics, dots, hyphens, and underscores are allowed."
+             (String.su<span data-count="0">b</span> version 0 (mi<span data-count="0">n</span> 40 (String.lengt<span data-count="0">h</span> version))))
+
+(** Check if git working directory is clean *)
+let validate_clean_git () =
+  <span data-count="0">m</span>atch run_command "git status --porcelain" with
+  | <span data-count="0">O</span>k output -&gt;
+      if String.tri<span data-count="0">m</span> output = "" then <span data-count="0">O</span>k ()
+      else <span data-count="0">E</span>rror "Git working directory is not clean. Commit or stash changes first."
+  | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to check git status: " ^ msg)
+
+(** Check if the current git repository has at least one configured remote *)
+let validate_git_remote () =
+  <span data-count="0">m</span>atch run_command "git remote" with
+  | <span data-count="0">O</span>k output -&gt;
+      if String.tri<span data-count="0">m</span> output = "" then
+        <span data-count="0">E</span>rror "Git remote is not configured. Add a remote and push the project before running `t update`."
+      else
+        <span data-count="0">O</span>k ()
+  | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to check git remotes: " ^ msg)
+
+(** Run the test suite *)
+let validate_tests_pass () =
+  <span data-count="0">P</span>rintf.printf "Running tests...\n";
+  <span data-count="0">m</span>atch Sys.command "nix develop --accept-flake-config -c dune runtest" with
+  | <span data-count="0">0</span> -&gt; Ok ()
+  | <span data-count="0">n</span> -&gt; Error (Printf.sprint<span data-count="0">f</span> "Tests failed (exit code %d). Fix tests before publishing." n)
+
+(** Parse version from DESCRIPTION.toml *)
+let get_package_version dir =
+  <span data-count="0">l</span>et desc_path = Filename.concat dir "DESCRIPTION.toml" in
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> desc_path) then
+    <span data-count="0">E</span>rror "DESCRIPTION.toml not found"
+  else
+    <span data-count="0">l</span>et ch = open_in desc_path in
+    <span data-count="0">l</span>et content = really_input_string ch (in_channel_lengt<span data-count="0">h</span> ch) in
+    <span data-count="0">c</span>lose_in ch;
+    <span data-count="0">m</span>atch Toml_parser.parse_description_toml content with
+    | <span data-count="0">O</span>k config -&gt; Ok config.version
+    | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to parse DESCRIPTION.toml: " ^ msg)
+
+(** Check if CHANGELOG.md contains an entry for the given version *)
+let validate_changelog dir version =
+  <span data-count="0">l</span>et changelog_path = Filename.concat dir "CHANGELOG.md" in
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> changelog_path) then
+    <span data-count="0">E</span>rror "CHANGELOG.md not found"
+  else
+    <span data-count="0">l</span>et ch = open_in changelog_path in
+    <span data-count="0">l</span>et content = really_input_string ch (in_channel_lengt<span data-count="0">h</span> ch) in
+    <span data-count="0">c</span>lose_in ch;
+    (* Look for "## [version]" or "## version" *)
+    <span data-count="0">l</span>et pattern = Str.regexp_string version in
+    <span data-count="0">t</span>ry
+      ignore (Str.search_forwar<span data-count="0">d</span> pattern content 0);
+      Ok ()
+    with <span data-count="0">N</span>ot_found -&gt;
+      Error (Printf.sprint<span data-count="0">f</span> "CHANGELOG.md does not contain an entry for version %s" version)
+
+(** Create a git tag — uses argv-based execution to prevent shell injection *)
+let create_git_tag version =
+  <span data-count="0">m</span>atch validate_version_format version with
+  | <span data-count="0">E</span>rror msg -&gt; Error ("Invalid version for git tag: " ^ msg)
+  | <span data-count="0">O</span>k () -&gt;
+      let tag = "v" ^ version in
+      let msg = Printf.sprintf "Release %s" tag in
+      <span data-count="0">l</span>et argv = [| "git"; "tag"; "-a"; tag; "-m"; msg |] in
+      match run_command_argv argv with
+      | <span data-count="0">O</span>k _ -&gt; Ok tag
+      | <span data-count="0">E</span>rror e -&gt; Error ("Failed to create git tag: " ^ e)
+
+(** Push a git tag — uses argv-based execution to prevent shell injection.
+    The tag is expected to come from [create_git_tag] which already validates the version. *)
+let push_git_tag tag =
+  <span data-count="0">l</span>et argv = [| "git"; "push"; "origin"; tag |] in
+  match run_command_argv argv with
+  | <span data-count="0">O</span>k _ -&gt; Ok ()
+  | <span data-count="0">E</span>rror e -&gt; Error ("Failed to push git tag: " ^ e)
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

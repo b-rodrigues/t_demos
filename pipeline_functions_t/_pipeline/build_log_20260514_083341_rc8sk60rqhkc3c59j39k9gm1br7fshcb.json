@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260514_083341",
+  "hash": "rc8sk60rqhkc3c59j39k9gm1br7fshcb",
+  "out_path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output",
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output/raw_data/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "positive_rows",
+  "path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output/positive_rows/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["raw_data"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "quiet_positive_rows",
+  "path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output/quiet_positive_rows/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["raw_data"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "grouped_rows",
+  "path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output/grouped_rows/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["quiet_positive_rows"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "final_summary",
+  "path": "/nix/store/rc8sk60rqhkc3c59j39k9gm1br7fshcb-pipeline_output/final_summary/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["grouped_rows"],
+  "success": false,
+  "warnings": false
+}
+]
+}

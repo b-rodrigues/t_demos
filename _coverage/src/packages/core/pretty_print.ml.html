@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pretty_print.ml &mdash; Coverage report</title>
+    <meta name="description" content="0.65% coverage in src/packages/core/pretty_print.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/core/</span>pretty_print.ml
+        </a>
+      </h1>
+      <h2>0.65%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:1.50%"></span>
+      <span class="unvisited" style="top:1.80%"></span>
+      <span class="unvisited" style="top:2.10%"></span>
+      <span class="unvisited" style="top:2.70%"></span>
+      <span class="unvisited" style="top:3.00%"></span>
+      <span class="unvisited" style="top:3.30%"></span>
+      <span class="unvisited" style="top:3.60%"></span>
+      <span class="unvisited" style="top:3.90%"></span>
+      <span class="unvisited" style="top:4.20%"></span>
+      <span class="unvisited" style="top:5.41%"></span>
+      <span class="unvisited" style="top:5.71%"></span>
+      <span class="unvisited" style="top:6.01%"></span>
+      <span class="unvisited" style="top:6.31%"></span>
+      <span class="unvisited" style="top:6.91%"></span>
+      <span class="unvisited" style="top:7.21%"></span>
+      <span class="unvisited" style="top:7.51%"></span>
+      <span class="unvisited" style="top:8.41%"></span>
+      <span class="unvisited" style="top:8.71%"></span>
+      <span class="unvisited" style="top:9.01%"></span>
+      <span class="unvisited" style="top:9.61%"></span>
+      <span class="unvisited" style="top:10.21%"></span>
+      <span class="unvisited" style="top:10.81%"></span>
+      <span class="unvisited" style="top:11.11%"></span>
+      <span class="unvisited" style="top:11.71%"></span>
+      <span class="unvisited" style="top:12.31%"></span>
+      <span class="unvisited" style="top:12.61%"></span>
+      <span class="unvisited" style="top:13.21%"></span>
+      <span class="unvisited" style="top:13.81%"></span>
+      <span class="unvisited" style="top:14.11%"></span>
+      <span class="unvisited" style="top:14.41%"></span>
+      <span class="unvisited" style="top:14.71%"></span>
+      <span class="unvisited" style="top:15.02%"></span>
+      <span class="unvisited" style="top:15.62%"></span>
+      <span class="unvisited" style="top:16.52%"></span>
+      <span class="unvisited" style="top:17.12%"></span>
+      <span class="unvisited" style="top:17.42%"></span>
+      <span class="unvisited" style="top:17.72%"></span>
+      <span class="unvisited" style="top:18.02%"></span>
+      <span class="unvisited" style="top:18.32%"></span>
+      <span class="unvisited" style="top:19.52%"></span>
+      <span class="unvisited" style="top:19.82%"></span>
+      <span class="unvisited" style="top:20.42%"></span>
+      <span class="unvisited" style="top:21.32%"></span>
+      <span class="unvisited" style="top:21.62%"></span>
+      <span class="unvisited" style="top:22.52%"></span>
+      <span class="unvisited" style="top:23.12%"></span>
+      <span class="unvisited" style="top:23.42%"></span>
+      <span class="unvisited" style="top:23.72%"></span>
+      <span class="unvisited" style="top:24.32%"></span>
+      <span class="unvisited" style="top:24.62%"></span>
+      <span class="unvisited" style="top:25.53%"></span>
+      <span class="unvisited" style="top:26.73%"></span>
+      <span class="unvisited" style="top:27.03%"></span>
+      <span class="unvisited" style="top:27.33%"></span>
+      <span class="unvisited" style="top:27.63%"></span>
+      <span class="unvisited" style="top:27.93%"></span>
+      <span class="unvisited" style="top:28.23%"></span>
+      <span class="unvisited" style="top:29.13%"></span>
+      <span class="unvisited" style="top:29.43%"></span>
+      <span class="unvisited" style="top:30.33%"></span>
+      <span class="unvisited" style="top:30.63%"></span>
+      <span class="unvisited" style="top:30.93%"></span>
+      <span class="unvisited" style="top:31.23%"></span>
+      <span class="unvisited" style="top:31.83%"></span>
+      <span class="unvisited" style="top:32.43%"></span>
+      <span class="unvisited" style="top:33.63%"></span>
+      <span class="unvisited" style="top:33.93%"></span>
+      <span class="unvisited" style="top:34.53%"></span>
+      <span class="unvisited" style="top:34.83%"></span>
+      <span class="unvisited" style="top:35.44%"></span>
+      <span class="unvisited" style="top:35.74%"></span>
+      <span class="unvisited" style="top:36.04%"></span>
+      <span class="unvisited" style="top:36.64%"></span>
+      <span class="unvisited" style="top:36.94%"></span>
+      <span class="unvisited" style="top:37.24%"></span>
+      <span class="unvisited" style="top:37.84%"></span>
+      <span class="unvisited" style="top:38.44%"></span>
+      <span class="unvisited" style="top:39.64%"></span>
+      <span class="unvisited" style="top:39.94%"></span>
+      <span class="unvisited" style="top:40.54%"></span>
+      <span class="unvisited" style="top:40.84%"></span>
+      <span class="unvisited" style="top:41.74%"></span>
+      <span class="unvisited" style="top:42.04%"></span>
+      <span class="unvisited" style="top:42.34%"></span>
+      <span class="unvisited" style="top:43.24%"></span>
+      <span class="unvisited" style="top:43.54%"></span>
+      <span class="unvisited" style="top:43.84%"></span>
+      <span class="unvisited" style="top:44.14%"></span>
+      <span class="unvisited" style="top:44.44%"></span>
+      <span class="unvisited" style="top:45.65%"></span>
+      <span class="unvisited" style="top:45.95%"></span>
+      <span class="unvisited" style="top:46.55%"></span>
+      <span class="unvisited" style="top:46.85%"></span>
+      <span class="unvisited" style="top:47.15%"></span>
+      <span class="unvisited" style="top:48.05%"></span>
+      <span class="unvisited" style="top:48.35%"></span>
+      <span class="unvisited" style="top:48.65%"></span>
+      <span class="unvisited" style="top:48.95%"></span>
+      <span class="unvisited" style="top:49.25%"></span>
+      <span class="unvisited" style="bottom:48.95%"></span>
+      <span class="unvisited" style="bottom:48.65%"></span>
+      <span class="unvisited" style="bottom:48.05%"></span>
+      <span class="unvisited" style="bottom:47.45%"></span>
+      <span class="unvisited" style="bottom:47.15%"></span>
+      <span class="unvisited" style="bottom:46.55%"></span>
+      <span class="unvisited" style="bottom:46.25%"></span>
+      <span class="unvisited" style="bottom:45.95%"></span>
+      <span class="unvisited" style="bottom:45.65%"></span>
+      <span class="unvisited" style="bottom:45.35%"></span>
+      <span class="unvisited" style="bottom:45.05%"></span>
+      <span class="unvisited" style="bottom:44.44%"></span>
+      <span class="unvisited" style="bottom:43.84%"></span>
+      <span class="unvisited" style="bottom:43.54%"></span>
+      <span class="unvisited" style="bottom:43.24%"></span>
+      <span class="unvisited" style="bottom:42.34%"></span>
+      <span class="unvisited" style="bottom:42.04%"></span>
+      <span class="unvisited" style="bottom:41.74%"></span>
+      <span class="unvisited" style="bottom:41.44%"></span>
+      <span class="unvisited" style="bottom:41.14%"></span>
+      <span class="unvisited" style="bottom:39.34%"></span>
+      <span class="unvisited" style="bottom:39.04%"></span>
+      <span class="unvisited" style="bottom:38.44%"></span>
+      <span class="unvisited" style="bottom:38.14%"></span>
+      <span class="unvisited" style="bottom:37.84%"></span>
+      <span class="unvisited" style="bottom:37.54%"></span>
+      <span class="unvisited" style="bottom:36.64%"></span>
+      <span class="unvisited" style="bottom:36.34%"></span>
+      <span class="unvisited" style="bottom:35.44%"></span>
+      <span class="unvisited" style="bottom:35.14%"></span>
+      <span class="unvisited" style="bottom:34.83%"></span>
+      <span class="unvisited" style="bottom:34.53%"></span>
+      <span class="unvisited" style="bottom:34.23%"></span>
+      <span class="unvisited" style="bottom:33.93%"></span>
+      <span class="unvisited" style="bottom:33.63%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.73%"></span>
+      <span class="unvisited" style="bottom:32.13%"></span>
+      <span class="unvisited" style="bottom:31.83%"></span>
+      <span class="unvisited" style="bottom:31.53%"></span>
+      <span class="unvisited" style="bottom:31.23%"></span>
+      <span class="unvisited" style="bottom:30.93%"></span>
+      <span class="unvisited" style="bottom:30.33%"></span>
+      <span class="unvisited" style="bottom:29.73%"></span>
+      <span class="unvisited" style="bottom:29.43%"></span>
+      <span class="unvisited" style="bottom:29.13%"></span>
+      <span class="unvisited" style="bottom:28.23%"></span>
+      <span class="unvisited" style="bottom:27.63%"></span>
+      <span class="unvisited" style="bottom:27.03%"></span>
+      <span class="unvisited" style="bottom:26.43%"></span>
+      <span class="unvisited" style="bottom:26.13%"></span>
+      <span class="unvisited" style="bottom:24.92%"></span>
+      <span class="unvisited" style="bottom:24.32%"></span>
+      <span class="unvisited" style="bottom:24.02%"></span>
+      <span class="unvisited" style="bottom:23.42%"></span>
+      <span class="unvisited" style="bottom:22.82%"></span>
+      <span class="unvisited" style="bottom:22.22%"></span>
+      <span class="unvisited" style="bottom:21.62%"></span>
+      <span class="unvisited" style="bottom:21.32%"></span>
+      <span class="unvisited" style="bottom:20.42%"></span>
+      <span class="unvisited" style="bottom:19.82%"></span>
+      <span class="unvisited" style="bottom:19.52%"></span>
+      <span class="unvisited" style="bottom:18.92%"></span>
+      <span class="unvisited" style="bottom:18.32%"></span>
+      <span class="unvisited" style="bottom:17.72%"></span>
+      <span class="unvisited" style="bottom:16.52%"></span>
+      <span class="unvisited" style="bottom:16.22%"></span>
+      <span class="unvisited" style="bottom:15.92%"></span>
+      <span class="unvisited" style="bottom:15.62%"></span>
+      <span class="unvisited" style="bottom:15.32%"></span>
+      <span class="unvisited" style="bottom:15.02%"></span>
+      <span class="unvisited" style="bottom:14.41%"></span>
+      <span class="unvisited" style="bottom:14.11%"></span>
+      <span class="unvisited" style="bottom:13.21%"></span>
+      <span class="unvisited" style="bottom:12.91%"></span>
+      <span class="unvisited" style="bottom:12.01%"></span>
+      <span class="unvisited" style="bottom:11.71%"></span>
+      <span class="unvisited" style="bottom:11.41%"></span>
+      <span class="unvisited" style="bottom:11.11%"></span>
+      <span class="unvisited" style="bottom:10.81%"></span>
+      <span class="unvisited" style="bottom:10.51%"></span>
+      <span class="unvisited" style="bottom:10.21%"></span>
+      <span class="unvisited" style="bottom:9.91%"></span>
+      <span class="unvisited" style="bottom:9.61%"></span>
+      <span class="unvisited" style="bottom:9.31%"></span>
+      <span class="unvisited" style="bottom:8.71%"></span>
+      <span class="unvisited" style="bottom:8.41%"></span>
+      <span class="unvisited" style="bottom:8.11%"></span>
+      <span class="unvisited" style="bottom:7.81%"></span>
+      <span class="unvisited" style="bottom:1.80%"></span>
+      <span class="unvisited" style="bottom:1.50%"></span>
+      <span class="unvisited" style="bottom:1.20%"></span>
+      <span class="unvisited" style="bottom:0.90%"></span>
+      <span class="unvisited" style="bottom:0.60%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span class="unvisited"> </span>
+<a id="L6"></a><span class="unvisited"> </span>
+<a id="L7"></a><span class="unvisited"> </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span class="unvisited"> </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span class="unvisited"> </span>
+<a id="L13"></a><span class="unvisited"> </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span class="unvisited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span class="unvisited"> </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span class="unvisited"> </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span class="unvisited"> </span>
+<a id="L137"></a><span > </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span class="unvisited"> </span>
+<a id="L141"></a><span class="unvisited"> </span>
+<a id="L142"></a><span > </span>
+<a id="L143"></a><span > </span>
+<a id="L144"></a><span class="unvisited"> </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span class="unvisited"> </span>
+<a id="L148"></a><span class="unvisited"> </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span > </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span class="unvisited"> </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span class="unvisited"> </span>
+<a id="L156"></a><span class="unvisited"> </span>
+<a id="L157"></a><span class="unvisited"> </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span class="unvisited"> </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span class="unvisited"> </span>
+<a id="L164"></a><span class="unvisited"> </span>
+<a id="L165"></a><span > </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span > </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span > </span>
+<a id="L170"></a><span class="unvisited"> </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="unvisited"> </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span class="unvisited"> </span>
+<a id="L179"></a><span class="unvisited"> </span>
+<a id="L180"></a><span class="unvisited"> </span>
+<a id="L181"></a><span class="unvisited"> </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span class="unvisited"> </span>
+<a id="L184"></a><span > </span>
+<a id="L185"></a><span class="unvisited"> </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span class="unvisited"> </span>
+<a id="L189"></a><span class="unvisited"> </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span > </span>
+<a id="L192"></a><span class="unvisited"> </span>
+<a id="L193"></a><span class="unvisited"> </span>
+<a id="L194"></a><span class="unvisited"> </span>
+<a id="L195"></a><span class="unvisited"> </span>
+<a id="L196"></a><span class="unvisited"> </span>
+<a id="L197"></a><span > </span>
+<a id="L198"></a><span > </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span class="unvisited"> </span>
+<a id="L203"></a><span class="unvisited"> </span>
+<a id="L204"></a><span > </span>
+<a id="L205"></a><span class="unvisited"> </span>
+<a id="L206"></a><span class="unvisited"> </span>
+<a id="L207"></a><span class="unvisited"> </span>
+<a id="L208"></a><span class="unvisited"> </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span > </span>
+<a id="L211"></a><span class="unvisited"> </span>
+<a id="L212"></a><span class="unvisited"> </span>
+<a id="L213"></a><span > </span>
+<a id="L214"></a><span > </span>
+<a id="L215"></a><span class="unvisited"> </span>
+<a id="L216"></a><span class="unvisited"> </span>
+<a id="L217"></a><span class="unvisited"> </span>
+<a id="L218"></a><span class="unvisited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span class="unvisited"> </span>
+<a id="L221"></a><span class="unvisited"> </span>
+<a id="L222"></a><span class="unvisited"> </span>
+<a id="L223"></a><span > </span>
+<a id="L224"></a><span class="unvisited"> </span>
+<a id="L225"></a><span > </span>
+<a id="L226"></a><span class="unvisited"> </span>
+<a id="L227"></a><span class="unvisited"> </span>
+<a id="L228"></a><span class="unvisited"> </span>
+<a id="L229"></a><span class="unvisited"> </span>
+<a id="L230"></a><span class="unvisited"> </span>
+<a id="L231"></a><span > </span>
+<a id="L232"></a><span class="unvisited"> </span>
+<a id="L233"></a><span > </span>
+<a id="L234"></a><span class="unvisited"> </span>
+<a id="L235"></a><span class="unvisited"> </span>
+<a id="L236"></a><span class="unvisited"> </span>
+<a id="L237"></a><span > </span>
+<a id="L238"></a><span > </span>
+<a id="L239"></a><span class="unvisited"> </span>
+<a id="L240"></a><span > </span>
+<a id="L241"></a><span class="unvisited"> </span>
+<a id="L242"></a><span > </span>
+<a id="L243"></a><span class="unvisited"> </span>
+<a id="L244"></a><span > </span>
+<a id="L245"></a><span class="unvisited"> </span>
+<a id="L246"></a><span class="unvisited"> </span>
+<a id="L247"></a><span > </span>
+<a id="L248"></a><span > </span>
+<a id="L249"></a><span > </span>
+<a id="L250"></a><span class="unvisited"> </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span class="unvisited"> </span>
+<a id="L253"></a><span class="unvisited"> </span>
+<a id="L254"></a><span > </span>
+<a id="L255"></a><span class="unvisited"> </span>
+<a id="L256"></a><span > </span>
+<a id="L257"></a><span class="unvisited"> </span>
+<a id="L258"></a><span > </span>
+<a id="L259"></a><span class="unvisited"> </span>
+<a id="L260"></a><span > </span>
+<a id="L261"></a><span class="unvisited"> </span>
+<a id="L262"></a><span class="unvisited"> </span>
+<a id="L263"></a><span > </span>
+<a id="L264"></a><span > </span>
+<a id="L265"></a><span class="unvisited"> </span>
+<a id="L266"></a><span > </span>
+<a id="L267"></a><span class="unvisited"> </span>
+<a id="L268"></a><span class="unvisited"> </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span class="unvisited"> </span>
+<a id="L271"></a><span > </span>
+<a id="L272"></a><span class="unvisited"> </span>
+<a id="L273"></a><span > </span>
+<a id="L274"></a><span class="unvisited"> </span>
+<a id="L275"></a><span > </span>
+<a id="L276"></a><span > </span>
+<a id="L277"></a><span > </span>
+<a id="L278"></a><span class="unvisited"> </span>
+<a id="L279"></a><span class="unvisited"> </span>
+<a id="L280"></a><span class="unvisited"> </span>
+<a id="L281"></a><span class="unvisited"> </span>
+<a id="L282"></a><span class="unvisited"> </span>
+<a id="L283"></a><span class="unvisited"> </span>
+<a id="L284"></a><span > </span>
+<a id="L285"></a><span class="unvisited"> </span>
+<a id="L286"></a><span class="unvisited"> </span>
+<a id="L287"></a><span > </span>
+<a id="L288"></a><span > </span>
+<a id="L289"></a><span class="unvisited"> </span>
+<a id="L290"></a><span class="unvisited"> </span>
+<a id="L291"></a><span > </span>
+<a id="L292"></a><span > </span>
+<a id="L293"></a><span class="unvisited"> </span>
+<a id="L294"></a><span class="unvisited"> </span>
+<a id="L295"></a><span class="unvisited"> </span>
+<a id="L296"></a><span class="unvisited"> </span>
+<a id="L297"></a><span class="unvisited"> </span>
+<a id="L298"></a><span class="unvisited"> </span>
+<a id="L299"></a><span class="unvisited"> </span>
+<a id="L300"></a><span class="unvisited"> </span>
+<a id="L301"></a><span class="unvisited"> </span>
+<a id="L302"></a><span class="unvisited"> </span>
+<a id="L303"></a><span > </span>
+<a id="L304"></a><span class="unvisited"> </span>
+<a id="L305"></a><span class="unvisited"> </span>
+<a id="L306"></a><span class="unvisited"> </span>
+<a id="L307"></a><span class="unvisited"> </span>
+<a id="L308"></a><span > </span>
+<a id="L309"></a><span > </span>
+<a id="L310"></a><span > </span>
+<a id="L311"></a><span > </span>
+<a id="L312"></a><span > </span>
+<a id="L313"></a><span > </span>
+<a id="L314"></a><span > </span>
+<a id="L315"></a><span > </span>
+<a id="L316"></a><span > </span>
+<a id="L317"></a><span > </span>
+<a id="L318"></a><span > </span>
+<a id="L319"></a><span > </span>
+<a id="L320"></a><span > </span>
+<a id="L321"></a><span > </span>
+<a id="L322"></a><span > </span>
+<a id="L323"></a><span > </span>
+<a id="L324"></a><span > </span>
+<a id="L325"></a><span class="visited"> </span>
+<a id="L326"></a><span class="visited"> </span>
+<a id="L327"></a><span class="unvisited"> </span>
+<a id="L328"></a><span class="unvisited"> </span>
+<a id="L329"></a><span class="unvisited"> </span>
+<a id="L330"></a><span class="unvisited"> </span>
+<a id="L331"></a><span class="unvisited"> </span>
+<a id="L332"></a><span > </span>
+<a id="L333"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+<a href="#L308">308</a>
+<a href="#L309">309</a>
+<a href="#L310">310</a>
+<a href="#L311">311</a>
+<a href="#L312">312</a>
+<a href="#L313">313</a>
+<a href="#L314">314</a>
+<a href="#L315">315</a>
+<a href="#L316">316</a>
+<a href="#L317">317</a>
+<a href="#L318">318</a>
+<a href="#L319">319</a>
+<a href="#L320">320</a>
+<a href="#L321">321</a>
+<a href="#L322">322</a>
+<a href="#L323">323</a>
+<a href="#L324">324</a>
+<a href="#L325">325</a>
+<a href="#L326">326</a>
+<a href="#L327">327</a>
+<a href="#L328">328</a>
+<a href="#L329">329</a>
+<a href="#L330">330</a>
+<a href="#L331">331</a>
+<a href="#L332">332</a>
+<a href="#L333">333</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(** Internal helper to format cell values *)
+let cell_to_string v =
+  <span data-count="0">m</span>atch v with
+  | <span data-count="0">V</span>String s -&gt; s
+  | <span data-count="0">V</span>NA na_t -&gt;
+      let tag = Utils.na_type_to_string na_t in
+      <span data-count="0">i</span>f tag = "" then <span data-count="0">"</span>NA" else <span data-count="0">"</span>NA(" ^ tag ^ ")"
+  | <span data-count="0">V</span>Float f -&gt;
+      if f = floo<span data-count="0">r</span> f then <span data-count="0">P</span>rintf.sprintf "%.1f" f
+      else <span data-count="0">i</span>f Float.ab<span data-count="0">s</span> f &lt; 0.001 then <span data-count="0">P</span>rintf.sprintf "%.4e" f
+      else <span data-count="0">P</span>rintf.sprintf "%.4g" f
+  | <span data-count="0">o</span>ther -&gt; Utils.value_to_string other
+
+(** Pretty-print a DataFrame as a table *)
+let pretty_print_dataframe ?(headers) { arrow_table; group_keys } =
+  <span data-count="0">l</span>et nrows = Arrow_table.num_rows arrow_table in
+  <span data-count="0">l</span>et value_columns = Arrow_bridge.table_to_value_columns arrow_table in
+  <span data-count="0">i</span>f value_columns = [] then
+    <span data-count="0">"</span>Empty DataFrame (0 rows x 0 cols)\n"
+  else
+    <span data-count="0">l</span>et col_names = match headers with
+      | <span data-count="0">S</span>ome h -&gt; List.ma<span data-count="0">p</span> (fun (old_n, _) -&gt; <span data-count="0">m</span>atch List.assoc_opt old_n h with <span data-count="0">S</span>ome new_n -&gt; new_n | <span data-count="0">N</span>one -&gt; old_n) value_columns
+      | <span data-count="0">N</span>one -&gt; List.ma<span data-count="0">p</span> fst value_columns in
+    (* Compute column widths *)
+    let col_widths = List.map (fun (name, col_data) -&gt;
+      <span data-count="0">l</span>et header_len = String.length name in
+      <span data-count="0">l</span>et max_data_len = Array.fold_left (fun acc v -&gt;
+        <span data-count="0">m</span>ax acc (String.lengt<span data-count="0">h</span> (cell_to_strin<span data-count="0">g</span> v))
+      ) 0 col_data in
+      <span data-count="0">m</span>ax header_len max_data_len
+    ) value_columns in
+    <span data-count="0">l</span>et buf = Buffer.create 256 in
+    (* Header *)
+    <span data-count="0">l</span>et header_parts = List.map2 (fun name width -&gt;
+      <span data-count="0">P</span>rintf.sprintf "%-*s" width name
+    ) col_names col_widths in
+    <span data-count="0">B</span>uffer.add_string buf ("  " ^ String.conca<span data-count="0">t</span> "  " header_parts ^ "\n");
+    (* Separator *)
+    <span data-count="0">l</span>et sep_parts = List.map (fun width -&gt;
+      <span data-count="0">S</span>tring.make width '-'
+    ) col_widths in
+    <span data-count="0">B</span>uffer.add_string buf ("  " ^ String.conca<span data-count="0">t</span> "  " sep_parts ^ "\n");
+    (* Data rows — show at most 20 rows *)
+    <span data-count="0">l</span>et display_rows = min nrows 20 in
+    <span data-count="0">f</span>or row_idx = 0 to display_rows - 1 do
+      <span data-count="0">l</span>et row_parts = List.map2 (fun (_name, col_data) width -&gt;
+        <span data-count="0">l</span>et v = col_data.(row_idx) in
+        <span data-count="0">P</span>rintf.sprintf "%-*s" width (cell_to_strin<span data-count="0">g</span> v)
+      ) value_columns col_widths in
+      <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf ("  " ^ String.conca<span data-count="0">t</span> "  " row_parts ^ "\n")
+    done;
+    if nrows &gt; 20 then
+      <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf (Printf.sprint<span data-count="0">f</span> "  ... (%d more rows)\n" (nrows - 20));
+    (* Footer *)
+    <span data-count="0">l</span>et group_info = if group_keys = [] then <span data-count="0">"</span>"
+      else <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> " grouped by [%s]" (String.conca<span data-count="0">t</span> ", " group_keys) in
+    Buffer.add_string buf (Printf.sprint<span data-count="0">f</span> "DataFrame: %d rows x %d cols%s\n"
+      nrows (List.lengt<span data-count="0">h</span> value_columns) group_info);
+    <span data-count="0">B</span>uffer.contents buf
+
+(** Pretty-print an error value *)
+let pretty_print_error { code; message; context; location; na_count = _ } =
+  <span data-count="0">l</span>et buf = Buffer.create 128 in
+  <span data-count="0">l</span>et rendered_message =
+    match location with
+    | <span data-count="0">S</span>ome { file; line; column } -&gt;
+        let prefix =
+          match file with
+          | <span data-count="0">S</span>ome filename -&gt; Printf.sprint<span data-count="0">f</span> "[%s:L%d:C%d]" filename line column
+          | <span data-count="0">N</span>one -&gt; Printf.sprint<span data-count="0">f</span> "[L%d:C%d]" line column
+        in
+        prefix ^ " " ^ message
+    | <span data-count="0">N</span>one -&gt; message
+  in
+  Buffer.add_string buf (Printf.sprint<span data-count="0">f</span> "Error(%s): %s\n"
+    (Utils.error_code_to_strin<span data-count="0">g</span> code) rendered_message);
+  <span data-count="0">i</span>f context &lt;&gt; [] then <span data-count="0">b</span>egin
+    Buffer.add_string buf "  Context:\n";
+    <span data-count="0">L</span>ist.ite<span data-count="0">r</span> (fun (k, v) -&gt;
+      <span data-count="0">B</span>uffer.add_string buf (Printf.sprint<span data-count="0">f</span> "    %s: %s\n" k (Utils.value_to_strin<span data-count="0">g</span> v))
+    ) context
+  end;
+  <span data-count="0">B</span>uffer.contents buf
+
+(** Pretty-print a pipeline *)
+let pretty_print_pipeline { p_nodes; p_deps; p_runtimes; _ } =
+  <span data-count="0">l</span>et buf = Buffer.create 256 in
+  <span data-count="0">B</span>uffer.add_string buf (Printf.sprint<span data-count="0">f</span> "Pipeline (%d nodes):\n" (List.lengt<span data-count="0">h</span> p_nodes));
+  <span data-count="0">L</span>ist.iter (fun (name, v) -&gt;
+    <span data-count="0">l</span>et deps = match List.assoc_opt name p_deps with
+      | <span data-count="0">S</span>ome d when d &lt;&gt; [] -&gt; <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> " [depends: %s]" (String.conca<span data-count="0">t</span> ", " d)
+      | <span data-count="0">_</span> -&gt; ""
+    in
+    let runtime = match List.assoc_opt name p_runtimes with
+      | <span data-count="0">S</span>ome r when r &lt;&gt; "T" -&gt; <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> " [%s]" r
+      | <span data-count="0">_</span> -&gt; ""
+    in
+    let val_str = match v with
+      | <span data-count="0">V</span>DataFrame { arrow_table; _ } -&gt;
+          Printf.sprint<span data-count="0">f</span> "DataFrame(%d rows x %d cols)"
+            (Arrow_table.num_row<span data-count="0">s</span> arrow_table) (Arrow_table.num_column<span data-count="0">s</span> arrow_table)
+      | <span data-count="0">_</span> -&gt; Utils.value_to_strin<span data-count="0">g</span> v
+    in
+    Buffer.add_string buf (Printf.sprint<span data-count="0">f</span> "  %s = %s%s%s\n" name val_str runtime deps)
+  ) p_nodes;
+  <span data-count="0">B</span>uffer.contents buf
+
+(** Pretty-print a model summary *)
+let pretty_print_summary pairs =
+  <span data-count="0">l</span>et model_class = match List.assoc_opt "model_class" pairs with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "lm" in
+  let summary_type = match List.assoc_opt "summary_type" pairs with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "coefficients" in
+  let is_glm = model_class = "glm" in
+  let family = match List.assoc_opt "family" pairs with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">S</span>ome v -&gt; Utils.value_to_strin<span data-count="0">g</span> v | <span data-count="0">N</span>one -&gt; "Gaussian" in
+  let link = match List.assoc_opt "link" pairs with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">S</span>ome v -&gt; Utils.value_to_strin<span data-count="0">g</span> v | <span data-count="0">N</span>one -&gt; "identity" in
+  let buf = Buffer.create 256 in
+  <span data-count="0">i</span>f is_glm then <span data-count="0">b</span>egin
+    Buffer.add_string buf (Printf.sprint<span data-count="0">f</span> "Family:   %s\n" family);
+    <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf (Printf.sprint<span data-count="0">f</span> "Link:     %s\n\n" link)
+  end;
+  <span data-count="0">B</span>uffer.add_string buf (if summary_type = "fit_stats" then <span data-count="0">"</span>Model metrics:\n" else <span data-count="0">"</span>Coefficients:\n");
+  <span data-count="0">(</span>match List.assoc_opt "_tidy_df" pairs with
+  | <span data-count="0">S</span>ome (VDataFrame df) -&gt;
+      if summary_type = "fit_stats" then
+        <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf (pretty_print_datafram<span data-count="0">e</span> df)
+      else
+        <span data-count="0">l</span>et headers = [
+          ("term", "");
+          ("estimate", "Estimate");
+          ("std_error", "Std. Error");
+          ("statistic", if is_glm then <span data-count="0">"</span>z value" else <span data-count="0">"</span>t value");
+          ("p_value", if is_glm then <span data-count="0">"</span>Pr(&gt;|z|)" else <span data-count="0">"</span>Pr(&gt;|t|)")
+        ] in
+        Buffer.add_strin<span data-count="0">g</span> buf (pretty_print_datafram<span data-count="0">e</span> ~headers df)
+  | <span data-count="0">_</span> -&gt; Buffer.add_strin<span data-count="0">g</span> buf "No coefficient data available.\n");
+  Buffer.contents buf
+
+let is_visual_metadata_class = <span data-count="0">f</span>unction
+  | <span data-count="0">V</span>String "ggplot" | <span data-count="0">V</span>String "matplotlib" | <span data-count="0">V</span>String "plotnine" | <span data-count="0">V</span>String "seaborn" | <span data-count="0">V</span>String "plotly" | <span data-count="0">V</span>String "altair" -&gt; true
+  | <span data-count="0">_</span> -&gt; false
+
+let display_keys_from_pairs pairs =
+  <span data-count="0">L</span>ist.fold_left (fun acc (k, v) -&gt;
+    <span data-count="0">m</span>atch k, v with
+    | <span data-count="0">"</span>_display_keys", VList items -&gt;
+        Some (List.filter_ma<span data-count="0">p</span> (fun (_, v) -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>String s -&gt; Some s | <span data-count="0">_</span> -&gt; None) items)
+    | <span data-count="0">_</span> -&gt; acc
+  ) None pairs
+
+let visible_pairs_from_dict pairs =
+  <span data-count="0">l</span>et non_metadata_pairs =
+    List.filter (fun (k, _) -&gt; <span data-count="0">k</span> &lt;&gt; "_display_keys") pairs
+  in
+  <span data-count="0">m</span>atch display_keys_from_pairs pairs with
+  | <span data-count="0">N</span>one -&gt; non_metadata_pairs
+  | <span data-count="0">S</span>ome keys -&gt; List.filter (fun (k, _) -&gt; <span data-count="0">L</span>ist.mem k keys) non_metadata_pairs
+
+let list_items_are_simple items =
+  <span data-count="0">L</span>ist.lengt<span data-count="0">h</span> items &lt;= 5
+  &amp;&amp; <span data-count="0">L</span>ist.for_all (fun (_, v) -&gt;
+       <span data-count="0">m</span>atch v with
+       | <span data-count="0">V</span>Dict _ | <span data-count="0">V</span>List _ | <span data-count="0">V</span>Vector _ | <span data-count="0">V</span>DataFrame _ | <span data-count="0">V</span>Pipeline _ -&gt; false
+       | <span data-count="0">_</span> -&gt; true
+     ) items
+
+(* Mutual recursion: entries recurse into children, and child rendering feeds
+   back into entry rendering for each sibling in tree order. *)
+let rec render_tree_entry prefix is_last (label, value) =
+  <span data-count="0">l</span>et branch = if is_last then <span data-count="0">"</span>└── " else <span data-count="0">"</span>├── " in
+  let child_prefix = prefix ^ if is_last then <span data-count="0">"</span>    " else <span data-count="0">"</span>│   " in
+  match value with
+  | <span data-count="0">V</span>Dict pairs -&gt;
+      let visible_pairs = visible_pairs_from_dict pairs in
+      <span data-count="0">i</span>f visible_pairs = [] then
+        <span data-count="0">[</span>prefix ^ branch ^ label ^ ": {}"]
+      else
+        <span data-count="0">(</span>prefix ^ branch ^ label) :: render_tree_childre<span data-count="0">n</span> child_prefix visible_pairs
+  | <span data-count="0">V</span>List items when items = [] -&gt;
+      <span data-count="0">[</span>prefix ^ branch ^ label ^ ": []"]
+  | <span data-count="0">V</span>List items when list_items_are_simpl<span data-count="0">e</span> items -&gt;
+      <span data-count="0">[</span>prefix ^ branch ^ label ^ ": " ^ Utils.value_to_strin<span data-count="0">g</span> value]
+  | <span data-count="0">V</span>List items -&gt;
+      let indexed_items =
+        List.mapi (fun index (_, item) -&gt; <span data-count="0">(</span>Printf.sprint<span data-count="0">f</span> "[%d]" index, item)) items
+      in
+      <span data-count="0">(</span>prefix ^ branch ^ label) :: render_tree_childre<span data-count="0">n</span> child_prefix indexed_items
+  | <span data-count="0">_</span> -&gt;
+      [prefix ^ branch ^ label ^ ": " ^ Utils.value_to_strin<span data-count="0">g</span> value]
+
+and render_tree_children prefix entries =
+  <span data-count="0">l</span>et rec aux acc = function
+    | <span data-count="0">[</span>] -&gt; acc
+    | <span data-count="0">[</span>entry] -&gt; acc @ render_tree_entr<span data-count="0">y</span> prefix true entry
+    | <span data-count="0">e</span>ntry :: rest -&gt;
+        let acc = acc @ render_tree_entr<span data-count="0">y</span> prefix false entry in
+        aux acc rest
+  in
+  aux [] entries
+
+let pretty_print_tree pairs =
+  <span data-count="0">l</span>et visible_pairs = visible_pairs_from_dict pairs in
+  <span data-count="0">l</span>et title, children =
+    match List.assoc_opt "kind" visible_pairs with
+    | <span data-count="0">S</span>ome (VString s) -&gt;
+        let child_pairs = List.filter (fun (k, _) -&gt; <span data-count="0">k</span> &lt;&gt; "kind") visible_pairs in
+        <span data-count="0">(</span>s, child_pairs)
+    | <span data-count="0">_</span> -&gt; ("dict", visible_pairs)
+  in
+  match children with
+  | <span data-count="0">[</span>] -&gt; title
+  | <span data-count="0">_</span> -&gt; String.concat "\n" (title :: render_tree_childre<span data-count="0">n</span> "" children)
+
+(** Internal helper for recursive pretty formatting with indentation *)
+let rec pretty_format ?(max_depth=<span data-count="0">5</span>) ?(indent=<span data-count="0">"</span>") v =
+  <span data-count="0">m</span>atch v with
+  | <span data-count="0">V</span>Dict pairs -&gt;
+      if max_depth &lt;= 0 then <span data-count="0">U</span>tils.value_to_string v
+      else <span data-count="0">i</span>f pairs = [] then <span data-count="0">"</span>{}" else
+      <span data-count="0">l</span>et visible_pairs = visible_pairs_from_dict pairs in
+      <span data-count="0">i</span>f visible_pairs = [] then <span data-count="0">"</span>{}" else
+      <span data-count="0">l</span>et next_indent = indent ^ "  " in
+      let lines = List.map (fun (k, v) -&gt;
+        <span data-count="0">P</span>rintf.sprintf "%s`%s`: %s" next_indent k (pretty_forma<span data-count="0">t</span> ~max_depth:(max_depth - 1) ~indent:next_indent v)
+      ) visible_pairs in
+      <span data-count="0">"</span>{\n" ^ String.conca<span data-count="0">t</span> ",\n" lines ^ "\n" ^ indent ^ "}"
+  | <span data-count="0">V</span>List items -&gt;
+      if max_depth &lt;= 0 then <span data-count="0">U</span>tils.value_to_string v
+      else <span data-count="0">i</span>f items = [] then <span data-count="0">"</span>[]" else
+      <span data-count="0">l</span>et next_indent = indent ^ "  " in
+      let lines = List.map (fun (_, v) -&gt;
+         <span data-count="0">p</span>retty_format ~max_depth:(max_depth - 1) ~indent:next_indent v
+      ) items in
+       <span data-count="0">i</span>f list_items_are_simple items then <span data-count="0">U</span>tils.value_to_string v
+        else <span data-count="0">"</span>[\n" ^ indent ^ "  " ^ String.conca<span data-count="0">t</span> (",\n" ^ indent ^ "  ") lines ^ "\n" ^ indent ^ "]"
+    | <span data-count="0">o</span>ther -&gt; Utils.value_to_string other
+
+and pretty_print_visual_metadata pairs =
+  <span data-count="0">l</span>et visible_pairs =
+    pairs
+    |&gt; List.filter (fun (k, _) -&gt; <span data-count="0">k</span> &lt;&gt; "_display_keys")
+  in
+  <span data-count="0">l</span>et class_name =
+    match List.assoc_opt "class" visible_pairs with
+    | <span data-count="0">S</span>ome (VString s) -&gt; s
+    | <span data-count="0">_</span> -&gt; "plot"
+  in
+  let body_pairs =
+    visible_pairs
+    |&gt; List.filter (fun (k, _) -&gt; <span data-count="0">k</span> &lt;&gt; "class")
+  in
+  <span data-count="0">i</span>f body_pairs = [] then
+    <span data-count="0">P</span>rintf.sprintf "%s {}\n" class_name
+  else
+    <span data-count="0">l</span>et display_keys =
+      match display_keys_from_pairs pairs with
+      | <span data-count="0">S</span>ome keys -&gt;
+          let body_key_set =
+            List.fold_left (fun acc (k, _) -&gt; <span data-count="0">S</span>tring_set.add k acc) String_set.empty body_pairs
+          in
+          <span data-count="0">L</span>ist.filte<span data-count="0">r</span> (fun key -&gt; <span data-count="0">S</span>tring_set.mem key body_key_set) keys
+      | <span data-count="0">N</span>one -&gt; List.ma<span data-count="0">p</span> fst body_pairs
+    in
+    let display_key_set =
+      List.fold_left (fun acc key -&gt; <span data-count="0">S</span>tring_set.add key acc) String_set.empty display_keys
+    in
+    <span data-count="0">l</span>et filtered_body_pairs =
+      List.filter (fun (k, _) -&gt; <span data-count="0">S</span>tring_set.mem k display_key_set) body_pairs
+    in
+    <span data-count="0">l</span>et body =
+      pretty_format
+        (VDict (filtered_body_pairs @ [("_display_keys", VList (List.ma<span data-count="0">p</span> (fun k -&gt; <span data-count="0">(</span>None, VString k)) display_keys))]))
+    in
+    <span data-count="0">P</span>rintf.sprintf "%s %s\n" class_name body
+
+(** Pretty-print any value for REPL display *)
+let pretty_print_value v =
+  <span data-count="0">m</span>atch v with
+  | <span data-count="0">V</span>DataFrame df -&gt; pretty_print_dataframe df
+  | <span data-count="0">V</span>Error err -&gt; pretty_print_error err
+  | <span data-count="0">V</span>Pipeline p -&gt; pretty_print_pipeline p
+  | <span data-count="0">V</span>Dict pairs -&gt;
+      let is_summary = List.mem_asso<span data-count="0">c</span> "class" pairs &amp;&amp; <span data-count="0">L</span>ist.asso<span data-count="0">c</span> "class" pairs = VString "summary" in
+      let is_visual_metadata =
+        List.mem_asso<span data-count="0">c</span> "class" pairs
+        &amp;&amp; <span data-count="0">i</span>s_visual_metadata_clas<span data-count="0">s</span> (List.asso<span data-count="0">c</span> "class" pairs)
+      in
+      let is_explain_tree =
+        List.mem_asso<span data-count="0">c</span> "kind" pairs
+        &amp;&amp; <span data-count="0">O</span>ption.is_som<span data-count="0">e</span> (display_keys_from_pair<span data-count="0">s</span> pairs)
+      in
+      let has_kind = List.mem_assoc "kind" pairs in
+      <span data-count="0">l</span>et is_large = List.lengt<span data-count="0">h</span> pairs &gt; 5 in
+      let has_nested = List.exists (fun (_, v) -&gt; <span data-count="0">m</span>atch v with <span data-count="0">V</span>Dict _ | <span data-count="0">V</span>List _ | <span data-count="0">V</span>Vector _ -&gt; true | <span data-count="0">_</span> -&gt; false) pairs in
+      <span data-count="0">i</span>f is_summary then
+        <span data-count="0">p</span>retty_print_summary pairs
+      else <span data-count="0">i</span>f is_visual_metadata then
+        <span data-count="0">p</span>retty_print_visual_metadata pairs
+      else <span data-count="0">i</span>f is_explain_tree then
+        <span data-count="0">p</span>retty_print_tre<span data-count="0">e</span> pairs ^ "\n"
+      else <span data-count="0">i</span>f has_kin<span data-count="0">d</span> || is_larg<span data-count="0">e</span> || has_neste<span data-count="0">d</span> then
+        <span data-count="0">p</span>retty_forma<span data-count="0">t</span> v ^ "\n"
+      else
+        <span data-count="0">U</span>tils.value_to_strin<span data-count="0">g</span> v ^ "\n"
+  | <span data-count="0">V</span>List _ -&gt; pretty_forma<span data-count="0">t</span> v ^ "\n"
+  | <span data-count="0">V</span>NA _ -&gt; ""
+  | <span data-count="0">o</span>ther -&gt; Utils.value_to_strin<span data-count="0">g</span> other ^ "\n"
+
+(** Register pretty_print as a builtin function *)
+(*
+--# Pretty-print a value
+--#
+--# Prints a formatted representation of a value. DataFrames are printed as tables.
+--#
+--# @name pretty_print
+--# @param x :: Any The value to print.
+--# @return :: Null
+--# @example
+--#   pretty_print(df)
+--# @family core
+--# @seealso print
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "pretty_print"
+    (make_builti<span data-count="136">n</span> ~name:"pretty_print" 1 (fun args _env -&gt;
+      <span data-count="0">m</span>atch args with
+      | <span data-count="0">[</span>v] -&gt;
+          print_string (pretty_print_valu<span data-count="0">e</span> v);
+          <span data-count="0">(</span>VNA NAGeneric)
+      | <span data-count="0">_</span> -&gt; Error.arity_error_named "pretty_print" 1 (List.lengt<span data-count="0">h</span> args)
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

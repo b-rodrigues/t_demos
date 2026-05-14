@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>onnx_ffi.ml &mdash; Coverage report</title>
+    <meta name="description" content="12.50% coverage in src/packages/stats/onnx_ffi.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>onnx_ffi.ml
+        </a>
+      </h1>
+      <h2>12.50%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="bottom:40.74%"></span>
+      <span class="unvisited" style="bottom:37.04%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:25.93%"></span>
+      <span class="unvisited" style="bottom:22.22%"></span>
+      <span class="unvisited" style="bottom:11.11%"></span>
+      <span class="unvisited" style="bottom:0.00%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span class="visited"> </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span class="unvisited"> </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/stats/onnx_ffi.ml *)
+
+type session
+
+external session_create : string -&gt; session = "caml_onnx_session_create"
+external session_run_multi : session -&gt; string array -&gt; float array array array -&gt; string array -&gt; float array array = "caml_onnx_session_run_multi"
+external session_input_width : session -&gt; int = "caml_onnx_session_input_width"
+external session_input_names : session -&gt; string array = "caml_onnx_session_input_names"
+external session_output_names : session -&gt; string array = "caml_onnx_session_output_names"
+external session_metadata : session -&gt; (string * string) list = "caml_onnx_session_metadata"
+
+(* Global registry for session handles, indexed by path *)
+let registry = Hashtbl.creat<span data-count="136">e</span> 8
+
+let get_session path =
+  <span data-count="0">m</span>atch Hashtbl.find_opt registry path with
+  | <span data-count="0">S</span>ome session -&gt; session
+  | <span data-count="0">N</span>one -&gt;
+      let session = session_create path in
+      <span data-count="0">H</span>ashtbl.add registry path session;
+      <span data-count="0">s</span>ession
+
+let close_session path =
+  <span data-count="0">H</span>ashtbl.remove registry path
+
+let clear_cache () =
+  <span data-count="0">H</span>ashtbl.clear registry
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

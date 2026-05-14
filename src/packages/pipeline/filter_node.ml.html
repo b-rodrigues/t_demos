@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>filter_node.ml &mdash; Coverage report</title>
+    <meta name="description" content="91.67% coverage in src/packages/pipeline/filter_node.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>filter_node.ml
+        </a>
+      </h1>
+      <h2>91.67%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="bottom:35.14%"></span>
+      <span class="unvisited" style="bottom:4.05%"></span>
+      <span class="unvisited" style="bottom:2.70%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span class="visited"> </span>
+<a id="L61"></a><span class="visited"> </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span class="visited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Filter Pipeline Nodes
+--#
+--# Returns a new pipeline containing only the nodes for which the predicate
+--# returns `true`. Uses NSE (`$field`) to refer to node metadata fields.
+--#
+--# No DAG validity check is performed. If a retained node depends on a node
+--# that was removed, that inconsistency surfaces only at `build_pipeline` or
+--# `pipeline_run`.
+--#
+--# Supported metadata fields: `$name`, `$runtime`, `$serializer`,
+--# `$deserializer`, `$noop`, `$depth`, `$command_type`, `$diagnostics`.
+--#
+--# @name filter_node
+--# @param p :: Pipeline The pipeline to filter.
+--# @param predicate :: Function A predicate function returning Bool for each node.
+--# @return :: Pipeline A new pipeline with only the matching nodes.
+--# @example
+--#   p |&gt; filter_node($runtime == "python")
+--#   p |&gt; filter_node($noop == false)
+--#   p |&gt; filter_node($depth &lt;= 2)
+--#   p |&gt; filter_node(!is_na($diagnostics.error))
+--# @family pipeline
+--# @seealso mutate_node, select_node, rename_node
+--# @export
+*)
+let register ~eval_call env =
+  <span data-count="136">E</span>nv.add "filter_node"
+    (make_builti<span data-count="136">n</span> ~name:"filter_node" 2 (fun args env -&gt;
+      <span data-count="3">m</span>atch args with
+      | <span data-count="3">[</span>VPipeline p; predicate] -&gt;
+          let p =
+            {
+              p with
+              p_nodes =
+                Builder.merge_pipeline_nodes_with_latest_lo<span data-count="3">g</span> p;
+              p_node_diagnostics =
+                Builder.merge_pipeline_node_diagnostics_with_latest_lo<span data-count="3">g</span> p;
+            }
+          in
+          let depths = Pipeline_to_frame.compute_depths p.p_deps in
+          <span data-count="3">l</span>et keep = List.filter (fun (name, _) -&gt;
+            <span data-count="7">l</span>et row_dict = VDict (Pipeline_to_frame.node_metadata_dic<span data-count="7">t</span> name p depths) in
+            match eval_call env predicate [(None, Ast.mk_exp<span data-count="7">r</span> (Value row_dict))] with
+            | <span data-count="7">V</span>Bool b -&gt; b
+            | <span data-count="0">_</span> -&gt; false
+          ) p.p_exprs in
+          <span data-count="3">l</span>et keep_names = List.map fst keep in
+          <span data-count="3">l</span>et keep_set name = <span data-count="105">L</span>ist.mem name keep_names in
+          VPipeline {
+            p_nodes        = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_nodes;
+            p_exprs        = keep;
+            p_deps         = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_deps;
+            p_imports      = p.p_imports;
+            p_runtimes     = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_runtimes;
+            p_serializers  = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_serializers;
+            p_deserializers = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_deserializers;
+            p_env_vars     = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_env_vars;
+            p_args         = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_args;
+            p_shells       = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_shells;
+            p_shell_args   = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_shell_args;
+            p_functions    = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_functions;
+            p_includes     = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_includes;
+            p_noops        = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_noops;
+            p_scripts      = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_scripts;
+            p_explicit_deps = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_explicit_deps;
+            p_node_diagnostics = List.filte<span data-count="3">r</span> (fun (n, _) -&gt; <span data-count="7">k</span>eep_set n) p.p_node_diagnostics;
+          }
+      | <span data-count="0">[</span>_; _] -&gt; Error.type_error "Function `filter_node` expects a Pipeline as first argument."
+      | <span data-count="0">_</span> -&gt; Error.arity_error_named "filter_node" 2 (List.lengt<span data-count="0">h</span> args)
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083133",
+  "hash": "shn423b7566pazsbn1pbf4kjfpwl0l9i",
+  "out_path": "/nix/store/shn423b7566pazsbn1pbf4kjfpwl0l9i-pipeline_output",
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/shn423b7566pazsbn1pbf4kjfpwl0l9i-pipeline_output/data_node/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_poisson",
+  "path": "/nix/store/shn423b7566pazsbn1pbf4kjfpwl0l9i-pipeline_output/r_poisson/artifact",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "glm",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_nb",
+  "path": "/nix/store/shn423b7566pazsbn1pbf4kjfpwl0l9i-pipeline_output/r_nb/artifact",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "negbin",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "py_poisson",
+  "path": "/nix/store/shn423b7566pazsbn1pbf4kjfpwl0l9i-pipeline_output/py_poisson/artifact",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}

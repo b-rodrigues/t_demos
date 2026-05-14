@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083000",
+  "hash": "pq8fgw7c8fam820j0gspqx7ffndl8cp5",
+  "out_path": "/nix/store/pq8fgw7c8fam820j0gspqx7ffndl8cp5-pipeline_output",
+  "nodes": [
+{
+  "node": "baseline_data",
+  "path": "/nix/store/pq8fgw7c8fam820j0gspqx7ffndl8cp5-pipeline_output/baseline_data/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "baseline_stats",
+  "path": "/nix/store/pq8fgw7c8fam820j0gspqx7ffndl8cp5-pipeline_output/baseline_stats/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "live_data",
+  "path": "/nix/store/pq8fgw7c8fam820j0gspqx7ffndl8cp5-pipeline_output/live_data/artifact",
+  "runtime": "T",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "drift_guardrail",
+  "path": "/nix/store/pq8fgw7c8fam820j0gspqx7ffndl8cp5-pipeline_output/drift_guardrail/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Bool",
+  "dependencies": ["baseline_stats", "live_data"],
+  "success": true,
+  "warnings": false
+}
+]
+}

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_score_pmml.ml &mdash; Coverage report</title>
+    <meta name="description" content="22.01% coverage in src/packages/stats/t_score_pmml.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>t_score_pmml.ml
+        </a>
+      </h1>
+      <h2>22.01%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:3.59%"></span>
+      <span class="unvisited" style="top:5.39%"></span>
+      <span class="unvisited" style="top:5.99%"></span>
+      <span class="unvisited" style="top:8.38%"></span>
+      <span class="unvisited" style="top:10.78%"></span>
+      <span class="some-visited" style="top:14.37%"></span>
+      <span class="some-visited" style="top:14.97%"></span>
+      <span class="unvisited" style="top:18.56%"></span>
+      <span class="unvisited" style="top:19.16%"></span>
+      <span class="some-visited" style="top:33.53%"></span>
+      <span class="some-visited" style="top:34.73%"></span>
+      <span class="unvisited" style="top:35.33%"></span>
+      <span class="unvisited" style="top:36.53%"></span>
+      <span class="unvisited" style="top:37.13%"></span>
+      <span class="unvisited" style="top:38.32%"></span>
+      <span class="unvisited" style="top:38.92%"></span>
+      <span class="unvisited" style="top:39.52%"></span>
+      <span class="unvisited" style="top:40.12%"></span>
+      <span class="unvisited" style="top:40.72%"></span>
+      <span class="unvisited" style="top:41.32%"></span>
+      <span class="unvisited" style="top:41.92%"></span>
+      <span class="unvisited" style="top:42.51%"></span>
+      <span class="unvisited" style="top:44.91%"></span>
+      <span class="unvisited" style="top:45.51%"></span>
+      <span class="unvisited" style="top:46.11%"></span>
+      <span class="unvisited" style="top:46.71%"></span>
+      <span class="unvisited" style="top:47.31%"></span>
+      <span class="unvisited" style="bottom:49.70%"></span>
+      <span class="unvisited" style="bottom:49.10%"></span>
+      <span class="unvisited" style="bottom:47.90%"></span>
+      <span class="unvisited" style="bottom:47.31%"></span>
+      <span class="unvisited" style="bottom:45.51%"></span>
+      <span class="unvisited" style="bottom:44.91%"></span>
+      <span class="unvisited" style="bottom:44.31%"></span>
+      <span class="unvisited" style="bottom:43.71%"></span>
+      <span class="unvisited" style="bottom:41.92%"></span>
+      <span class="unvisited" style="bottom:41.32%"></span>
+      <span class="unvisited" style="bottom:40.12%"></span>
+      <span class="unvisited" style="bottom:39.52%"></span>
+      <span class="unvisited" style="bottom:38.92%"></span>
+      <span class="unvisited" style="bottom:38.32%"></span>
+      <span class="unvisited" style="bottom:37.13%"></span>
+      <span class="unvisited" style="bottom:36.53%"></span>
+      <span class="unvisited" style="bottom:35.93%"></span>
+      <span class="unvisited" style="bottom:35.33%"></span>
+      <span class="unvisited" style="bottom:34.73%"></span>
+      <span class="unvisited" style="bottom:34.13%"></span>
+      <span class="unvisited" style="bottom:33.53%"></span>
+      <span class="unvisited" style="bottom:32.93%"></span>
+      <span class="unvisited" style="bottom:29.94%"></span>
+      <span class="unvisited" style="bottom:28.74%"></span>
+      <span class="unvisited" style="bottom:26.35%"></span>
+      <span class="unvisited" style="bottom:25.75%"></span>
+      <span class="unvisited" style="bottom:23.95%"></span>
+      <span class="unvisited" style="bottom:22.75%"></span>
+      <span class="unvisited" style="bottom:21.56%"></span>
+      <span class="unvisited" style="bottom:20.96%"></span>
+      <span class="unvisited" style="bottom:19.76%"></span>
+      <span class="unvisited" style="bottom:19.16%"></span>
+      <span class="unvisited" style="bottom:17.96%"></span>
+      <span class="unvisited" style="bottom:14.97%"></span>
+      <span class="unvisited" style="bottom:14.37%"></span>
+      <span class="unvisited" style="bottom:13.17%"></span>
+      <span class="unvisited" style="bottom:12.57%"></span>
+      <span class="unvisited" style="bottom:11.98%"></span>
+      <span class="unvisited" style="bottom:11.38%"></span>
+      <span class="unvisited" style="bottom:10.78%"></span>
+      <span class="unvisited" style="bottom:10.18%"></span>
+      <span class="unvisited" style="bottom:9.58%"></span>
+      <span class="unvisited" style="bottom:8.98%"></span>
+      <span class="unvisited" style="bottom:5.99%"></span>
+      <span class="unvisited" style="bottom:4.79%"></span>
+      <span class="unvisited" style="bottom:4.19%"></span>
+      <span class="unvisited" style="bottom:3.59%"></span>
+      <span class="unvisited" style="bottom:2.99%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span class="visited"> </span>
+<a id="L5"></a><span class="visited"> </span>
+<a id="L6"></a><span class="unvisited"> </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span class="unvisited"> </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span class="visited"> </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span class="visited"> </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="some-visited"> </span>
+<a id="L25"></a><span class="some-visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span class="visited"> </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="visited"> </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span class="some-visited"> </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span class="some-visited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="visited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span class="unvisited"> </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span class="unvisited"> </span>
+<a id="L106"></a><span class="unvisited"> </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span class="unvisited"> </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span class="unvisited"> </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span > </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="unvisited"> </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span class="unvisited"> </span>
+<a id="L133"></a><span > </span>
+<a id="L134"></a><span class="unvisited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span > </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span class="unvisited"> </span>
+<a id="L148"></a><span class="unvisited"> </span>
+<a id="L149"></a><span class="unvisited"> </span>
+<a id="L150"></a><span class="unvisited"> </span>
+<a id="L151"></a><span class="unvisited"> </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span > </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span class="unvisited"> </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span class="unvisited"> </span>
+<a id="L160"></a><span class="unvisited"> </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span > </span>
+<a id="L165"></a><span class="visited"> </span>
+<a id="L166"></a><span class="visited"> </span>
+<a id="L167"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+let get_pmml_evaluator_jar () =
+  <span data-count="10">m</span>atch Sys.getenv_opt "T_JPMML_EVALUATOR_JAR" with
+  | <span data-count="10">S</span>ome path -&gt; Ok path
+  | <span data-count="0">N</span>one -&gt; 
+      (* Fallback for development/testing if the env var isn't set yet *)
+      let default = "/nix/store/dummy-jpmml-evaluator.jar" in
+      if Sys.file_exists default then <span data-count="0">O</span>k default
+      else <span data-count="0">E</span>rror "T_JPMML_EVALUATOR_JAR environment variable not set. Please update your Nix environment."
+
+let score_pmml_jpmml (df : dataframe) model_dict =
+  <span data-count="10">m</span>atch Pmml_utils.pmml_source_path model_dict with
+  | <span data-count="0">N</span>one -&gt; 
+      Error.make_error RuntimeError "Function `predict` (PMML): model does not have an attached source PMML path. Native T PMML export is not yet implemented for JPMML-backed scoring."
+  | <span data-count="10">S</span>ome pmml_path -&gt;
+      (match get_pmml_evaluator_jar () with
+       | <span data-count="0">E</span>rror msg -&gt; Error.make_error RuntimeError msg
+       | <span data-count="10">O</span>k jar_path -&gt;
+             (* 1. Write the DataFrame to a temporary CSV file (standardized bridge format) *)
+             let tmp_in = Filename.temp_file "tlang_jpmml_in_" ".csv" in
+             <span data-count="10">l</span>et tmp_out = Filename.temp_file "tlang_jpmml_out_" ".csv" in
+             <span data-count="10">l</span>et cleanup () =
+               <span data-count="10">(</span>try Sys.remov<span data-count="10">e</span> tmp_in with <span data-count="0">_</span> -&gt; ());
+               (try Sys.remov<span data-count="10">e</span> tmp_out with <span data-count="0">_</span> -&gt; ())
+             in
+             Fun.protect
+               ~finally:cleanup
+               (fun () -&gt;
+                 <span data-count="10">m</span>atch Arrow_io.write_csv df.arrow_table tmp_in with
+                 | <span data-count="0">E</span>rror msg -&gt;
+                     Error.make_error FileError (Printf.sprint<span data-count="0">f</span> "JPMML bridge: failed to write temporary input file: %s" msg)
+                 | <span data-count="10">O</span>k () -&gt;
+                     (* 2. Invoke JPMML-evaluator.
+                        Standardized on CSV format for maximum compatibility across JPMML versions. *)
+                     let cmd = Printf.sprintf
+                       "java -jar %s --model %s --input %s --output %s"
+                       (Filename.quot<span data-count="10">e</span> jar_path)
+                       (Filename.quot<span data-count="10">e</span> pmml_path)
+                       (Filename.quot<span data-count="10">e</span> tmp_in)
+                       (Filename.quot<span data-count="10">e</span> tmp_out)
+                     in
+                     <span data-count="10">(</span>match Builder_utils.run_command_capture cmd with
+                      | <span data-count="10">O</span>k (Unix.WEXITED 0, _) -&gt;
+                          (* 3. Read the result back *)
+                          (match Arrow_io.read_csv tmp_out with
+                           | <span data-count="10">O</span>k table -&gt;
+                               let col_names = Arrow_table.column_names table in
+                               <span data-count="10">i</span>f List.lengt<span data-count="10">h</span> col_names &gt; 1 then
+                                 <span data-count="6">V</span>DataFrame { arrow_table = table; group_keys = [] }
+                               else
+                               <span data-count="4">(</span>match col_names with
+                                | <span data-count="4">n</span>ame :: _ -&gt;
+                                    let col_type = Arrow_table.column_type table name in
+                                    <span data-count="4">(</span>match col_type with
+                                     | Some (<span data-count="4">A</span>rrow_table.ArrowFloat64 | <span data-count="0">A</span>rrow_table.ArrowInt64) -&gt;
+                                         let col = Arrow_table.get_float_column table name in
+                                         <span data-count="4">V</span>Vector (Array.ma<span data-count="4">p</span> (fun f -&gt; <span data-count="1120">m</span>atch f with <span data-count="1120">S</span>ome v -&gt; VFloat v | <span data-count="0">N</span>one -&gt; VNA NAFloat) col)
+                                     | <span data-count="0">S</span>ome Arrow_table.ArrowBoolean -&gt;
+                                         let col = Arrow_table.get_bool_column table name in
+                                         <span data-count="0">V</span>Vector (Array.ma<span data-count="0">p</span> (fun b -&gt; <span data-count="0">m</span>atch b with <span data-count="0">S</span>ome v -&gt; VBool v | <span data-count="0">N</span>one -&gt; VNA NABool) col)
+                                     | <span data-count="0">_</span> -&gt;
+                                         let col = Arrow_table.get_string_column table name in
+                                         <span data-count="0">V</span>Vector (Array.ma<span data-count="0">p</span> (fun s -&gt; <span data-count="0">m</span>atch s with <span data-count="0">S</span>ome v -&gt; VString v | <span data-count="0">N</span>one -&gt; VNA NAString) col))
+                                | <span data-count="0">[</span>] -&gt; VNA NAGeneric)
+                           | <span data-count="0">E</span>rror msg -&gt;
+                               Error.make_error FileError (Printf.sprint<span data-count="0">f</span> "JPMML bridge: failed to read result: %s" msg))
+                      | <span data-count="0">O</span>k (_, output) -&gt;
+                          Error.make_error RuntimeError (Printf.sprint<span data-count="0">f</span> "JPMML bridge: execution failed:\n%s" output)
+                      | <span data-count="0">E</span>rror msg -&gt;
+                          Error.make_error RuntimeError (Printf.sprint<span data-count="0">f</span> "JPMML bridge: failed to launch JVM: %s" msg))))
+
+let t_score_pmml =
+  make_builti<span data-count="136">n</span> ~name:"t_score_pmml" 2 (fun args _env -&gt;
+    <span data-count="0">m</span>atch args with
+    | <span data-count="0">[</span>VDataFrame df; VDict pairs] -&gt; score_pmml_jpmml df (VDict pairs)
+    | <span data-count="0">[</span>VError _ as e; _] | <span data-count="0">[</span>_; VError _ as e] -&gt; e
+    | <span data-count="0">[</span>_; _] -&gt; Error.type_error "t_score_pmml expects (DataFrame, Dict)."
+    | <span data-count="0">_</span> -&gt; Error.arity_error_named "t_score_pmml" 2 (List.lengt<span data-count="0">h</span> args)
+  )
+
+let t_compare_scores_pmml =
+  make_builti<span data-count="136">n</span> ~name:"compare_native_vs_pmml_scores" 2 (fun args _env -&gt;
+    <span data-count="0">m</span>atch args with
+    | <span data-count="0">[</span>VDataFrame df; VDict model_pairs] -&gt;
+        (match Pmml_utils.pmml_source_path (VDict model_pairs) with
+         | <span data-count="0">N</span>one -&gt; Error.make_error ValueError "compare_native_vs_pmml_scores: Model does not have a PMML source path."
+         | <span data-count="0">S</span>ome _ -&gt;
+             let native_res =
+               match List.assoc_opt "model_type" model_pairs with
+               | Some (VString (<span data-count="0">"</span>random_forest" | <span data-count="0">"</span>forest")) -&gt; T_native_scoring.predict_forest_mode<span data-count="0">l</span> df (VDict model_pairs)
+               | Some (VString (<span data-count="0">"</span>decision_tree" | <span data-count="0">"</span>tree")) -&gt; T_native_scoring.predict_tree_mode<span data-count="0">l</span> df (VDict model_pairs)
+               | Some (VString (<span data-count="0">"</span>xgboost" | <span data-count="0">"</span>lightgbm")) -&gt; T_native_scoring.predict_boosted_mode<span data-count="0">l</span> df (VDict model_pairs)
+               | <span data-count="0">_</span> -&gt; Error.make_erro<span data-count="0">r</span> TypeError "compare_native_vs_pmml_scores: Model type not supported for native scoring comparison."
+             in
+             (match native_res with
+              | <span data-count="0">V</span>Error _ as e -&gt; e
+              | <span data-count="0">V</span>Vector native_vec -&gt;
+                  (match score_pmml_jpmml df (VDict model_pairs) with
+                    | <span data-count="0">V</span>Error _ as e -&gt; e
+                    | <span data-count="0">V</span>Vector pmml_vec -&gt;
+                        if Array.lengt<span data-count="0">h</span> native_vec &lt;&gt; Array.lengt<span data-count="0">h</span> pmml_vec then
+                          <span data-count="0">E</span>rror.make_error RuntimeError "Vector length mismatch between native and PMML scoring."
+                        else
+                          <span data-count="0">l</span>et diffs = ref 0 in
+                          for i = 0 to Array.lengt<span data-count="0">h</span> native_vec - 1 do
+                            <span data-count="0">m</span>atch native_vec.(i), pmml_vec.(i) with
+                            | <span data-count="0">V</span>Float f1, VFloat f2 -&gt; if abs_floa<span data-count="0">t</span> (f1 -. f2) &gt; 1e-7 then <span data-count="0">i</span>nc<span data-count="0">r</span> diffs
+                            | <span data-count="0">V</span>String s1, VString s2 -&gt; if s1 &lt;&gt; s2 then <span data-count="0">i</span>nc<span data-count="0">r</span> diffs
+                            | <span data-count="0">V</span>NA _, VNA _ -&gt; ()
+                            | <span data-count="0">V</span>NA _, _ | <span data-count="0">_</span>, VNA _ -&gt; inc<span data-count="0">r</span> diffs
+                            | <span data-count="0">_</span> -&gt; ()
+                          done;
+                          VDict [
+                            ("n_diffs", VInt !diffs);
+                            ("match", VBool (!diffs = 0));
+                            ("n_rows", VInt (Array.lengt<span data-count="0">h</span> native_vec));
+                          ]
+                    | <span data-count="0">V</span>DataFrame df -&gt;
+                        (* Extraction logic for classification: find target column or take first. *)
+                        let col_name = 
+                          match List.assoc_opt "target" model_pairs with 
+                          | <span data-count="0">S</span>ome (VString s) -&gt; s 
+                          | <span data-count="0">_</span> -&gt; List.h<span data-count="0">d</span> (Arrow_table.column_name<span data-count="0">s</span> df.arrow_table)
+                        in
+                        (match Arrow_table.column_type df.arrow_table col_name with
+                         | <span data-count="0">S</span>ome _ -&gt;
+                            let vec = match Arrow_table.column_type df.arrow_table col_name with
+                              | Some (<span data-count="0">A</span>rrow_table.ArrowFloat64 | <span data-count="0">A</span>rrow_table.ArrowInt64) -&gt;
+                                  let col = Arrow_table.get_float_column df.arrow_table col_name in
+                                  <span data-count="0">A</span>rray.ma<span data-count="0">p</span> (fun f -&gt; <span data-count="0">m</span>atch f with <span data-count="0">S</span>ome v -&gt; VFloat v | <span data-count="0">N</span>one -&gt; VNA NAFloat) col
+                              | <span data-count="0">S</span>ome Arrow_table.ArrowBoolean -&gt;
+                                  let col = Arrow_table.get_bool_column df.arrow_table col_name in
+                                  <span data-count="0">A</span>rray.ma<span data-count="0">p</span> (fun b -&gt; <span data-count="0">m</span>atch b with <span data-count="0">S</span>ome v -&gt; VBool v | <span data-count="0">N</span>one -&gt; VNA NABool) col
+                              | <span data-count="0">_</span> -&gt;
+                                  let col = Arrow_table.get_string_column df.arrow_table col_name in
+                                  <span data-count="0">A</span>rray.ma<span data-count="0">p</span> (fun s -&gt; <span data-count="0">m</span>atch s with <span data-count="0">S</span>ome v -&gt; VString v | <span data-count="0">N</span>one -&gt; VNA NAString) col
+                            in
+                            (* Now we have a Vector, continue with comparison... *)
+                            (* (Refactor note: extracting this into a helper would be cleaner) *)
+                            let pmml_vec = vec in
+                            if Array.lengt<span data-count="0">h</span> native_vec &lt;&gt; Array.lengt<span data-count="0">h</span> pmml_vec then
+                              <span data-count="0">E</span>rror.make_error RuntimeError "Vector length mismatch between native and PMML scoring."
+                            else
+                              <span data-count="0">l</span>et diffs = ref 0 in
+                              for i = 0 to Array.lengt<span data-count="0">h</span> native_vec - 1 do
+                                <span data-count="0">m</span>atch native_vec.(i), pmml_vec.(i) with
+                                | <span data-count="0">V</span>Float f1, VFloat f2 -&gt; if abs_floa<span data-count="0">t</span> (f1 -. f2) &gt; 1e-7 then <span data-count="0">i</span>nc<span data-count="0">r</span> diffs
+                                | <span data-count="0">V</span>String s1, VString s2 -&gt; if s1 &lt;&gt; s2 then <span data-count="0">i</span>nc<span data-count="0">r</span> diffs
+                                | <span data-count="0">V</span>NA _, VNA _ -&gt; ()
+                                | <span data-count="0">V</span>NA _, _ | <span data-count="0">_</span>, VNA _ -&gt; inc<span data-count="0">r</span> diffs
+                                | <span data-count="0">_</span> -&gt; ()
+                              done;
+                              VDict [
+                                ("n_diffs", VInt !diffs);
+                                ("match", VBool (!diffs = 0));
+                                ("n_rows", VInt (Array.lengt<span data-count="0">h</span> native_vec));
+                              ]
+                         | <span data-count="0">N</span>one -&gt; Error.make_error RuntimeError "JPMML bridge: result column not found.")
+                    | <span data-count="0">_</span> -&gt; Error.make_error RuntimeError "Expected Vector or DataFrame from JPMML bridge.")
+              | <span data-count="0">_</span> -&gt; Error.make_error RuntimeError "Expected Vector from native scorer."))
+    | <span data-count="0">_</span> -&gt; Error.arity_error_named "compare_native_vs_pmml_scores" 2 (List.lengt<span data-count="0">h</span> args))
+
+let register env =
+  <span data-count="136">l</span>et env = Env.add "t_score_pmml" t_score_pmml env in
+  <span data-count="136">l</span>et env = Env.add "compare_native_vs_pmml_scores" t_compare_scores_pmml env in
+  <span data-count="136">e</span>nv
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

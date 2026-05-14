@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wald_test.ml &mdash; Coverage report</title>
+    <meta name="description" content="1.94% coverage in src/packages/stats/wald_test.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>wald_test.ml
+        </a>
+      </h1>
+      <h2>1.94%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:17.42%"></span>
+      <span class="unvisited" style="top:18.18%"></span>
+      <span class="unvisited" style="top:19.70%"></span>
+      <span class="unvisited" style="top:20.45%"></span>
+      <span class="unvisited" style="top:21.21%"></span>
+      <span class="unvisited" style="top:24.24%"></span>
+      <span class="unvisited" style="top:25.00%"></span>
+      <span class="unvisited" style="top:28.03%"></span>
+      <span class="unvisited" style="top:28.79%"></span>
+      <span class="unvisited" style="top:29.55%"></span>
+      <span class="unvisited" style="top:32.58%"></span>
+      <span class="unvisited" style="top:34.09%"></span>
+      <span class="unvisited" style="top:34.85%"></span>
+      <span class="unvisited" style="top:35.61%"></span>
+      <span class="unvisited" style="top:36.36%"></span>
+      <span class="unvisited" style="top:39.39%"></span>
+      <span class="unvisited" style="top:40.15%"></span>
+      <span class="unvisited" style="top:41.67%"></span>
+      <span class="unvisited" style="top:42.42%"></span>
+      <span class="unvisited" style="top:43.18%"></span>
+      <span class="unvisited" style="top:44.70%"></span>
+      <span class="unvisited" style="top:46.21%"></span>
+      <span class="unvisited" style="top:47.73%"></span>
+      <span class="unvisited" style="top:48.48%"></span>
+      <span class="unvisited" style="top:49.24%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:49.24%"></span>
+      <span class="unvisited" style="bottom:48.48%"></span>
+      <span class="unvisited" style="bottom:46.97%"></span>
+      <span class="unvisited" style="bottom:46.21%"></span>
+      <span class="unvisited" style="bottom:43.18%"></span>
+      <span class="unvisited" style="bottom:42.42%"></span>
+      <span class="unvisited" style="bottom:40.15%"></span>
+      <span class="unvisited" style="bottom:39.39%"></span>
+      <span class="unvisited" style="bottom:38.64%"></span>
+      <span class="unvisited" style="bottom:36.36%"></span>
+      <span class="unvisited" style="bottom:35.61%"></span>
+      <span class="unvisited" style="bottom:34.85%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.58%"></span>
+      <span class="unvisited" style="bottom:31.82%"></span>
+      <span class="unvisited" style="bottom:31.06%"></span>
+      <span class="unvisited" style="bottom:29.55%"></span>
+      <span class="unvisited" style="bottom:28.79%"></span>
+      <span class="unvisited" style="bottom:28.03%"></span>
+      <span class="unvisited" style="bottom:27.27%"></span>
+      <span class="unvisited" style="bottom:26.52%"></span>
+      <span class="unvisited" style="bottom:22.73%"></span>
+      <span class="unvisited" style="bottom:21.97%"></span>
+      <span class="unvisited" style="bottom:21.21%"></span>
+      <span class="unvisited" style="bottom:18.94%"></span>
+      <span class="unvisited" style="bottom:18.18%"></span>
+      <span class="unvisited" style="bottom:15.91%"></span>
+      <span class="unvisited" style="bottom:15.15%"></span>
+      <span class="unvisited" style="bottom:14.39%"></span>
+      <span class="unvisited" style="bottom:12.88%"></span>
+      <span class="unvisited" style="bottom:9.09%"></span>
+      <span class="unvisited" style="bottom:7.58%"></span>
+      <span class="unvisited" style="bottom:3.79%"></span>
+      <span class="unvisited" style="bottom:2.27%"></span>
+      <span class="unvisited" style="bottom:0.76%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span class="unvisited"> </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span class="unvisited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span class="unvisited"> </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span class="unvisited"> </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span > </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="unvisited"> </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/stats/wald_test.ml *)
+open Ast
+
+(** wald_test(model, terms: ["wt", "hp"]) — performs a joint Wald test on a subset of coefficients. *)
+(*
+--# Joint Wald Test
+--#
+--# Tests a null hypothesis that a subset of coefficients are jointly equal to zero.
+--#
+--# @name wald_test
+--# @param model :: Model The model object.
+--# @param terms :: List[String] The coefficient names to test.
+--# @param value :: Float (Optional) The null value to test against. Defaults to 0.0.
+--# @return :: DataFrame A one-row DataFrame with the test statistic and p-value.
+--# @example
+--#   wald_test(model, terms = ["wt", "hp"])
+--# @family stats
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "wald_test"
+    (make_builtin_name<span data-count="136">d</span> ~name:"wald_test" ~variadic:true 0 (fun args _env -&gt;
+      <span data-count="0">l</span>et named = List.filter_map (fun (n, v) -&gt; <span data-count="0">m</span>atch n with <span data-count="0">S</span>ome name -&gt; Some (name, v) | <span data-count="0">N</span>one -&gt; None) args in
+      <span data-count="0">l</span>et positional = List.filter_map (fun (n, v) -&gt; <span data-count="0">m</span>atch n with <span data-count="0">N</span>one -&gt; Some v | <span data-count="0">S</span>ome _ -&gt; None) args in
+      
+      <span data-count="0">l</span>et model_v = match List.assoc_opt "model" named with
+        | <span data-count="0">S</span>ome v -&gt; Some v
+        | <span data-count="0">N</span>one -&gt; (match positional with <span data-count="0">v</span> :: _ -&gt; Some v | <span data-count="0">[</span>] -&gt; None)
+      in
+      
+      let terms_v = match List.assoc_opt "terms" named with
+        | <span data-count="0">S</span>ome v -&gt; Some v
+        | <span data-count="0">N</span>one -&gt; (match positional with <span data-count="0">_</span> :: v :: _ -&gt; Some v | <span data-count="0">_</span> -&gt; None)
+      in
+      
+      let null_val = match List.assoc_opt "value" named with
+        | <span data-count="0">S</span>ome (VFloat f) -&gt; f
+        | <span data-count="0">S</span>ome (VInt i) -&gt; float_of_in<span data-count="0">t</span> i
+        | <span data-count="0">_</span> -&gt; 0.0
+      in
+      
+      match (model_v, terms_v) with
+      | <span data-count="0">(</span>Some (VDict model), Some v) -&gt;
+          let test_terms = match v with
+            | <span data-count="0">V</span>String s -&gt; [s]
+            | <span data-count="0">V</span>List l -&gt; List.filter_ma<span data-count="0">p</span> (fun (_, x) -&gt; <span data-count="0">m</span>atch x with <span data-count="0">V</span>String s -&gt; Some s | <span data-count="0">_</span> -&gt; None) l
+            | <span data-count="0">V</span>Vector v -&gt; Array.to_list (Array.ma<span data-count="0">p</span> (function <span data-count="0">V</span>String s -&gt; s | <span data-count="0">_</span> -&gt; "") v) |&gt; <span data-count="0">L</span>ist.filte<span data-count="0">r</span> ((&lt;&gt;) "")
+            | <span data-count="0">_</span> -&gt; []
+          in
+          
+          if test_terms = [] then
+            <span data-count="0">E</span>rror.value_error "wald_test: 'terms' must be a list of coefficient names."
+          else <span data-count="0">b</span>egin
+            match List.assoc_opt "_tidy_df" model with
+            | <span data-count="0">S</span>ome (VDataFrame tidy_df) -&gt;
+              let all_terms = Arrow_table.get_string_column tidy_df.arrow_table "term" |&gt; <span data-count="0">A</span>rray.to_list |&gt; <span data-count="0">L</span>ist.filter_map (fun x -&gt; <span data-count="0">x</span>) in
+              <span data-count="0">l</span>et estimates = Arrow_table.get_float_column tidy_df.arrow_table "estimate" in
+              
+              <span data-count="0">l</span>et model_data = match List.assoc_opt "_model_data" model with <span data-count="0">S</span>ome (VDict d) -&gt; d | <span data-count="0">_</span> -&gt; model in
+              let full_vcov = match List.assoc_opt "vcov" model_data with
+                | <span data-count="0">S</span>ome (VList rows) -&gt;
+                    let n = List.length all_terms in
+                    <span data-count="0">l</span>et mat = Array.make_matrix n n 0.0 in
+                    <span data-count="0">L</span>ist.iteri (fun i (_, row) -&gt;
+                      <span data-count="0">m</span>atch row with
+                      | <span data-count="0">V</span>Vector v when i &lt; n -&gt;
+                          <span data-count="0">A</span>rray.iteri (fun j x -&gt; <span data-count="0">i</span>f j &lt; n then <span data-count="0">m</span>atch x with <span data-count="0">V</span>Float f -&gt; mat.(i).(j) &lt;- f | <span data-count="0">_</span> -&gt; ()) v
+                      | <span data-count="0">_</span> -&gt; ()
+                    ) rows;
+                    <span data-count="0">S</span>ome mat
+                | <span data-count="0">_</span> -&gt; None
+              in
+              
+              (match full_vcov with
+               | <span data-count="0">N</span>one -&gt; Error.type_error "wald_test: full variance-covariance matrix required but not found in model."
+               | <span data-count="0">S</span>ome mat -&gt;
+                   (* 2. Find indices of tested terms *)
+                   let indices = List.filter_map (fun term -&gt;
+                     <span data-count="0">l</span>et idx = ref (-1) in
+                     List.iteri (fun i t -&gt; <span data-count="0">i</span>f t = term then <span data-count="0">i</span>dx := i) all_terms;
+                     <span data-count="0">i</span>f !idx = -1 then <span data-count="0">N</span>one else <span data-count="0">S</span>ome !idx
+                   ) test_terms in
+                   
+                   <span data-count="0">i</span>f List.lengt<span data-count="0">h</span> indices &lt;&gt; List.lengt<span data-count="0">h</span> test_terms then
+                     <span data-count="0">E</span>rror.value_error "wald_test: some terms not found in model coefficients."
+                   else <span data-count="0">b</span>egin
+                     let q = List.length indices in
+                     <span data-count="0">l</span>et indices_arr = Array.of_list indices in
+                     <span data-count="0">l</span>et beta_q = Array.init q (fun i -&gt; 
+                       <span data-count="0">l</span>et idx = indices_arr.(i) in
+                       <span data-count="0">m</span>atch estimates.(idx) with <span data-count="0">S</span>ome f -&gt; f -. null_val | <span data-count="0">N</span>one -&gt; 0.0
+                     ) in
+                     <span data-count="0">l</span>et vcov_q = Array.init q (fun i -&gt;
+                       <span data-count="0">A</span>rray.init q (fun j -&gt;
+                         <span data-count="0">l</span>et idx_i = indices_arr.(i) in
+                         <span data-count="0">l</span>et idx_j = indices_arr.(j) in
+                         <span data-count="0">m</span>at.(idx_i).(idx_j)
+                       )
+                     ) in
+                     
+                     (* 3. W = beta' * inv(V) * beta *)
+                     <span data-count="0">m</span>atch Math_utils.solve_and_invert vcov_q beta_q with
+                     | <span data-count="0">N</span>one -&gt; Error.value_error "wald_test: sub-matrix of vcov is singular."
+                     | <span data-count="0">S</span>ome (inv_v_beta, _) -&gt;
+                         let w_stat = Math_utils.dot_product beta_q inv_v_beta in
+                         
+                         <span data-count="0">l</span>et family = match List.assoc_opt "family" model_data with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "gaussian" in
+                         let df_resid = match List.assoc_opt "df_residual" model_data with <span data-count="0">S</span>ome (VInt i) -&gt; i | <span data-count="0">_</span> -&gt; 0 in
+                         
+                         let statistic, p_val, test_type =
+                           if family = "gaussian" &amp;&amp; <span data-count="0">d</span>f_resid &gt; 0 then
+                             <span data-count="0">l</span>et f_stat = w_stat /. float_of_in<span data-count="0">t</span> q in
+                             (f_stat, 1.0 -. Distributions.p<span data-count="0">f</span> f_stat q df_resid, "F")
+                           else
+                             <span data-count="0">(</span>w_stat, 1.0 -. Distributions.pchis<span data-count="0">q</span> w_stat q, "chi_square")
+                         in
+                         
+                         (* 4. Return results *)
+                         let columns = [
+                           ("terms", Arrow_table.StringColumn [| Some (String.conca<span data-count="0">t</span> ", " test_terms) |]);
+                           ("statistic", Arrow_table.FloatColumn [| Some statistic |]);
+                           ("df", Arrow_table.FloatColumn [| Some (float_of_in<span data-count="0">t</span> q) |]);
+                           ("p_value", Arrow_table.FloatColumn [| Some p_val |]);
+                           ("test_type", Arrow_table.StringColumn [| Some test_type |]);
+                         ] in
+                         let table = Arrow_table.create columns 1 in
+                         <span data-count="0">V</span>DataFrame { arrow_table = table; group_keys = [] }
+                   end)
+            | <span data-count="0">_</span> -&gt; Error.type_error "wald_test: expected a model object with coefficients."
+          end
+      | <span data-count="0">_</span> -&gt; Error.type_error "Function `wald_test` expects (Model, terms: List[String])."
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

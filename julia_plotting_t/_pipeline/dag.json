@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": ["DataFrame", "DataFrames", "even", "group", "odd", "repeat", "using", "x", "y"]
+},
+{
+  "node_name": "tidierplots_node",
+  "depends": ["CairoMakie", "Input", "Plot", "Squared", "TidierPlots", "TidierPlots_set", "X", "Y", "aes", "color", "false", "geom_line", "geom_point", "ggplot", "group", "labs", "plot_log", "plot_show", "raw_data", "title", "using", "x", "y"]
+},
+{
+  "node_name": "makie_node",
+  "depends": ["CairoMakie", "Input", "Makie", "Plot", "Squared", "X", "Y", "axis", "color", "figure", "label", "lines", "raw_data", "size", "steelblue", "title", "using", "x", "xlabel", "y", "ylabel"]
+},
+{
+  "node_name": "plots_node",
+  "depends": ["Input", "Plot", "Plots", "Squared", "X", "Y", "color", "darkorange", "jl", "label", "markersize", "plot", "raw_data", "scatterpath", "seriestype", "title", "using", "x", "xlabel", "y", "ylabel"]
+}
+]

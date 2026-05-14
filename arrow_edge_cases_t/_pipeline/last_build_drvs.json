@@ -1,0 +1,8 @@
+{
+  "fallback_csv": "/nix/store/n870hig3asndh369255c73sxiwijyshm-fallback_csv.drv",
+  "validation_report": "/nix/store/m10qr0z5czj53z206yybv1iz5m5cay4f-validation_report.drv",
+  "native_csv": "/nix/store/14lnlpfwwmx6znkwvha4svbyax26pmap-native_csv.drv",
+  "parsed_native": "/nix/store/lhpvpfsgl4s6iqmsi349bnyvyxy0w3sw-parsed_native.drv",
+  "seed_native_df": "/nix/store/jfm1jplbi00vvzrv6w14hc089d9zyia0-seed_native_df.drv",
+  "seed_fallback_df": "/nix/store/3s4q0m8an6ilzvb9lmji5p1i282zdbb7-seed_fallback_df.drv"
+}

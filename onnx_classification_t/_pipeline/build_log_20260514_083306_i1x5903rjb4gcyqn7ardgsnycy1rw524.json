@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260514_083306",
+  "hash": "i1x5903rjb4gcyqn7ardgsnycy1rw524",
+  "out_path": "/nix/store/i1x5903rjb4gcyqn7ardgsnycy1rw524-pipeline_output",
+  "nodes": [
+{
+  "node": "train_classifier",
+  "path": "/nix/store/i1x5903rjb4gcyqn7ardgsnycy1rw524-pipeline_output/train_classifier/artifact",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "RandomForestClassifier",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "python_predictions",
+  "path": "/nix/store/i1x5903rjb4gcyqn7ardgsnycy1rw524-pipeline_output/python_predictions/artifact",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "success": true,
+  "warnings": true
+},
+{
+  "node": "t_predictions",
+  "path": "/nix/store/i1x5903rjb4gcyqn7ardgsnycy1rw524-pipeline_output/t_predictions/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": ["train_classifier"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "validate_parity",
+  "path": "/nix/store/i1x5903rjb4gcyqn7ardgsnycy1rw524-pipeline_output/validate_parity/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Bool",
+  "dependencies": ["python_predictions", "t_predictions"],
+  "success": true,
+  "warnings": false
+}
+]
+}

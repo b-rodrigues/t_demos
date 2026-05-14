@@ -1,0 +1,27 @@
+{
+  "timestamp": "20260514_083335",
+  "hash": "fj8xryngdmgw8z7vx9cq3mnvmmqpvnx5",
+  "out_path": "/nix/store/fj8xryngdmgw8z7vx9cq3mnvmmqpvnx5-pipeline_output",
+  "nodes": [
+{
+  "node": "package_checks",
+  "path": "/nix/store/fj8xryngdmgw8z7vx9cq3mnvmmqpvnx5-pipeline_output/package_checks/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["package_import_output", "package_init_output"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "project_checks",
+  "path": "/nix/store/fj8xryngdmgw8z7vx9cq3mnvmmqpvnx5-pipeline_output/project_checks/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["project_init_output"],
+  "success": false,
+  "warnings": false
+}
+]
+}

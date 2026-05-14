@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>summary.ml &mdash; Coverage report</title>
+    <meta name="description" content="62.96% coverage in src/packages/stats/summary.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/stats/</span>summary.ml
+        </a>
+      </h1>
+      <h2>62.96%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="bottom:39.66%"></span>
+      <span class="some-visited" style="bottom:37.93%"></span>
+      <span class="some-visited" style="bottom:36.21%"></span>
+      <span class="some-visited" style="bottom:20.69%"></span>
+      <span class="some-visited" style="bottom:18.97%"></span>
+      <span class="unvisited" style="bottom:17.24%"></span>
+      <span class="unvisited" style="bottom:13.79%"></span>
+      <span class="unvisited" style="bottom:10.34%"></span>
+      <span class="unvisited" style="bottom:6.90%"></span>
+      <span class="unvisited" style="bottom:5.17%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span class="visited"> </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="some-visited"> </span>
+<a id="L36"></a><span class="some-visited"> </span>
+<a id="L37"></a><span class="some-visited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="some-visited"> </span>
+<a id="L47"></a><span class="some-visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(** summary(model) — returns a tidy summary DataFrame for native models.
+    For regression models this is coefficient-level output; for tree/ensemble
+    PMML models this falls back to model-level fit statistics. *)
+(*
+--# Model Summary
+--#
+--# Returns a tidy summary DataFrame for native models.
+--#
+--# @name summary
+--# @param model :: Model The model object (e.g., from lm()).
+--# @return :: Dict Tidy summary dictionary with `_tidy_df` and metadata.
+--# @example
+--#   s = summary(model)
+--#   coefficients = s._tidy_df
+--# @family stats
+--# @seealso lm, fit_stats
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "summary"
+    (make_builti<span data-count="136">n</span> ~name:"summary" 1 (fun args _env -&gt;
+      <span data-count="9">m</span>atch args with
+      | <span data-count="9">[</span>VDict pairs] -&gt;
+        let tidy_df = List.assoc_opt "_tidy_df" pairs in
+        <span data-count="9">l</span>et model_class = List.assoc_opt "class" pairs in
+        <span data-count="9">l</span>et model_type = List.assoc_opt "model_type" pairs in
+        <span data-count="9">l</span>et mining_function = List.assoc_opt "mining_function" pairs in
+        <span data-count="9">l</span>et family = List.assoc_opt "family" pairs in
+        <span data-count="9">l</span>et link = List.assoc_opt "link" pairs in
+        <span data-count="9">l</span>et summary_dict tidy_df_value extra_pairs =
+          <span data-count="9">V</span>Dict (
+            ("_tidy_df", tidy_df_value) ::
+            (match model_class with <span data-count="9">S</span>ome v -&gt; [("model_class", v)] | <span data-count="0">N</span>one -&gt; []) @
+            (match model_type with <span data-count="9">S</span>ome v -&gt; [("model_type", v)] | <span data-count="0">N</span>one -&gt; []) @
+            (match mining_function with <span data-count="9">S</span>ome v -&gt; [("mining_function", v)] | <span data-count="0">N</span>one -&gt; []) @
+            extra_pairs @
+            [("class", VString "summary")]
+          )
+        in
+
+        (match tidy_df with
+          | <span data-count="9">S</span>ome ((VDataFrame _) as tidy_df_value) -&gt;
+              summary_dict tidy_df_value
+                ((match family with <span data-count="9">S</span>ome v -&gt; [("family", v)] | <span data-count="0">N</span>one -&gt; []) @
+                 (match link with <span data-count="9">S</span>ome v -&gt; [("link", v)] | <span data-count="0">N</span>one -&gt; []))
+          | <span data-count="0">_</span> -&gt;
+            (match Fit_stats.summary_metrics_for_model pairs with
+             | <span data-count="0">S</span>ome stats_df -&gt;
+                  summary_dict stats_df [("summary_type", VString "fit_stats")]
+             | <span data-count="0">N</span>one -&gt;
+                Error.type_error "Function `summary` expects a native model object."))
+      | <span data-count="0">[</span>VError _ as e] -&gt; e
+      | <span data-count="0">_</span> -&gt;
+        Error.type_error "Function `summary` expects a native model object."
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

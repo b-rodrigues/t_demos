@@ -1,0 +1,37 @@
+{
+  "timestamp": "20260514_083221",
+  "hash": "4bgn2jddss15ydsg316ziqdidpngi3rm",
+  "out_path": "/nix/store/4bgn2jddss15ydsg316ziqdidpngi3rm-pipeline_output",
+  "nodes": [
+{
+  "node": "config_node",
+  "path": "/nix/store/4bgn2jddss15ydsg316ziqdidpngi3rm-pipeline_output/config_node/artifact",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "process_node",
+  "path": "/nix/store/4bgn2jddss15ydsg316ziqdidpngi3rm-pipeline_output/process_node/artifact",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": ["config_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "final_node",
+  "path": "/nix/store/4bgn2jddss15ydsg316ziqdidpngi3rm-pipeline_output/final_node/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Float",
+  "dependencies": ["process_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}

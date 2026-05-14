@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rename_node.ml &mdash; Coverage report</title>
+    <meta name="description" content="71.67% coverage in src/packages/pipeline/rename_node.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>rename_node.ml
+        </a>
+      </h1>
+      <h2>71.67%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:29.67%"></span>
+      <span class="unvisited" style="top:30.77%"></span>
+      <span class="unvisited" style="top:32.97%"></span>
+      <span class="unvisited" style="top:34.07%"></span>
+      <span class="some-visited" style="bottom:49.45%"></span>
+      <span class="unvisited" style="bottom:45.05%"></span>
+      <span class="unvisited" style="bottom:42.86%"></span>
+      <span class="unvisited" style="bottom:41.76%"></span>
+      <span class="unvisited" style="bottom:40.66%"></span>
+      <span class="unvisited" style="bottom:8.79%"></span>
+      <span class="unvisited" style="bottom:6.59%"></span>
+      <span class="unvisited" style="bottom:4.40%"></span>
+      <span class="unvisited" style="bottom:2.20%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="visited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="visited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="some-visited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span class="visited"> </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span class="visited"> </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span class="visited"> </span>
+<a id="L70"></a><span class="visited"> </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="visited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span class="visited"> </span>
+<a id="L80"></a><span class="visited"> </span>
+<a id="L81"></a><span class="visited"> </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+<a href="#L91">91</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Rename a Pipeline Node
+--#
+--# Renames a single node and rewires all dependency edges that referenced the
+--# old name to the new name. This is the canonical way to resolve name
+--# collisions before set operations.
+--#
+--# @name rename_node
+--# @param p :: Pipeline The pipeline.
+--# @param old_name :: String The current name of the node.
+--# @param new_name :: String The desired new name.
+--# @return :: Pipeline A new pipeline with the node renamed.
+--# @example
+--#   p |&gt; rename_node("model_r", "model_r_v2")
+--# @family pipeline
+--# @seealso mutate_node, filter_node
+--# @export
+*)
+let register env =
+  <span data-count="136">E</span>nv.add "rename_node"
+    (make_builti<span data-count="136">n</span> ~name:"rename_node" 3 (fun args _env -&gt;
+      <span data-count="3">m</span>atch args with
+      | <span data-count="3">[</span>VPipeline p; VString old_name; VString new_name] -&gt;
+          if not (List.mem_asso<span data-count="3">c</span> old_name p.p_exprs) then
+            <span data-count="0">E</span>rror.make_error KeyError
+              (Printf.sprint<span data-count="0">f</span> "Node `%s` not found in Pipeline." old_name)
+          else <span data-count="3">i</span>f List.mem_assoc new_name p.p_exprs then
+            <span data-count="0">E</span>rror.make_error ValueError
+              (Printf.sprint<span data-count="0">f</span> "A node named `%s` already exists in the Pipeline." new_name)
+          else
+            (* Helper: rename a key in an association list *)
+            <span data-count="3">l</span>et rename_key lst =
+              <span data-count="48">L</span>ist.map (fun (k, v) -&gt; <span data-count="160">i</span>f k = old_name then <span data-count="48">(</span>new_name, v) else <span data-count="112">(</span>k, v)) lst
+            in
+            (* Helper: replace old_name with new_name inside dependency lists *)
+            let rewire_deps lst =
+              <span data-count="3">L</span>ist.map (fun (k, deps) -&gt;
+                <span data-count="10">(</span>k, List.ma<span data-count="10">p</span> (fun d -&gt; <span data-count="7">i</span>f d = old_name then <span data-count="1">n</span>ew_name else <span data-count="6">d</span>) deps)
+              ) lst
+            in
+            (* Helper: replace old_name with new_name inside optional dependency lists *)
+            let rewire_deps_opt lst =
+              <span data-count="3">L</span>ist.map (fun (k, deps_opt) -&gt;
+                <span data-count="10">(</span>k, Option.ma<span data-count="10">p</span> (List.ma<span data-count="10">p</span> (fun d -&gt; <span data-count="0">i</span>f d = old_name then <span data-count="0">n</span>ew_name else <span data-count="0">d</span>)) deps_opt)
+              ) lst
+            in
+            let rewire_warning warning =
+              <span data-count="0">l</span>et source =
+                match warning.nw_source with
+                | <span data-count="0">W</span>arningOwn -&gt; WarningOwn
+                | <span data-count="0">W</span>arningUpstream node when node = old_name -&gt; <span data-count="0">W</span>arningUpstream new_name
+                | <span data-count="0">W</span>arningUpstream node -&gt; WarningUpstream node
+              in
+              { warning with nw_source = source }
+            in
+            let rename_diagnostics lst =
+              <span data-count="3">l</span>st
+              |&gt; rename_key
+              |&gt; <span data-count="3">L</span>ist.map (fun (k, diagnostics) -&gt;
+                   <span data-count="10">(</span>k, { diagnostics with nd_warnings = List.ma<span data-count="10">p</span> rewire_warning diagnostics.nd_warnings }))
+            in
+            VPipeline {
+              p_nodes        = rename_ke<span data-count="3">y</span> p.p_nodes;
+              p_exprs        = rename_ke<span data-count="3">y</span> p.p_exprs;
+              p_deps         = rewire_dep<span data-count="3">s</span> (rename_ke<span data-count="3">y</span> p.p_deps);
+              p_imports      = p.p_imports;
+              p_runtimes     = rename_ke<span data-count="3">y</span> p.p_runtimes;
+              p_serializers  = rename_ke<span data-count="3">y</span> p.p_serializers;
+              p_deserializers = rename_ke<span data-count="3">y</span> p.p_deserializers;
+              p_env_vars     = rename_ke<span data-count="3">y</span> p.p_env_vars;
+              p_args         = rename_ke<span data-count="3">y</span> p.p_args;
+              p_shells       = rename_ke<span data-count="3">y</span> p.p_shells;
+              p_shell_args   = rename_ke<span data-count="3">y</span> p.p_shell_args;
+              p_functions    = rename_ke<span data-count="3">y</span> p.p_functions;
+              p_includes     = rename_ke<span data-count="3">y</span> p.p_includes;
+              p_noops        = rename_ke<span data-count="3">y</span> p.p_noops;
+              p_scripts      = rename_ke<span data-count="3">y</span> p.p_scripts;
+              p_explicit_deps = rewire_deps_op<span data-count="3">t</span> (rename_ke<span data-count="3">y</span> p.p_explicit_deps);
+              p_node_diagnostics = rename_diagnostic<span data-count="3">s</span> p.p_node_diagnostics;
+            }
+      | <span data-count="0">[</span>VPipeline _; VString _; _] -&gt;
+          Error.type_error "Function `rename_node` expects String arguments for old and new names."
+      | <span data-count="0">[</span>VPipeline _; _; _] -&gt;
+          Error.type_error "Function `rename_node` expects String arguments for old and new names."
+      | <span data-count="0">[</span>_; _; _] -&gt;
+          Error.type_error "Function `rename_node` expects a Pipeline as first argument."
+      | <span data-count="0">_</span> -&gt; Error.arity_error_named "rename_node" 3 (List.lengt<span data-count="0">h</span> args)
+    ))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

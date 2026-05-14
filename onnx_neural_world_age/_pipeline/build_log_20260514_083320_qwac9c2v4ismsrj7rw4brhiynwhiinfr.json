@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260514_083320",
+  "hash": "qwac9c2v4ismsrj7rw4brhiynwhiinfr",
+  "out_path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output",
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output/data/artifact",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "model_skl",
+  "path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output/model_skl/artifact",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "model_sgd",
+  "path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output/model_sgd/artifact",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "pred_skl_t",
+  "path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output/pred_skl_t/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": ["model_skl"],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "pred_sgd_t",
+  "path": "/nix/store/qwac9c2v4ismsrj7rw4brhiynwhiinfr-pipeline_output/pred_sgd_t/artifact",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": ["model_sgd"],
+  "success": false,
+  "warnings": false
+}
+]
+}

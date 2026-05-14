@@ -1,0 +1,77 @@
+{
+  "timestamp": "20260514_082946",
+  "hash": "cjldfmwnk62s806j7l803fa7qmnr5i2j",
+  "out_path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output",
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/raw_data/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "r_warn",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/r_warn/artifact",
+  "runtime": "R",
+  "serializer": "arrow",
+  "class": "tbl_df",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": true
+},
+{
+  "node": "r_err",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/r_err/artifact",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "VError",
+  "dependencies": [],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "py_warn",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/py_warn/artifact",
+  "runtime": "Python",
+  "serializer": "arrow",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": true
+},
+{
+  "node": "py_err",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/py_err/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "VError",
+  "dependencies": [],
+  "success": false,
+  "warnings": false
+},
+{
+  "node": "t_warn",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/t_warn/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "summary_stats",
+  "path": "/nix/store/cjldfmwnk62s806j7l803fa7qmnr5i2j-pipeline_output/summary_stats/artifact",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "success": true,
+  "warnings": false
+}
+]
+}

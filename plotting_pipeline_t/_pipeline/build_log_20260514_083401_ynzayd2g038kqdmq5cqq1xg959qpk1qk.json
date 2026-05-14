@@ -1,0 +1,77 @@
+{
+  "timestamp": "20260514_083401",
+  "hash": "ynzayd2g038kqdmq5cqq1xg959qpk1qk",
+  "out_path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output",
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/data_node/artifact",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": [],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "ggplot_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/ggplot_node/artifact",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "ggplot",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "matplotlib_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/matplotlib_node/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "matplotlib",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "seaborn_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/seaborn_node/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "matplotlib",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "plotly_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/plotly_node/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "plotly",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "altair_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/altair_node/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "altair",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+},
+{
+  "node": "plotnine_node",
+  "path": "/nix/store/ynzayd2g038kqdmq5cqq1xg959qpk1qk-pipeline_output/plotnine_node/artifact",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "plotnine",
+  "dependencies": ["data_node"],
+  "success": true,
+  "warnings": false
+}
+]
+}
