@@ -5,7 +5,7 @@ p = pipeline {
             df <- data.frame(val = rnorm(100), group = "R")
             df
         }>,
-        runtime = R,
+        runtime = "R",
         serializer = ^csv
     )
 
@@ -17,7 +17,7 @@ import numpy as np
 df = pd.DataFrame({"val": np.random.normal(size=100), "group": ["Python"]*100})
 df
         }>,
-        runtime = Python,
+        runtime = "Python",
         serializer = ^csv
     )
 
@@ -28,7 +28,7 @@ df
             df = DataFrame(val = randn(100), group = fill("Julia", 100))
             df
         }>,
-        runtime = Julia,
+        runtime = "Julia",
         serializer = ^csv
     )
 
@@ -36,7 +36,7 @@ df
     -- The .qmd file will use read_node() to access r_data, py_data, and jl_data
     report = node(
         script = "src/report.qmd",
-        runtime = Quarto
+        runtime = "Quarto"
     )
 }
 
@@ -54,4 +54,4 @@ pipeline_copy()
 print("==================================================")
 print("POLYGLOT QUARTO & LATEX DEMO COMPLETED")
 print("==================================================")
-print("The rendered PDF is available in: pipeline_output/report/artifact/report.pdf")
+print("The rendered PDF is available in: pipeline-output/report/artifact/report.pdf")

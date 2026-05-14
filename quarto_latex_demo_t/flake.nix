@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/main";
   };
 
   nixConfig = {
@@ -32,7 +32,7 @@
         };
 
         # Python environment
-        py-env = pkgs.python3.withPackages (ps: with ps; [
+        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
           pandas
           numpy
           ipykernel
@@ -41,19 +41,34 @@
           pyyaml
         ]);
 
-        # Julia environment
-        julia-env = pkgs.julia.withPackages [
-          "DataFrames"
-          "CSV"
-          "JSON"
-        ];
-
         # Additional Tools
         additionalTools = with pkgs; [
           quarto
-          texliveFull
           which
         ];
+
+        # LaTeX Environment
+        latex-env = pkgs.texlive.combine {
+          inherit (pkgs.texlive) scheme-small;
+          inherit (pkgs.texlive) amsmath;
+          inherit (pkgs.texlive) geometry;
+          inherit (pkgs.texlive) hyperref;
+          inherit (pkgs.texlive) booktabs;
+          inherit (pkgs.texlive) caption;
+          inherit (pkgs.texlive) fancyhdr;
+          inherit (pkgs.texlive) lualatex-math;
+          inherit (pkgs.texlive) unicode-math;
+          inherit (pkgs.texlive) fontspec;
+          inherit (pkgs.texlive) selnolig;
+          inherit (pkgs.texlive) xurl;
+          inherit (pkgs.texlive) bookmark;
+          inherit (pkgs.texlive) framed;
+          inherit (pkgs.texlive) fvextra;
+          inherit (pkgs.texlive) titling;
+          inherit (pkgs.texlive) environ;
+          inherit (pkgs.texlive) trimspaces;
+          inherit (pkgs.texlive) etoolbox;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -61,7 +76,7 @@
             t-lang.packages.${system}.default
             r-env
             py-env
-            julia-env
+            latex-env
           ] ++ additionalTools;
 
           shellHook = ''
@@ -69,20 +84,42 @@
             echo "T Project: quarto_latex_demo"
             echo "=================================================="
             echo ""
-            
+            echo "Available commands:"
+            echo "  t repl              - Start T REPL"
+            echo "  t run <file>        - Run a T file"
+            echo "  t test              - Run tests"
+            echo ""
+            echo "To add dependencies:"
+            echo "  * Add them to tproject.toml"
+            echo "  * Run 't update' to sync flake.nix"
+            echo ""
             mkdir -p _extensions
             expected_quarto_ext="${t-lang.packages.${system}.default}/share/tlang/quarto/tlang"
             quarto_ext_path="_extensions/tlang"
-            if [ -d "$expected_quarto_ext" ]; then
+            quarto_ext_stamp="$quarto_ext_path/.tlang-store-path"
+            provision_quarto_ext() {
               rm -rf "$quarto_ext_path"
               mkdir -p "$quarto_ext_path"
               cp -R "$expected_quarto_ext"/. "$quarto_ext_path"/
-              echo "✓ T Quarto extension provisioned."
+              printf '%s\n' "$expected_quarto_ext" > "$quarto_ext_stamp"
+              echo "Provisioned T Quarto extension at _extensions/tlang"
+            }
+            if [ -L "$quarto_ext_path" ]; then
+              provision_quarto_ext
+            elif [ -d "$quarto_ext_path" ] && [ -f "$quarto_ext_stamp" ]; then
+              current_quarto_ext="$(cat "$quarto_ext_stamp")"
+              if [ "$current_quarto_ext" != "$expected_quarto_ext" ]; then
+                provision_quarto_ext
+              fi
+            elif [ -e "$quarto_ext_path" ]; then
+              echo "Quarto extension path _extensions/tlang already exists; leaving it unchanged."
+            else
+              provision_quarto_ext
             fi
+            echo "Quarto is enabled via [additional-tools]. Render {t} chunks with filters: [tlang]."
+            echo ""
           '';
         };
-
-        packages.default = t-lang.packages.${system}.default;
       }
     );
 }
