@@ -1,0 +1,49 @@
+---
+title: "T-Lang Quarto & LaTeX Demo"
+author: "Antigravity"
+format: pdf
+filters:
+  - tlang
+---
+
+# Introduction
+
+This document demonstrates the integration of **T-Lang**, **Quarto**, and **LaTeX**. We use T-Lang to process data and LaTeX to render high-quality mathematical equations and PDF output.
+
+## T-Lang Code Execution
+
+The following T-Lang chunk calculates some basic statistics on the `mtcars` dataset.
+
+```{t}
+#| label: stats-calculation
+#| echo: true
+model = lm(mpg ~ wt + hp, data: mtcars)
+stats = fit_stats(model)
+print(stats)
+```
+
+## Mathematical Equations (LaTeX)
+
+We can include complex LaTeX equations seamlessly:
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
+$$
+
+Where:
+- $y$ is the `mpg` (Miles per Gallon).
+- $x_1$ is the `wt` (Weight).
+- $x_2$ is the `hp` (Horsepower).
+
+The estimated coefficients from the T-Lang model are:
+
+```{t}
+#| label: show-coefs
+#| echo: false
+c = coef(model)
+print(c)
+```
+
+## Conclusion
+
+This PDF was generated entirely within a T-Lang pipeline using Nix to manage all dependencies, including the full TeX Live distribution.
