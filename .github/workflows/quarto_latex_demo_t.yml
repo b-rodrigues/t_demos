@@ -76,8 +76,8 @@ jobs:
       - name: Verify PDF Artifact
         run: |
           # The artifact is a directory containing the PDF
-          ls -R _pipeline/
-          if [ -f _pipeline/report/artifact/report.pdf ]; then
+          ls -R pipeline-output/report/artifact/
+          if [ -f pipeline-output/report/artifact/report.pdf ]; then
             echo "SUCCESS: report.pdf found."
           else
             echo "FAILURE: report.pdf NOT found."
