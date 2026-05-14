@@ -2,10 +2,19 @@
 name = "quarto_latex_demo"
 version = "0.1.0"
 authors = ["Bruno Rodrigues <bruno@brodrigues.co>"]
-description = "A demo of Quarto nodes with LaTeX PDF output in T-Lang"
+description = "A polyglot demo of Quarto nodes with LaTeX PDF output in T-Lang"
 
 [dependencies]
 tlang = ">=0.52.0"
+
+[r-dependencies]
+packages = ["ggplot2", "jsonlite"]
+
+[py-dependencies]
+packages = ["pandas", "numpy"]
+
+[jl-dependencies]
+packages = ["DataFrames", "CSV"]
 
 [additional-tools]
 packages = ["quarto", "texliveFull", "which"]
