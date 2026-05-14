@@ -1,0 +1,30 @@
+name: Companion Package Check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  check-companions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Build Pipeline
+      run: nix develop --command t run src/pipeline.t
+
+    - name: Verify R Companion
+      run: nix develop --command Rscript verify_r.R
+
+    - name: Verify Python Companion
+      run: nix develop --command python verify_py.py
+
+    - name: Verify Julia Companion
+      run: nix develop --command julia verify_jl.jl
