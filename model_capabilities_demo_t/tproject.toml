@@ -7,16 +7,5 @@ description = "Demonstrating T-Lang native model inspection and diagnostic capab
 [dependencies]
 tlang = ">=0.52.0"
 
-[py-dependencies]
-version = "python314"
-packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]
-
-[r-dependencies]
-version = "rstats"
-packages = ["pmml", "XML", "jsonlite", "r2pmml"]
-
-[additional-tools]
-packages = ["jre"]
-
 [nixpkgs]
 date = "2026-04-02"

@@ -26,6 +26,8 @@
           packages = with pkgs.rPackages; [
             pmml
             XML
+            jsonlite
+            r2pmml
           ];
         };
 
@@ -37,6 +39,11 @@
           pandas
           numpy
         ]);
+
+        # Additional Tools
+        additionalTools = with pkgs; [
+          jre
+        ];
       in
       {
         devShells.default = pkgs.mkShell {
@@ -44,7 +51,7 @@
             t-lang.packages.${system}.default
             r-env
             py-env
-          ];
+          ] ++ additionalTools;
 
           shellHook = ''
             echo "=================================================="
