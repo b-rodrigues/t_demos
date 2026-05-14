@@ -2,16 +2,27 @@
 name = "companion_check_t"
 description = "A demo to verify that the tlang companion packages load correctly in R, Python, and Julia"
 
+[dependencies]
+
 [r-dependencies]
 packages = ["dplyr", "jsonlite"]
 
 [py-dependencies]
-packages = ["cronista"]
+version = "python314"
+packages = ["pandas"]
 
 [julia-dependencies]
-packages = ["DataFrames", "JSON"]
+version = "lts"
+packages = ["DataFrames", "JSON", "CSV"]
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
 
 [t]
+min_version = "0.52.0-modified"
 
 [nixpkgs]
 date = "2026-04-02"
