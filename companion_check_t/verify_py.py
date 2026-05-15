@@ -1,4 +1,5 @@
 import tlang
+print(tlang.pipeline_nodes())
 import pandas as pd
 import os
 
