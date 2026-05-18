@@ -57,6 +57,8 @@ jobs:
           fi
 
       - name: Build Pipeline
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           nix develop --command t run src/pipeline.t
 
