@@ -1,0 +1,29 @@
+[project]
+name = "onnx_julia_stress_t"
+description = "Stress testing Julia ONNX writing, reading, and native polyglot execution"
+authors = []
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = ["onnxruntime", "pandas", "numpy", "skl2onnx"]
+
+[jl-dependencies]
+version = "lts"
+packages = ["JSON", "ONNX", "ONNXRunTime", "Umlaut"]
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
