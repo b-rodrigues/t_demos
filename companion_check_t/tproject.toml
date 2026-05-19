@@ -11,7 +11,7 @@ packages = ["dplyr", "jsonlite"]
 version = "python314"
 packages = ["pandas"]
 
-[julia-dependencies]
+[jl-dependencies]
 version = "lts"
 packages = ["DataFrames", "JSON", "CSV"]
 
