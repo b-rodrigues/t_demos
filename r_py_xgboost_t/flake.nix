@@ -2,9 +2,9 @@
   description = "r_py_xgboost_t — a T data analysis project";
 
   inputs = {
-    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-04-02";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "github:b-rodrigues/tlang/jl-package";
+    t-lang.url = "github:b-rodrigues/tlang/build-logs";
   };
 
   nixConfig = {

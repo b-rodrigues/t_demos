@@ -1,17 +1,18 @@
 [project]
 name = "r_py_xgboost_t"
 description = "A T data analysis project"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = ["dplyr", "yardstick", "arrow", "knitr", "rmarkdown"]
+packages = ["dplyr", "yardstick", "arrow", "knitr", "rmarkdown", "jsonlite"]
 
 [py-dependencies]
 version = "python313"
 packages = ["numpy", "pandas", "scikit-learn", "xgboost", "pyarrow", "ipykernel", "nbclient", "nbformat", "pyyaml"]
 
-[julia-dependencies]
+[jl-dependencies]
 version = "lts"
 packages = []
 
@@ -26,3 +27,4 @@ min_version = "0.52.0"
 
 [nixpkgs]
 date = ""
+
