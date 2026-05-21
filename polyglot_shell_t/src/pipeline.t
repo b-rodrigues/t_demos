@@ -35,6 +35,7 @@ cat "$T_NODE_summary_r/artifact"
 printf '\nPython summary\n'
 cat "$T_NODE_summary_py/artifact"
         }>,
+        deps = [raw_data, summary_r, summary_py]
         deserializer = [raw_data: ^csv, summary_r: ^csv, summary_py: ^csv]
     )
 }
