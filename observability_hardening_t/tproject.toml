@@ -25,4 +25,4 @@ packages = []
 min_version = "0.52.1"
 
 [nixpkgs]
-date = "2026-04-02"
+date = "2026-05-08"
