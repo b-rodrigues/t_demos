@@ -1,0 +1,28 @@
+[project]
+name = "observability_hardening_t"
+description = "Stress test for T observability features, shell node T_INPUT variable resolution, Julia parity, error composition, and keyword overwrite protection"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = ["pandas"]
+
+[jl-dependencies]
+version = "lts"
+packages = ["DataFrames", "JSON", "CSV"]
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.52.1"
+
+[nixpkgs]
+date = "2026-04-02"
