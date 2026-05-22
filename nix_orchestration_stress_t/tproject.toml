@@ -1,0 +1,8 @@
+[project]
+name = "nix_orchestration_stress_t"
+description = "A stress test demo for Nix-native pipeline orchestration parameters (targets, force, dry_run, max_jobs, cache)"
+
+[dependencies]
+
+[t]
+min_version = "0.52.2"
