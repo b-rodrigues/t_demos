@@ -78,15 +78,15 @@ p = pipeline {
 print("Running Advanced Dplyr (across, relocate) vs T-Lang pipeline...")
 populate_pipeline(p, build = true, verbose = 1)
 
-res = read_node("t_across_parity")
+res = read_node(p.t_across_parity)
 print("T-Lang across() result preview:")
 glimpse(res)
 
 print("T-Lang summarize_across() result:")
-res_sum = read_node("t_summary")
+res_sum = read_node(p.t_summary)
 print(res_sum)
 
-parity = read_node("parity_check")
+parity = read_node(p.parity_check)
 print("Parity Check Result:")
 print(parity)
 

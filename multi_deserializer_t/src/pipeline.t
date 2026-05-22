@@ -68,7 +68,7 @@ if (is_error(res)) {
     print("Pipeline populated and built.")
 }
 
-final_val = read_node("combined_node")
+final_val = read_node(p.combined_node)
 print("Final result from combined node:", final_val)
 
 if (final_val == "SUCCESS") {

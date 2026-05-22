@@ -79,5 +79,5 @@ jobs:
 
       - name: Read Final Results
         run: |
-          echo "read_node('final_results')" > view.t
+          echo \"import 'src/pipeline.t'; read_node(p.final_results) |> print\" > view.t
           nix develop --command t run --unsafe view.t

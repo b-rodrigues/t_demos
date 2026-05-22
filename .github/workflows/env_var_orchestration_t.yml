@@ -79,10 +79,10 @@ jobs:
 
       - name: Verify R Env Vars
         run: |
-          echo "read_node('r_node')" > view.t
+          echo \"import 'src/pipeline.t'; read_node(p.r_node) |> print\" > view.t
           nix develop --command t run --unsafe view.t
       
       - name: Verify Python Env Vars
         run: |
-          echo "read_node('py_node')" > view_py.t
+          echo \"import 'src/pipeline.t'; read_node(p.py_node) |> print\" > view_py.t
           nix develop --command t run --unsafe view_py.t

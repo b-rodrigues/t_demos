@@ -26,7 +26,7 @@ We can inspect any node artifact directly in this report using T chunks.
 
 ```{t}
 #| label: python-data
-node_pl = read_node("mtcars_pl_am")
+node_pl = read_node(p.mtcars_pl_am)
 # Read the CSV artifact that was serialized by the Python node
 df_filtered = read_csv(node_pl.path)
 df_filtered |> glimpse
@@ -36,7 +36,7 @@ df_filtered |> glimpse
 
 ```{t}
 #| label: r-data
-node_mpg = read_node("mtcars_mpg")
+node_mpg = read_node(p.mtcars_mpg)
 # R nodes serialize to CSV in this pipeline
 print(str_glue("Final artifact path: {node_mpg.path}"))
 ```

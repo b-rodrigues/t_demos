@@ -1,4 +1,5 @@
-py_temporal = read_node("py_temporal")
+import 'src/pipeline.t'
+py_temporal = read_node(p.py_temporal)
 res = py_temporal
     |> mutate(
         event_date = to_date($event_date),

@@ -111,7 +111,7 @@ print(str_join([str_sub(log, 0, 500), "... [truncated]"]))
 print("")
 print("Step 3: Reading specific nodes and their diagnostics (read_node)...")
 -- read_node with a pipeline object returns the full result dictionary including diagnostics
-r_warn_res = read_node(p, "r_warn")
+r_warn_res = read_node(p.r_warn)
 print("Node 'r_warn' diagnostics:")
 print(r_warn_res.diagnostics)
 print("Node 'r_warn' value preview:")
@@ -121,7 +121,7 @@ print("")
 print("Step 4: Inspecting first-class errors from polyglot nodes...")
 print("Checking 'py_err' (which failed during build):")
 
-py_err_res = read_node(p, "py_err")
+py_err_res = read_node(p.py_err)
 py_err_val = py_err_res.value
 print(str_join(["Type: ", type(py_err_val)]))
 

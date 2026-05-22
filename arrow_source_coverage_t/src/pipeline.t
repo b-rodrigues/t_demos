@@ -287,9 +287,9 @@ if (is_error(res)) {
     exit(1)
 }
 
-feature_preview = read_node("compute_features")
-summary_preview = read_node("grouped_summary")
-report = read_node("validation_report")
+feature_preview = read_node(p.compute_features)
+summary_preview = read_node(p.grouped_summary)
+report = read_node(p.validation_report)
 
 print("Feature preview:")
 glimpse(feature_preview)

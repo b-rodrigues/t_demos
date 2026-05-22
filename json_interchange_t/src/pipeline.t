@@ -40,13 +40,13 @@ print(str_join(["Pipeline built at: ", p_store_path], sep=""))
 
 print("Verifying individual nodes via read_node:")
 print("config_node data:")
-c_data = read_node("config_node")
+c_data = read_node(p.config_node)
 print(c_data)
 
 print("process_node data:")
-proc_data = read_node("process_node")
+proc_data = read_node(p.process_node)
 print(proc_data)
 
 print("final_node data (T node):")
-f_data = read_node("final_node")
+f_data = read_node(p.final_node)
 print(f_data)

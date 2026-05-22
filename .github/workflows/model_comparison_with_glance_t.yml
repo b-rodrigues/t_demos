@@ -79,5 +79,5 @@ jobs:
 
       - name: Read Comparison Results
         run: |
-          echo "read_node('comparison') |> print" > view.t
+          echo "read_node(p.comparison) |> print" > view.t
           nix develop --command t run --unsafe view.t

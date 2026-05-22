@@ -16,7 +16,7 @@ The `mtcars_mpg` node is the result of a join of two nodes using different data 
 ```{t}
 #| label: merged-data
 # Node that uses many unserialization strategies
-node_join = read_node("mtcars_mpg")
+node_join = read_node(p.mtcars_mpg)
 df_join = read_arrow(node_join.path)
 df_join |> head(5)
 ```
@@ -28,7 +28,7 @@ df_join |> head(5)
 
 ```{t}
 #| label: tail-data
-node_tail = read_node("mtcars_tail")
+node_tail = read_node(p.mtcars_tail)
 # read_json returns a T value (list of dicts usually for tables)
 tail_data = t_read_json(node_tail.path)
 print(str_join(["Tail data length: ", length(tail_data)]))

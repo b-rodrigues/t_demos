@@ -15,8 +15,8 @@ We access the scores produced by both the R and Python model nodes.
 
 ```{t}
 #| label: model-scores
-r_node = read_node("r_model")
-py_node = read_node("py_model")
+r_node = read_node(p.r_model)
+py_node = read_node(p.py_model)
 
 -- Since these are JSON artifacts, we read them as T values
 r_score = t_read_json(r_node.path)

@@ -15,7 +15,7 @@ The `gorilla_pixels` are extracted in Python and passed to R for cleaning.
 
 ```{t}
 #| label: data-info
-node_coords = read_node("coords")
+node_coords = read_node(p.coords)
 print(str_join(["Cleaned coordinates path: ", node_coords.path]))
 ```
 
@@ -25,7 +25,7 @@ Nodes `plot1` and `plot2` generate visualizations in R based on the processed co
 
 ```{t}
 #| label: plot-info
-node_p1 = read_node("plot1")
+node_p1 = read_node(p.plot1)
 print(str_join(["Plot 1 artifact path: ", node_p1.path]))
 ```
 

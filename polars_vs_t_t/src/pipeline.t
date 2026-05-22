@@ -47,6 +47,6 @@ p = pipeline {
 print("Running Polars vs T-Lang native pipeline...")
 populate_pipeline(p, build = true, verbose = 1)
 
-res = read_node("t_summary")
+res = read_node(p.t_summary)
 print("Summarized results from T-Lang (post-Polars processing):")
 print(res)

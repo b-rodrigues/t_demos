@@ -22,7 +22,7 @@ The R node generated the following data:
 ```{t}
 #| label: r-data
 #| echo: true
-df_r = read_node("r_data")
+df_r = read_node(p.r_data)
 df_r |> head()
 ```
 
@@ -33,7 +33,7 @@ The Python node generated the following data:
 ```{t}
 #| label: py-data
 #| echo: true
-df_py = read_node("py_data")
+df_py = read_node(p.py_data)
 df_py |> head()
 ```
 
@@ -44,7 +44,7 @@ The Julia node generated the following data:
 ```{t}
 #| label: julia-data
 #| echo: true
-df_jl = read_node("jl_data")
+df_jl = read_node(p.jl_data)
 df_jl |> head()
 ```
 

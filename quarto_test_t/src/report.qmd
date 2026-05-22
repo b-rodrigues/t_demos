@@ -9,7 +9,7 @@ The following value was read from a T-Lang pipeline node:
 
 ```{t}
 #| echo: false
-val = read_node("data")
+val = read_node(p.data)
 cat(val)
 ```
 

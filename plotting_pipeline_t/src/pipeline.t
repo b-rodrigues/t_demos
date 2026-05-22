@@ -132,15 +132,15 @@ if (is_error(res)) {
     print("Saved to: ", pn_path)
     
     print("\n--- Metadata check ---")
-    g = read_node("ggplot_node")
+    g = read_node(p.ggplot_node)
     print("ggplot2 Title: ", g.title)
     
-    m = read_node("matplotlib_node")
+    m = read_node(p.matplotlib_node)
     print("matplotlib Title: ", m.title)
     
-    s = read_node("seaborn_node")
+    s = read_node(p.seaborn_node)
     print("seaborn Class: ", s.class)
     
-    pl = read_node("plotly_node")
+    pl = read_node(p.plotly_node)
     print("plotly Class: ", pl.class)
 }

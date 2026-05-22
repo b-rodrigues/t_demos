@@ -74,10 +74,10 @@ jobs:
 
       - name: Inspect Model Stats
         run: |
-          echo "read_node('model_stats')" > view_stats.t
+          echo \"import 'src/pipeline.t'; read_node(p.model_stats) |> print\" > view_stats.t
           nix develop --command t run --unsafe view_stats.t
 
       - name: Inspect Final Predictions
         run: |
-          echo "read_node('results') |> glimpse" > view_results.t
+          echo "read_node(p.results) |> glimpse" > view_results.t
           nix develop --command t run --unsafe view_results.t

@@ -64,9 +64,9 @@ if (is_error(res)) {
 } else {
     print("Build successful.")
     
-    df = read_node("data_node")
-    r_model = read_node("r_model_node")
-    py_model = read_node("py_model_node")
+    df = read_node(p.data_node)
+    r_model = read_node(p.r_model_node)
+    py_model = read_node(p.py_model_node)
     
     print("\n--- R Model Summary ---")
     s_r = summary(r_model)

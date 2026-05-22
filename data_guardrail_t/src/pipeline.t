@@ -114,9 +114,9 @@ print("\nPipeline Summary:")
 print(pipeline_summary(p))
 
 print("\nInspecting Guardrail Status:")
-res_ranges = read_node(p, "validate_ranges")
-res_dates = read_node(p, "validate_dates")
-res_nulls = read_node(p, "validate_nulls")
+res_ranges = read_node(p.validate_ranges)
+res_dates = read_node(p.validate_dates)
+res_nulls = read_node(p.validate_nulls)
 
 print(str_join(["Range Check: ", explain(res_ranges.error)]))
 print(str_join(["Date Check:  ", explain(res_dates.error)]))

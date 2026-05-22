@@ -66,10 +66,10 @@ jobs:
 
       - name: Verify Recovery (handled_node should be 'Fallback Data')
         run: |
-          echo "val = read_node('handled_node'); assert(val == 'Fallback Data', 'handled_node failed to recover')" > verify.t
+          echo "val = read_node(p.handled_node); assert(val == 'Fallback Data', 'handled_node failed to recover')" > verify.t
           nix develop --command t run --unsafe verify.t
 
       - name: Verify Error Info
         run: |
-          echo "val = read_node('error_info'); assert(val.failed == true, 'error_info should show failure')" > verify_info.t
+          echo "val = read_node(p.error_info); assert(val.failed == true, 'error_info should show failure')" > verify_info.t
           nix develop --command t run --unsafe verify_info.t

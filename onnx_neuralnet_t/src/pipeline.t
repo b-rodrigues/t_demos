@@ -330,8 +330,8 @@ if (is_error(res)) {
 }
 
 print("\nNeural Network trained and validated successfully.")
-print("Python Predictions:", read_node("python_predictions"))
-print("Julia Flux Predictions:", read_node("julia_flux_predictions"))
-print("T-Lang Predictions:", read_node("t_predictions"))
+print("Python Predictions:", read_node(p.python_predictions))
+print("Julia Flux Predictions:", read_node(p.julia_flux_predictions))
+print("T-Lang Predictions:", read_node(p.t_predictions))
 print("\nValidation Result (asserts passed):")
-print(read_node("validate_parity"))
+print(read_node(p.validate_parity))

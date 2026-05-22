@@ -30,7 +30,7 @@ print("Build Result:")
 print(res)
 print("----------------")
 
-model = read_node("model_node")
+model = read_node(p.model_node)
 
 print("Model Summary:")
 print(summary(model))
@@ -47,7 +47,7 @@ print(model.link)
 print("Coefficients:")
 print(model.coefficients)
 
-df_test = read_node("data_node")
+df_test = read_node(p.data_node)
 preds = predict(df_test, model)
 print("Predictions type:")
 print(type(preds))

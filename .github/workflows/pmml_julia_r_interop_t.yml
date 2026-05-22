@@ -67,7 +67,7 @@ jobs:
 
       - name: Verify Model
         run: |
-          echo "read_node('model_jl')" > verify-model.t
+          echo \"import 'src/pipeline.t'; read_node(p.model_jl) |> print\" > verify-model.t
           nix develop --command t run --unsafe verify-model.t
 
       - name: Verify Numerical Parity

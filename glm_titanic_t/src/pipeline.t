@@ -47,9 +47,9 @@ if (is_error(res)) {
     print(res)
 } else {
     print("Reading artifacts...")
-    df_clean = read_node("data_node")
-    r_model    = read_node("r_model_node")
-    py_model   = read_node("py_model_node")
+    df_clean = read_node(p.data_node)
+    r_model    = read_node(p.r_model_node)
+    py_model   = read_node(p.py_model_node)
 
     print("Computing predictions in T (R Model)...")
     t_preds_r = predict(df_clean, r_model)

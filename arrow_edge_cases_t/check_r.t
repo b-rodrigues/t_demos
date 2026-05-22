@@ -1,1 +1,2 @@
-print(read_node("r_temporal"))
+import 'src/pipeline.t'
+print(read_node(p.r_temporal))

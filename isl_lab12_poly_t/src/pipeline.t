@@ -66,8 +66,8 @@ if (is_error(res)) {
 } else {
     print("Build successful.")
     
-    mt = read_node("t_model")
-    mr = read_node("r_model")
+    mt = read_node(p.t_model)
+    mr = read_node(p.r_model)
 
     print("\nT Model R-squared:", mt.r_squared)
     print("R Model R-squared:", mr.r_squared)

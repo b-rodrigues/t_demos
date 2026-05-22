@@ -833,6 +833,6 @@ if (is_error(res)) {
     exit(1)
 }
 
-report = read_node("validation")
+report = read_node(p.validation)
 print(report)
 assert(report.status == "ok", "stats_functions_t validation failed")

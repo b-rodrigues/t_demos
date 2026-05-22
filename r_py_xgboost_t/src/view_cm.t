@@ -1,1 +1,2 @@
-print(read_node("confusion_matrix"))
+import 'src/pipeline.t'
+print(read_node(p.confusion_matrix))

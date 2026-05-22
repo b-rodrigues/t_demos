@@ -111,6 +111,6 @@ print("=== Package manager demo summary ===")
 print([
   package_workspace: package_workspace,
   project_workspace: project_workspace,
-  package: read_node("package_checks"),
-  project: read_node("project_checks")
+  package: read_node(p.package_checks),
+  project: read_node(p.project_checks)
 ])

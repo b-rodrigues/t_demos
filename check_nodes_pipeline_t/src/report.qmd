@@ -11,83 +11,83 @@ The pipeline involves nodes written in T, R, Python, and Bash.
 # Native T Data
 ```{t}
 #| label: data-t
-print(read_node("data_t"))
+print(read_node(p.data_t))
 ```
 
 # DataFrames (Arrow)
 ```{t}
 #| label: df-r
-print(read_node("df_r"))
+print(read_node(p.df_r))
 ```
 
 ```{t}
 #| label: df-py
-print(read_node("df_py"))
+print(read_node(p.df_py))
 ```
 
 # R ggplot (plot_r)
 ```{t}
 #| label: plot-r
-print(read_node("plot_r"))
+print(read_node(p.plot_r))
 ```
 
 # R Models
 ```{t}
 #| label: lm-r
-print(read_node("lm_r"))
+print(read_node(p.lm_r))
 ```
 
 ```{t}
 #| label: glm-r
-print(read_node("glm_r"))
+print(read_node(p.glm_r))
 ```
 
 # Python Models
 ```{t}
 #| label: lm-py
-print(read_node("lm_py"))
+print(read_node(p.lm_py))
 ```
 
 ```{t}
 #| label: logit-py
-print(read_node("logit_py"))
+print(read_node(p.logit_py))
 ```
 
 # PMML Models
 ```{t}
 #| label: r-model-pmml
-print(read_node("r_model_pmml"))
+print(read_node(p.r_model_pmml))
 ```
 
 ```{t}
 #| label: py-model-pmml
-print(read_node("py_model_pmml"))
+print(read_node(p.py_model_pmml))
 ```
 
 # T-Native Predictions
 ```{t}
 #| label: pred-t-r
-print(read_node("pred_t_r"))
+print(read_node(p.pred_t_r))
 ```
 
 ```{t}
 #| label: pred-t-py
-print(read_node("pred_t_py"))
+print(read_node(p.pred_t_py))
 ```
 
 # Summaries and Vectors
 ```{t}
 #| label: model-r-json
-print(read_node("model_r_json"))
+print(read_node(p.model_r_json))
 ```
 
 ```{t}
 #| label: vector-py
-print(read_node("vector_py"))
+print(read_node(p.vector_py))
 ```
 
 # Bash Results
 ```{t}
 #| label: res-bash
-print(read_node("res_bash"))
+print(read_node(p.res_bash))
 ```

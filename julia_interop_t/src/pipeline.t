@@ -40,6 +40,6 @@ p = pipeline {
 build_pipeline(p, verbose = 1)
 
 -- Read the result
-res = read_node("final_results")
+res = read_node(p.final_results)
 print("Julia Summary Results:")
 print(res)

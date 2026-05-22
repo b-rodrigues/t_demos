@@ -65,8 +65,8 @@ if (is_error(res)) {
 } else {
     print("Build successful.")
     
-    r_p = read_node("r_preds")
-    py_p = read_node("py_preds")
+    r_p = read_node(p.r_preds)
+    py_p = read_node(p.py_preds)
     
     -- Compare predictions
     n_matches = sum(to_integer(r_p.Direction .== py_p.Direction))

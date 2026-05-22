@@ -178,9 +178,9 @@ if (is_error(res)) {
     exit(1)
 }
 
-parsed_preview = read_node("parsed_native")
-temporal_preview = read_node("temporal_roundtrip")
-report = read_node("validation_report")
+parsed_preview = read_node(p.parsed_native)
+temporal_preview = read_node(p.temporal_roundtrip)
+report = read_node(p.validation_report)
 
 print("Parsed CSV preview:")
 glimpse(parsed_preview)

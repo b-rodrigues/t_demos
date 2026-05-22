@@ -77,7 +77,7 @@ populate_pipeline(p, build = true)
 print("\nPipeline Summary:")
 print(pipeline_summary(p))
 
-res = read_node(p, "validation")
+res = read_node(p.validation)
 if (is_error(res.value)) {
     print("\nValidation Failed:")
     print(explain(res.value))

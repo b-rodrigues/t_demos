@@ -57,10 +57,10 @@ if (is_error(res)) {
 } else {
     print("Build successful.")
 
-    df = read_node("data_node")
-    p_r = read_node("poisson_r")
-    p_py = read_node("poisson_py")
-    nb_r = read_node("nb_r")
+    df = read_node(p.data_node)
+    p_r = read_node(p.poisson_r)
+    p_py = read_node(p.poisson_py)
+    nb_r = read_node(p.nb_r)
     
     print("\n--- Poisson (R) Summary ---")
     print(summary(p_r))

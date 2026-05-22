@@ -34,7 +34,7 @@ print("Building GLM (Python) pipeline...")
 res = build_pipeline(p, verbose=1)
 print("Pipeline build successful.")
 
-model = read_node("model_node")
+model = read_node(p.model_node)
 
 print("Model Class:")
 print(model.class)
@@ -48,7 +48,7 @@ print(model.link)
 print("Coefficients:")
 print(model.coefficients)
 
-df_test = read_node("data_node")
+df_test = read_node(p.data_node)
 preds = predict(df_test, model)
 print("Predictions type:")
 print(type(preds))

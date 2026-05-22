@@ -106,7 +106,7 @@ if (is_error(build_res)) {
 }
 
 print("Reading final result in T:")
-res = read_node("node_r_final")
+res = read_node(p.node_r_final)
 if (is_error(res)) {
     print("FATAL: Failed to read node_r_final:")
     print(res)

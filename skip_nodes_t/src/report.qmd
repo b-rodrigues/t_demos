@@ -15,7 +15,7 @@ In this pipeline, `expensive_node` is marked as `noop = true`.
 
 ```{t}
 #| label: skip-status
-node_exp = read_node("expensive_node")
+node_exp = read_node(p.expensive_node)
 print(str_join(["Expensive node noop status: ", to_string(node_exp.noop)]))
 ```
 

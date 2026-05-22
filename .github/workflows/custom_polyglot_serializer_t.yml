@@ -79,5 +79,5 @@ jobs:
 
       - name: Verify YAML Output
         run: |
-          echo "read_node('config_r')" > view.t
+          echo \"import 'src/pipeline.t'; read_node(p.config_r) |> print\" > view.t
           nix develop --command t run --unsafe view.t

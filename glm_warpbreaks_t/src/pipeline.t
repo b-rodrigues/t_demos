@@ -71,10 +71,10 @@ if (is_error(res)) {
     print(res)
 } else {
     print("Build successful.")
-    df = read_node("data_node")
-    m_p_r  = read_node("r_poisson")
-    m_nb_r = read_node("r_nb")
-    m_p_py = read_node("py_poisson")
+    df = read_node(p.data_node)
+    m_p_r  = read_node(p.r_poisson)
+    m_nb_r = read_node(p.r_nb)
+    m_p_py = read_node(p.py_poisson)
     
     print("\n--- Warpbreaks Poisson (R) Summary ---")
     print(summary(m_p_r))

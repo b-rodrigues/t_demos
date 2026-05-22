@@ -44,7 +44,7 @@ p = pipeline {
 print("Running chrono vs lubridate comparison pipeline...")
 populate_pipeline(p, build = true, verbose = 1)
 
-res = read_node("comparison")
+res = read_node(p.comparison)
 
 print("Comparison Results:")
 glimpse(res)

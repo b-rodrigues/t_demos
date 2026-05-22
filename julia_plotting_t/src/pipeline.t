@@ -87,12 +87,12 @@ if (is_error(res)) {
     print("Saved to: ", plots_path)
 
     print("\n--- Metadata check ---")
-    tidierplots_meta = read_node("tidierplots_node")
+    tidierplots_meta = read_node(p.tidierplots_node)
     print("TidierPlots class: ", tidierplots_meta.class)
 
-    makie_meta = read_node("makie_node")
+    makie_meta = read_node(p.makie_node)
     print("Makie class: ", makie_meta.class)
 
-    plots_meta = read_node("plots_node")
+    plots_meta = read_node(p.plots_node)
     print("Plots.jl class: ", plots_meta.class)
 }

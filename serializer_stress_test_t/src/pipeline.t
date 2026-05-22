@@ -39,7 +39,7 @@ start_time = now()
 populate_pipeline(p, build = true, verbose = 1)
 end_time = now()
 
-res = read_node("summarized")
+res = read_node(p.summarized)
 print("Summarized result (by Letter):")
 print(res)
 
