@@ -1,17 +1,30 @@
 [project]
 name = "many_inputs_t"
 description = "A T data analysis project"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "readr",]
+packages = ["readr", "arrow", "jsonlite", "knitr", "rmarkdown"]
 
 [py-dependencies]
-packages = [ "polars",]
+version = "python314"
+packages = ["polars", "ipykernel", "nbclient", "nbformat", "pandas", "pyarrow", "pyyaml"]
+
+[jl-dependencies]
+version = "lts"
+packages = []
 
 [additional-tools]
-packages = [ "quarto",]
+packages = ["quarto", "which"]
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+

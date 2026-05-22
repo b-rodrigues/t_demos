@@ -26,12 +26,22 @@
           packages = with pkgs.rPackages; [
             t-lang.packages.${system}.tlang-r
             readr
+            arrow
+            jsonlite
+            knitr
+            rmarkdown
           ];
         };
 
         # Python environment
         py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
           polars
+          ipykernel
+          nbclient
+          nbformat
+          pandas
+          pyarrow
+          pyyaml
         ]);
 
         # Julia environment
@@ -40,6 +50,7 @@
         # Additional Tools
         additionalTools = with pkgs; [
           quarto
+          which
         ];
       in
       {
