@@ -1,1 +1,1 @@
-print(inspect_pipeline())
+print(inspect_log())

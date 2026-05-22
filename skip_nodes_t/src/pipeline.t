@@ -42,5 +42,5 @@ print(summary_df)
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
 
-print("Check build log status with inspect_pipeline():")
-print(inspect_pipeline())
+print("Check build log status with inspect_log():")
+print(inspect_log())
