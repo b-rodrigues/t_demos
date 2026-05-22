@@ -79,5 +79,5 @@ jobs:
 
       - name: Verify Dynamic Renaming
         run: |
-          echo \"import 'src/pipeline.t'; read_node(p.final_status) |> print\" > view.t
+          echo "import 'src/pipeline.t'; read_node(p.final_status) |> print" > view.t
           nix develop --command t run --unsafe view.t

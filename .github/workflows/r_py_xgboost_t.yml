@@ -79,5 +79,5 @@ jobs:
 
       - name: Read Final Accuracy
         run: |
-          echo \"import 'src/pipeline.t'; read_node(p.accuracy) |> print\" > view.t
+          echo "import 'src/pipeline.t'; read_node(p.accuracy) |> print" > view.t
           nix develop --command t run --unsafe view.t
