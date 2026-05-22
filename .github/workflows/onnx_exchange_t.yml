@@ -74,10 +74,10 @@ jobs:
 
       - name: Inspect Model Stats
         run: |
-          echo "p = inspect_log(); read_node(p.model_stats) |> print" > view_stats.t
+          echo "t_make(); read_node(p.model_stats) |> print" > view_stats.t
           nix develop --command t run --unsafe view_stats.t
 
       - name: Inspect Final Predictions
         run: |
-          echo "p = inspect_log(); read_node(p.results) |> glimpse" > view_results.t
+          echo "t_make(); read_node(p.results) |> glimpse" > view_results.t
           nix develop --command t run --unsafe view_results.t

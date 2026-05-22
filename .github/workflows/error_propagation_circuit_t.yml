@@ -79,10 +79,10 @@ jobs:
 
       - name: Read Recovered Node (match)
         run: |
-          echo "p = inspect_log(); read_node(p.recovered_with_match) |> print" > view_recovered.t
+          echo "t_make(); read_node(p.recovered_with_match) |> print" > view_recovered.t
           nix develop --command t run --unsafe view_recovered.t
 
       - name: Read Recovered Node (maybe-pipe)
         run: |
-          echo "p = inspect_log(); read_node(p.recovered_with_maybe_pipe) |> print" > view_maybe.t
+          echo "t_make(); read_node(p.recovered_with_maybe_pipe) |> print" > view_maybe.t
           nix develop --command t run --unsafe view_maybe.t
