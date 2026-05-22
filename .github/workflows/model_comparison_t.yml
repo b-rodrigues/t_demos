@@ -79,5 +79,5 @@ jobs:
 
       - name: Read Comparison Result Node
         run: |
-          echo "t_make(); read_node(p.comparison_result) |> print" > view.t
+          echo "t_make(); read_node(p_final.comparison_result) |> print" > view.t
           nix develop --command t run --unsafe view.t
