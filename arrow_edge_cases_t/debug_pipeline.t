@@ -1,4 +1,4 @@
-import 'src/pipeline.t'
+t_make()
 py_temporal = read_node(p.py_temporal)
 res = py_temporal
     |> mutate(
