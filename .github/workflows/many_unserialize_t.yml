@@ -74,7 +74,7 @@ jobs:
 
       - name: Inspect Built Nodes
         run: |
-          echo "inspect_pipeline()" > inspect.t
+          echo "inspect_log()" > inspect.t
           nix develop --command t run --unsafe inspect.t
 
       - name: Read one Node
