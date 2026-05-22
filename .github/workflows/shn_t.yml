@@ -79,5 +79,5 @@ jobs:
 
       - name: Read Final Summary Node
         run: |
-          echo "read_node(p.final_summary) |> print" > view.t
+          echo "p = inspect_log(); read_node(p.final_summary) |> print" > view.t
           nix develop --command t run --unsafe view.t

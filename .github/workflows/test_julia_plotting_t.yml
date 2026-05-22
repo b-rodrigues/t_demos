@@ -79,7 +79,7 @@ jobs:
 
       - name: Read one Node
         run: |
-          echo "import 'src/pipeline.t'; read_node(p.tidierplots_node) |> print" > view.t
+          echo "p = inspect_log(); read_node(p.tidierplots_node) |> print" > view.t
           nix develop --command t run --unsafe view.t
 
       - name: Upload Plot Artifacts

@@ -79,6 +79,6 @@ jobs:
 
       - name: Verify Lens Results
         run: |
-          echo "import 'src/pipeline.t'; read_node(p.both_updated) |> print" > view.t
+          echo "p = inspect_log(); read_node(p.both_updated) |> print" > view.t
           nix develop --command t run --unsafe view.t
 
