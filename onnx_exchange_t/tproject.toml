@@ -13,7 +13,7 @@ packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy", "pyarr
 
 [julia-dependencies]
 version = "lts"
-packages = ["Arrow", "DataFrames", "ONNX", "ONNXRunTime"]
+packages = ["Arrow", "DataFrames", "JSON", "ONNX", "ONNXRunTime"]
 
 [additional-tools]
 packages = ["jpmml-evaluator", "jre"]
