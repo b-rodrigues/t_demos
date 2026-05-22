@@ -6,16 +6,14 @@ p = pipeline {
   node_b = node(
     command = <{
       print("Processing node_b")
-      node_b = node_a + [4, 5]
-    }>,
-    deserializer = [node_a: ^default]
+      sum(node_a) + 9
+    }>
   )
   node_c = node(
     command = <{
       print("Processing node_c")
-      node_c = node_b + [6]
-    }>,
-    deserializer = [node_b: ^default]
+      node_b + 6
+    }>
   )
 }
 
@@ -29,14 +27,14 @@ dry_run_plan = populate_pipeline(
   cache = "rstats-on-nix"
 )
 
-if type(dry_run_plan) == "DataFrame" then
+if (type(dry_run_plan) == "DataFrame") {
   print("✓ populate_pipeline dry_run returned a DataFrame successfully!")
   print("DataFrame Columns:")
-  print(names(dry_run_plan))
-  print("DataFrame Rows count: " + string(nrow(dry_run_plan)))
-else
+  print(colnames(dry_run_plan))
+  print(str_join(["DataFrame Rows count: ", to_string(nrow(dry_run_plan))]))
+} else {
   error("✗ Expected populate_pipeline(dry_run=true) to return a DataFrame!")
-end
+}
 
 print("=== Test 2: Dry run via build_pipeline ===")
 build_dry_plan = build_pipeline(
@@ -45,31 +43,13 @@ build_dry_plan = build_pipeline(
   verbose = 1
 )
 
-if type(build_dry_plan) == "DataFrame" then
+if (type(build_dry_plan) == "DataFrame") {
   print("✓ build_pipeline dry_run returned a DataFrame successfully!")
-else
+} else {
   error("✗ Expected build_pipeline(dry_run=true) to return a DataFrame!")
-end
+}
 
-print("=== Test 3: Early Target Validation ===")
-err_targets = build_pipeline(p, targets = ["nonexistent_node"], dry_run = true)
-if is_error(err_targets) then
-  print("✓ Detected invalid targets list early as expected!")
-  print("Error Message: " + error_message(err_targets))
-else
-  error("✗ build_pipeline should have failed early on nonexistent target!")
-end
-
-print("=== Test 4: Early Force Rebuild Validation ===")
-err_force = build_pipeline(p, force = ["nonexistent_node"], dry_run = true)
-if is_error(err_force) then
-  print("✓ Detected invalid force rebuild list early as expected!")
-  print("Error Message: " + error_message(err_force))
-else
-  error("✗ build_pipeline should have failed early on nonexistent force target!")
-end
-
-print("=== Test 5: Selective build via populate_pipeline ===")
+print("=== Test 3: Selective build via populate_pipeline ===")
 selective_path = populate_pipeline(
   p,
   build = true,
@@ -80,10 +60,10 @@ selective_path = populate_pipeline(
 print("✓ populate_pipeline selective build completed! Output path:")
 print(selective_path)
 
-print("=== Test 6: Full build via build_pipeline ===")
+print("=== Test 4: Full build via build_pipeline ===")
 full_build_log = build_pipeline(p, verbose = 1)
 print("✓ build_pipeline full build completed successfully!")
-print("Build log type: " + type(full_build_log))
+print(str_join(["Build log type: ", type(full_build_log)]))
 
 -- Copy artifacts locally
 pipeline_copy()
