@@ -88,6 +88,11 @@ filters:
 
 $description
 
+\`\`\`{t}
+#| include: false
+t_make()
+\`\`\`
+
 ## Nodes in this Pipeline
 
 Below is the state of each node in the pipeline after execution.
@@ -100,7 +105,7 @@ EOF
 ### Node: \`$node\`
 
 \`\`\`{t}
-read_node("$node")
+read_node(p.$node)
 \`\`\`
 
 EOF
