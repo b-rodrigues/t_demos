@@ -7,7 +7,7 @@ This project demonstrates how to build **resilient pipelines** in T using the `?
 1.  **First-class Errors**: In T, errors are values, not exceptions. Nodes can evaluate to an `Error` and the pipeline will continue if downstream nodes are designed to handle it.
 2.  **The Maybe-Pipe (`?|>`)**: Unlike the standard pipe (`|>`), which short-circuits on Error values, the Maybe-Pipe always forwards the value (even if it is an Error) to the next function.
 3.  **Cross-node Recovery**: Showing how a node can depend on a "failed" node and provide a fallback value or alternative path.
-4.  **Error Introspection**: Using `is_error()`, `error_code()`, and `error_message()` to programmatically react to failures.
+4.  **Error Introspection**: Using `is_error()`, `error_code()`, and `error_msg()` to programmatically react to failures.
 
 ## Usage
 

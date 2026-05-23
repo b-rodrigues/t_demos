@@ -28,7 +28,7 @@ p = pipeline {
     handled_node = node(
         command = risky_node ?|> \(input) {
             if (is_error(input)) {
-                print(str_sprintf("Warning: Dependency failed with message: %s", error_message(input)))
+                print(str_sprintf("Warning: Dependency failed with message: %s", error_msg(input)))
                 "Fallback Data"
             } else {
                 input
@@ -42,7 +42,7 @@ p = pipeline {
         command = risky_node ?|> \(input) [
             failed: is_error(input),
             code: if (is_error(input)) { error_code(input) } else { "OK" },
-            msg: if (is_error(input)) { error_message(input) } else { "" }
+            msg: if (is_error(input)) { error_msg(input) } else { "" }
         ]
     )
 }
