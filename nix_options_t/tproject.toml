@@ -1,0 +1,18 @@
+[project]
+name = "nix_options_t"
+description = "A T project exercising Nix native orchestration options"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow",]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.2"
