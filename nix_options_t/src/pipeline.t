@@ -21,4 +21,13 @@ print("Exercising pipeline_run with nix_options (targets, dry_run)...")
 df_run = pipeline_run(p, nix_options = [targets: ["filtered_mtcars"], dry_run: true])
 print(df_run)
 
+-- 4. Exercise pipeline_gc to clean the store cache
+print("Exercising pipeline_gc with dry_run=true...")
+df_gc_dry = pipeline_gc(p, dry_run = true)
+print(df_gc_dry)
+
+print("Exercising pipeline_gc live clean...")
+df_gc_live = pipeline_gc(p, dry_run = false)
+print(df_gc_live)
+
 print("Nix options demo successfully completed!")
