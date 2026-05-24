@@ -71,7 +71,7 @@ jobs:
       - name: Run Pipeline with nix-build Interceptor
         run: |
           # Find the real nix-build path in the Nix development environment
-          REAL_NIX_BUILD=$(nix develop --command which nix-build)
+          REAL_NIX_BUILD=$(nix develop --command which nix-build | tail -n 1)
           echo "Real nix-build path: $REAL_NIX_BUILD"
           
           # Create mock bin directory
