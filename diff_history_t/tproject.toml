@@ -1,0 +1,18 @@
+[project]
+name = "diff_history_t"
+description = "A demo for T temporal introspection: build_log_history and node_diff"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.2"
