@@ -71,3 +71,23 @@ jobs:
       - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run src/pipeline.t
+
+      - name: Display Generated Diffs from Disk
+        run: |
+          echo "========================================="
+          echo "=== Displaying DataFrame Diff File   ==="
+          echo "========================================="
+          if [ -f df_diff.diff ]; then
+            cat df_diff.diff
+          else
+            echo "df_diff.diff not found!"
+          fi
+          echo ""
+          echo "========================================="
+          echo "=== Displaying Text Node Diff File   ==="
+          echo "========================================="
+          if [ -f text_diff.diff ]; then
+            cat text_diff.diff
+          else
+            echo "text_diff.diff not found!"
+          fi
