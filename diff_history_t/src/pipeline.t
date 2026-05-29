@@ -107,6 +107,8 @@ print("  - Rows in B (V2):    ", (diff_df.summary.rows_added + diff_df.summary.r
 print("  - Rows Added:       ", diff_df.summary.rows_added)
 print("  - Rows Removed:     ", diff_df.summary.rows_removed)
 print("  - Rows Changed:     ", diff_df.summary.rows_changed)
+print("Detailed git-like Diff of DataFrame rows:")
+print(diff_df.detailed_summary)
 print("")
 
 print("=========================================")
@@ -119,6 +121,8 @@ print("  - Changed?          ", diff_text.summary.changed)
 print("  - Value A (latest): ", diff_text.summary.value_a)
 print("  - Value B (V2):     ", diff_text.summary.value_b)
 print("  - Number of Hunks:  ", length(diff_text.hunks))
+print("Detailed git-like Diff of Text content:")
+print(diff_text.detailed_summary)
 print("")
 
 print("=========================================")

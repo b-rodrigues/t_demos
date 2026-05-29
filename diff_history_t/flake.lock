@@ -110,16 +110,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1779710860,
-        "narHash": "sha256-CSvZI3+9SYyXXTPU+TtUxHbZWaR8rLOjQXwYbvR05qs=",
+        "lastModified": 1780035178,
+        "narHash": "sha256-Vrl66JFT9KuKFTK7Qshfj9MuAjBK0XrzQmIMqiBfJXQ=",
         "owner": "b-rodrigues",
         "repo": "tlang",
-        "rev": "45722bd12a07aba9f6449f6f9deebec72d366795",
+        "rev": "eea7ee153c76503319a41fa98bda430b31886d8b",
         "type": "github"
       },
       "original": {
         "owner": "b-rodrigues",
-        "ref": "v0.52.2",
+        "ref": "copilot/revise-node-diffing",
         "repo": "tlang",
         "type": "github"
       }
