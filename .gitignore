@@ -1,6 +1,8 @@
 # T orchestration engine generated files (ignored globally)
 _pipeline/
 pipeline-output/
+flake.nix
+flake.lock
 
 # Documentation and temporary files
 .quarto/
