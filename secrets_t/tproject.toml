@@ -5,7 +5,7 @@ description = "Demonstrates keep_env and sandbox nix_options for passing secrets
 [dependencies]
 
 [r-dependencies]
-packages = [ "arrow",]
+packages = []
 
 [py-dependencies]
 version = "python314"
