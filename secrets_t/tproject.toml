@@ -1,0 +1,18 @@
+[project]
+name = "secrets_t"
+description = "Demonstrates keep_env and sandbox nix_options for passing secrets into the Nix build sandbox"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.2"
