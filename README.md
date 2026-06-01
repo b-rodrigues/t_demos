@@ -1,6 +1,6 @@
 # T Language Demos
 
-This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 72 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
+This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 73 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
 
 ## Key Features Showcased
 - **Polyglot Pipelines**: Orchestrating T, R (`rn`), Python (`pyn`), and Shell (`shn`) nodes in a single DAG.
@@ -14,7 +14,7 @@ This repository contains a large collection of demonstration projects for the **
 Each subdirectory is a complete T project with its own `tproject.toml` and pipeline logic.
 
 ### Core pipeline and language demos
-- `basic_t`, `check_nodes_pipeline_t`, `companion_check_t`, `dynamic_pipeline_operator_t`, `nix_options_t`, `nix_orchestration_stress_t`, `package_manager_functions_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_lens_orchestration_t`
+- `basic_t`, `check_nodes_pipeline_t`, `companion_check_t`, `dynamic_pipeline_operator_t`, `nix_options_t`, `nix_orchestration_stress_t`, `package_manager_functions_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_lens_orchestration_t`, `remote_builders_t`
 - `dynamic_features_t`, `secrets_t`, `skip_nodes_t`, `many_inputs_t`, `many_unserialize_t`, `get_sym_demo_t`
 - `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`, `julia_interop_t`
 
