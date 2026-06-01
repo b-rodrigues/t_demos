@@ -1,0 +1,161 @@
+name: Demo Remote Builders T
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  remote-builders-t:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ./remote_builders_t
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+            builders-use-substitutes = true
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Get T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            REPO="b-rodrigues/tlang"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Update to latest T version
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
+
+      - name: Inject pipeline dependencies
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
+
+      - name: Rebuild flake with new dependencies
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Configure mock localhost remote builder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-server
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          ssh-keygen -t ed25519 -N "" -f "$RUNNER_TEMP/remote-builder-key"
+          cat "$RUNNER_TEMP/remote-builder-key.pub" >> ~/.ssh/authorized_keys
+          chmod 600 ~/.ssh/authorized_keys
+
+          cat > ~/.ssh/config <<EOF
+          Host gha-builder
+            HostName 127.0.0.1
+            User $USER
+            Port 2222
+            IdentityFile $RUNNER_TEMP/remote-builder-key
+            IdentitiesOnly yes
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+          chmod 600 ~/.ssh/config
+
+          NIX_BIN_DIR=$(dirname "$(command -v nix-store)")
+          cat > ~/.ssh/environment <<EOF
+          PATH=$NIX_BIN_DIR:/usr/local/bin:/usr/bin:/bin
+          NIX_REMOTE=daemon
+          EOF
+          chmod 600 ~/.ssh/environment
+
+          cat > "$RUNNER_TEMP/sshd_config" <<EOF
+          Port 2222
+          ListenAddress 127.0.0.1
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          AuthorizedKeysFile .ssh/authorized_keys
+          PasswordAuthentication no
+          ChallengeResponseAuthentication no
+          UsePAM no
+          PermitUserEnvironment yes
+          PidFile $RUNNER_TEMP/remote-builder-sshd.pid
+          LogLevel VERBOSE
+          EOF
+
+          sudo mkdir -p /run/sshd
+          sudo /usr/sbin/sshd -f "$RUNNER_TEMP/sshd_config"
+
+          ssh gha-builder 'command -v nix-store && nix-store --version'
+
+      - name: Run pipeline with mock remote builder
+        env:
+          TLANG_REMOTE_BUILDERS: "ssh://gha-builder x86_64-linux - 1 1 - -"
+        run: |
+          REAL_SSH=$(command -v ssh)
+          mkdir -p mock_bin
+          cat <<'EOF' > mock_bin/ssh
+          #!/usr/bin/env bash
+          echo "[SSH-WRAPPER] $@" >> ssh-wrapper.log
+          exec REAL_SSH_PLACEHOLDER "$@"
+          EOF
+
+          sed -i "s|REAL_SSH_PLACEHOLDER|$REAL_SSH|g" mock_bin/ssh
+          chmod +x mock_bin/ssh
+
+          MOCK_BIN="$(pwd)/mock_bin"
+          nix develop --command bash -lc "export PATH='$MOCK_BIN':\$PATH; export NIX_CONFIG='max-jobs = 0'; t run src/pipeline.t"
+
+          echo "=== SSH wrapper log ==="
+          cat ssh-wrapper.log
+
+      - name: Verify remote builder usage
+        run: |
+          echo "=== Verifying remote builder SSH traffic ==="
+
+          if grep -q "gha-builder" ssh-wrapper.log; then
+            echo "✓ Verified: ssh was invoked against the mock remote builder."
+          else
+            echo "✗ Failed: expected ssh traffic to gha-builder."
+            exit 1
+          fi
+
+          if grep -q "nix-store --serve" ssh-wrapper.log; then
+            echo "✓ Verified: Nix attempted to use the remote builder protocol."
+          else
+            echo "✗ Failed: expected nix-store --serve in ssh traffic."
+            exit 1
+          fi
+
+          echo "Remote builder verification passed successfully!"

@@ -1,0 +1,18 @@
+[project]
+name = "remote_builders_t"
+description = "A T demo that exercises Nix remote builders with a mock SSH builder"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.2"
