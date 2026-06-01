@@ -81,6 +81,7 @@ jobs:
           ssh-keygen -t ed25519 -N "" -f "$RUNNER_TEMP/remote-builder-key"
           cat "$RUNNER_TEMP/remote-builder-key.pub" >> ~/.ssh/authorized_keys
           chmod 600 ~/.ssh/authorized_keys
+          chown -R "$USER":"$(id -gn)" ~/.ssh
 
           cat > ~/.ssh/config <<EOF
           Host gha-builder
@@ -105,16 +106,18 @@ jobs:
           Port 2222
           ListenAddress 127.0.0.1
           HostKey /etc/ssh/ssh_host_ed25519_key
-          AuthorizedKeysFile .ssh/authorized_keys
+          AuthorizedKeysFile $HOME/.ssh/authorized_keys
+          PubkeyAuthentication yes
           PasswordAuthentication no
           ChallengeResponseAuthentication no
-          UsePAM no
+          UsePAM yes
           PermitUserEnvironment yes
           PidFile $RUNNER_TEMP/remote-builder-sshd.pid
           LogLevel VERBOSE
           EOF
 
           sudo mkdir -p /run/sshd
+          sudo passwd -d "$USER"
           sudo /usr/sbin/sshd -f "$RUNNER_TEMP/sshd_config"
           sleep 1
 
