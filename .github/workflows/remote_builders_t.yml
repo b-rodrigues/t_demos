@@ -116,6 +116,7 @@ jobs:
 
           sudo mkdir -p /run/sshd
           sudo /usr/sbin/sshd -f "$RUNNER_TEMP/sshd_config"
+          sleep 1
 
           ssh gha-builder 'command -v nix-store && nix-store --version'
 
@@ -124,34 +125,38 @@ jobs:
           TLANG_REMOTE_BUILDERS: "ssh://gha-builder x86_64-linux - 1 1 - -"
         run: |
           REAL_SSH=$(command -v ssh)
+          SSH_WRAPPER_LOG="$(pwd)/ssh-wrapper.log"
+          rm -f "$SSH_WRAPPER_LOG"
           mkdir -p mock_bin
           cat <<'EOF' > mock_bin/ssh
           #!/usr/bin/env bash
-          echo "[SSH-WRAPPER] $@" >> ssh-wrapper.log
+          echo "[SSH-WRAPPER] $@" >> SSH_WRAPPER_LOG_PLACEHOLDER
           exec REAL_SSH_PLACEHOLDER "$@"
           EOF
 
           sed -i "s|REAL_SSH_PLACEHOLDER|$REAL_SSH|g" mock_bin/ssh
+          sed -i "s|SSH_WRAPPER_LOG_PLACEHOLDER|$SSH_WRAPPER_LOG|g" mock_bin/ssh
           chmod +x mock_bin/ssh
 
           MOCK_BIN="$(pwd)/mock_bin"
           nix develop --command bash -lc "export PATH='$MOCK_BIN':\$PATH; export NIX_CONFIG='max-jobs = 0'; t run src/pipeline.t"
 
           echo "=== SSH wrapper log ==="
-          cat ssh-wrapper.log
+          cat "$SSH_WRAPPER_LOG"
 
       - name: Verify remote builder usage
         run: |
+          SSH_WRAPPER_LOG="$(pwd)/ssh-wrapper.log"
           echo "=== Verifying remote builder SSH traffic ==="
 
-          if grep -q "gha-builder" ssh-wrapper.log; then
+          if grep -q "gha-builder" "$SSH_WRAPPER_LOG"; then
             echo "✓ Verified: ssh was invoked against the mock remote builder."
           else
             echo "✗ Failed: expected ssh traffic to gha-builder."
             exit 1
           fi
 
-          if grep -q "nix-store --serve" ssh-wrapper.log; then
+          if grep -q "nix-store --serve" "$SSH_WRAPPER_LOG"; then
             echo "✓ Verified: Nix attempted to use the remote builder protocol."
           else
             echo "✗ Failed: expected nix-store --serve in ssh traffic."
