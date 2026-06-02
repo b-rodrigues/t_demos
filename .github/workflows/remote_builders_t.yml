@@ -25,7 +25,6 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
-          install_options: --no-daemon
           extra_nix_config: |
             experimental-features = nix-command flakes
             substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
@@ -104,8 +103,18 @@ jobs:
           EOF
           chmod 600 ~/.ssh/config
 
+          # Configure root SSH keys and configuration since nix-daemon runs as root
+          sudo mkdir -p /root/.ssh
+          sudo cp ~/.ssh/config /root/.ssh/config
+          sudo cp "$RUNNER_TEMP/remote-builder-key" /root/.ssh/remote-builder-key
+          sudo chmod 700 /root/.ssh
+          sudo chmod 600 /root/.ssh/config /root/.ssh/remote-builder-key
+          sudo chown -R root:root /root/.ssh
+          sudo sed -i "s|$RUNNER_TEMP/remote-builder-key|/root/.ssh/remote-builder-key|g" /root/.ssh/config
+
           cat > ~/.ssh/environment <<EOF
           PATH=/usr/local/bin:/usr/bin:/bin
+          NIX_REMOTE=daemon
           EOF
           chmod 600 ~/.ssh/environment
 
@@ -134,22 +143,25 @@ jobs:
         env:
           TLANG_REMOTE_BUILDERS: "ssh://gha-builder x86_64-linux - 1 1 - -"
         run: |
-          REAL_SSH=$(command -v ssh)
           SSH_WRAPPER_LOG="$(pwd)/ssh-wrapper.log"
           rm -f "$SSH_WRAPPER_LOG"
-          mkdir -p mock_bin
-          cat <<'EOF' > mock_bin/ssh
+          touch "$SSH_WRAPPER_LOG"
+          chmod 666 "$SSH_WRAPPER_LOG"
+
+          # Rename the system ssh and replace it with a wrapper to capture daemon traffic
+          sudo mv /usr/bin/ssh /usr/bin/ssh.real
+          trap 'sudo mv /usr/bin/ssh.real /usr/bin/ssh || true' EXIT
+
+          sudo cat <<'EOF' > /tmp/ssh-wrapper
           #!/usr/bin/env bash
           echo "[SSH-WRAPPER] $@" >> SSH_WRAPPER_LOG_PLACEHOLDER
-          exec REAL_SSH_PLACEHOLDER "$@"
+          exec /usr/bin/ssh.real "$@"
           EOF
+          sudo sed -i "s|SSH_WRAPPER_LOG_PLACEHOLDER|$SSH_WRAPPER_LOG|g" /tmp/ssh-wrapper
+          sudo chmod +x /tmp/ssh-wrapper
+          sudo mv /tmp/ssh-wrapper /usr/bin/ssh
 
-          sed -i "s|REAL_SSH_PLACEHOLDER|$REAL_SSH|g" mock_bin/ssh
-          sed -i "s|SSH_WRAPPER_LOG_PLACEHOLDER|$SSH_WRAPPER_LOG|g" mock_bin/ssh
-          chmod +x mock_bin/ssh
-
-          MOCK_BIN="$(pwd)/mock_bin"
-          nix develop --command bash -lc "export PATH='$MOCK_BIN':\$PATH; export NIX_CONFIG='max-jobs = 0'; t run src/pipeline.t"
+          nix develop --command bash -lc "export NIX_CONFIG='max-jobs = 0'; t run src/pipeline.t"
 
           echo "=== SSH wrapper log ==="
           cat "$SSH_WRAPPER_LOG"
