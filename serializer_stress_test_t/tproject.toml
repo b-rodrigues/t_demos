@@ -1,11 +1,30 @@
 [project]
 name = "serializer_stress_test_t"
 description = "Stress testing the Arrow serializer with 1,000,000 rows"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "arrow" ]
+packages = ["arrow", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
