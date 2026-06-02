@@ -76,6 +76,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y openssh-server
 
+          # Symlink Nix binaries to /usr/local/bin to make sure they are accessible over SSH
+          NIX_DIR=$(dirname "$(which nix)")
+          for tool in nix nix-build nix-store nix-instantiate; do
+            if [ -f "$NIX_DIR/$tool" ]; then
+              sudo ln -sf "$NIX_DIR/$tool" "/usr/local/bin/$tool"
+            fi
+          done
+
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
@@ -96,10 +104,8 @@ jobs:
           EOF
           chmod 600 ~/.ssh/config
 
-          NIX_BIN_DIR=$(dirname "$(command -v nix-store)")
           cat > ~/.ssh/environment <<EOF
-          PATH=$NIX_BIN_DIR:/usr/local/bin:/usr/bin:/bin
-          NIX_REMOTE=daemon
+          PATH=/usr/local/bin:/usr/bin:/bin
           EOF
           chmod 600 ~/.ssh/environment
 
