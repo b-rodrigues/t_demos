@@ -25,6 +25,7 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
+          install_options: --no-daemon
           extra_nix_config: |
             experimental-features = nix-command flakes
             substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org

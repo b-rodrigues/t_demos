@@ -1,18 +1,30 @@
 [project]
 name = "remote_builders_t"
 description = "A T demo that exercises Nix remote builders with a mock SSH builder"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = []
+packages = ["jsonlite"]
 
 [py-dependencies]
 version = "python314"
 packages = []
 
+[jl-dependencies]
+version = "lts"
+packages = []
+
 [additional-tools]
+packages = []
+
+[latex]
 packages = []
 
 [t]
 min_version = "0.52.2"
+
+[nixpkgs]
+date = ""
+

@@ -9,3 +9,9 @@ pipeline-output/
 _site/
 build_log.txt
 build_pid.txt
+
+# T environment sandbox folders
+.t_julia_depot/
+.t_python_guard/
+.t_r_profile/
+
