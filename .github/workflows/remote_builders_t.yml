@@ -75,8 +75,9 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          # Generate SSH key
-          ssh-keygen -t ed25519 -N "" -f "$RUNNER_TEMP/remote-builder-key"
+          # Download the insecure private key built into the lnl7/nix:ssh image
+          curl -fsSL https://raw.githubusercontent.com/LnL7/nix-docker/master/ssh/insecure_rsa -o "$RUNNER_TEMP/remote-builder-key"
+          chmod 600 "$RUNNER_TEMP/remote-builder-key"
 
           # Configure host SSH config
           cat > ~/.ssh/config <<EOF
@@ -101,10 +102,7 @@ jobs:
           sudo sed -i "s|$RUNNER_TEMP/remote-builder-key|/root/.ssh/remote-builder-key|g" /root/.ssh/config
 
           # Start a self-contained Nix remote builder container to avoid store/database lock deadlocks
-          docker run -d --name gha-builder \
-            -p 2222:22 \
-            -v "$RUNNER_TEMP/remote-builder-key.pub:/root/.ssh/authorized_keys:ro" \
-            lnl7/nix:ssh
+          docker run -d --name gha-builder -p 2222:22 lnl7/nix:ssh
 
           # Wait for container sshd to start and test the connection
           for i in {1..15}; do
