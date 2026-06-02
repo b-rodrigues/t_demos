@@ -110,18 +110,18 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1779122215,
-        "narHash": "sha256-F441i21OSN60CvogcspDI9+0FrBmzNkTHvbXQ3zRbbE=",
-        "owner": "b-rodrigues",
-        "repo": "tlang",
-        "rev": "8e98d16433ec2ca5c8cb480f44fb7e08a47c4685",
-        "type": "github"
+        "lastModified": 1780415167,
+        "narHash": "sha256-Qs3koA/TSv7V7hKJMO/uK3o9+OQLiofHsRwhB2g1I1Q=",
+        "ref": "copilot/add-artifact-export-import",
+        "rev": "4d00f0b219a18dbeda8806cfe6d209397159e898",
+        "revCount": 3126,
+        "type": "git",
+        "url": "file:///home/brodrigues/Documents/repos/tlang"
       },
       "original": {
-        "owner": "b-rodrigues",
-        "ref": "v0.52.0",
-        "repo": "tlang",
-        "type": "github"
+        "ref": "copilot/add-artifact-export-import",
+        "type": "git",
+        "url": "file:///home/brodrigues/Documents/repos/tlang"
       }
     }
   },
