@@ -1,0 +1,18 @@
+[project]
+name = "pipeline_lambda_t"
+description = "A demo showcasing pipeline parameterization via lambdas (pipeline templates)"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow",]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.0"
