@@ -46,8 +46,20 @@ jobs:
       - name: Update to latest T version
         working-directory: ./artifact_transfer_t
         run: |
-          sed -i "s|t-lang.url = \"[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Inject pipeline dependencies
+        working-directory: ./artifact_transfer_t
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Rebuild flake with new dependencies
+        working-directory: ./artifact_transfer_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
 
       - name: Run Cache Round-Trip and Rebuild Test
         working-directory: ./artifact_transfer_t
