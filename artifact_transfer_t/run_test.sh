@@ -4,9 +4,9 @@ set -e
 # Change directory to the project directory to ensure paths are correct
 cd "$(dirname "$0")"
 
-echo "=== Initializing and building pipeline with sleep 2 ==="
-# Ensure node2 sleeps for 2 seconds
-sed -i 's/sleep [0-9] && echo "Node 2"/sleep 2 \&\& echo "Node 2"/' src/pipeline_def.t
+echo "=== Initializing and building pipeline with sleep 20 ==="
+# Ensure node2 sleeps for 20 seconds
+sed -i 's/sleep [0-9]\+ && echo "Node 2"/sleep 20 \&\& echo "Node 2"/' src/pipeline_def.t
 
 # Build and export cache
 nix develop --command t run --unsafe src/export.t
@@ -17,7 +17,7 @@ nix-store --gc
 
 # Change sleep time to 1 second
 echo "=== Changing sleep time to 1 in pipeline_def.t ==="
-sed -i 's/sleep [0-9] && echo "Node 2"/sleep 1 \&\& echo "Node 2"/' src/pipeline_def.t
+sed -i 's/sleep [0-9]\+ && echo "Node 2"/sleep 1 \&\& echo "Node 2"/' src/pipeline_def.t
 
 # Measure Scenario A: Rebuild without cache import
 echo "=== SCENARIO A: Rebuild WITHOUT cache import ==="
