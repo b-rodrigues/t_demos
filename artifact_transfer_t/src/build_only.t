@@ -1,3 +1,3 @@
--- Build only script
-t_make()
-build_pipeline(p)
+import "src/pipeline_def.t"[p]
+
+populate_pipeline(p, build = true, verbose = 1)
