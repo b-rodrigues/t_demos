@@ -1,0 +1,18 @@
+[project]
+name = "meta_pipeline_t"
+description = "A T meta-pipeline data analysis project"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow",]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.0"
