@@ -12,16 +12,23 @@ meta = pipeline_of {
   stats = p_stats
 }
 
-flat = meta_flatten(meta)
+-- Ensure that meta has the correct nodes (implicitly flattened)
+print("Nodes in meta:")
+print(pipeline_nodes(meta))
 
--- Ensure that flat has the correct nodes
-print("Nodes in flat:")
-print(pipeline_nodes(flat))
-
--- Assert dependencies are correct: stats.summary depends on etl.clean
-deps = pipeline_deps(flat)
-print("Deps in flat:")
+-- Assert dependencies are correct (implicitly flattened)
+deps = pipeline_deps(meta)
+print("Deps in meta:")
 print(deps)
 
-populate_pipeline(flat, build = true, verbose = 1)
+-- Populate and build the meta-pipeline directly
+populate_pipeline(meta, build = true, verbose = 1)
 pipeline_copy()
+
+-- Read the materialized node directly using nested dot-access!
+print("Value of stats.summary:")
+val = read_node(meta.stats.summary)
+print(val)
+
+-- Verify that the value is indeed (10 + 2) * 3 = 36
+assert(val == 36, "Value should be 36")

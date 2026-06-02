@@ -20,7 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Nix via Cachix
+      - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
@@ -79,5 +79,5 @@ jobs:
 
       - name: Read one Node
         run: |
-          echo "t_make(); read_node(flat.stats.summary) |> print" > view.t
+          echo "t_make(); read_node(meta.stats.summary) |> print" > view.t
           nix develop --command t run --unsafe view.t
