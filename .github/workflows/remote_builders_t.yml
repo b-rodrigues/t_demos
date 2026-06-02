@@ -72,29 +72,17 @@ jobs:
 
       - name: Configure mock localhost remote builder
         run: |
-          sudo apt-get update
-          sudo apt-get install -y openssh-server
-
-          # Symlink Nix binaries to /usr/local/bin to make sure they are accessible over SSH
-          NIX_DIR=$(dirname "$(which nix)")
-          for tool in nix nix-build nix-store nix-instantiate; do
-            if [ -f "$NIX_DIR/$tool" ]; then
-              sudo ln -sf "$NIX_DIR/$tool" "/usr/local/bin/$tool"
-            fi
-          done
-
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
+          # Generate SSH key
           ssh-keygen -t ed25519 -N "" -f "$RUNNER_TEMP/remote-builder-key"
-          cat "$RUNNER_TEMP/remote-builder-key.pub" >> ~/.ssh/authorized_keys
-          chmod 600 ~/.ssh/authorized_keys
-          chown -R "$USER":"$(id -gn)" ~/.ssh
 
+          # Configure host SSH config
           cat > ~/.ssh/config <<EOF
           Host gha-builder
             HostName 127.0.0.1
-            User $USER
+            User root
             Port 2222
             IdentityFile $RUNNER_TEMP/remote-builder-key
             IdentitiesOnly yes
@@ -112,32 +100,16 @@ jobs:
           sudo chown -R root:root /root/.ssh
           sudo sed -i "s|$RUNNER_TEMP/remote-builder-key|/root/.ssh/remote-builder-key|g" /root/.ssh/config
 
-          cat > ~/.ssh/environment <<EOF
-          PATH=/usr/local/bin:/usr/bin:/bin
-          NIX_REMOTE=daemon
-          EOF
-          chmod 600 ~/.ssh/environment
+          # Start a self-contained Nix remote builder container to avoid store/database lock deadlocks
+          docker run -d --name gha-builder \
+            -p 2222:22 \
+            -v "$RUNNER_TEMP/remote-builder-key.pub:/root/.ssh/authorized_keys:ro" \
+            lnl7/nix:ssh
 
-          cat > "$RUNNER_TEMP/sshd_config" <<EOF
-          Port 2222
-          ListenAddress 127.0.0.1
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          AuthorizedKeysFile $HOME/.ssh/authorized_keys
-          PubkeyAuthentication yes
-          PasswordAuthentication no
-          ChallengeResponseAuthentication no
-          UsePAM yes
-          PermitUserEnvironment yes
-          PidFile $RUNNER_TEMP/remote-builder-sshd.pid
-          LogLevel VERBOSE
-          EOF
-
-          sudo mkdir -p /run/sshd
-          sudo passwd -d "$USER"
-          sudo /usr/sbin/sshd -f "$RUNNER_TEMP/sshd_config"
-          sleep 1
-
-          ssh gha-builder 'command -v nix-store && nix-store --version'
+          # Wait for container sshd to start and test the connection
+          for i in {1..15}; do
+            ssh gha-builder 'command -v nix-store && nix-store --version' && break || sleep 1
+          done
 
       - name: Run pipeline with mock remote builder
         env:
