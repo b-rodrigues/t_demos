@@ -110,11 +110,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1780464044,
-        "narHash": "sha256-pGD7EGs81pVEfoVBCrePpo/NKgUNP18YI6Pd9klkymo=",
+        "lastModified": 1780507092,
+        "narHash": "sha256-wc38a11es4xMlpSrsiyN6JqN0MlxsrP+2RkyOqdCT7U=",
         "ref": "copilot/add-artifact-export-import",
-        "rev": "c3ae988bfccb2dd9679f8ff8b49454bb33fa5b48",
-        "revCount": 3129,
+        "rev": "6aac1784076eefc6e5c9129b6087fecb8900a950",
+        "revCount": 3135,
         "type": "git",
         "url": "file:///home/brodrigues/Documents/repos/tlang"
       },

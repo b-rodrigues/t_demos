@@ -28,4 +28,18 @@ print("Verified and imported node1 successfully!")
 import_artifacts("/tmp/p_all.nar")
 print("Unconditionally imported all nodes successfully!")
 
+print("=== 5. Cache-Aware Dry Runs ===")
+dry_run_plan = populate_pipeline(p, dry_run = true)
+print("Dry run plan DataFrame:")
+print(dry_run_plan)
+
+print("=== 6. Programmatic Garbage Collection ===")
+gc_preview = pipeline_gc(p, dry_run = true)
+print("Pipeline GC preview DataFrame:")
+print(gc_preview)
+
+print("Running global garbage collection...")
+gc_result = t_gc()
+print(gc_result)
+
 print("=== E2E Cache Transfer Integration Tests Completed ===")
