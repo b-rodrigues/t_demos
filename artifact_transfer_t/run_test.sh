@@ -49,3 +49,9 @@ if [ "$DURATION_B" -lt "$DURATION_A" ]; then
 else
   echo "WARNING: Cache import did not result in a faster build (Scenario A: $DURATION_A s, Scenario B: $DURATION_B s)"
 fi
+
+echo ""
+echo "=== SCENARIO C: Run Granular, Variadic, and Introspection Demo Test ==="
+nix develop --command t run --unsafe src/granular_test.t
+echo "SUCCESS: All scenarios completed successfully!"
+
