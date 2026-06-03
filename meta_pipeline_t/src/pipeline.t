@@ -32,3 +32,12 @@ print(val)
 
 -- Verify that the value is indeed (10 + 2) * 3 = 36
 assert(val == 36, "Value should be 36")
+
+-- Generate graph visualizations for the meta-pipeline
+print("=== Meta-Pipeline DOT Visualization ===")
+dot_str = pipeline_to_dot(meta)
+print(dot_str)
+
+print("=== Meta-Pipeline Mermaid Visualization ===")
+mermaid_str = pipeline_to_mermaid(meta)
+print(mermaid_str)
