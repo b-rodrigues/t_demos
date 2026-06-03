@@ -1,4 +1,4 @@
-name: Tlang E2E Test - artifact_transfer_t
+name: Demo Artifact Transfer T
 
 on:
   push:
@@ -10,8 +10,12 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  test:
+  artifact-transfer-t:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./artifact_transfer_t
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,7 +27,7 @@ jobs:
             experimental-features = nix-command flakes
             substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
-   
+
       - name: Setup Cachix
         uses: cachix/cachix-action@v15
         with:
@@ -44,25 +48,27 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./artifact_transfer_t
         run: |
+          # Ensure flake.nix points to the correct version for the build
+          if [ -f flake.nix ]; then
+            sed -i "s|t-lang.url = \"[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
+          fi
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Inject pipeline dependencies
-        working-directory: ./artifact_transfer_t
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
+
       - name: Rebuild flake with new dependencies
-        working-directory: ./artifact_transfer_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
-
       - name: Run Cache Round-Trip and Rebuild Test
-        working-directory: ./artifact_transfer_t
         run: |
           chmod +x run_test.sh
           ./run_test.sh
