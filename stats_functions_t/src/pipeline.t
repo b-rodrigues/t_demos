@@ -728,7 +728,7 @@ p = pipeline {
     glm_model_r = node(
         stats_data,
         command = <{
-            stats_data$success <- to_factor(stats_data$success, levels = c(0, 1), labels = c("No", "Yes"))
+            stats_data$success <- factor(stats_data$success, levels = c(0, 1), labels = c("No", "Yes"))
             glm(success ~ feature_a + feature_b, data = stats_data, family = binomial(link = "logit"))
         }>,
         runtime = R,
