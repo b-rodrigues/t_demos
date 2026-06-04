@@ -90,14 +90,14 @@ p = pipeline {
         command = <{
             if (is_error(validate_ranges) || is_error(validate_dates) || is_error(validate_nulls)) {
                 print("✖ ERROR: One or more data guardrails failed. Analysis aborted.")
-                Error("Aborted due to upstream guardrail failures.")
+                error("Aborted due to upstream guardrail failures.")
             } else {
                 print("✓ SUCCESS: All data guardrails passed. Proceeding with analysis...")
                 validate_ranges |> summarize(avg_age = mean($age))
             }
         }>,
         runtime = T,
-        deserializer = [validate_ranges: ^arrow]
+        deserializer = [validate_ranges: ^arrow, validate_dates: ^arrow, validate_nulls: ^arrow]
     )
 }
 
@@ -118,6 +118,11 @@ res_ranges = read_node(p.validate_ranges)
 res_dates = read_node(p.validate_dates)
 res_nulls = read_node(p.validate_nulls)
 
-print(str_join(["Range Check: ", explain(res_ranges.error)]))
-print(str_join(["Date Check:  ", explain(res_dates.error)]))
-print(str_join(["Null Check:  ", explain(res_nulls.error)]))
+print("Range Check Value:")
+print(res_ranges.value)
+print("Date Check Value:")
+print(res_dates.value)
+print("Null Check Value:")
+print(res_nulls.value)
+print("Final Analytics Value:")
+print(read_node(p.final_analytics).value)
