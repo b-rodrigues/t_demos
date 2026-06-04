@@ -1,0 +1,21 @@
+[project]
+name = "pipeline_visualization_t"
+description = "A T project showcasing pipeline browser visualization and dry_run execution plans"
+
+[dependencies]
+
+[r-dependencies]
+packages = [ "arrow" ]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[visualization-tool]
+command = "echo"
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.2"
