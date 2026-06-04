@@ -107,7 +107,12 @@ print("==================================================")
 print("This pipeline implements several automated quality checks.")
 print("The 'raw_data' node contains deliberate errors to trigger guardrail failures.")
 
+print("\n1. Performing cache-aware dry-run before build:")
+dry_run_before = build_pipeline(p, nix_options = [dry_run: true])
+print(dry_run_before)
+
 -- We build without failing the whole script so we can inspect the failures
+print("\n2. Building the pipeline...")
 populate_pipeline(p, build = true, verbose = 1)
 
 print("\nPipeline Summary:")
@@ -126,3 +131,32 @@ print("Null Check Value:")
 print(res_nulls.value)
 print("Final Analytics Value:")
 print(read_node(p.final_analytics).value)
+
+print("\n3. Verifying cache status after build:")
+cache_status_after = pipeline_cache_status(p)
+print(cache_status_after)
+
+print("\n4. Exporting pipeline artifacts for transfer/verification:")
+export_msg = export_artifacts(p, "/tmp/data_guardrail_cache.nar")
+print(export_msg)
+
+print("\n5. Running pipeline GC to remove local store artifacts:")
+gc_res = pipeline_gc(p, dry_run = false)
+print(gc_res)
+
+print("\n6. Verifying cache status after GC (should be uncached):")
+cache_status_after_gc = pipeline_cache_status(p)
+print(cache_status_after_gc)
+
+print("\n7. Importing and verifying artifacts against pipeline:")
+import_msg = import_artifacts(p, "/tmp/data_guardrail_cache.nar")
+print(import_msg)
+
+print("\n8. Verifying cache status after import:")
+cache_status_after_import = pipeline_cache_status(p)
+print(cache_status_after_import)
+
+print("\n9. Dry run plan after import (should show cache_hits):")
+dry_run_after = build_pipeline(p, nix_options = [dry_run: true])
+print(dry_run_after)
+
