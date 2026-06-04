@@ -56,7 +56,7 @@ p = pipeline {
                 if (is_error(x)) { x } else if (is_na(x)) { na_float() } else { round(x, digits = 8) }
             }
 
-            round_values = \(xs) { xs }
+            round_values = \(xs) { round(xs, digits = 8) }
 
             clean_values = pull(stats_data, $value)
             values_with_na = pull(stats_data, $value_with_na)
@@ -180,9 +180,9 @@ p = pipeline {
             poly_cols = poly(pull(stats_data, $basis_x), 3, raw = true)
             basis_core = stats_data |> select($id, $basis_x)
             basis_df = eval(to_expr(mutate(basis_core, !!!poly_cols)))
-            basis_df = basis_df
+            basis_df := basis_df
                 |> mutate(
-                    $bucket = to_string(cut($basis_x, [0.0, 3.0, 6.0, 9.0])),
+                    $bucket = cut($basis_x, [0.0, 3.0, 6.0, 9.0]),
                     $poly1 = round($poly1, digits = 8),
                     $poly2 = round($poly2, digits = 8),
                     $poly3 = round($poly3, digits = 8)
@@ -401,7 +401,7 @@ p = pipeline {
                 id = stats_data$id,
                 fitted = round(as.numeric(fitted(full)), 8),
                 resid = round(as.numeric(res), 8),
-                std_resid = round(as.numeric(res / sigma(full)), 8)
+                std_resid = round(as.numeric(rstandard(full)), 8)
             )
         }>,
         runtime = R,
@@ -460,8 +460,8 @@ p = pipeline {
             md_full = full._model_data
             md_red = reduced._model_data
             fit_stats_df = to_dataframe([
-                [model: "reduced", r_squared: md_red.r_squared, adj_r_squared: md_red.adj_r_squared, sigma: md_red.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_red.df_residual, nobs: md_red.nobs],
-                [model: "full",    r_squared: md_full.r_squared, adj_r_squared: md_full.adj_r_squared, sigma: md_full.sigma, AIC: na_float(), BIC: na_float(), df_residual: md_full.df_residual, nobs: md_full.nobs]
+                [model: "reduced", r_squared: md_red.r_squared, adj_r_squared: md_red.adj_r_squared, sigma: md_red.sigma, AIC: md_red.aic, BIC: md_red.bic, df_residual: md_red.df_residual, nobs: md_red.nobs],
+                [model: "full",    r_squared: md_full.r_squared, adj_r_squared: md_full.adj_r_squared, sigma: md_full.sigma, AIC: md_full.aic, BIC: md_full.bic, df_residual: md_full.df_residual, nobs: md_full.nobs]
             ])
                 |> mutate(
                     $r_squared = round_safe($r_squared),
