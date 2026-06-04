@@ -110,16 +110,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1779122215,
-        "narHash": "sha256-F441i21OSN60CvogcspDI9+0FrBmzNkTHvbXQ3zRbbE=",
+        "lastModified": 1780578154,
+        "narHash": "sha256-vCi6BLlS2sEtaJYRguKrjwG/ksaTb96lEPI3CGcnIcg=",
         "owner": "b-rodrigues",
         "repo": "tlang",
-        "rev": "8e98d16433ec2ca5c8cb480f44fb7e08a47c4685",
+        "rev": "643cb886e455107e4fa6e78ef01a67a3b1272044",
         "type": "github"
       },
       "original": {
         "owner": "b-rodrigues",
-        "ref": "v0.52.0",
+        "ref": "fix-pipeline-soft-fail",
         "repo": "tlang",
         "type": "github"
       }
