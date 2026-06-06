@@ -1,0 +1,6 @@
+[project]
+name = "csv_carnage_t"
+description = "Stress test read_csv with malformed CSVs: ragged rows, weird colnames, BOM, unicode, mixed types"
+
+[t-dependencies]
+packages = ["core", "dataframe", "colcraft", "base"]

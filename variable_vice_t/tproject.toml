@@ -1,0 +1,6 @@
+[project]
+name = "variable_vice_t"
+description = "Stress test T language runtime: type errors, name suggestions, pipe semantics, error chains, recursion"
+
+[t-dependencies]
+packages = ["core", "base"]

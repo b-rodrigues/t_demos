@@ -1,0 +1,6 @@
+[project]
+name = "dataframe_abyss_t"
+description = "Stress test data frame shapes: empty, all-NA, duplicate names, type coercion, pivot edge cases"
+
+[t-dependencies]
+packages = ["core", "dataframe", "colcraft", "base"]
