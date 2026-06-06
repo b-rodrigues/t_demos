@@ -216,6 +216,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== DataFrame Abyss Results ===")
 print(report)
-assert(!is_error(report), "validation node should not error")
+assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d DataFrame tests failed!", report.failures))
 print("All dataframe abyss tests passed!")

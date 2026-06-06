@@ -200,6 +200,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== CSV Carnage Results ===")
 print(report)
-assert(!is_error(report), "validation node should not error")
+assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d CSV tests failed!", report.failures))
 print("All CSV carnage tests passed!")

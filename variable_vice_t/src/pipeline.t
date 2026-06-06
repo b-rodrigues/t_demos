@@ -6,8 +6,8 @@ p = pipeline {
     ok1 = is_error(r1)
     ok2 = is_error(r2)
     [test: "shadow_builtins", passed: ok1 && ok2,
-     sum_code: if (is_error(r1)) error_code(r1) else "none",
-     print_code: if (is_error(r2)) error_code(r2) else "none"]
+     sum_code: if (is_error(r1)) { error_code(r1) } else { "none" },
+     print_code: if (is_error(r2)) { error_code(r2) } else { "none" }]
   })
 
   -- 2. Type mismatch in arithmetic
@@ -40,7 +40,7 @@ p = pipeline {
     ok1 = is_error(r1)
     ok2 = is_error(r2)
     ok3 = is_error(r3)
-    msg1 = if (is_error(r1)) error_msg(r1) else ""
+    msg1 = if (is_error(r1)) { error_msg(r1) } else { "" }
     has_suggest = str_detect(msg1, "print")
     [test: "name_suggestions", passed: ok1 && ok2 && ok3 && has_suggest, msg: msg1]
   })
@@ -49,13 +49,13 @@ p = pipeline {
   test_div_zero_short = node(command = {
     result = (1 / 0) |> \(x) x + 1
     ok = is_error(result)
-    [test: "div_zero_short", passed: ok, code: if (ok) error_code(result) else "none"]
+    [test: "div_zero_short", passed: ok, code: if (ok) { error_code(result) } else { "none" }]
   })
 
   -- 6. Division by zero + maybe-pipe recovery
   test_div_zero_recover = node(command = {
     result = (1 / 0) ?|> \(x) if (is_error(x)) { 0 } else { x }
-    ok = !is_error(result) && result == 0
+    ok = not is_error(result) && result == 0
     [test: "div_zero_recover", passed: ok, value: result]
   })
 
@@ -141,7 +141,7 @@ p = pipeline {
     r1 = levels(f1)
     ok1 = length(r1) == 3
     f2 = to_factor(["low", "high", "medium"], levels = ["low", "medium", "high"], ordered = true)
-    ok2 = !is_error(f2)
+    ok2 = not is_error(f2)
     [test: "factor_edges", passed: ok1 && ok2]
   })
 
@@ -185,6 +185,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== Variable Vice Results ===")
 print(report)
-assert(!is_error(report), "validation node should not error")
+assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d variable tests failed!", report.failures))
 print("All variable vice tests passed!")
