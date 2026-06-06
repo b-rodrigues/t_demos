@@ -207,14 +207,30 @@ p = pipeline {
 }
 
 print("Running dataframe_abyss_t -- data frame corner case stress test...")
-res = build_pipeline(p, verbose = 1)
+res = populate_pipeline(p, build = true, verbose = 1)
 if (is_error(res)) {
   print(res)
   exit(1)
 }
 
+print("=== Individual Test Results ===")
+print("--- test_empty ---"); print(read_node(p.test_empty))
+print("--- test_all_na ---"); print(read_node(p.test_all_na))
+print("--- test_single_cell ---"); print(read_node(p.test_single_cell))
+print("--- test_dup_colnames ---"); print(read_node(p.test_dup_colnames))
+print("--- test_long_colname ---"); print(read_node(p.test_long_colname))
+print("--- test_na_filter ---"); print(read_node(p.test_na_filter))
+print("--- test_na_arithmetic ---"); print(read_node(p.test_na_arithmetic))
+print("--- test_coerce_mutate ---"); print(read_node(p.test_coerce_mutate))
+print("--- test_coerce_bind ---"); print(read_node(p.test_coerce_bind))
+print("--- test_pivot_dup_keys ---"); print(read_node(p.test_pivot_dup_keys))
+print("--- test_pivot_longer ---"); print(read_node(p.test_pivot_longer))
+print("--- test_group_by_na ---"); print(read_node(p.test_group_by_na))
+print("--- test_empty_grouped ---"); print(read_node(p.test_empty_grouped))
+print("--- test_zero_cols ---"); print(read_node(p.test_zero_cols))
+
 report = read_node(p.validation)
-print("=== DataFrame Abyss Results ===")
+print("=== Summary ===")
 print(report)
 assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d DataFrame tests failed!", report.failures))

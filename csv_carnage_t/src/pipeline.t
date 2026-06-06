@@ -191,14 +191,29 @@ p = pipeline {
 }
 
 print("Running csv_carnage_t -- malformed CSV stress test...")
-res = build_pipeline(p, verbose = 1)
+res = populate_pipeline(p, build = true, verbose = 1)
 if (is_error(res)) {
   print(res)
   exit(1)
 }
 
+print("=== Individual Test Results ===")
+print("--- test_empty ---"); print(read_node(p.test_empty))
+print("--- test_header_only ---"); print(read_node(p.test_header_only))
+print("--- test_ragged ---"); print(read_node(p.test_ragged))
+print("--- test_weird_delimiters ---"); print(read_node(p.test_weird_delimiters))
+print("--- test_bom ---"); print(read_node(p.test_bom))
+print("--- test_weird_colnames ---"); print(read_node(p.test_weird_colnames))
+print("--- test_mixed_types ---"); print(read_node(p.test_mixed_types))
+print("--- test_unicode_values ---"); print(read_node(p.test_unicode_values))
+print("--- test_quoted_newlines ---"); print(read_node(p.test_quoted_newlines))
+print("--- test_tab_sep ---"); print(read_node(p.test_tab_sep))
+print("--- test_semicolon_sep ---"); print(read_node(p.test_semicolon_sep))
+print("--- test_clean_colnames ---"); print(read_node(p.test_clean_colnames))
+print("--- test_skip ---"); print(read_node(p.test_skip))
+
 report = read_node(p.validation)
-print("=== CSV Carnage Results ===")
+print("=== Summary ===")
 print(report)
 assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d CSV tests failed!", report.failures))

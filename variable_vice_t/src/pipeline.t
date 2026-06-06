@@ -176,14 +176,31 @@ p = pipeline {
 }
 
 print("Running variable_vice_t -- value and variable stress test...")
-res = build_pipeline(p, verbose = 1)
+res = populate_pipeline(p, build = true, verbose = 1)
 if (is_error(res)) {
   print(res)
   exit(1)
 }
 
+print("=== Individual Test Results ===")
+print("--- test_shadow_builtins ---"); print(read_node(p.test_shadow_builtins))
+print("--- test_type_mismatch_arith ---"); print(read_node(p.test_type_mismatch_arith))
+print("--- test_type_mismatch_func ---"); print(read_node(p.test_type_mismatch_func))
+print("--- test_name_suggestions ---"); print(read_node(p.test_name_suggestions))
+print("--- test_div_zero_short ---"); print(read_node(p.test_div_zero_short))
+print("--- test_div_zero_recover ---"); print(read_node(p.test_div_zero_recover))
+print("--- test_deep_nesting ---"); print(read_node(p.test_deep_nesting))
+print("--- test_error_chain ---"); print(read_node(p.test_error_chain))
+print("--- test_rm ---"); print(read_node(p.test_rm))
+print("--- test_rm_builtin ---"); print(read_node(p.test_rm_builtin))
+print("--- test_match_na ---"); print(read_node(p.test_match_na))
+print("--- test_match_error ---"); print(read_node(p.test_match_error))
+print("--- test_reassignment ---"); print(read_node(p.test_reassignment))
+print("--- test_large_pipe ---"); print(read_node(p.test_large_pipe))
+print("--- test_factor_edges ---"); print(read_node(p.test_factor_edges))
+
 report = read_node(p.validation)
-print("=== Variable Vice Results ===")
+print("=== Summary ===")
 print(report)
 assert(not is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d variable tests failed!", report.failures))
