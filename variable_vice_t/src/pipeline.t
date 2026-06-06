@@ -5,7 +5,7 @@ p = pipeline {
     r2 = eval(to_expr({ print := 99 }))
     ok1 = is_error(r1)
     ok2 = is_error(r2)
-    [test: "shadow_builtins", passed: ok1 and ok2,
+    [test: "shadow_builtins", passed: ok1 && ok2,
      sum_code: if (is_error(r1)) error_code(r1) else "none",
      print_code: if (is_error(r2)) error_code(r2) else "none"]
   })
@@ -18,7 +18,7 @@ p = pipeline {
     ok1 = is_error(r1)
     ok2 = is_error(r2)
     ok3 = is_error(r3)
-    [test: "type_mismatch_arith", passed: ok1 and ok2 and ok3]
+    [test: "type_mismatch_arith", passed: ok1 && ok2 && ok3]
   })
 
   -- 3. Type mismatch in function application
@@ -29,7 +29,7 @@ p = pipeline {
     ok1 = is_error(r1)
     ok2 = is_error(r2)
     ok3 = is_error(r3)
-    [test: "type_mismatch_func", passed: ok1 and ok2 and ok3]
+    [test: "type_mismatch_func", passed: ok1 && ok2 && ok3]
   })
 
   -- 4. Name suggestions (Levenshtein)
@@ -42,7 +42,7 @@ p = pipeline {
     ok3 = is_error(r3)
     msg1 = if (is_error(r1)) error_msg(r1) else ""
     has_suggest = str_detect(msg1, "print")
-    [test: "name_suggestions", passed: ok1 and ok2 and ok3 and has_suggest, msg: msg1]
+    [test: "name_suggestions", passed: ok1 && ok2 && ok3 && has_suggest, msg: msg1]
   })
 
   -- 5. Division by zero + pipe short-circuit
@@ -55,7 +55,7 @@ p = pipeline {
   -- 6. Division by zero + maybe-pipe recovery
   test_div_zero_recover = node(command = {
     result = (1 / 0) ?|> \(x) if (is_error(x)) { 0 } else { x }
-    ok = not is_error(result) and result == 0
+    ok = !is_error(result) && result == 0
     [test: "div_zero_recover", passed: ok, value: result]
   })
 
@@ -75,7 +75,7 @@ p = pipeline {
     len = length(chain)
     first_code = error_code(get(chain, 0))
     last_msg = error_msg(get(chain, 2))
-    [test: "error_chain", passed: len == 3 and first_code == "E1" and last_msg == "third",
+    [test: "error_chain", passed: len == 3 && first_code == "E1" && last_msg == "third",
      chain_length: len, first: first_code, last: last_msg]
   })
 
@@ -90,7 +90,7 @@ p = pipeline {
   -- 10. rm() on builtin keyword
   test_rm_builtin = node(command = {
     result = rm("print")
-    ok = is_na(result) or is_error(result)
+    ok = is_na(result) || is_error(result)
     [test: "rm_builtin", passed: ok, result_type: type(result)]
   })
 
@@ -122,7 +122,7 @@ p = pipeline {
     ok1 = a == [1, 2, 3]
     a := [x: 10]
     ok2 = type(a) == "Dict"
-    [test: "reassignment", passed: ok1 and ok2]
+    [test: "reassignment", passed: ok1 && ok2]
   })
 
   -- 14. Large pipe chain with seq
@@ -141,8 +141,8 @@ p = pipeline {
     r1 = levels(f1)
     ok1 = length(r1) == 3
     f2 = to_factor(["low", "high", "medium"], levels = ["low", "medium", "high"], ordered = true)
-    ok2 = not is_error(f2)
-    [test: "factor_edges", passed: ok1 and ok2]
+    ok2 = !is_error(f2)
+    [test: "factor_edges", passed: ok1 && ok2]
   })
 
   -- Validation
@@ -175,7 +175,7 @@ p = pipeline {
   })
 }
 
-print("Running variable_vice_t — value and variable stress test...")
+print("Running variable_vice_t -- value and variable stress test...")
 res = build_pipeline(p, verbose = 1)
 if (is_error(res)) {
   print(res)
@@ -185,6 +185,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== Variable Vice Results ===")
 print(report)
-assert(not is_error(report), "validation node should not error")
+assert(!is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d variable tests failed!", report.failures))
 print("All variable vice tests passed!")

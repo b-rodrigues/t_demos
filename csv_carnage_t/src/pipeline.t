@@ -13,14 +13,14 @@ p = pipeline {
     }
   })
 
-  -- 2. Header only — no data rows
+  -- 2. Header only -- no data rows
   test_header_only = node(command = {
     write_text("a,b,c\n", "header_only.csv")
     df = read_csv("header_only.csv")
-    [test: "header_only", passed: nrow(df) == 0 and ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
+    [test: "header_only", passed: nrow(df) == 0 && ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
   })
 
-  -- 3. Ragged rows — column count mismatch
+  -- 3. Ragged rows -- column count mismatch
   test_ragged = node(command = {
     write_text("a,b,c\n1,2\n3,4,5,6\n7,8,9,10,11", "ragged.csv")
     result = read_csv("ragged.csv")
@@ -124,7 +124,7 @@ p = pipeline {
     content = str_join(["a\tb\tc\n", "1\t2\t3\n", "4\t5\t6\n"])
     write_text(content, "tab.csv")
     df = read_csv("tab.csv", separator = "\t")
-    [test: "tab_separator", passed: nrow(df) == 2 and ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
+    [test: "tab_separator", passed: nrow(df) == 2 && ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
   })
 
   -- 11. Semicolon separator
@@ -132,7 +132,7 @@ p = pipeline {
     content = str_join(["a;b;c\n", "1;2;3\n", "4;5;6\n"])
     write_text(content, "semicolon.csv")
     df = read_csv("semicolon.csv", separator = ";")
-    [test: "semicolon_separator", passed: nrow(df) == 2 and ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
+    [test: "semicolon_separator", passed: nrow(df) == 2 && ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
   })
 
   -- 12. clean_colnames on weird names
@@ -159,7 +159,7 @@ p = pipeline {
     ])
     write_text(content, "skip.csv")
     df = read_csv("skip.csv", skip_lines = 2, skip_header = true)
-    [test: "skip_options", passed: nrow(df) == 2 and ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
+    [test: "skip_options", passed: nrow(df) == 2 && ncol(df) == 3, rows: nrow(df), cols: ncol(df)]
   })
 
   -- Validation report: collect all results and assert
@@ -190,7 +190,7 @@ p = pipeline {
   })
 }
 
-print("Running csv_carnage_t — malformed CSV stress test...")
+print("Running csv_carnage_t -- malformed CSV stress test...")
 res = build_pipeline(p, verbose = 1)
 if (is_error(res)) {
   print(res)
@@ -200,6 +200,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== CSV Carnage Results ===")
 print(report)
-assert(not is_error(report), "validation node should not error")
+assert(!is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d CSV tests failed!", report.failures))
 print("All CSV carnage tests passed!")

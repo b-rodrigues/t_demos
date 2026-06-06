@@ -5,7 +5,7 @@ p = pipeline {
   -- 1. Empty dataframe
   test_empty = node(command = {
     df = to_dataframe([])
-    [test: "empty_df", passed: nrow(df) == 0 and ncol(df) == 0, rows: nrow(df), cols: ncol(df)]
+    [test: "empty_df", passed: nrow(df) == 0 && ncol(df) == 0, rows: nrow(df), cols: ncol(df)]
   })
 
   -- 2. All-NA columns (one per type)
@@ -14,16 +14,16 @@ p = pipeline {
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()],
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()]
     ])
-    all_na = is_na(pull(df, $i)) and is_na(pull(df, $f)) and
-             is_na(pull(df, $b)) and is_na(pull(df, $s))
-    [test: "all_na_df", passed: all_na and nrow(df) == 2 and ncol(df) == 4, rows: nrow(df), cols: ncol(df)]
+    all_na = is_na(pull(df, $i)) && is_na(pull(df, $f)) &&
+             is_na(pull(df, $b)) && is_na(pull(df, $s))
+    [test: "all_na_df", passed: all_na && nrow(df) == 2 && ncol(df) == 4, rows: nrow(df), cols: ncol(df)]
   })
 
   -- 3. Single cell (1 row x 1 col)
   test_single_cell = node(command = {
     df = to_dataframe([[x: 42]])
     val = pull(df, $x) |> get(0)
-    [test: "single_cell", passed: nrow(df) == 1 and ncol(df) == 1 and val == 42, rows: nrow(df), cols: ncol(df), value: val]
+    [test: "single_cell", passed: nrow(df) == 1 && ncol(df) == 1 && val == 42, rows: nrow(df), cols: ncol(df), value: val]
   })
 
   -- 4. Duplicate column names: rename to an existing name
@@ -90,7 +90,7 @@ p = pipeline {
     risky ?|> \(x) if (is_error(x)) {
       [test: "coerce_mutate", passed: true, status: "error", code: error_code(x)]
     } else {
-      [test: "coerce_mutate", passed: nrow(x) == 2 and ncol(x) == 3, status: "ok", rows: nrow(x)]
+      [test: "coerce_mutate", passed: nrow(x) == 2 && ncol(x) == 3, status: "ok", rows: nrow(x)]
     }
   })
 
@@ -130,7 +130,7 @@ p = pipeline {
     risky ?|> \(x) if (is_error(x)) {
       [test: "pivot_longer", passed: true, status: "error", code: error_code(x)]
     } else {
-      [test: "pivot_longer", passed: nrow(x) == 4 and ncol(x) == 3, status: "ok", rows: nrow(x)]
+      [test: "pivot_longer", passed: nrow(x) == 4 && ncol(x) == 3, status: "ok", rows: nrow(x)]
     }
   })
 
@@ -206,7 +206,7 @@ p = pipeline {
   })
 }
 
-print("Running dataframe_abyss_t — data frame corner case stress test...")
+print("Running dataframe_abyss_t -- data frame corner case stress test...")
 res = build_pipeline(p, verbose = 1)
 if (is_error(res)) {
   print(res)
@@ -216,6 +216,6 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print("=== DataFrame Abyss Results ===")
 print(report)
-assert(not is_error(report), "validation node should not error")
+assert(!is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d DataFrame tests failed!", report.failures))
 print("All dataframe abyss tests passed!")
