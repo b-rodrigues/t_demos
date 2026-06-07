@@ -1,0 +1,5 @@
+[project]
+name = "pipeline_diagnostics_test_t"
+description = "Validates pipeline diagnostics (errors, warnings, filtering) after Nix build — preserves pre-lazy-eval golden expectations."
+[t]
+min_version = "0.52.0"
