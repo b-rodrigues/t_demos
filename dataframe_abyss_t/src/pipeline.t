@@ -14,8 +14,8 @@ p = pipeline {
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()],
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()]
     ])
-    all_na = is_na(pull(df, $i)) && is_na(pull(df, $f)) &&
-             is_na(pull(df, $b)) && is_na(pull(df, $s))
+    all_na = (is_na(pull(df, $i)) && is_na(pull(df, $f)) &&
+              is_na(pull(df, $b)) && is_na(pull(df, $s)))
     [test: "all_na_df", passed: all_na && nrow(df) == 2 && ncol(df) == 4, rows: nrow(df), cols: ncol(df)]
   })
 
@@ -232,6 +232,6 @@ print("--- test_zero_cols ---"); print(read_node(p.test_zero_cols))
 report = read_node(p.validation)
 print("=== Summary ===")
 print(report)
-assert(not is_error(report), "validation node should not error")
+assert(!is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d DataFrame tests failed!", report.failures))
 print("All dataframe abyss tests passed!")

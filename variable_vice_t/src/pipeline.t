@@ -55,7 +55,7 @@ p = pipeline {
   -- 6. Division by zero + maybe-pipe recovery
   test_div_zero_recover = node(command = {
     result = (1 / 0) ?|> \(x) if (is_error(x)) { 0 } else { x }
-    ok = not is_error(result) && result == 0
+    ok = !is_error(result) && result == 0
     [test: "div_zero_recover", passed: ok, value: result]
   })
 
@@ -141,7 +141,7 @@ p = pipeline {
     r1 = levels(f1)
     ok1 = length(r1) == 3
     f2 = to_factor(["low", "high", "medium"], levels = ["low", "medium", "high"], ordered = true)
-    ok2 = not is_error(f2)
+    ok2 = !is_error(f2)
     [test: "factor_edges", passed: ok1 && ok2]
   })
 
@@ -202,6 +202,6 @@ print("--- test_factor_edges ---"); print(read_node(p.test_factor_edges))
 report = read_node(p.validation)
 print("=== Summary ===")
 print(report)
-assert(not is_error(report), "validation node should not error")
+assert(!is_error(report), "validation node should not error")
 assert(report.failures == 0, str_sprintf("%d variable tests failed!", report.failures))
 print("All variable vice tests passed!")
