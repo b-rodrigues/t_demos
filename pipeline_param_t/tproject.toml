@@ -1,0 +1,8 @@
+[project]
+name = "pipeline_param_t"
+description = "A demo showcasing pipeline parameterization via lambdas (pipeline templates)"
+
+[dependencies]
+
+[t]
+min_version = "0.52.0"
