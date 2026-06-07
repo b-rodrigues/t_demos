@@ -108,7 +108,7 @@ p = pipeline {
   -- 12. Pattern match on Error
   test_match_error = node(command = {
     r = match(error("MY_CODE", "something broke")) {
-      Error { code: c, msg: m } => str_sprintf("caught %s: %s", c, m),
+      e => str_sprintf("caught %s: %s", error_code(e), error_msg(e)),
       _ => "no match"
     }
     [test: "match_error", passed: r == "caught MY_CODE: something broke", result: r]

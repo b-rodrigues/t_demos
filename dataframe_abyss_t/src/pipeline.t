@@ -14,8 +14,7 @@ p = pipeline {
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()],
       [i: na_int(), f: na_float(), b: na_bool(), s: na_string()]
     ])
-    all_na = (is_na(pull(df, $i)) && is_na(pull(df, $f)) &&
-              is_na(pull(df, $b)) && is_na(pull(df, $s)))
+    all_na = is_na(pull(df, $i) |> get(0)) && is_na(pull(df, $f) |> get(0)) && is_na(pull(df, $b) |> get(0)) && is_na(pull(df, $s) |> get(0))
     [test: "all_na_df", passed: all_na && nrow(df) == 2 && ncol(df) == 4, rows: nrow(df), cols: ncol(df)]
   })
 
@@ -44,11 +43,11 @@ p = pipeline {
     long = seq(1, 100) |> map(\(x) to_string(x)) |> str_join(sep = "")
     header = str_join(["short,", long, "\n"])
     content = str_join([header, "1,2\n"])
-    write_text(content, "long_col.csv")
+    write_text("long_col.csv", content)
     df = read_csv("long_col.csv")
     names = colnames(df)
     name_len = str_nchar(get(names, 1))
-    [test: "long_colname", passed: name_len == 100, name_len: name_len]
+    [test: "long_colname", passed: name_len == 192, name_len: name_len]
   })
 
   -- 6. NA in filter predicate
@@ -195,7 +194,7 @@ p = pipeline {
       test_empty_grouped,
       test_zero_cols
     ]
-    failures = results |> filter($passed == false)
+    failures = results |> to_dataframe |> filter($passed == false)
     n_fail = nrow(failures)
     if (n_fail > 0) {
       print("FAILURES:")
