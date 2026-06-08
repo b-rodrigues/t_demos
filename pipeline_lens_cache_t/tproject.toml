@@ -1,0 +1,8 @@
+[project]
+name = "pipeline_lens_cache_t"
+version = "0.1.0"
+description = "Demo of in-memory cache scoping for pipeline lens operations"
+authors = ["Antigravity"]
+
+[dependencies]
+# Standard T library is enough

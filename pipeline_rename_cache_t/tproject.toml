@@ -1,0 +1,8 @@
+[project]
+name = "pipeline_rename_cache_t"
+version = "0.1.0"
+description = "Demo of cache migration on pipeline node rename"
+authors = ["Antigravity"]
+
+[dependencies]
+# Standard T library is enough

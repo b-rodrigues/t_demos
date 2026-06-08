@@ -1,0 +1,8 @@
+[project]
+name = "pipeline_equality_t"
+version = "0.1.0"
+description = "Demo of == vs identical() semantics on VComputedNode"
+authors = ["Antigravity"]
+
+[dependencies]
+# Standard T library is enough
