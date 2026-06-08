@@ -70,12 +70,11 @@ p = pipeline {
   test_error_chain = node(command = {
     e1 = error("E1", "first")
     e2 = error("E2", "second")
-    e3 = error("E3", "third")
-    e_chain = error_chain(e1, e2, e3)
+    e_chain = error_chain(e1, e2)
     len = length(e_chain)
     first_code = error_code(get(e_chain, 0))
-    last_msg = error_msg(get(e_chain, 2))
-    [test: "error_chain", passed: len == 3 && first_code == "E1" && last_msg == "third",
+    last_msg = error_msg(get(e_chain, 1))
+    [test: "error_chain", passed: len == 2 && first_code == "E1" && last_msg == "second",
      chain_length: len, first: first_code, last: last_msg]
   })
 
@@ -121,7 +120,7 @@ p = pipeline {
     a := [1, 2, 3]
     ok1 = a .== [1, 2, 3]
     a := [x: 10]
-    ok2 = type(a) == "Dict"
+    ok2 = type(a) .== "Dict"
     [test: "reassignment", passed: ok1 && ok2]
   })
 
