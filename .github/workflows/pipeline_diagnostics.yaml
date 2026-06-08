@@ -1,4 +1,4 @@
-name: Demo Pipeline Ops T
+name: Demo Pipeline Diagnostics T
 
 on:
   push:
