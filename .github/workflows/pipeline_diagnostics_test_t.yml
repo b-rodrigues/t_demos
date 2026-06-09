@@ -1,4 +1,4 @@
-name: Demo Pipeline Diagnostics T
+name: Demo Pipeline Diagnostics Test T
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  pipeline-diagnostics-t:
+  pipeline-diagnostics-test-t:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -55,20 +55,7 @@ jobs:
             sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
           fi
 
-      - name: Inject pipeline dependencies
-        env:
-          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
-        run: |
-          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
-
-      - name: Show updated tproject.toml
-        run: cat tproject.toml
-
-      - name: Rebuild flake with new dependencies
-        run: |
-          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-
-      - name: Run Pipeline (Populate and Build with Ops)
+      - name: Run Pipeline Tests
         run: |
           nix develop --command t run src/pipeline.t
 

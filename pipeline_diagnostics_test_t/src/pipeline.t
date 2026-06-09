@@ -1,7 +1,9 @@
 -- Pipeline Diagnostics Test Demo
+--
 -- Validates that after build_pipeline(), diagnostics (errors, warnings,
 -- filter_node, which_nodes, errored_nodes, read_pipeline) work correctly.
--- These assertions preserve pre-lazy-eval golden expectations.
+-- Uses build_pipeline to register targets so t_make() can resolve them,
+-- and assert() to verify diagnostic expectations.
 
 print("=== Pipeline Diagnostics Test ===")
 
@@ -26,7 +28,7 @@ assert(bad_res.error.kind == "DivisionByZero",
 
 -- Test: filter_node(!is_na($diagnostics.error)) returns errored nodes
 err_nodes = p_err |> filter_node(!is_na($diagnostics.error)) |> pipeline_nodes
-assert(length(err_nodes) == 2 && "bad" %in% err_nodes && "downstream" %in% err_nodes,
+assert(length(err_nodes) == 2 && contains(err_nodes, "bad") && contains(err_nodes, "downstream"),
     "filter_node finds 2 errored nodes")
 
 -- Test: filter_node(is_na($diagnostics.error)) returns non-errored nodes
@@ -36,12 +38,12 @@ assert(ok_nodes == [],
 
 -- Test: which_nodes with diagnostics predicate
 which_res = which_nodes(p_err, !is_na(diagnostics.error)) |> map(\(n) n.name)
-assert(length(which_res) == 2 && "bad" %in% which_res && "downstream" %in% which_res,
+assert(length(which_res) == 2 && contains(which_res, "bad") && contains(which_res, "downstream"),
     "which_nodes finds 2 errored nodes")
 
 -- Test: errored_nodes convenience wrapper
 errored = errored_nodes(p_err) |> map(\(n) n.name)
-assert(length(errored) == 2 && "bad" %in% errored && "downstream" %in% errored,
+assert(length(errored) == 2 && contains(errored, "bad") && contains(errored, "downstream"),
     "errored_nodes finds 2 errored nodes")
 
 
