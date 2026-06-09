@@ -79,5 +79,5 @@ jobs:
 
       - name: Read one Node
         run: |
-          echo "t_make(); read_node(p.mtcars_mpg) |> print" > view.t
+          echo 't_make(); print("p1.c = ", read_node(p1.c)); print("p1b.a = ", read_node(p1b.a))' > view.t
           nix develop --command t run --unsafe view.t

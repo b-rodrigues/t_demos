@@ -1,18 +1,30 @@
 [project]
 name = "pipeline_ops_t"
 description = "A T project demonstrating advanced pipeline operations"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "dplyr", "jsonlite",]
+packages = ["dplyr", "jsonlite", "arrow", "knitr", "rmarkdown"]
 
 [py-dependencies]
 version = "python313"
-packages = [ "pandas",]
+packages = ["pandas", "ipykernel", "nbclient", "nbformat", "pyyaml"]
+
+[jl-dependencies]
+version = "lts"
+packages = []
 
 [additional-tools]
-packages = [ "quarto",]
+packages = ["quarto", "which"]
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
