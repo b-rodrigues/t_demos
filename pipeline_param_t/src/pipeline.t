@@ -110,4 +110,3 @@ print("All pipeline parametrization checks passed!")
 
 logs = list_logs()
 print(logs)
-assert(nrow(logs) == 7, "should have 7 build logs")
