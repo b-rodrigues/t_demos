@@ -107,3 +107,7 @@ print(plan)
 assert(nrow(plan) == 2, "dry run plan should have 2 rows")
 
 print("All pipeline parametrization checks passed!")
+
+logs = list_logs()
+print(logs)
+assert(nrow(logs) == 7, "should have 7 build logs")
