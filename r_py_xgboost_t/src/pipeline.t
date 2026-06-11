@@ -78,3 +78,12 @@ accuracy = accuracy_score(y_test, y_pred)
 -- Materialize
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions (key nodes in the XGBoost pipeline)
+r_cm = read_node(p.confusion_matrix)
+assert(type(r_cm.error) == "NA", "confusion_matrix (R yardstick) should succeed")
+
+r_acc = read_node(p.accuracy)
+assert(type(r_acc.error) == "NA", "accuracy (Python sk-learn) should succeed")
+
+print("✓ r_py_xgboost_t: all assertions passed")

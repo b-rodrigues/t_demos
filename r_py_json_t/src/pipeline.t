@@ -48,3 +48,18 @@ mtcars_head %>% select(mpg)
 -- Materialize the pipeline
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions
+r_pl = read_node(p.mtcars_pl)
+assert(type(r_pl.error) == "NA", "mtcars_pl (Python CSV load) should succeed")
+
+r_am = read_node(p.mtcars_pl_am)
+assert(type(r_am.error) == "NA", "mtcars_pl_am (Python filter) should succeed")
+
+r_head = read_node(p.mtcars_head)
+assert(type(r_head.error) == "NA", "mtcars_head (R with CSV deserializer) should succeed")
+
+r_mpg = read_node(p.mtcars_mpg)
+assert(type(r_mpg.error) == "NA", "mtcars_mpg (R select) should succeed")
+
+print("✓ r_py_json_t: all assertions passed")

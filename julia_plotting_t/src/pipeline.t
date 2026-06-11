@@ -95,4 +95,19 @@ if (is_error(res)) {
 
     plots_meta = read_node(p.plots_node)
     print("Plots.jl class: ", plots_meta.class)
+
+    -- Node correctness assertions
+    r_raw = read_node(p.raw_data)
+    assert(type(r_raw.error) == "NA", "raw_data should succeed")
+
+    r_tidi = read_node(p.tidierplots_node)
+    assert(type(r_tidi.error) == "NA", "tidierplots_node (Julia) should succeed")
+
+    r_makie = read_node(p.makie_node)
+    assert(type(r_makie.error) == "NA", "makie_node (Julia) should succeed")
+
+    r_plots = read_node(p.plots_node)
+    assert(type(r_plots.error) == "NA", "plots_node (Julia) should succeed")
+
+    print("✓ julia_plotting_t: all assertions passed")
 }
