@@ -1,10 +1,10 @@
 {
-  description = "meta_pipeline_t — a T data analysis project";
+  description = "chrono_vs_lubridate_t — a T data analysis project";
 
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/v0.52.0";
   };
 
   nixConfig = {
@@ -26,6 +26,7 @@
           packages = with pkgs.rPackages; [
             t-lang.packages.${system}.tlang-r
             arrow
+            lubridate
           ];
         };
 
@@ -142,7 +143,7 @@ EOF
             export PATH="$python_guard_bin:$PATH"
             export PYTHONPATH="$python_guard_lib:''${PYTHONPATH:-}"
             echo "=================================================="
-            echo "T Project: meta_pipeline_t"
+            echo "T Project: chrono_vs_lubridate_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
