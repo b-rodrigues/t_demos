@@ -136,3 +136,28 @@ print("")
 print("=========================================")
 print("=== Phase 9: Introspection Demo Complete  ===")
 print("=========================================")
+
+-- Build completion assertions
+assert(!is_error(res1), "Version 1 build should succeed")
+assert(!is_error(res2), "Version 2 build should succeed")
+assert(!is_error(res3), "Version 3 build should succeed")
+
+-- Build history assertions
+assert(nrow(hist) == 3, "build_log_history should have 3 entries (3 versions)")
+
+-- Scalar diff assertions
+assert(diff_scalar.summary.changed == true, "scalar should have changed between V2 and V3")
+assert(diff_scalar.summary.value_a == 200, "scalar V3 value should be 200")
+assert(diff_scalar.summary.value_b == 150, "scalar V2 value should be 150")
+assert(diff_scalar.summary.delta == 50, "scalar delta should be 50")
+
+-- DataFrame diff assertions
+assert(diff_df.summary.changed == true, "data should have changed between V2 and V3")
+assert(diff_df.summary.rows_changed == 3, "all 3 data rows should show as changed (y values differ)")
+
+-- Text diff assertions
+assert(diff_text.summary.changed == true, "text should have changed between V2 and V3")
+assert(length(diff_text.hunks) > 0, "text diff should have at least 1 hunk")
+assert(contains(diff_text.detailed_summary, "Version 3"), "diff should reference V3 content")
+
+print("✓ diff_history_t: all assertions passed")
