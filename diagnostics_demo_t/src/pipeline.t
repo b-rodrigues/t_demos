@@ -100,20 +100,24 @@ print("======================================================================")
 print(status)
 print("Programmatic Summary:")
 print(read_pipeline(p).diagnostics.summary)
+-- Per-node diagnostic assertions in Step 5
 
 print("")
-print("Step 2: Reading the Build Log (read_log)...")
--- read_log() returns the Nix build log for the entire pipeline
-log = read_log()
--- We only print the first 500 characters to keep it clean
-print(str_join([str_sub(log, 0, 500), "... [truncated]"]))
+print("Step 2: Reading the Build Log (build_log)...")
+-- build_log(p) returns structured metadata about the latest build
+bl = build_log(p)
+print(str_join(["Build completed in ", to_string(bl.duration), " seconds across ", to_string(nrow(build_log_to_frame(bl))), " nodes"]))
 
 print("")
 print("Step 3: Reading specific nodes and their diagnostics (read_node)...")
--- read_node with a pipeline object returns the full result dictionary including diagnostics
+-- read_node with a pipeline object returns a VNodeResult with diagnostics
 r_warn_res = read_node(p.r_warn)
-print("Node 'r_warn' diagnostics:")
-print(r_warn_res.diagnostics)
+print("Node 'r_warn' warnings via warning_msg:")
+r_warn_warnings = warning_msg(p.r_warn)
+print(r_warn_warnings)
+assert(r_warn_warnings != "", "R node 'r_warn' should have captured warnings")
+assert(contains(r_warn_warnings, "outlier"), "R warning message should contain 'outlier'")
+print("")
 print("Node 'r_warn' value preview:")
 print(head(r_warn_res.value))
 
@@ -132,6 +136,32 @@ if (identical(type(py_err_val), "Error")) {
     print(py_err_val.context.runtime_traceback)
 }
 
+-- Verify R error captured
+print("")
+print("Step 5: Verifying all diagnostics...")
+r_err_res = read_node(p.r_err)
+assert(type(r_err_res.value) == "Error", "R error node should be an Error value")
+r_err_msg = r_err_res.value.error_msg
+assert(contains(r_err_msg, "failed to allocate memory"), "R error message captured")
+
+-- Verify Python warnings captured
+py_warn_warnings = warning_msg(p.py_warn)
+assert(py_warn_warnings != "", "Python node 'py_warn' should have captured warnings")
+assert(contains(py_warn_warnings, "deprecated"), "Python warning message should contain 'deprecated'")
+
+-- Verify Python error captured
+assert(type(py_err_val) == "Error", "Python error node should be an Error value")
+assert(contains(py_err_val.error_msg, "invalid value distribution"), "Python error message captured")
+
+-- Verify T-node NA warning captured
+t_warn_warnings = warning_msg(p.t_warn)
+assert(t_warn_warnings != "", "T node 't_warn' should have captured NA warnings")
+
+-- Verify successful node has no error
+summary_stats_res = read_node(p.summary_stats)
+assert(type(summary_stats_res.error) == "NA", "Successful node should have NA error")
+
+print("All diagnostic assertions passed.")
 print("")
 print("Demo complete (all errors were successfully captured as target artifacts).")
 "Diagnostics Demo Passed" -- Ensure the final value is not an Error
