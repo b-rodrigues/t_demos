@@ -110,8 +110,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1781161856,
-        "narHash": "sha256-12Ah6Q4qSIoe7FPdjdmRQKVyvj+zhbY0AvhsOxMRqh8=",
+        "lastModified": 1781170571,
+        "narHash": "sha256-EZov+zObyBOfOo494l0o5w13uHvlWGv/EuoSATLlAVE=",
         "path": "/home/brodrigues/Documents/repos/tlang",
         "type": "path"
       },
