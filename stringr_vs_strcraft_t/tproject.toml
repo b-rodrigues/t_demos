@@ -1,11 +1,30 @@
 [project]
 name = "stringr_vs_strcraft_t"
 description = "Comparing T's strcraft package with R's stringr"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "arrow", "stringr" ]
+packages = ["arrow", "stringr", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
