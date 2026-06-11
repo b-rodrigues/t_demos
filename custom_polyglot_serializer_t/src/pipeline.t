@@ -26,3 +26,9 @@ p = pipeline {
 }
 
 build_pipeline(p, verbose=1)
+
+-- Node correctness assertions
+assert(type(read_node(p.config_py).error) == "NA", "config_py (Python YAML serializer) should succeed")
+assert(type(read_node(p.config_r).error) == "NA", "config_r (R YAML deserializer) should succeed")
+
+print("✓ custom_polyglot_serializer_t: all assertions passed")

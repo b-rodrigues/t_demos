@@ -53,3 +53,15 @@ print("\n--- Noop Nodes ---")
 print(get(p2, noop_l))
 
 print("\n--- Demo Complete ---")
+
+-- Lens correctness assertions
+assert(get(p, a_noop_l) == false, "calc_a should default to noop=false")
+assert(get(p, b_rt_l) == "T", "calc_b should default to runtime=T")
+assert(get(p2, a_noop_l) == true, "p2 calc_a should be noop=true after set()")
+assert(get(p2, b_rt_l) == "Python", "p2 calc_b should be Python after set()")
+
+-- filter_lens: should find 1 Python node in p2
+assert(length(py_node_values) == 1, "filter_lens should find exactly 1 Python node in p2")
+assert(length(get(p2, noop_l)) == 1, "filter_lens should find exactly 1 noop node in p2")
+
+print("✓ pipeline_lens_orchestration_t: all assertions passed")

@@ -124,3 +124,14 @@ p = pipeline {
 }
 
 build_pipeline(p, verbose = 1)
+
+-- Node correctness assertions
+assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+assert(type(read_node(p.model_r).error) == "NA", "model_r (R GLM PMML) should succeed")
+assert(type(read_node(p.model_jl).error) == "NA", "model_jl (Julia LM PMML) should succeed")
+assert(type(read_node(p.predict_r_native).error) == "NA", "predict_r_native should succeed")
+assert(type(read_node(p.predict_jl_native).error) == "NA", "predict_jl_native should succeed")
+assert(type(read_node(p.predict_jl_pmml_r).error) == "NA", "predict_jl_pmml_r should succeed")
+assert(type(read_node(p.verify_node).error) == "NA", "verify_node should succeed")
+
+print("✓ pmml_julia_r_interop_t: all assertions passed")

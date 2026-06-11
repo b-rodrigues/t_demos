@@ -43,3 +43,10 @@ p = pipeline {
 -- Build the pipeline
 build_pipeline(p, verbose=1)
 
+-- Node correctness assertions
+assert(type(read_node(p.raw_data).error) == "NA", "raw_data (T CSV) should succeed")
+assert(type(read_node(p.summary_r).error) == "NA", "summary_r (R dplyr CSV) should succeed")
+assert(type(read_node(p.summary_py).error) == "NA", "summary_py (Python pandas CSV) should succeed")
+assert(type(read_node(p.final_results).error) == "NA", "final_results should succeed")
+
+print("✓ multi_lang_pipeline_t: all assertions passed")

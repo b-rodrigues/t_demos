@@ -199,3 +199,15 @@ build_pipeline(p, verbose=1)
 
 -- Copy artifacts to local _pipeline/ directory for inspection
 pipeline_copy()
+
+-- Node correctness assertions (key nodes from the 15-node multi-lang pipeline)
+assert(type(read_node(p.data_t).error) == "NA", "data_t (T) should succeed")
+assert(type(read_node(p.df_r).error) == "NA", "df_r (R Arrow) should succeed")
+assert(type(read_node(p.df_py).error) == "NA", "df_py (Python Arrow) should succeed")
+assert(type(read_node(p.model_r_json).error) == "NA", "model_r_json should succeed")
+assert(type(read_node(p.r_model_pmml).error) == "NA", "r_model_pmml should succeed")
+assert(type(read_node(p.pred_t_r).error) == "NA", "pred_t_r should succeed")
+assert(type(read_node(p.vector_py).error) == "NA", "vector_py (Python JSON) should succeed")
+assert(type(read_node(p.res_bash).error) == "NA", "res_bash (shell) should succeed")
+
+print("✓ check_nodes_pipeline_t: all assertions passed")

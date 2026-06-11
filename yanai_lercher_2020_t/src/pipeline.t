@@ -85,3 +85,13 @@ plot2 <- make_plot2(coords)
 -- Materialize
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions
+assert(type(read_node(p.gorilla_pixels).error) == "NA", "gorilla_pixels should succeed")
+assert(type(read_node(p.raw_coords).error) == "NA", "raw_coords should succeed")
+assert(type(read_node(p.coords).error) == "NA", "coords should succeed")
+assert(type(read_node(p.gender_dist).error) == "NA", "gender_dist should succeed")
+assert(type(read_node(p.plot1).error) == "NA", "plot1 should succeed")
+assert(type(read_node(p.plot2).error) == "NA", "plot2 should succeed")
+
+print("✓ yanai_lercher_2020_t: all assertions passed")
