@@ -113,4 +113,12 @@ if (is_error(res)) {
     } else {
         print("WARNING: Warpbreaks predictions differ.")
     }
+    
+    -- Node correctness assertions
+    assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+    assert(type(read_node(p.r_poisson).error) == "NA", "r_poisson should succeed")
+    assert(type(read_node(p.r_nb).error) == "NA", "r_nb should succeed")
+    assert(type(read_node(p.py_poisson).error) == "NA", "py_poisson should succeed")
+    
+    print("✓ glm_warpbreaks_t: all assertions passed")
 }

@@ -82,4 +82,11 @@ if (is_error(res)) {
     } else {
         print("WARNING: Predictions differ.")
     }
+    
+    -- Node correctness assertions
+    assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+    assert(type(read_node(p.r_model).error) == "NA", "r_model should succeed")
+    assert(type(read_node(p.py_model).error) == "NA", "py_model should succeed")
+    
+    print("✓ isl_lab2_boston_t: all assertions passed")
 }

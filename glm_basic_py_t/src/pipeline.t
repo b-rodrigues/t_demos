@@ -54,3 +54,12 @@ print("Predictions type:")
 print(type(preds))
 print("Predictions:")
 print(preds)
+
+-- Node correctness assertions
+r_data = read_node(p.data_node)
+assert(type(r_data.error) == "NA", "data_node should succeed")
+r_model = read_node(p.model_node)
+assert(type(r_model.error) == "NA", "model_node (Python GLM) should succeed")
+assert(type(preds) != "Error", "predictions should not be an error")
+
+print("✓ glm_basic_py_t: all assertions passed")

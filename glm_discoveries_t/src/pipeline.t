@@ -100,4 +100,13 @@ if (is_error(res)) {
     } else {
         print("WARNING: Poisson predictions differ.")
     }
+    
+    -- Node correctness assertions
+    r_data = read_node(p.data_node)
+    assert(type(r_data.error) == "NA", "data_node should succeed")
+    assert(type(read_node(p.poisson_r).error) == "NA", "poisson_r should succeed")
+    assert(type(read_node(p.nb_r).error) == "NA", "nb_r should succeed")
+    assert(type(read_node(p.poisson_py).error) == "NA", "poisson_py should succeed")
+    
+    print("✓ glm_discoveries_t: all assertions passed")
 }
