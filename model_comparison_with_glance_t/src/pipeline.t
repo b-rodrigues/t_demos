@@ -63,3 +63,11 @@ build_pipeline(p, verbose=1)
 
 -- Copy artifacts for local inspection
 pipeline_copy()
+
+-- Node correctness assertions
+assert(type(read_node(p.df).error) == "NA", "df should succeed")
+assert(type(read_node(p.model_r).error) == "NA", "model_r (R lm PMML) should succeed")
+assert(type(read_node(p.model_py).error) == "NA", "model_py (Python lm PMML) should succeed")
+assert(type(read_node(p.comparison).error) == "NA", "comparison (fit_stats) should succeed")
+
+print("✓ model_comparison_with_glance_t: all assertions passed")

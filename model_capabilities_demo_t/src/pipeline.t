@@ -62,3 +62,13 @@ print(read_node(p.node_diag))
 print("")
 print("6. Confidence Intervals:")
 print(read_node(p.node_ci))
+
+-- Node correctness assertions
+assert(type(read_node(p.df).error) == "NA", "df should succeed")
+assert(type(read_node(p.model_lm).error) == "NA", "model_lm should succeed")
+assert(type(read_node(p.node_summary).error) == "NA", "node_summary should succeed")
+assert(type(read_node(p.node_coef).error) == "NA", "node_coef should succeed")
+assert(type(read_node(p.node_stats).error) == "NA", "node_stats should succeed")
+assert(type(read_node(p.node_compare).error) == "NA", "node_compare should succeed")
+
+print("✓ model_capabilities_demo_t: all assertions passed")

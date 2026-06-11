@@ -143,4 +143,15 @@ if (is_error(res)) {
     
     pl = read_node(p.plotly_node)
     print("plotly Class: ", pl.class)
+    
+    -- Node correctness assertions
+    assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+    assert(type(read_node(p.ggplot_node).error) == "NA", "ggplot_node should succeed")
+    assert(type(read_node(p.matplotlib_node).error) == "NA", "matplotlib_node should succeed")
+    assert(type(read_node(p.seaborn_node).error) == "NA", "seaborn_node should succeed")
+    assert(type(read_node(p.plotly_node).error) == "NA", "plotly_node should succeed")
+    assert(type(read_node(p.altair_node).error) == "NA", "altair_node should succeed")
+    assert(type(read_node(p.plotnine_node).error) == "NA", "plotnine_node should succeed")
+    
+    print("✓ plotting_pipeline_t: all assertions passed")
 }

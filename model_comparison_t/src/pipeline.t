@@ -72,3 +72,11 @@ p_site = p_final |> union(pipeline {
 print("Deploying site...")
 populate_pipeline(p_site, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions
+assert(type(read_node(p_final.raw_data).error) == "NA", "raw_data should succeed")
+assert(type(read_node(p_final.r_model).error) == "NA", "r_model (lm R-squared) should succeed")
+assert(type(read_node(p_final.py_model).error) == "NA", "py_model (RF R-squared) should succeed")
+assert(type(read_node(p_final.comparison_result).error) == "NA", "comparison_result should succeed")
+
+print("✓ model_comparison_t: all assertions passed")
