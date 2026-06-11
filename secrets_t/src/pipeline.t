@@ -52,7 +52,7 @@ print("Multiple secrets verified!")
 
 -- 3. Dry-run: exercise sandbox option (API surface test)
 print("Exercising build_pipeline with sandbox relaxed (dry run)...")
-build_pipeline(p_single, nix_options = [
+dry_run_plan = build_pipeline(p_single, nix_options = [
   sandbox: "relaxed",
   dry_run: true
 ])
@@ -91,3 +91,6 @@ if (type(r_multi.error) == "NA") {
 }
 
 print("✓ secrets_t: assertions documented (secrets may not be present)")
+
+-- dry_run plans should always return DataFrames regardless of secrets
+assert(type(dry_run_plan) == "DataFrame", "dry_run plan should be a DataFrame")
