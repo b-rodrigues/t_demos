@@ -27,6 +27,7 @@
             t-lang.packages.${system}.tlang-r
             arrow
             stringr
+            jsonlite
           ];
         };
 
