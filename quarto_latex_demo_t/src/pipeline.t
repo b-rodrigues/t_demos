@@ -51,6 +51,13 @@ if (is_error(res)) {
 -- Copy the artifact to the local directory
 pipeline_copy()
 
+-- Node correctness assertions
+assert(type(read_node(p.r_data).error) == "NA", "r_data (R CSV) should succeed")
+assert(type(read_node(p.py_data).error) == "NA", "py_data (Python CSV) should succeed")
+assert(type(read_node(p.jl_data).error) == "NA", "jl_data (Julia CSV) should succeed")
+
+print("✓ quarto_latex_demo_t: all assertions passed")
+
 print("==================================================")
 print("POLYGLOT QUARTO & LATEX DEMO COMPLETED")
 print("==================================================")

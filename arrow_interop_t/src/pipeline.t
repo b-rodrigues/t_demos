@@ -50,3 +50,10 @@ build_pipeline(p, verbose=1)
 print("Reading df_py from Arrow file in T:")
 df_res = read_node(p.df_py)
 glimpse(df_res)
+
+-- Node correctness assertions
+assert(type(read_node(p.df_r).error) == "NA", "df_r (R Arrow) should succeed")
+assert(type(read_node(p.df_py).error) == "NA", "df_py (Python Arrow) should succeed")
+assert(type(read_node(p.final_t).error) == "NA", "final_t (T Arrow) should succeed")
+
+print("✓ arrow_interop_t: all assertions passed")

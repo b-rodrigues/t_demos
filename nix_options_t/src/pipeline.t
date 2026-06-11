@@ -31,3 +31,14 @@ df_gc_live = pipeline_gc(p, dry_run = false)
 print(df_gc_live)
 
 print("Nix options demo successfully completed!")
+
+-- Verify build_pipeline dry_run returns DataFrame with correct columns
+assert(type(df_build) == "DataFrame", "build_pipeline dry_run should return DataFrame")
+assert(contains(colnames(df_build) |> str_join(sep = ","), "node"), "DataFrame should have 'node' column")
+assert(contains(colnames(df_build) |> str_join(sep = ","), "action"), "DataFrame should have 'action' column")
+
+-- Verify pipeline_gc returns a DataFrame
+assert(type(df_gc_dry) == "DataFrame", "pipeline_gc dry_run should return DataFrame")
+assert(type(df_gc_live) == "DataFrame", "pipeline_gc live should return DataFrame")
+
+print("✓ nix_options_t: all assertions passed")

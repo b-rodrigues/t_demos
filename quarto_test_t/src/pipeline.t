@@ -23,3 +23,8 @@ populate_pipeline(p, build=true)
 print("Copying results to local directory...")
 res = pipeline_copy()
 print(res)
+
+-- Verify data node is accessible (no read_node needed for inline values)
+assert(p.data == "Success: Data read from T-Lang", "data node should have correct value")
+
+print("✓ quarto_test_t: all assertions passed")
