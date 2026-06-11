@@ -55,3 +55,20 @@ build_pipeline(p, verbose = 1)
 print(str_sprintf("handled_node result: %s", p.handled_node))
 print(str_sprintf("local_recovery result: %s", p.local_recovery))
 print(str_sprintf("Is risky_node an error? %s", is_error(p.risky_node)))
+
+-- Node correctness assertions
+assert(is_error(p.risky_node), "risky_node should be an Error")
+assert(error_code(p.risky_node) == "DATA_MISSING", "risky_node error code should be DATA_MISSING")
+assert(contains(error_msg(p.risky_node), "raw_data.csv"), "risky_node error should mention the missing file")
+
+assert(!is_error(p.local_recovery), "local_recovery should not be an Error")
+assert(p.local_recovery == "Recovered Locally", "local_recovery should return fallback string")
+
+assert(!is_error(p.handled_node), "handled_node should not be an Error")
+assert(p.handled_node == "Fallback Data", "handled_node should return fallback string")
+
+assert(!is_error(p.error_info), "error_info should not be an Error")
+assert(p.error_info.failed == true, "error_info.failed should be true")
+assert(p.error_info.code == "DATA_MISSING", "error_info.code should be DATA_MISSING")
+
+print("✓ error_recovery_t: all assertions passed")
