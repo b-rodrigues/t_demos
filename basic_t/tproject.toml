@@ -1,18 +1,30 @@
 [project]
 name = "basic_t"
 description = "A T data analysis project"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "arrow",]
+packages = ["arrow", "knitr", "rmarkdown"]
 
 [py-dependencies]
 version = "python314"
+packages = ["ipykernel", "nbclient", "nbformat", "pyyaml"]
+
+[jl-dependencies]
+version = "lts"
 packages = []
 
 [additional-tools]
-packages = [ "quarto",]
+packages = ["quarto", "which"]
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
