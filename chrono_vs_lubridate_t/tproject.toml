@@ -1,11 +1,30 @@
 [project]
 name = "chrono_vs_lubridate_t"
 description = "Comparing T's chrono package with R's lubridate"
+authors = []
 
 [dependencies]
 
 [r-dependencies]
-packages = [ "arrow", "lubridate" ]
+packages = ["arrow", "lubridate", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
 
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
