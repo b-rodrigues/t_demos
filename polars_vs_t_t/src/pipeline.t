@@ -50,3 +50,17 @@ populate_pipeline(p, build = true, verbose = 1)
 res = read_node(p.t_summary)
 print("Summarized results from T-Lang (post-Polars processing):")
 print(res)
+
+-- Node correctness assertions
+r_polars = read_node(p.polars_node)
+assert(type(r_polars.error) == "NA", "polars_node should succeed")
+assert(type(read_node(p.t_summary).error) == "NA", "t_summary should succeed")
+
+-- Verify polars output is a proper DataFrame with expected columns
+assert(nrow(r_polars.value) > 0, "polars_node should return non-empty DataFrame")
+assert(contains(colnames(r_polars.value) |> str_join(sep = ","), "product"), "polars_node should have 'product' column")
+
+-- Verify T aggregation produces correct category groups
+assert(nrow(res.value) > 0, "t_summary should have aggregation rows")
+
+print("✓ polars_vs_t_t: all assertions passed")

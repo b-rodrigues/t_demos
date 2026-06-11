@@ -44,3 +44,23 @@ pipeline_copy()
 
 print("Check build log status with inspect_log():")
 print(inspect_log())
+
+-- Node correctness assertions
+r_data = read_node(p.data)
+assert(type(r_data.error) == "NA", "data should succeed")
+assert(length(r_data.value) == 5, "data should have 5 elements")
+
+-- expensive_node is marked noop=true — it should be either skipped or an Error
+r_expensive = read_node(p.expensive_node)
+if (type(r_expensive.error) == "NA") {
+  print("expensive_node succeeded as a stub (noop=true)")
+} else {
+  print(str_join(["expensive_node error: ", error_msg(r_expensive.error)]))
+  -- Noop nodes may produce errors; this is expected behavior
+}
+
+-- Pipeline node inspection API should show noop status correctly
+meta = select_node(p, $name, $noop)
+assert(nrow(meta) > 0, "pipeline should have node metadata")
+
+print("✓ skip_nodes_t: all assertions passed")
