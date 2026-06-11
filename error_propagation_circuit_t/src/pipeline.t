@@ -6,7 +6,7 @@
 
 p = pipeline {
   -- 1. A node that computes something safely — no error
-  good_val = node(command = 100 / 5)
+  good_val = node(command = 100 / 50)
 
   -- 2. Recover from a risky division using 'match':
   --    The Error value is caught and replaced with a default of 0.

@@ -8,7 +8,6 @@ base_p = pipeline {
     serializer = ^arrow
   )
   
-  -- Use node() with noop = true to skip heavy computation during builds
   heavy_r_node = rn(
     command = <{ 
       library(dplyr)
@@ -19,7 +18,6 @@ base_p = pipeline {
     noop = true
   )
 
-  -- This node depends on heavy_r_node, so it also becomes a noop
   summary = node(
     command = heavy_r_node |> filter($total > 100),
     deserializer = ^arrow
