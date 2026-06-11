@@ -36,3 +36,12 @@ p = pipeline {
 }
 
 build_pipeline(p, verbose=1)
+
+-- Node correctness assertions (env vars should pass through)
+r_rnode = read_node(p.r_node)
+assert(type(r_rnode.error) == "NA", "r_node should succeed (received DB_USER and TIMEOUT env vars)")
+
+r_pynode = read_node(p.py_node)
+assert(type(r_pynode.error) == "NA", "py_node should succeed (received DB_USER and TIMEOUT env vars)")
+
+print("✓ env_var_orchestration_t: all assertions passed")

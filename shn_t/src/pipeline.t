@@ -35,3 +35,16 @@ p = pipeline {
 -- Materialize the pipeline
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions
+assert(type(p.mtcars) == "DataFrame", "mtcars should be a DataFrame")
+assert(type(p.filtered_mtcars) == "DataFrame", "filtered_mtcars should be a DataFrame")
+assert(type(p.mtcars_mpg) == "DataFrame", "mtcars_mpg should be a DataFrame")
+
+r_awk = read_node(p.awk_node)
+assert(type(r_awk.error) == "NA", "awk_node (shell) should succeed")
+
+r_final = read_node(p.final_summary)
+assert(type(r_final.error) == "NA", "final_summary should succeed")
+
+print("✓ shn_t: all assertions passed")

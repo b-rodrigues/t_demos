@@ -59,3 +59,21 @@ mtcars_mpg <- full_join(mtcars_tail, mtcars_head)
 -- Materialize
 populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
+
+-- Node correctness assertions
+r_mtcars = read_node(p.mtcars)
+assert(type(r_mtcars.error) == "NA", "mtcars node should succeed")
+
+r_am = read_node(p.mtcars_am)
+assert(type(r_am.error) == "NA", "mtcars_am should succeed")
+
+r_head = read_node(p.mtcars_head)
+assert(type(r_head.error) == "NA", "mtcars_head (csv serializer) should succeed")
+
+r_tail = read_node(p.mtcars_tail)
+assert(type(r_tail.error) == "NA", "mtcars_tail (json serializer) should succeed")
+
+r_mpg = read_node(p.mtcars_mpg)
+assert(type(r_mpg.error) == "NA", "mtcars_mpg (mixed csv+json deserializers) should succeed")
+
+print("✓ many_unserialize_t: all assertions passed")

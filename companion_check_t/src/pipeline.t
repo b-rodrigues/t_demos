@@ -30,3 +30,18 @@ p = pipeline {
 }
 
 populate_pipeline(p, build = true)
+
+-- Node correctness assertions (verify companion packages load)
+r_data = read_node(p.data_node)
+assert(type(r_data.error) == "NA", "data_node should succeed")
+
+r_r = read_node(p.r_node)
+assert(type(r_r.error) == "NA", "r_node (tlang R companion) should succeed")
+
+r_py = read_node(p.py_node)
+assert(type(r_py.error) == "NA", "py_node (tlang Python companion) should succeed")
+
+r_jl = read_node(p.jl_node)
+assert(type(r_jl.error) == "NA", "jl_node (tlang Julia companion) should succeed")
+
+print("✓ companion_check_t: all assertions passed")

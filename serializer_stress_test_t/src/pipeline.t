@@ -46,3 +46,14 @@ print(res)
 print("Pipeline execution took approximately:")
 -- Note: T period subtraction and printing
 print(end_time - start_time)
+
+-- Node correctness assertions
+r_large = read_node(p.large_data)
+assert(type(r_large.error) == "NA", "large_data (1M rows) should succeed")
+assert(nrow(r_large.value) > 0, "large_data should have rows")
+
+r_sum = read_node(p.summarized)
+assert(type(r_sum.error) == "NA", "summarized aggregations should succeed")
+assert(nrow(r_sum.value) > 0, "summarized should have aggregation rows")
+
+print("✓ serializer_stress_test_t: all assertions passed")
