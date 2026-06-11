@@ -101,4 +101,13 @@ p = pipeline {
 
 build_pipeline(p, verbose=1)
 
+-- Node correctness assertions
+assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+assert(type(read_node(p.model_r_node).error) == "NA", "model_r_node (R lm PMML) should succeed")
+assert(type(read_node(p.rf_r_node).error) == "NA", "rf_r_node (R RandomForest PMML) should succeed")
+assert(type(read_node(p.model_py_node).error) == "NA", "model_py_node (Python PMML) should succeed")
+assert(type(read_node(p.verify_node).error) == "NA", "verify_node (T JPMML scoring) should succeed")
+
+print("✓ pmml_interchange_t: all assertions passed")
+
 print("Pipeline defined successfully.")

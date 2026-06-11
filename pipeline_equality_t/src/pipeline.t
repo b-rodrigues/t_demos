@@ -34,3 +34,12 @@ print("identical(p.x, p.x):   ", identical(p.x, p.x))  -- Expected: true
 
 print("")
 print("=== Demo Complete ===")
+
+-- Assert correctness of == vs identical semantics
+assert(p1.c == p2.c, "== should be true for equal specs")
+assert(!identical(p1.c, p2.c), "identical() should be false for different pipelines")
+
+assert(p.x == p.x, "== should be true for same node")
+assert(identical(p.x, p.x), "identical() should be true for same node")
+
+print("✓ pipeline_equality_t: all assertions passed")

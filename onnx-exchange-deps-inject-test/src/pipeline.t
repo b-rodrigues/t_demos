@@ -144,3 +144,13 @@ populate_pipeline(p, build = true, verbose=1)
 
 print("Pipeline complete. Model metadata and predictions extracted.")
 pipeline_copy()
+
+-- Node correctness assertions
+assert(type(read_node(p.training_data).error) == "NA", "training_data should succeed")
+assert(type(read_node(p.model_py).error) == "NA", "model_py (Python ONNX) should succeed")
+assert(type(read_node(p.model_r).error) == "NA", "model_r (R ONNX) should succeed")
+assert(type(read_node(p.pred_t_py).error) == "NA", "pred_t_py should succeed")
+assert(type(read_node(p.pred_t_r).error) == "NA", "pred_t_r should succeed")
+assert(type(read_node(p.results).error) == "NA", "results (comparison) should succeed")
+
+print("✓ onnx-exchange-deps-inject-test: all assertions passed")

@@ -68,3 +68,10 @@ print(str_join(["Build log type: ", type(full_build_log)]))
 -- Copy artifacts locally
 pipeline_copy()
 print("✓ pipeline_copy executed successfully!")
+
+-- Verify all nodes can be read after build
+assert(type(read_node(p.node_a).error) == "NA", "node_a should succeed")
+assert(type(read_node(p.node_b).error) == "NA", "node_b should succeed")
+assert(type(read_node(p.node_c).error) == "NA", "node_c should succeed")
+
+print("✓ nix_orchestration_stress_t: all assertions passed")

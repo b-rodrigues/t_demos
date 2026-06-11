@@ -109,3 +109,12 @@ populate_pipeline(p_site, build = true, verbose=1)
 pipeline_copy()
 
 print("Pipeline Demo Complete")
+
+-- Verify raw_node and summary succeed (heavy_r_node is noop=true)
+assert(type(read_node(p_site.raw).error) == "NA", "raw node should succeed")
+assert(type(read_node(p_site.summary).error) == "NA", "summary node should succeed")
+
+-- Verify pipeline lens operations work on definitions
+assert(pipeline_nodes(r_only) |> to_dataframe |> nrow() == 1, "filter_node should return 1 R node")
+
+print("✓ pipeline_ops_t: all assertions passed")

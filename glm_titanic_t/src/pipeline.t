@@ -71,4 +71,11 @@ if (is_error(res)) {
         print("Sample diff:")
         print(head(diff))
     }
+    
+    -- Node correctness assertions
+    assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
+    assert(type(read_node(p.r_model_node).error) == "NA", "r_model_node should succeed")
+    assert(type(read_node(p.py_model_node).error) == "NA", "py_model_node should succeed")
+    
+    print("✓ glm_titanic_t: all assertions passed")
 }
