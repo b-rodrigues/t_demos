@@ -24,3 +24,19 @@ final_p = union(modified_p, extension)
 
 -- 5. Build the dynamically generated pipeline
 build_pipeline(final_p, verbose=1)
+
+-- Verify all nodes succeeded in the dynamically composed pipeline
+r_raw = read_node(final_p.raw_data)
+assert(type(r_raw.error) == "NA", "raw_data should succeed")
+assert(nrow(r_raw.value) == 2, "raw_data should have 2 rows")
+
+r_final = read_node(final_p.final_status)
+assert(type(r_final.error) == "NA", "final_status (renamed process) should succeed")
+assert(r_final.value.z |> get(0) == 4, "first row z should be 1+3=4")
+assert(r_final.value.z |> get(1) == 6, "second row z should be 2+4=6")
+
+r_extra = read_node(final_p.extra_step)
+assert(type(r_extra.error) == "NA", "extra_step should succeed")
+assert(contains(get(r_extra.value.msg, 0), "extended"), "extra_step message should contain 'extended'")
+
+print("✓ dynamic_pipeline_operator_t: all assertions passed")

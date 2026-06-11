@@ -55,3 +55,18 @@ res
   |> mutate(year_match = $r_year == $t_year)
   |> select($date_str, $r_year, $t_year, $year_match)
   |> print()
+
+-- Node correctness assertions
+r_d = read_node(p.r_dates)
+assert(type(r_d.error) == "NA", "r_dates node should succeed")
+assert(type(read_node(p.comparison).error) == "NA", "comparison node should succeed")
+
+-- Verify lubridate/chrono parity
+all_match = all(res.r_year == res.t_year)
+assert(all_match, "year parity: all r_year should match t_year")
+all_month = all(res.r_month == res.t_month)
+assert(all_month, "month parity: all r_month should match t_month")
+all_day = all(res.r_day == res.t_day)
+assert(all_day, "day parity: all r_day should match t_day")
+
+print("✓ chrono_vs_lubridate_t: all assertions passed")
