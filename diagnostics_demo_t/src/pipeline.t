@@ -27,6 +27,27 @@ p = pipeline {
         deserializer = ^arrow
     )
 
+    -- R Node that triggers a second warning (accumulation test)
+    r_warn2 = node(
+        command = <{
+            warning("Diagnostic: R detected second issue in filtered data")
+            r_warn
+        }>,
+        runtime = R,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
+    -- R Node with no new warning (should inherit accumulated warnings from chain)
+    r_success = node(
+        command = <{
+            r_warn2
+        }>,
+        runtime = R,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
     -- R Node that fails with a terminal error
     -- This will demonstrate how the pipeline handles failure at the R boundary
     r_err = node(
@@ -57,6 +78,62 @@ p = pipeline {
         }>,
         inputs = [py_warn], -- Depends on py_warn to show successful vs failed chains
         runtime = Python
+    )
+
+    -- Python node with a second warning (accumulation test)
+    py_warn2 = node(
+        command = <{
+            import warnings
+            warnings.warn("Diagnostic: Python found duplicate row indices")
+            py_warn
+        }>,
+        runtime = Python,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
+    -- Python node with no new warning (should inherit accumulated warnings)
+    py_success = node(
+        command = <{
+            py_warn2
+        }>,
+        runtime = Python,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
+    -- --- Julia Nodes (Warning Accumulation) ---
+
+    -- Julia node that triggers a warning via @warn macro
+    jl_warn = node(
+        command = <{
+            @warn "Diagnostic: Julia detected missing values in input data"
+            raw_data
+        }>,
+        runtime = Julia,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
+    -- Julia node with a second warning (accumulation test)
+    jl_warn2 = node(
+        command = <{
+            @warn "Diagnostic: Julia detected type instability in column"
+            jl_warn
+        }>,
+        runtime = Julia,
+        serializer = ^arrow,
+        deserializer = ^arrow
+    )
+
+    -- Julia node with no new warning (should inherit accumulated warnings)
+    jl_success = node(
+        command = <{
+            jl_warn2
+        }>,
+        runtime = Julia,
+        serializer = ^arrow,
+        deserializer = ^arrow
     )
 
     -- --- T Nodes (First-Class Diagnostics) ---
@@ -160,6 +237,39 @@ assert(t_warn_warnings != "", "T node 't_warn' should have captured NA warnings"
 -- Verify successful node has no error
 summary_stats_res = read_node(p.summary_stats)
 assert(type(summary_stats_res.error) == "NA", "Successful node should have NA error")
+
+-- Verify R warning accumulation (1st + 2nd warnings both propagate)
+r_warn2_warnings = warning_msg(p.r_warn2)
+assert(contains(r_warn2_warnings, "outlier"), "r_warn2 inherits r_warn warning")
+assert(contains(r_warn2_warnings, "second issue"), "r_warn2 has its own warning")
+
+r_success_warnings = warning_msg(p.r_success)
+assert(r_success_warnings != "", "r_success has inherited warnings")
+assert(contains(r_success_warnings, "outlier"), "r_success inherits r_warn warning")
+assert(contains(r_success_warnings, "second issue"), "r_success inherits r_warn2 warning")
+
+-- Verify Python warning accumulation
+py_warn2_warnings = warning_msg(p.py_warn2)
+assert(contains(py_warn2_warnings, "deprecated"), "py_warn2 inherits py_warn warning")
+assert(contains(py_warn2_warnings, "duplicate"), "py_warn2 has its own warning")
+
+py_success_warnings = warning_msg(p.py_success)
+assert(py_success_warnings != "", "py_success has inherited warnings")
+assert(contains(py_success_warnings, "deprecated"), "py_success inherits py_warn warning")
+assert(contains(py_success_warnings, "duplicate"), "py_success inherits py_warn2 warning")
+
+-- Verify Julia warning accumulation
+jl_warn_warnings = warning_msg(p.jl_warn)
+assert(contains(jl_warn_warnings, "missing values"), "jl_warn has its own warning")
+
+jl_warn2_warnings = warning_msg(p.jl_warn2)
+assert(contains(jl_warn2_warnings, "missing values"), "jl_warn2 inherits jl_warn warning")
+assert(contains(jl_warn2_warnings, "type instability"), "jl_warn2 has its own warning")
+
+jl_success_warnings = warning_msg(p.jl_success)
+assert(jl_success_warnings != "", "jl_success has inherited warnings")
+assert(contains(jl_success_warnings, "missing values"), "jl_success inherits jl_warn warning")
+assert(contains(jl_success_warnings, "type instability"), "jl_success inherits jl_warn2 warning")
 
 print("All diagnostic assertions passed.")
 print("")
