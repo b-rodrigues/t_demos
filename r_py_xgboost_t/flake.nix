@@ -4,7 +4,9 @@
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "github:b-rodrigues/tlang/v0.52.0";
+    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    # Atelier IDE (tmux-based TUI for T)
+    atelier.url = "github:b-rodrigues/atelier/main";
   };
 
   nixConfig = {
@@ -16,7 +18,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, flake-utils, t-lang }:
+  outputs = { self, nixpkgs, flake-utils, t-lang, atelier }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -65,6 +67,7 @@
             py-env
             juliaPkg
             t-lang.packages.${system}.tlang-julia-path
+            atelier.packages.${system}.default
           ] ++ additionalTools;
 
           shellHook = ''
