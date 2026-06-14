@@ -16,3 +16,6 @@ build_pid.txt
 .t_r_profile/
 *.bak
 
+
+# Generated lock files
+flake.lock
