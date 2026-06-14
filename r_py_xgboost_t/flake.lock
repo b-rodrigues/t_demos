@@ -179,7 +179,7 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1781438921,
+        "lastModified": 1781439883,
         "narHash": "sha256-7Gb2STgUMyj3nSJjskV/A/s6XnRGxOFYzLmQlVgW6fU=",
         "path": "/home/brodrigues/Documents/repos/tlang",
         "type": "path"
