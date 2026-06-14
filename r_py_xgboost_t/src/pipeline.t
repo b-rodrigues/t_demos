@@ -36,8 +36,20 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
     }>
   )
 
-  -- Make predictions
-  y_pred = pyn(command = <{ y_pred = trained_model.predict(X_test2) }>)
+  -- Make class predictions
+  y_pred = pyn(command = <{ y_pred = trained_model.predict(X_test) }>)
+
+  -- Predict probabilities for ROC curve
+  y_proba = pyn(command = <{ y_proba = trained_model.predict_proba(X_test)[:, 1] }>)
+
+  -- Combine test target + probabilities for ROC
+  roc_df = pyn(
+    command = <{
+from pandas import DataFrame
+roc_df = DataFrame({"target": y_test, "proba": y_proba})
+    }>,
+    serializer = ^arrow
+  )
 
   -- Combine into DataFrame
   combined_df = pyn(
@@ -69,6 +81,50 @@ from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, y_pred)
     }>,
     serializer = ^json,
+  )
+
+  -- ROC curve data (FPR, TPR, thresholds) via yardstick
+  roc_data = rn(
+    command = <{
+library(yardstick)
+library(dplyr)
+roc_data = roc_df %>%
+  mutate(target = as.factor(target)) %>%
+  roc_curve(truth = target, proba)
+    }>,
+    serializer = ^arrow,
+    deserializer = ^arrow
+  )
+
+  -- ROC AUC value via yardstick
+  roc_auc = rn(
+    command = <{
+library(yardstick)
+library(dplyr)
+roc_auc = roc_df %>%
+  mutate(target = as.factor(target)) %>%
+  roc_auc(truth = target, proba)
+    }>,
+    serializer = ^json,
+    deserializer = ^arrow
+  )
+
+  -- ROC curve plot (manual ggplot, no autoplot)
+  roc_plot = rn(
+    command = <{
+library(yardstick)
+library(dplyr)
+library(ggplot2)
+roc_curve_obj = roc_df %>%
+  mutate(target = as.factor(target)) %>%
+  roc_curve(truth = target, proba)
+roc_plot = ggplot(roc_curve_obj, aes(x = 1 - specificity, y = sensitivity)) +
+  geom_path() +
+  geom_abline(lty = "dashed") +
+  coord_fixed() +
+  labs(title = "ROC Curve", x = "1 - Specificity (FPR)", y = "Sensitivity (TPR)")
+    }>,
+    deserializer = ^arrow
   )
 
   -- Render Quarto report

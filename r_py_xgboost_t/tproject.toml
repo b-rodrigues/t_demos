@@ -6,7 +6,7 @@ authors = []
 [dependencies]
 
 [r-dependencies]
-packages = ["dplyr", "yardstick", "arrow", "knitr", "rmarkdown", "jsonlite"]
+packages = ["dplyr", "yardstick", "arrow", "knitr", "rmarkdown", "jsonlite", "ggplot2"]
 
 [py-dependencies]
 version = "python313"
