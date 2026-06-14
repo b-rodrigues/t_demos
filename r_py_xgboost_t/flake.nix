@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/v0.52.0";
     # Atelier IDE (tmux-based TUI for T)
     atelier.url = "github:b-rodrigues/atelier/main";
   };
@@ -55,6 +55,7 @@
 
         # Additional Tools
         additionalTools = with pkgs; [
+          nvim
           quarto
           which
         ];

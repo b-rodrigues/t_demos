@@ -17,7 +17,7 @@ version = "lts"
 packages = []
 
 [additional-tools]
-packages = ["nvim", "quarto", "which", "atelier"]
+packages = ["neovim", "quarto", "which", "atelier"]
 
 [latex]
 packages = []
