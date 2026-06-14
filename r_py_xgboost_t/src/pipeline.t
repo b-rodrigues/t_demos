@@ -37,7 +37,7 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
   )
 
   -- Make predictions
-  y_pred = pyn(command = <{ y_pred = trained_model.predict(X_test) }>)
+  y_pred = pyn(command = <{ y_pred = trained_model.predict(X_test2) }>)
 
   -- Combine into DataFrame
   combined_df = pyn(
