@@ -15,9 +15,9 @@ p = pipeline {
   -- Python node: compute summary statistics using pandas
   py_stats = pyn(
     command = <{
-      import pandas as pd
-      df = mtcars
-      py_stats = df.describe()
+import pandas as pd
+df = mtcars
+py_stats = df.describe()
     }>,
     serializer = ^arrow,
     deserializer = ^arrow
