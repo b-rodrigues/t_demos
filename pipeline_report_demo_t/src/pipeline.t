@@ -8,7 +8,8 @@ p = pipeline {
   -- R node: fit a linear model
   r_model = rn(
     command = <{ lm(mpg ~ wt + hp, data = mtcars) }>,
-    serializer = ^json
+    serializer = ^json,
+    deserializer = ^arrow
   )
 
   -- Python node: compute summary statistics using pandas
@@ -18,7 +19,8 @@ p = pipeline {
       df = mtcars
       py_stats = df.describe()
     }>,
-    serializer = ^arrow
+    serializer = ^arrow,
+    deserializer = ^arrow
   )
 
   -- T node: filter automatic transmission cars
