@@ -1,0 +1,13 @@
+[project]
+name = "pipeline_report_demo_t"
+description = "Demo of pipeline_report with SSH output before and after build"
+
+[r-dependencies]
+packages = ["arrow", "dplyr", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = ["pandas", "pyarrow"]
+
+[t]
+min_version = "0.52.0"
