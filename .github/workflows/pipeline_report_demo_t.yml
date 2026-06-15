@@ -76,3 +76,15 @@ jobs:
 
       - name: Cat post-build report
         run: cat _pipeline/report_after.md
+
+      - name: Compare pre-build report against snapshot
+        run: |
+          diff <(grep -v '^\*\*Generated\*\*:' _pipeline/report_before.md \
+                 | sed '/^## Build Log/,$d') \
+               _snaps/report_before.md
+
+      - name: Compare post-build report against snapshot
+        run: |
+          diff <(grep -v '^\*\*Generated\*\*:' _pipeline/report_after.md \
+                 | sed '/^## Build Log/,$d') \
+               _snaps/report_after.md
