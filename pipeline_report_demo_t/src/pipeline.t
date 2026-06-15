@@ -44,6 +44,10 @@ pipeline_copy()
 post_report = pipeline_report(p, file = "_pipeline/report_after.md", target = "ssh")
 print(str_join(["Post-build report saved to: ", post_report]))
 
+-- Post-build report with error messages: built nodes should show as "Built" with their runtimes
+post_report_errors = pipeline_report(p, file = "_pipeline/report_after_errors.md", target = "ssh", errors = true)
+print(str_join(["Post-build report saved to: ", post_report_errors]))
+
 -- Verify
 assert(type(p.mtcars) == "DataFrame", "mtcars should be a DataFrame")
 assert(nrow(p.filtered_mtcars) > 0, "filtered_mtcars should have at least 1 row")
