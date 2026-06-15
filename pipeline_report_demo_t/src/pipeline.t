@@ -27,7 +27,20 @@ py_stats = df.describe()
   )
 
   -- T node: filter automatic transmission cars
-  filtered_mtcars = mtcars |> filter($am == 1)
+  errored_mtcars =  node(
+    command = mtcars |> filter($am_wrong == 1),
+    deserializer = ^arrow
+  )
+
+  errored_mtcars_r = rn(
+    command = <{  mtcars |> dplyr::filter(am_wrong == 1) }>,
+    deserializer = ^arrow
+  )
+
+  filtered_mtcars = node(
+    command = mtcars |> filter($am == 1),
+    deserializer = ^arrow
+  )
 
   -- T node: select mpg column
   mtcars_mpg = filtered_mtcars |> select($mpg)
