@@ -1,13 +1,30 @@
 [project]
 name = "pipeline_report_demo_t"
 description = "Demo of pipeline_report with SSH output before and after build"
+authors = []
+
+[dependencies]
 
 [r-dependencies]
-packages = ["arrow", "dplyr", "jsonlite"]
+packages = ["arrow", "dplyr", "jsonlite", "XML", "r2pmml"]
 
 [py-dependencies]
 version = "python314"
 packages = ["pandas", "pyarrow"]
 
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = ["jre"]
+
+[latex]
+packages = []
+
 [t]
 min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
+
