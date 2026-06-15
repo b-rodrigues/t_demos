@@ -76,6 +76,3 @@ jobs:
 
       - name: Cat post-build report
         run: cat _pipeline/report_after.md
-
-      - name: Cat post-build report with errors
-        run: cat _pipeline/report_after_errors.md
