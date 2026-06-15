@@ -3,12 +3,15 @@
 
 p = pipeline {
   -- T node: load data
-  mtcars = read_csv("data/mtcars.csv", separator = "|")
+  mtcars = node(
+    command = read_csv("data/mtcars.csv", separator = "|"),
+    serializer = ^arrow
+  )
 
   -- R node: fit a linear model
   r_model = rn(
     command = <{ lm(mpg ~ wt + hp, data = mtcars) }>,
-    serializer = ^json,
+    serializer = ^pmml,
     deserializer = ^arrow
   )
 
