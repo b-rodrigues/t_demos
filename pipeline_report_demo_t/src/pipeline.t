@@ -10,7 +10,7 @@ p = pipeline {
 
   -- R node: fit a linear model
   r_model = rn(
-    command = <{ lm(mpg ~ wt + hp, data = mtcars) }>,
+    command = <{ Sys.sleep(12);lm(mpg ~ wt + hp, data = mtcars) }>,
     serializer = ^pmml,
     deserializer = ^arrow
   )
