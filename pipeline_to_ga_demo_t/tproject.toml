@@ -1,0 +1,26 @@
+[project]
+name = "pipeline_to_ga_demo_t"
+description = "Demo of pipeline_to_ga golden test"
+authors = []
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.52.0"
