@@ -1,0 +1,8 @@
+[project]
+name = "static_conditionals_t"
+description = "A T project demonstrating static conditionals (node_when, node_fork) for pipelines"
+
+[dependencies]
+
+[t]
+min_version = "0.52.0"
