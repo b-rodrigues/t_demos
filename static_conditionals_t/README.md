@@ -1,15 +1,19 @@
 # Static Conditionals Demo
 
-This demo demonstrates static conditionals (`node_when` and `node_fork`) for pipeline node construction. These functions are evaluated at **pipeline construction time**, preserving Nix's static DAG requirement — the condition is checked before the build, not during it.
+Demonstrates `node_when` and `node_fork` for conditionally including nodes in a pipeline **at construction time**. Conditions are evaluated before any build starts, preserving Nix's static DAG requirement.
 
-## Features
-
-- `node_when(condition, value)` — includes a node only if `condition` is truthy
-- `node_fork(cond1, val1, cond2, val2, ..., .default = NA)` — selects the first node whose condition is truthy
-- Error handling: unexpected named args, odd positional arg counts
-
-## Running
+## Usage
 
 ```bash
+# Run with default env (CI=0 or unset)
 t run src/pipeline.t
+
+# Run as if in CI
+CI=1 t run src/pipeline.t
 ```
+
+## What it shows
+
+1. **`node_when(condition, value)`** — include a node only when `condition` is truthy. Useful for gating expensive analysis steps behind an env var like `CI`.
+2. **`node_fork(cond1, val1, cond2, val2, ..., .default = val)`** — select the first matching alternative. Falls back to `.default` if provided, otherwise the node is excluded.
+3. **Error handling** — clear messages for misuse (odd argument count, etc.).
