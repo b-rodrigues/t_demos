@@ -1,8 +1,17 @@
 [project]
 name = "static_conditionals_t"
 description = "A T project demonstrating static conditionals (node_when, node_fork) for pipelines"
+authors = []
 
 [dependencies]
 
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+version = "python313"
+packages = []
+
 [t]
 min_version = "0.52.0"
+
