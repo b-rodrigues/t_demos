@@ -5,7 +5,7 @@ description = "ISL Lab Migration: test_lab5_smarket_lda.t"
 [dependencies]
 
 [r-dependencies]
-packages = ["MASS", "arrow"]
+packages = ["MASS", "arrow", "jsonlite"]
 
 [py-dependencies]
 version = "python314"

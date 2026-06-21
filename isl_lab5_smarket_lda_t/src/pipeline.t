@@ -85,8 +85,8 @@ if (is_error(res)) {
     
     -- Node correctness assertions
     assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
-    assert(type(read_node(p.r_model).error) == "NA", "r_model should succeed")
-    assert(type(read_node(p.py_model).error) == "NA", "py_model should succeed")
+    assert(type(read_node(p.r_preds).error) == "NA", "r_preds should succeed")
+    assert(type(read_node(p.py_preds).error) == "NA", "py_preds should succeed")
     
     print("✓ isl_lab5_smarket_lda_t: all assertions passed")
 }
