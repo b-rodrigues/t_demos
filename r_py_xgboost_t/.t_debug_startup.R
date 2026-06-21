@@ -1,0 +1,4 @@
+options(prompt='r> ', continue='r+ ')
+install.packages <- function(...) stop("Don't use install.packages() in this T R debug subshell. Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`.", call. = FALSE)
+update.packages <- function(...) stop("Don't use update.packages() in this T R debug subshell. Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`.", call. = FALSE)
+remove.packages <- function(...) stop("Don't use remove.packages() in this T R debug subshell. Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`.", call. = FALSE)

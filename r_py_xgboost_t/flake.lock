@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1781434858,
-        "narHash": "sha256-HqVwd9PZ7ZKXf9iUN4nPBQh9G8HezFkVvnK6bwaIb4c=",
+        "lastModified": 1781449089,
+        "narHash": "sha256-gOI3zB2Jg5iUrGfFkEsIRZIUuNRVkEzWj7gm2T7gmyo=",
         "owner": "b-rodrigues",
         "repo": "atelier",
-        "rev": "8fd01a862a686e8cc0784d666f77170c567b11d3",
+        "rev": "b3d3ba9eff6b54ca35f41849d2e88a8a428594ea",
         "type": "github"
       },
       "original": {

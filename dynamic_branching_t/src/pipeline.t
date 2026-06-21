@@ -10,7 +10,7 @@ p = pipeline {
       import "src/spirograph.t"
       spirograph_points(fixed_radii, cycling_radii)
     }>,
-    pattern = cross_pattern(fixed_radii, cycling_radii),
+    pattern = cross_pattern(map_pattern(fixed_radii), map_pattern(cycling_radii)),
     runtime = T
   )
 
@@ -18,7 +18,8 @@ p = pipeline {
     command = <{ plot_spirographs(points) }>,
     pattern = map_pattern(points),
     functions = ["src/spirograph.R"],
-    runtime = R
+    runtime = R,
+    deserializer = "json"
   )
 }
 
