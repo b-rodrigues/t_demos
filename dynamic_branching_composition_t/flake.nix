@@ -1,10 +1,10 @@
 {
-  description = "dynamic_branching_t — a T data analysis project";
+  description = "dynamic_branching_composition_t — a T data analysis project";
 
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
+    t-lang.url = "github:b-rodrigues/tlang/v0.53.0";
   };
 
   nixConfig = {
@@ -25,16 +25,25 @@
         r-env = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [
             t-lang.packages.${system}.tlang-r
-            ggplot2
-            jsonlite
           ];
         };
+
+        # Python environment
+        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
+          deepdiff
+        ]);
+
+        # Julia environment
+        juliaPkg = pkgs.julia-lts.withPackages [ "JSON" ];
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
             t-lang.packages.${system}.default
             r-env
+            py-env
+            juliaPkg
+            t-lang.packages.${system}.tlang-julia-path
           ];
 
           shellHook = ''
@@ -55,6 +64,7 @@ module _TlangGuardPkg
   rm(args...; kwargs...) = error(msg)
   update(args...; kwargs...) = error(msg)
   develop(args...; kwargs...) = error(msg)
+  # Delegate read-only Pkg operations to the real Pkg module
   const _real = _tlang_real_pkg
   status(args...; kwargs...) = _real.status(args...; kwargs...)
   dependencies(args...; kwargs...) = _real.dependencies(args...; kwargs...)
@@ -89,12 +99,14 @@ if isinteractive()
 
     pushfirst!(_tlang_repl.install_packages_hooks, _tlang_install_packages_hook)
 
+    # Replace Pkg in loaded_modules with the guard
     Base.loaded_modules[_tlang_pkg_id] = _TlangGuardPkg
   catch err
+    # Suppress any startup errors so Julia doesn't fail to launch
   end
 
   using Pkg
-end
+end # if isinteractive()
 EOF
             export JULIA_DEPOT_PATH="$julia_depot_dir:''${JULIA_DEPOT_PATH:-}"
             # Create a local R profile directory for sandbox guards
@@ -112,6 +124,7 @@ EOF
             python_guard_bin="$python_guard_dir/bin"
             python_guard_lib="$python_guard_dir/python"
             mkdir -p "$python_guard_bin" "$python_guard_lib"
+
             for tool in pip pip3 uv poetry conda mamba micromamba easy_install; do
               cat > "$python_guard_bin/$tool" <<EOF
 #!/usr/bin/env sh
@@ -120,13 +133,15 @@ exit 1
 EOF
               chmod +x "$python_guard_bin/$tool"
             done
+
             cat > "$python_guard_lib/pip.py" <<'EOF'
 raise SystemExit("Don't use python -m pip in this T Python environment. Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`.")
 EOF
+
             export PATH="$python_guard_bin:$PATH"
             export PYTHONPATH="$python_guard_lib:''${PYTHONPATH:-}"
             echo "=================================================="
-            echo "T Project: dynamic_branching_t"
+            echo "T Project: dynamic_branching_composition_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
