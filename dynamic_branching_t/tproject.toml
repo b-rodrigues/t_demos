@@ -1,0 +1,18 @@
+[project]
+name = "dynamic_branching_t"
+description = "Dynamic branching demo inspired by targets::tar_map()"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["ggplot2"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[additional-tools]
+packages = []
+
+[t]
+min_version = "0.52.0"
