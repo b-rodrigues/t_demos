@@ -110,14 +110,18 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1782042404,
-        "narHash": "sha256-U833j9hjNy7xSGUO0MGB3GfzK9HkMbNJff17Y+z16Yk=",
-        "path": "/home/brodrigues/Documents/repos/tlang",
-        "type": "path"
+        "lastModified": 1782063831,
+        "narHash": "sha256-MKQzdd1f5HF8l5Cm+wzJy7d6X6jcj8wO5ILj9UVZSa8=",
+        "owner": "b-rodrigues",
+        "repo": "tlang",
+        "rev": "6a304794829281daeec682c21f0dbc96556dbbe2",
+        "type": "github"
       },
       "original": {
-        "path": "/home/brodrigues/Documents/repos/tlang",
-        "type": "path"
+        "owner": "b-rodrigues",
+        "ref": "v0.53.0",
+        "repo": "tlang",
+        "type": "github"
       }
     }
   },
