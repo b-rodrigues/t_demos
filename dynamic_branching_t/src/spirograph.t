@@ -3,11 +3,6 @@
 
 pi = 3.141592653589793
 
-float_seq = \(start, end, n) {
-  step = (end - start) / (n - 1)
-  seq(0, n - 1) |> map(\(i) start + i * step)
-}
-
 spirograph_points = \(fixed_radius, cycling_radius) {
   n = 10000
   max_t = 30 * pi
