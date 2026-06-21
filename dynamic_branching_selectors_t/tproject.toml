@@ -1,0 +1,15 @@
+[project]
+name = "dynamic_branching_selectors_t"
+description = "Validates slice_pattern, head_pattern, tail_pattern, sample_pattern expansion"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[t]
+min_version = "0.53.0"
