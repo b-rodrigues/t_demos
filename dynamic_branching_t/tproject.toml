@@ -5,7 +5,7 @@ description = "Dynamic branching demo inspired by targets::tar_map()"
 [dependencies]
 
 [r-dependencies]
-packages = ["ggplot2"]
+packages = ["ggplot2", "jsonlite"]
 
 [py-dependencies]
 version = "python314"

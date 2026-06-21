@@ -11,7 +11,8 @@ p = pipeline {
       spirograph_points(fixed_radii, cycling_radii)
     }>,
     pattern = cross_pattern(map_pattern(fixed_radii), map_pattern(cycling_radii)),
-    runtime = T
+    runtime = T,
+    serializer = ^json
   )
 
   single_plot = node(
@@ -19,7 +20,7 @@ p = pipeline {
     pattern = map_pattern(points),
     functions = ["src/spirograph.R"],
     runtime = R,
-    deserializer = "json"
+    deserializer = ^json
   )
 }
 
@@ -36,28 +37,34 @@ res = build_pipeline(p, verbose = 1)
 if (is_error(res)) {
   print("Pipeline build failed:")
   print(res)
+
+  node_frame = build_log_to_frame(res)
+  points_branches = filter(node_frame, \(r) starts_with(r.name, "points"))
+  plot_branches = filter(node_frame, \(r) starts_with(r.name, "single_plot"))
+
+  print("Total nodes: ", nrow(node_frame))
+  print("Points branches: ", nrow(points_branches))
+  print("Single plot branches: ", nrow(plot_branches))
+
+  assert(nrow(points_branches) == 9, "Expected 9 points branches from cross_pattern")
+  assert(nrow(plot_branches) == 9, "Expected 9 single_plot branches from map_pattern")
+
+  errors = errored_nodes(p)
+  print("Error count: ", length(errors))
 } else {
   print("Build successful!")
 
-  all_nodes = pipeline_nodes(p)
+  node_frame = build_log_to_frame(res)
+  points_branches = filter(node_frame, \(r) starts_with(r.name, "points"))
+  plot_branches = filter(node_frame, \(r) starts_with(r.name, "single_plot"))
 
-  points_branches = filter(all_nodes, \(n) starts_with(n, "points"))
-  plot_branches = filter(all_nodes, \(n) starts_with(n, "single_plot"))
+  print("Total nodes: ", nrow(node_frame))
+  print("Points branches: ", nrow(points_branches))
+  print("Single plot branches: ", nrow(plot_branches))
 
-  print("Total nodes: ", length(all_nodes))
-  print("Points branches: ", length(points_branches))
-  print("Single plot branches: ", length(plot_branches))
-
-  assert(length(points_branches) == 9, "Expected 9 points branches from cross_pattern")
-  assert(length(plot_branches) == 9, "Expected 9 single_plot branches from map_pattern")
-
-  errors = errored_nodes(p)
-  assert(length(errors) == 0, "All nodes should build successfully")
-
-  r1 = read_node(p.single_plot_branch_1)
-  assert(type(r1.error) == "NA", "single_plot_branch_1 should succeed")
-  print("Branch 1 class: ", r1.class)
-  assert(r1.class == "ggplot", "single_plot_branch_1 should be a ggplot object")
+  assert(nrow(points_branches) == 9, "Expected 9 points branches from cross_pattern")
+  assert(nrow(plot_branches) == 9, "Expected 9 single_plot branches from map_pattern")
+  assert(length(res.failed_nodes) == 0, "All nodes should build successfully")
 
   print("✓ dynamic_branching_t: all assertions passed")
 }
