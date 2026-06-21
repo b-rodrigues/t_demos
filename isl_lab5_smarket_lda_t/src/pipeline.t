@@ -76,12 +76,8 @@ if (is_error(res)) {
     print("Total test observations: ", total)
     print("Matching predictions: ", n_matches)
     
-    if (n_matches == total) {
-        print("SUCCESS: R and Python predictions match perfectly.")
-    } else {
-        print("WARNING: R and Python predictions differ!")
-        print("Match rate: ", (n_matches / total))
-    }
+    assert(n_matches == total,
+        str_join(["R and Python predictions should match perfectly: ", n_matches, "/", total, " matched"], ""))
     
     -- Node correctness assertions
     assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")

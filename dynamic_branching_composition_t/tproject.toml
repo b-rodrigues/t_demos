@@ -1,0 +1,6 @@
+[project]
+name = "dynamic_branching_composition_t"
+description = "Validates auto-expansion of patterned pipelines in composition builtins"
+
+[t]
+min_version = "0.53.0"
