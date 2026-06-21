@@ -48,5 +48,5 @@ _All nodes have been built._
 
 | Name | Warning |
 |------|---------|
-| filtered_mtcars | NAExcluded: filter() excluded 2 rows because the predicate evaluated to NA |
+| filtered_mtcars | NAExcluded: filter() excluded 6 rows because the predicate evaluated to NA |
 
