@@ -5,4 +5,4 @@ p = pipeline {
 }
 
 -- Generate the GA workflow YAML to a working location for snapshot diff
-pipeline_to_ga(p, file = "_pipeline/workflow.yml")
+pipeline_to_ga(file = "_pipeline/workflow.yml")

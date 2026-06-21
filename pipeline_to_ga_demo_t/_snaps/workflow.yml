@@ -1,15 +1,12 @@
 name: Demo Pipeline To Ga Demo T
-
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
-
 env:
   NAR_ARCHIVE: pipeline_to_ga_demo_t.nar
-
 jobs:
   pipeline-to-ga-demo-t:
     runs-on: ubuntu-latest
@@ -25,26 +22,23 @@ jobs:
             substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
 
-      - uses: cachix/cachix-action@v15
-        with:
-          name: rstats-on-nix
-
       - name: Restore cached artifacts
         run: |
           git fetch origin t-runs --depth=1 || true
-          git checkout origin/t-runs -- $NAR_ARCHIVE 2>/dev/null || true
-          test -f $NAR_ARCHIVE && nix-store --import < $NAR_ARCHIVE || true
+          git checkout origin/t-runs -- "$NAR_ARCHIVE" 2>/dev/null || true
+          [ -f "$NAR_ARCHIVE" ] && nix-store --import < "$NAR_ARCHIVE" || true
 
-      - name: Run Pipeline
+      - name: Run pipeline
         run: nix develop --command t run src/pipeline.t
 
       - name: Cache artifacts to t-runs branch
         run: |
-          t export_artifacts src/pipeline.t $NAR_ARCHIVE
+          t export_artifacts src/pipeline.t "$NAR_ARCHIVE"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin t-runs || true
           git checkout t-runs 2>/dev/null || git checkout --orphan t-runs
-          cp $NAR_ARCHIVE .
-          git add $NAR_ARCHIVE
-          git diff --cached --quiet || (git commit -m "Update artifacts for pipeline_to_ga_demo_t" && git push origin HEAD:t-runs --force)
+          cp "$NAR_ARCHIVE" .
+          git add "$NAR_ARCHIVE"
+          git diff --cached --quiet || git commit -m "Update artifacts for pipeline_to_ga_demo_t"
+          git diff --cached --quiet || git push origin HEAD:t-runs --force
