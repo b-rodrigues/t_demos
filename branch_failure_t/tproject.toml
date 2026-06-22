@@ -1,0 +1,9 @@
+[project]
+name = "branch_failure_t"
+description = "Demonstrates graceful degradation when one branch of a map_pattern fails"
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[t]
+min_version = "0.53.0"
