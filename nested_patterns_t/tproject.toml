@@ -1,0 +1,6 @@
+[project]
+name = "nested_patterns_t"
+description = "Demonstrates chained dynamic pattern expansion across stages"
+
+[t]
+min_version = "0.53.0"
