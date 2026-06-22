@@ -32,6 +32,27 @@ print("cycling_radii = [2, 4, 6]  (3 values)")
 print("cross_pattern → 9 spirograph data branches")
 print("map_pattern → 9 ggplot branches")
 
+-- Test lazy branch access before building
+
+nodes = pipeline_nodes(p)
+assert(length(nodes) == 13,
+  str_join(["Expected 13 nodes (4 base + 9 points branches), got ", length(nodes)], ""))
+assert(contains(str(nodes), "points_branch_1"),
+  "pipeline_nodes should contain points_branch_1")
+assert(contains(str(nodes), "points_branch_9"),
+  "pipeline_nodes should contain points_branch_9")
+
+-- inspect_pipeline shows branch rows pre-build
+pre_frame = inspect_pipeline(p)
+assert(nrow(pre_frame) == 13,
+  str_join(["inspect_pipeline should show 13 rows (4 base + 9 cross branches), got ", nrow(pre_frame)], ""))
+
+-- dot access on cross_pattern branch returns ComputedNode
+b1 = type(p.points_branch_1)
+b5 = type(p.points_branch_5)
+assert(b1 == "ComputedNode", "p.points_branch_1 should be ComputedNode")
+assert(b5 == "ComputedNode", "p.points_branch_5 should be ComputedNode")
+
 res = build_pipeline(p, verbose = 1)
 
 if (is_error(res)) {
