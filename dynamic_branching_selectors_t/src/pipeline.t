@@ -46,6 +46,9 @@ p = pipeline {
   )
 }
 
+-- Set JSON serializer on nums so R/Python nodes can deserialize
+p := set(p, node_meta_lens("nums", "serializer"), ^json)
+
 print("===============================================")
 print("Selector Patterns Demo")
 print("===============================================")
