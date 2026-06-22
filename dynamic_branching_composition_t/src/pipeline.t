@@ -1,12 +1,12 @@
 -- Validates auto-expansion of patterned pipelines when used with
 -- composition builtins (chain, parallel).
 
-import colcraft
-
 p = pipeline {
   a = [1, 2]
   b = node(command = <{ a + 10 }>, pattern = map_pattern(a))
 }
+
+build_pipeline(p)
 
 q = pipeline { d = 100 }
 
