@@ -15,6 +15,27 @@ p = pipeline {
   )
 }
 
+-- Test lazy branch access before building
+
+nodes = pipeline_nodes(p)
+expected_nodes = ["a", "aa", "a_b", "result_branch_1", "result_branch_2"]
+assert(nodes == expected_nodes,
+  str_join(["pipeline_nodes: expected ", str(expected_nodes), ", got ", str(nodes)], ""))
+
+-- Dot access lazily returns a computed node
+b1_type = type(p.result_branch_1)
+assert(b1_type == "ComputedNode",
+  str_join(["Expected type(p.result_branch_1) == \"ComputedNode\", got ", b1_type], ""))
+
+-- read_node on patterned node gives helpful error
+err = read_node(p.result)
+assert(is_error(err), "read_node(p.result) should return an error before building")
+err_str = str(err)
+assert(contains(err_str, "result_branch_1"),
+  "read_node error should list available branch names")
+assert(contains(err_str, "result_branch_2"),
+  "read_node error should list available branch names")
+
 print("===============================================")
 print("Word-Boundary Substitution Test")
 print("===============================================")
