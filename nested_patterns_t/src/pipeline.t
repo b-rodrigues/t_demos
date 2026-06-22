@@ -37,6 +37,23 @@ print("Stage 1: map_pattern(groups) → 2 base branches")
 print("Stage 2: cross_pattern(base, adjustments) → 6 final branches")
 print("")
 
+print("")
+-- Test lazy branch access before building
+
+nodes = pipeline_nodes(p)
+assert(length(nodes) == 12,
+  str_join(["Expected 12 nodes (4 base + 2 base_branch + 6 final_branch), got ", length(nodes)], ""))
+assert(contains(str(nodes), "final_branch_1"),
+  "pipeline_nodes should contain final_branch_1")
+assert(contains(str(nodes), "final_branch_6"),
+  "pipeline_nodes should contain final_branch_6")
+
+-- inspect_pipeline shows chained branches pre-build
+pre_frame = inspect_pipeline(p)
+assert(nrow(pre_frame) == 12,
+  str_join(["inspect_pipeline should show 12 rows (4 base + 8 branches), got ", nrow(pre_frame)], ""))
+
+print("")
 -- 1. Expand and verify structure
 p_expanded = expand_pipeline(p)
 node_count = length(pipeline_nodes(p_expanded))
