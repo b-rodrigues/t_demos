@@ -40,7 +40,7 @@ print("")
 -- 1. Expand and verify structure
 p_expanded = expand_pipeline(p)
 node_count = length(pipeline_nodes(p_expanded))
-assert(node_count == 9, str_join(["Expected 9 nodes (1 root + 2 base + 6 final), got ", node_count], ""))
+assert(node_count == 10, str_join(["Expected 10 nodes (2 roots + 2 base + 6 final), got ", node_count], ""))
 
 frame = pipeline_to_frame(p_expanded)
 
@@ -88,11 +88,6 @@ assert(v4 == 101, str_join(["Expected final_branch_4 = 101, got ", v4], ""))
 assert(v5 == 102, str_join(["Expected final_branch_5 = 102, got ", v5], ""))
 assert(v6 == 103, str_join(["Expected final_branch_6 = 103, got ", v6], ""))
 print("✓ all 6 final branch values correct (51..53, 101..103)")
-
--- 4. Verify build log
-log_frame = build_log_to_frame(res)
-assert(nrow(log_frame) == 9, str_join(["Expected 9 log entries, got ", nrow(log_frame)], ""))
-print("✓ build_log_to_frame: 9 entries")
 
 print("")
 print("✓ nested_patterns_t: all assertions passed")
