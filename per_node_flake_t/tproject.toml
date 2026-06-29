@@ -1,8 +1,6 @@
 [project]
 name = "per_node_flake_t"
-description = "Demonstrates per-node flake support in T pipelines"
-
-[dependencies]
+description = "Demonstrates per-node flake support in T pipelines with selective fallback"
 
 [r-dependencies]
 packages = []
@@ -11,4 +9,4 @@ packages = []
 packages = []
 
 [t]
-min_version = "0.53.3"
+min_version = "0.54.0"
