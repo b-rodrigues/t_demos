@@ -32,5 +32,5 @@ This allows:
 
 ```bash
 cd per_node_flake_t
-t run src/pipeline.t
+t run --unsafe --failfast src/pipeline.t
 ```
