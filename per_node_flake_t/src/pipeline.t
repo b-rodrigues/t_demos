@@ -35,33 +35,21 @@ p = pipeline {
 }
 
 -- Build and execute the pipeline
-populate_pipeline(p, build = false)
+populate_pipeline(p, build = true)
 
--- Read generated Nix template for verification
-nix = read_file("_pipeline/pipeline.nix")
+-- Read back and verify computed results
+result = "ok"
 
--- Verify mkNodeEnv exists
-assert(contains(nix, "mkNodeEnv"), "Generated Nix should define mkNodeEnv function")
+res_a = read_node(p.a)
+result = if (is_error(res_a)) then error("Node a failed") else result
 
--- Verify per-flake env bindings exist for all custom flakes
-assert(contains(nix, "env_github_b_rodrigues_tlang"),
-       "Nix should contain env binding for github:b-rodrigues/tlang")
-assert(contains(nix, "env_github_jbedo_rshells"),
-       "Nix should contain env binding for github:jbedo/rshells")
-assert(contains(nix, "test_flake"),
-       "Nix should contain env binding for local path flake (test_flake)")
+res_b = read_node(p.b)
+result = if (is_error(res_b)) then error("Node b failed") else result
 
--- Verify selective fallback patterns exist in the Nix template
-assert(contains(nix, "if tlangPkgSet ? default then"),
-       "Nix should contain selective fallback for tBin (via ? operator)")
-assert(contains(nix, "if tlangPkgSet ? tlang-r then"),
-       "Nix should contain selective fallback for r-env (via ? operator)")
-assert(contains(nix, "if tlangPkgSet ? tlang-julia-path then"),
-       "Nix should contain selective fallback for tlangJl (via ? operator)")
+res_c = read_node(p.c)
+result = if (is_error(res_c)) then error("Node c failed") else result
 
--- Verify backward compat: project-level bindings still exist
-assert(contains(nix, "stdenv = projectStdenv"), "Nix should alias stdenv to projectStdenv")
-assert(contains(nix, "tBin   = projectTBin"), "Nix should alias tBin to projectTBin")
-assert(contains(nix, "projectFlake"), "Nix should contain project-level flake binding")
+res_d = read_node(p.d)
+result = if (is_error(res_d)) then error("Node d failed") else result
 
-print("✓ per_node_flake_t: all Nix template assertions passed")
+result
