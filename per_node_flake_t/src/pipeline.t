@@ -28,7 +28,7 @@ p = pipeline {
 
   -- Node using local path flake (path:../test_flake)
   d = node(
-    command = map(\(x) x * 2, [1, 2, 3]),
+    command = map([1, 2, 3], \(x) x * 2),
     runtime = T,
     flake = "path:test_flake"
   )

@@ -2,8 +2,17 @@
   description = "Minimal test flake for per-node flake T demo";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    t-lang.url = "github:b-rodrigues/tlang";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs";
+    t-lang.url = "github:b-rodrigues/tlang/v0.54.0";
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://rstats-on-nix.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0="
+    ];
   };
 
   outputs = { self, nixpkgs, t-lang }: {
