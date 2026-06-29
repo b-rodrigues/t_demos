@@ -1,0 +1,14 @@
+[project]
+name = "per_node_flake_t"
+description = "Demonstrates per-node flake support in T pipelines"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+packages = []
+
+[t]
+min_version = "0.53.3"
