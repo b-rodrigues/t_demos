@@ -41,15 +41,15 @@ populate_pipeline(p, build = true)
 result = "ok"
 
 res_a = read_node(p.a)
-result = if (is_error(res_a)) then error("Node a failed") else result
+result = if (is_error(res_a)) { error("Node a failed") } else { result }
 
 res_b = read_node(p.b)
-result = if (is_error(res_b)) then error("Node b failed") else result
+result = if (is_error(res_b)) { error("Node b failed") } else { result }
 
 res_c = read_node(p.c)
-result = if (is_error(res_c)) then error("Node c failed") else result
+result = if (is_error(res_c)) { error("Node c failed") } else { result }
 
 res_d = read_node(p.d)
-result = if (is_error(res_d)) then error("Node d failed") else result
+result = if (is_error(res_d)) { error("Node d failed") } else { result }
 
 result
