@@ -1,36 +1,38 @@
 # Per-Node Flake Demo
 
-Demonstrates per-node flake support in T pipelines with selective fallback.
+Demonstrates per-node flake support in T pipelines.
 
-Each pipeline node can optionally specify its own Nix flake via the `flake` named
-argument. Runtime components are resolved independently:
+Each pipeline node can optionally specify its own Nix flake via the `flake`
+named argument. The runtime environment (nixpkgs, R/Python/Julia packages)
+comes from that flake when available. If the flake only provides a subset
+(e.g. R packages without t-lang infrastructure), missing components fall
+back to the project-level flake.
 
-| Component | Resolved from custom flake if… | Falls back to project if missing |
-|-----------|-------------------------------|----------------------------------|
-| `tBin` | `packages.${system}.default` | Project `t` binary |
-| `r-env` | `packages.${system}.tlang-r` | `pkgs.rWrapper` (no `tlang-r`) |
-| `tlangJl` | `packages.${system}.tlang-julia-path` | Project Julia path |
-| `pkgs` | `legacyPackages.${system}` or `inputs.nixpkgs.legacyPackages` | Project nixpkgs |
+**Project-level package inheritance:** Package declarations from
+`tproject.toml` (`[r-dependencies]`, `[py-dependencies]`, `[jl-dependencies]`)
+are inherited by all nodes, including those using a custom per-node flake.
+The per-node flake controls *which nixpkgs revision* packages are built from,
+but `tproject.toml` controls *what packages* are installed. If you want a
+fully self-contained flake, configure packages directly in the flake.
 
-This allows:
-
-- **R-only flakes** (like `jbedo/rshells`) to provide R packages while T
-  infrastructure comes from the project
-- **Full t-lang flakes** to replace everything (nixpkgs, R/Python/Julia, T binary)
-- **Different nixpkgs snapshots** per node
-
-## Nodes
+## Pipeline nodes
 
 | Node | Flake | Runtime | Computation |
 |------|-------|---------|-------------|
-| `a` | (default project flake) | T | `sum([1..5])` → 15 |
-| `b` | `github:b-rodrigues/tlang` | T | `length([1..10])` → 10 |
-| `c` | `github:jbedo/rshells` | R (via `rn()`) | `mean(mtcars$mpg)` → ~20.09 |
-| `d` | `path:../test_flake` | T | `map(x -> x*2, [1,2,3])` → [2,4,6] |
+| `a` | project default | T | `sum([1,2,3,4,5])` |
+| `b` | `github:b-rodrigues/tlang` | T | `length([10,20,30,40])` |
+| `c` | `github:jbedo/rshells` | R | `mean(mtcars$mpg)` |
+| `d` | `path:../test_flake` | T | `map(\(x) x * 10, [1,2,3])` |
+| `e` | `github:NixOS/nixpkgs/nixos-24.11` | Julia | `sum([1,2,3,4,5]) / length([1,2,3,4,5])` (Julia) |
+| `f` | `github:jbedo/rshells` | R | dplyr availability check |
+| `g` | `path:../minimal_r_flake` | R | dplyr availability check |
+
+The pipeline is built with `populate_pipeline(p, build = true)` and results
+are verified with `read_node`.
 
 ## Running
 
 ```bash
-cd per_node_flake_t
-t run src/pipeline.t
+cd t_demos/per_node_flake_t
+nix develop --command t run src/pipeline.t
 ```

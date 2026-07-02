@@ -8,5 +8,9 @@ packages = ["jsonlite"]
 [py-dependencies]
 packages = []
 
+[jl-dependencies]
+version = "lts"
+packages = ["JSON"]
+
 [t]
 min_version = "0.54.0"
