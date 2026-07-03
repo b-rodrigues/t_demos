@@ -3,7 +3,6 @@ name = "py_uv_workspace_t"
 description = "Demonstrates UV workspace Python dependency resolver in T pipelines"
 
 [py-dependencies]
-version = "python314"
 resolver = "uv"
 workspace = "python"
 
