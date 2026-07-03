@@ -37,6 +37,7 @@ jobs:
           SHA="${{ github.event.client_payload.sha }}"
           if [[ -z "$SHA" || "$SHA" == "null" ]]; then
             REPO="b-rodrigues/tlang"
+            # Use codex/add-optional-uv/uv2nix-support-for-python branch until merged into main
             SHA=$(gh api repos/b-rodrigues/tlang/commits/codex/add-optional-uv/uv2nix-support-for-python --jq '.sha')
             echo "No dispatch payload, falling back to tlang/codex/add-optional-uv/uv2nix-support-for-python: $SHA"
           fi
