@@ -28,7 +28,7 @@ p = pipeline {
   d = node(
     command = [1, 2, 3] |> map(\(x) x * 10),
     runtime = T,
-    flake = "path:../test_flake"
+    flake = "path:test_flake"
   )
 
   -- Node using nixpkgs directly as the flake for Julia runtime
@@ -70,7 +70,7 @@ p = pipeline {
     }>,
     runtime = R,
     serializer = ^json,
-    flake = "path:../minimal_r_flake"
+    flake = "path:minimal_r_flake"
   )
 }
 
@@ -103,7 +103,7 @@ assert(contains(nix, "env_path_test_flake.stdenv"),
 assert(contains(nix, "env_github_NixOS_nixpkgs"),
        "Nix should contain env binding for github:NixOS/nixpkgs (Julia node)")
 assert(contains(nix, "env_path_minimal_r_flake"),
-       "Nix should contain env binding for minimal R flake (path:../minimal_r_flake)")
+       "Nix should contain env binding for minimal R flake (path:minimal_r_flake)")
 
 -- Verify each new node uses its own env
 assert(contains(nix, "env_github_jbedo_rshells.\"r-env\""),

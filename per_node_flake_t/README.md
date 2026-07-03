@@ -22,10 +22,10 @@ fully self-contained flake, configure packages directly in the flake.
 | `a` | project default | T | `sum([1,2,3,4,5])` |
 | `b` | `github:b-rodrigues/tlang` | T | `length([10,20,30,40])` |
 | `c` | `github:jbedo/rshells` | R | `mean(mtcars$mpg)` |
-| `d` | `path:../test_flake` | T | `map(\(x) x * 10, [1,2,3])` |
+| `d` | `path:test_flake` | T | `map(\(x) x * 10, [1,2,3])` |
 | `e` | `github:NixOS/nixpkgs/nixos-24.11` | Julia | `sum([1,2,3,4,5]) / length([1,2,3,4,5])` (Julia) |
 | `f` | `github:jbedo/rshells` | R | dplyr availability check |
-| `g` | `path:../minimal_r_flake` | R | dplyr availability check |
+| `g` | `path:minimal_r_flake` | R | dplyr availability check |
 
 The pipeline is built with `populate_pipeline(p, build = true)` and results
 are verified with `read_node`.
