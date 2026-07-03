@@ -30,6 +30,9 @@ result = read_node(p.a)
 print("Node a (UV workspace Python): mean score =")
 print(to_string(result))
 
+-- Verify no error occurred during computation
+assert(is_error(result) == false, "Node a should not have errored during computation")
+
 -- Verify correctness
 assert(result == 87.8, "mean of score column should be 87.8")
 
