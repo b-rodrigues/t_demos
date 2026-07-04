@@ -1,0 +1,17 @@
+[project]
+name = "r_renv_t"
+description = "Uses renv.lock resolver to auto-detect R dependencies"
+
+[r-dependencies]
+resolver = "renv"
+
+[py-dependencies]
+version = "python314"
+packages = ["deepdiff"]
+
+[jl-dependencies]
+version = "lts"
+packages = ["JSON"]
+
+[t]
+min_version = "0.54.0"
