@@ -3,8 +3,8 @@ name = "r_git_pkgs_t"
 description = "Installs brotools from GitHub and uses sample_mode() in an R node"
 
 [r-dependencies]
-brotools = { git = "https://github.com/b-rodrigues/brotools", rev = "7e6f0b1a3f03bf50dc6a9583ef67590f488af8bc", deps = ["dplyr", "rlang", "stringr", "purrr", "magrittr", "doParallel", "pbapply", "purrrlyr", "assertthat", "data.table", "lubridate", "tidyr"] }
-packages = ["jsonlite", "dplyr", "rlang", "stringr", "purrr", "magrittr", "doParallel", "pbapply", "purrrlyr", "assertthat", "data.table", "lubridate", "tidyr"]
+brotools = { git = "https://github.com/b-rodrigues/brotools", rev = "7e6f0b1a3f03bf50dc6a9583ef67590f488af8bc" }
+packages = ["jsonlite"]
 
 [py-dependencies]
 version = "python314"
