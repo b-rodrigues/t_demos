@@ -1,0 +1,17 @@
+[project]
+name = "py_uv_per_flake_t"
+description = "Combines UV workspace Python resolver with per-node custom flakes"
+
+[py-dependencies]
+resolver = "uv"
+workspace = "python"
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[jl-dependencies]
+version = "lts"
+packages = ["JSON"]
+
+[t]
+min_version = "0.54.0"

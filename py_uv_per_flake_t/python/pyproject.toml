@@ -1,0 +1,6 @@
+[project]
+name = "t-py-uv-per-flake-env"
+version = "0.1.0"
+description = "UV workspace for T pipeline Python nodes (per-flake demo)"
+requires-python = "==3.12"
+dependencies = ["pandas"]
