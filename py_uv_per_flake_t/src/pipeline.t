@@ -8,27 +8,28 @@ p = pipeline {
       df = pd.read_csv("data/scores.csv")
       float(df["score"].mean())
     }>,
-    runtime = Python
-  ),
+    runtime = Python,
+    serializer = ^json
+  )
 
   b = node(
     command = sum([1, 2, 3, 4, 5]),
     runtime = T
-  ),
+  )
 
   c = node(
     command = <{ mean(mtcars$mpg) }>,
     runtime = R,
     serializer = ^json,
     flake = "github:jbedo/rshells"
-  ),
+  )
 
   d = node(
     command = <{ sum([1, 2, 3, 4, 5]) / length([1, 2, 3, 4, 5]) }>,
     runtime = Julia,
     serializer = ^json,
     flake = "github:NixOS/nixpkgs/nixos-24.11"
-  ),
+  )
 
   e = node(
     command = <{
@@ -37,6 +38,7 @@ p = pipeline {
       float(df["score"].mean())
     }>,
     runtime = Python,
+    serializer = ^json,
     flake = "github:NixOS/nixpkgs/nixos-24.11"
   )
 }
@@ -58,14 +60,14 @@ if (!contains(nix, "mkVirtualEnv")) {
 if (!contains(nix, "env_github_jbedo_rshells")) {
   print(error("this assertion is false: rshells env binding not found"))
 }
-if (!contains(nix, "env_github_NixOS_nixpkgs")) {
+if (!contains(nix, "env_github_nixos_nixpkgs_nixos_24_11")) {
   print(error("this assertion is false: nixpkgs env binding not found"))
 }
-if (!contains(nix, "env_github_jbedo_rshells.\"r-env\"")) {
+if (!contains(nix, "env_github_jbedo_rshells.r-env")) {
   print(error("this assertion is false: rshells flake r-env not found"))
 }
-if (!contains(nix, "env_github_NixOS_nixpkgs.\"jl-env\"")) {
-  print(error("this assertion is false: nixpkgs flake jl-env not found"))
+if (!contains(nix, "env_github_nixos_nixpkgs_nixos_24_11.juliaPkg")) {
+  print(error("this assertion is false: nixpkgs flake juliaPkg not found"))
 }
 if (!contains(nix, "projectPyEnv")) {
   print(error("this assertion is false: project-level py-env binding not found"))
@@ -76,7 +78,7 @@ if (!contains(nix, "projectStdenv")) {
 if (!contains(nix, "projectFlake")) {
   print(error("this assertion is false: project-level flake binding not found"))
 }
-if (!contains(nix, "tBin = if tlangPkgSet ? default then tlangPkgSet.default else projectTBin")) {
+if (!contains(nix, "tBin   = if tlangPkgSet ? default then tlangPkgSet.default else projectTBin;")) {
   print(error("this assertion is false: mkNodeEnv fallback logic not found"))
 }
 
@@ -94,8 +96,8 @@ if (is_error(result_a) || result_a != 87.8) {
 if (is_error(result_b) || result_b != 15) {
   print(error("this assertion is false: sum([1, 2, 3, 4, 5]) should be 15"))
 }
-if (is_error(result_c) || result_c != 20.09062) {
-  print(error("this assertion is false: mean(mtcars$mpg) should be 20.09062 (R via rshells flake)"))
+if (is_error(result_c) || result_c != 20.090625) {
+  print(error("this assertion is false: mean(mtcars$mpg) should be 20.090625 (R via rshells flake)"))
 }
 if (is_error(result_d) || result_d != 3.0) {
   print(error("this assertion is false: Julia sum/len([1..5]) should be 3.0"))
