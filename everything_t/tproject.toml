@@ -1,0 +1,19 @@
+[project]
+name = "everything_t"
+description = "Comprehensive demo: renv resolver, uv workspace, per-node flakes, and R git DESCRIPTION auto-detection"
+
+[r-dependencies]
+resolver = "renv"
+brotools = { git = "https://github.com/b-rodrigues/brotools", rev = "7e6f0b1a3f03bf50dc6a9583ef67590f488af8bc" }
+packages = ["jsonlite"]
+
+[py-dependencies]
+resolver = "uv"
+workspace = "python"
+
+[jl-dependencies]
+version = "lts"
+packages = ["JSON"]
+
+[t]
+min_version = "0.54.0"

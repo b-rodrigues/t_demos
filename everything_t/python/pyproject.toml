@@ -1,0 +1,6 @@
+[project]
+name = "t-everything-py"
+version = "0.1.0"
+description = "UV workspace for everything_t Python nodes"
+requires-python = "==3.12"
+dependencies = ["pandas"]
