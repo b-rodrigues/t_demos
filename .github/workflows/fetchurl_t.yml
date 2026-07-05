@@ -70,7 +70,3 @@ jobs:
       - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run src/pipeline.t
-
-      - name: Inspect Built Nodes
-        run: |
-          nix develop --command t run --unsafe -e 'print(p); print(read_node(p.readme))'
