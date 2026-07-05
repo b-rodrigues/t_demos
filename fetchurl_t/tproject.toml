@@ -1,0 +1,12 @@
+[project]
+name = "fetchurl_t"
+description = "A T demo showcasing prefetch and fetchurl for reproducible remote file downloads"
+authors = []
+
+[dependencies]
+
+[t]
+min_version = "0.53.3"
+
+[nixpkgs]
+date = ""
