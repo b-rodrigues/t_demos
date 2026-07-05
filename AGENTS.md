@@ -11,6 +11,16 @@ This file provides critical instructions for AI coding assistants working on the
     *   When creating a new demonstration project, always add a corresponding GitHub Action in `.github/workflows/`.
     *   **Process**: Copy an existing workflow file (e.g., `test_r_interop_t.yml`) and modify only the necessary fields (name, path, and script to execute).
     *   Ensure the workflow uses the same Nix-based testing pattern as the other demos.
+5.  **Explicit Error Guards in T Scripts**: Errors in T are **first-class values** — they don't halt execution unless explicitly checked. A failed pipeline node or built-in silently stores an error in the variable. Every demo script must guard against this:
+    ```t
+    populate_pipeline(p, build = true)
+    pipeline_copy()
+
+    if (is_error(p.some_node)) {
+      error(str_join(["Node 'some_node' errored: ", error_msg(p.some_node)]))
+    }
+    ```
+    Without this guard, CI tests will print "all tests passed" while every assertion operates on error values instead of real data.
 
 ## Pulling & Pushing
 
