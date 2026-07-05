@@ -18,6 +18,11 @@ p = pipeline {
 populate_pipeline(p, build = true)
 pipeline_copy()
 
+-- Check if the node built successfully (errors are first-class in T)
+if (is_error(p.readme)) {
+  error(str_join(["Node 'readme' errored during build: ", error_msg(p.readme)]))
+}
+
 -- Step 4: Verify the downloaded file
 filepath = p.readme.path
 print(str_join(["File path: ", filepath]))
