@@ -238,7 +238,7 @@ python_predictions = {
                 return mat
             end
             
-            weights = [to_matrix(w) for w in julia_flux_model["weights"]]
+            weights = [to_matrix(w)' for w in julia_flux_model["weights"]]
             biases = [Float32.(bias_values) for bias_values in julia_flux_model["biases"]]
 
             # Manual forward pass (World Age Safe)
@@ -288,7 +288,6 @@ python_predictions = {
             t_preds = if (is_error(t_predictions)) { [] } else { t_predictions }
             py_preds = if (is_error(python_predictions)) { [] } else { python_predictions.predictions }
             jl_preds = if (is_error(julia_flux_predictions)) { [] } else { julia_flux_predictions.predictions }
-            
             py_probs = if (is_error(python_predictions)) { [] } else { python_predictions.probabilities }
             jl_probs = if (is_error(julia_flux_predictions)) { [] } else { julia_flux_predictions.probabilities }
 
@@ -296,12 +295,8 @@ python_predictions = {
             assert(length(jl_preds) == length(py_preds), "Julia Flux predictions length does not match Python predictions length!")
             assert(length(jl_probs) == length(py_probs), "Julia Flux probabilities length does not match Python probabilities length!")
 
-            label_agreement = if (length(jl_preds) > 0 && length(py_preds) > 0) { 
-                sum(ifelse(jl_preds .== py_preds, 1.0, 0.0))
-            } else { 0 }
-            
-            probability_diff = if (length(jl_probs) > 0 && length(py_probs) > 0) { sum(abs(jl_probs - py_probs)) } else { 0 }
-
+            label_agreement = sum(ifelse(jl_preds .== py_preds, 1.0, 0.0))
+            probability_diff = if (length(jl_probs) > 0 && length(py_probs) > 0) { diffs = jl_probs .- py_probs; sum(ifelse(diffs .>= 0, diffs, 0 .- diffs)) } else { 0 }
             python_vs_t_label_parity_passed = (length(t_preds) > 0 && length(t_preds) == length(py_preds) && sum(ifelse(t_preds .== py_preds, 1.0, 0.0)) == length(t_preds))
 
             [
