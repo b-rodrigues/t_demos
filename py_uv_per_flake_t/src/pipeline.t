@@ -33,13 +33,12 @@ p = pipeline {
 
   e = node(
     command = <{
-      import pandas as pd
-      df = pd.read_csv("data/scores.csv")
-      float(df["score"].mean())
+      import numpy as np
+      float(np.array([1, 2, 3, 4, 5]).sum())
     }>,
     runtime = Python,
     serializer = ^json,
-    flake = "github:NixOS/nixpkgs/nixos-24.11"
+    flake = "path:./flake-e"
   )
 }
 
@@ -62,6 +61,9 @@ if (!contains(nix, "env_github_jbedo_rshells")) {
 }
 if (!contains(nix, "env_github_nixos_nixpkgs_nixos_24_11")) {
   print(error("this assertion is false: nixpkgs env binding not found"))
+}
+if (!contains(nix, "env_path") || !contains(nix, "flake_e")) {
+  print(error("this assertion is false: flake-e path-based env binding not found"))
 }
 if (!contains(nix, "env_github_jbedo_rshells.r-env")) {
   print(error("this assertion is false: rshells flake r-env not found"))
@@ -102,8 +104,8 @@ if (is_error(result_c) || result_c != 20.090625) {
 if (is_error(result_d) || result_d != 3.0) {
   print(error("this assertion is false: Julia sum/len([1..5]) should be 3.0"))
 }
-if (is_error(result_e) || result_e != 87.8) {
-  print(error("this assertion is false: mean of score column should be 87.8 (Python + custom flake + UV workspace)"))
+if (is_error(result_e) || result_e != 15.0) {
+  print(error("this assertion is false: np.array([1,2,3,4,5]).sum() should be 15.0 (Python + flake-e custom numpy env)"))
 }
 
 print("✓ py_uv_per_flake_t: all Nix verification and computation assertions passed")
