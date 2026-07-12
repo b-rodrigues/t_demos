@@ -1,0 +1,6 @@
+[project]
+name = "check_fix_diff_t"
+description = "Demonstrates expect() contracts, t check --schema, t fix, and t diff"
+
+[t-dependencies]
+packages = ["core", "dataframe", "colcraft", "stats", "pipeline"]

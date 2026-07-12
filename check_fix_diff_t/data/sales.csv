@@ -1,0 +1,6 @@
+id,amount,date,status
+1,100.50,2024-01-15,complete
+2,250.00,2024-02-20,complete
+3,75.25,2024-03-10,pending
+4,500.00,2024-04-05,complete
+5,125.75,2024-05-12,complete
