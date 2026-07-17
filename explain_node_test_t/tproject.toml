@@ -1,0 +1,11 @@
+[project]
+name = "explain_node_test_t"
+description = "End-to-end test for t explain --node JSON/text output on warning and error nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[t]
+min_version = "0.52.0"

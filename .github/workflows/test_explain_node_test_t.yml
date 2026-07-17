@@ -1,0 +1,142 @@
+name: Tlang E2E Test - explain_node_test_t
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Get T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            REPO="b-rodrigues/tlang"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Update to latest T version
+        working-directory: ./explain_node_test_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Inject pipeline dependencies
+        working-directory: ./explain_node_test_t
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Rebuild flake with new dependencies
+        working-directory: ./explain_node_test_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Build Pipeline
+        working-directory: ./explain_node_test_t
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Pipeline build completed (expected node errors present)"
+
+      - name: Verify in-memory diagnostics (warning_msg / error_msg)
+        working-directory: ./explain_node_test_t
+        run: |
+          cat > verify_diag.t << 'EOF'
+           t_make()
+          warn_msg = warning_msg(p.r_warn)
+          assert(warn_msg != "", str_join(["r_warn should have captured warnings, got: ", warn_msg], ""))
+          assert(contains(warn_msg, "test_warning_message_for_explain_node"),
+              str_join(["warning message should match, got: ", warn_msg], ""))
+          err_msg = error_msg(p.r_err)
+          assert(err_msg != "", str_join(["r_err should have captured error, got: ", err_msg], ""))
+          assert(contains(err_msg, "test_error_message_for_explain_node"),
+              str_join(["error message should match, got: ", err_msg], ""))
+          t_ok_res = read_node(p.t_ok)
+          assert(type(t_ok_res.error) == "NA", "t_ok should have no build error")
+          assert(t_ok_res.value == 99, str_join(["t_ok should be 99, got: ", t_ok_res.value], ""))
+          print("+ in-memory diagnostics: ok")
+          EOF
+          nix develop --command t run --unsafe verify_diag.t
+
+      - name: Test t explain --json --node p.r_err
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --json --node p.r_err src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q '"status": *"failed"' || (echo "FAIL: missing status=failed in r_err JSON" && exit 1)
+          echo "$OUT" | grep -q '"error_code"' || (echo "FAIL: missing error_code in r_err JSON" && exit 1)
+          echo "$OUT" | grep -q '"message"' || (echo "FAIL: missing message in r_err JSON" && exit 1)
+          echo "$OUT" | grep -q '"node": *"r_err"' || (echo "FAIL: missing node=r_err in r_err JSON" && exit 1)
+          echo "  + r_err JSON: ok"
+
+      - name: Test t explain --json --node p.r_warn
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --json --node p.r_warn src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q '"status": *"success"' || (echo "FAIL: missing status=success in r_warn JSON" && exit 1)
+          echo "$OUT" | grep -q '"code"' || (echo "FAIL: missing code in r_warn JSON warnings" && exit 1)
+          echo "$OUT" | grep -q 'test_warning_message_for_explain_node' || (echo "FAIL: missing warning text in r_warn JSON" && exit 1)
+          echo "  + r_warn JSON: ok"
+
+      - name: Test t explain --json --node p.t_ok (baseline)
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --json --node p.t_ok src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q '"status": *"success"' || (echo "FAIL: missing status=success in t_ok JSON" && exit 1)
+          echo "$OUT" | grep -q '"warnings": *\[\]' || (echo "FAIL: missing empty warnings in t_ok JSON" && exit 1)
+          echo "  + t_ok JSON: ok"
+
+      - name: Test t explain --node p.r_err (plain text)
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --node p.r_err src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q "Error Code:" || (echo "FAIL: missing Error Code in r_err text" && exit 1)
+          echo "$OUT" | grep -q "Message:" || (echo "FAIL: missing Message in r_err text" && exit 1)
+          echo "  + r_err text: ok"
+
+      - name: Test t explain --node p.r_warn (plain text)
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --node p.r_warn src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q "warning(s):" || (echo "FAIL: missing warning(s) in r_warn text" && exit 1)
+          echo "$OUT" | grep -q 'test_warning_message_for_explain_node' || (echo "FAIL: missing warning text in r_warn text" && exit 1)
+          echo "  + r_warn text: ok"
+
+      - name: Test t explain --node p.t_ok (plain text baseline)
+        working-directory: ./explain_node_test_t
+        run: |
+          OUT=$(nix develop --command t explain --node p.t_ok src/pipeline.t 2>&1)
+          echo "$OUT"
+          echo "$OUT" | grep -q "compiled/built successfully" || (echo "FAIL: missing success message in t_ok text" && exit 1)
+          echo "  + t_ok text: ok"
