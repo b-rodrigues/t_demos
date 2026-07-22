@@ -152,5 +152,6 @@ t test --not slow                       # exclude
 t test --failfast                       # stop on first failure
 t test --list                           # list tests without running
 t test --timeout 10                     # mark slow tests as failed
+t test --coverage                       # generate Bisect_ppx coverage summary
 t run src/pipeline.t                    # t_test() + fixture pipeline
 ```
