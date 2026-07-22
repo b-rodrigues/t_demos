@@ -81,6 +81,18 @@ jobs:
         run: |
           nix develop --command t test --format junit
 
+      - name: Run test suite (--failfast)
+        run: |
+          nix develop --command t test --failfast
+
+      - name: List tests (--list)
+        run: |
+          nix develop --command t test --list
+
+      - name: Run test suite (--timeout)
+        run: |
+          nix develop --command t test --timeout 10
+
       - name: Run pipeline (t_test REPL function)
         run: |
           nix develop --command t run src/pipeline.t

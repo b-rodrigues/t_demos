@@ -149,5 +149,8 @@ t test --format json                    # JSON
 t test --format junit                   # JUnit XML
 t test --only arithmetic                # filter
 t test --not slow                       # exclude
+t test --failfast                       # stop on first failure
+t test --list                           # list tests without running
+t test --timeout 10                     # mark slow tests as failed
 t run src/pipeline.t                    # t_test() + fixture pipeline
 ```
