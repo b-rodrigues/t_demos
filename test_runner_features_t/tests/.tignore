@@ -1,0 +1,6 @@
+# .tignore — exclude tests from `t test` discovery
+# Patterns are matched as substrings against the relative file path.
+# Lines starting with # are comments.
+
+slow
+wip

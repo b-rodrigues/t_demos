@@ -1,0 +1,109 @@
+# Test Runner Features Demo (`test_runner_features_t`)
+
+Demonstrates the `t test` runner: file discovery, `--only`/`--not` filtering, `--format json`/`junit` output, `.tignore` exclusion, and the `t_test()` REPL function.
+
+## Project layout
+
+```
+tests/
+├── .tignore              -- excludes slow and wip tests
+├── test_arithmetic.t     -- passes
+├── test_strings.t        -- passes
+├── test_dataframe.t      -- passes (reads tests/data/sample.csv)
+├── test_slow.t           -- excluded by .tignore
+├── test_wip.t            -- excluded by .tignore (intentionally broken)
+└── data/
+    └── sample.csv
+src/
+└── pipeline.t            -- exercises t_test() REPL function
+```
+
+## Features exercised
+
+### Basic test discovery
+
+`t test` discovers files matching `test-*.t`, `test_*.t`, or `*_test.t` in `tests/`:
+
+```bash
+t test
+```
+
+### Filtering with `--only` and `--not`
+
+Run only tests whose path contains a substring:
+
+```bash
+t test --only arithmetic
+t test --only test_arithmetic
+```
+
+Exclude tests whose path contains a substring:
+
+```bash
+t test --not slow
+t test --not wip
+```
+
+Multiple filters combine (OR for `--only`, AND for `--not`):
+
+```bash
+t test --only arithmetic --only strings
+t test --not slow --not wip
+```
+
+### Output formats
+
+JSON output (machine-readable):
+
+```bash
+t test --format json
+```
+
+JUnit XML output (CI integration):
+
+```bash
+t test --format junit
+```
+
+Shorthand for JSON:
+
+```bash
+t test --json
+```
+
+### `.tignore` exclusion
+
+`tests/.tignore` lists patterns to exclude from discovery. Each line is a
+case-insensitive substring matched against the test file's relative path.
+Lines starting with `#` are comments.
+
+```bash
+# tests/.tignore
+slow
+wip
+```
+
+This excludes `test_slow.t` and `test_wip.t` from all `t test` runs without
+renaming or deleting them. Useful for work-in-progress tests or expensive
+tests you only run explicitly.
+
+### `t_test()` REPL function
+
+`t_test()` returns a DataFrame with columns `file`, `status`, `duration_ms`,
+`error` — composable with testcraft assertions:
+
+```bash
+t run src/pipeline.t
+```
+
+## Running the demo
+
+```bash
+cd test_runner_features_t
+t test                                  # human output
+t test --format json                    # JSON
+t test --format junit                   # JUnit XML
+t test --only arithmetic                # filter
+t test --not slow                       # exclude
+t run src/pipeline.t                    # t_test() REPL function
+```

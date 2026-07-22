@@ -1,0 +1,28 @@
+[project]
+name = "test_runner_features_t"
+description = "Demonstrates t test: discovery, --only/--not filtering, --format json/junit, .tignore, and t_test() REPL function"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python314"
+packages = []
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = []
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
