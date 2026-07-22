@@ -1,6 +1,6 @@
 # Test Runner Features Demo (`test_runner_features_t`)
 
-Demonstrates the `t test` runner: file discovery, `--only`/`--not` filtering, `--format json`/`junit` output, `.tignore` exclusion, and the `t_test()` REPL function.
+Demonstrates the `t test` runner: file discovery, `--only`/`--not` filtering, `--format json`/`junit` output, `.tignore` exclusion, the `t_test()` REPL function, and the `chain()`/`parallel()` fixture pipeline pattern.
 
 ## Project layout
 
@@ -15,7 +15,7 @@ tests/
 └── data/
     └── sample.csv
 src/
-└── pipeline.t            -- exercises t_test() REPL function
+└── pipeline.t            -- exercises t_test() and chain/parallel fixtures
 ```
 
 ## Features exercised
@@ -96,6 +96,50 @@ tests you only run explicitly.
 t run src/pipeline.t
 ```
 
+### Fixture pipeline pattern (`chain()` + `parallel()`)
+
+Use `chain()` to share a fixture pipeline's output across multiple test
+pipelines. Each test pipeline references the fixture's node names as bare
+variables — `chain()` resolves them by name:
+
+```t
+fixture = pipeline {
+  data = node(
+    command = read_csv("tests/data/sample.csv"),
+    serializer = ^csv
+  )
+}
+
+test_filter = pipeline {
+  check_filter = node(
+    command = {
+      result = data |> filter($score >= 88)
+      assert(expect_nrow(result, 2))
+    },
+    serializer = ^csv
+  )
+}
+
+test_mutate = pipeline {
+  check_mutate = node(
+    command = {
+      result = data |> mutate($pass = $score >= 70)
+      assert(expect_in("pass", colnames(result)))
+    },
+    serializer = ^csv
+  )
+}
+
+-- chain() wires fixture.data into both pipelines;
+-- parallel() runs them independently (unique node names required)
+combined = chain(fixture, parallel(test_filter, test_mutate))
+build_pipeline(combined)
+```
+
+Each node runs in an isolated Nix sandbox. The fixture's `data` node builds a
+dataframe, serializes it to CSV for cross-sandbox transfer, and downstream test
+nodes receive it as a dataframe they can pipe directly.
+
 ## Running the demo
 
 ```bash
@@ -105,5 +149,5 @@ t test --format json                    # JSON
 t test --format junit                   # JUnit XML
 t test --only arithmetic                # filter
 t test --not slow                       # exclude
-t run src/pipeline.t                    # t_test() REPL function
+t run src/pipeline.t                    # t_test() + fixture pipeline
 ```
