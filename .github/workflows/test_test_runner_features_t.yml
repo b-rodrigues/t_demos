@@ -93,6 +93,10 @@ jobs:
         run: |
           nix develop --command t test --timeout 10
 
+      - name: Run test suite (--coverage)
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" --accept-flake-config --command t test --coverage
+
       - name: Run pipeline (t_test REPL function)
         run: |
           nix develop --command t run src/pipeline.t

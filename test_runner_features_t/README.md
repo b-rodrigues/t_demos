@@ -71,6 +71,23 @@ Shorthand for JSON:
 t test --json
 ```
 
+### Coverage summary
+
+Requires a coverage-instrumented build. From the tlang repo:
+
+```bash
+dune build --instrument-with bisect_ppx src/repl.exe
+```
+
+Then from the demo directory:
+
+```bash
+t test --coverage
+```
+
+This cleans old `.coverage` files, runs all tests, then prints a Bisect_ppx
+coverage summary showing which T source files were exercised.
+
 ### `.tignore` exclusion
 
 `tests/.tignore` lists patterns to exclude from discovery. Each line is a
