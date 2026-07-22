@@ -46,10 +46,10 @@ print(res)
 
 -- Node correctness assertions
 r_raw = read_node(p.raw_data)
-assert(type(r_raw.error) == "NA", "raw_data should succeed")
+check(is_error(r_raw) == false)
 r_jl = read_node(p.summary_jl)
-assert(type(r_jl.error) == "NA", "summary_jl (Julia) should succeed")
+check(is_error(r_jl) == false)
 r_final = read_node(p.final_results)
-assert(type(r_final.error) == "NA", "final_results should succeed")
+check(is_error(r_final) == false)
 
 print("✓ julia_interop_t: all assertions passed")

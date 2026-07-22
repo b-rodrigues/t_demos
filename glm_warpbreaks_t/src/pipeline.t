@@ -108,17 +108,13 @@ if (is_error(res)) {
     print("\nPoisson MAE (R vs Py) in T:")
     print(mae)
     
-    if (!(is_error(mae)) && mae < 0.005) {
-        print("SUCCESS: Warpbreaks predictions match!")
-    } else {
-        print("WARNING: Warpbreaks predictions differ.")
-    }
+    check(expect_lt(mae, 0.005))
     
     -- Node correctness assertions
-    assert(type(read_node(p.data_node).error) == "NA", "data_node should succeed")
-    assert(type(read_node(p.r_poisson).error) == "NA", "r_poisson should succeed")
-    assert(type(read_node(p.r_nb).error) == "NA", "r_nb should succeed")
-    assert(type(read_node(p.py_poisson).error) == "NA", "py_poisson should succeed")
+    check(is_error(read_node(p.data_node)) == false)
+    check(is_error(read_node(p.r_poisson)) == false)
+    check(is_error(read_node(p.r_nb)) == false)
+    check(is_error(read_node(p.py_poisson)) == false)
     
     print("✓ glm_warpbreaks_t: all assertions passed")
 }

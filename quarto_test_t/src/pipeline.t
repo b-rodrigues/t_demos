@@ -25,6 +25,6 @@ res = pipeline_copy()
 print(res)
 
 -- Verify data node is accessible (no read_node needed for inline values)
-assert(p.data == "Success: Data read from T-Lang", "data node should have correct value")
+check(expect_equal(p.data, "Success: Data read from T-Lang"))
 
 print("✓ quarto_test_t: all assertions passed")

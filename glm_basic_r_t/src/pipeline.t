@@ -56,9 +56,9 @@ print(preds)
 
 -- Node correctness assertions
 r_data = read_node(p.data_node)
-assert(type(r_data.error) == "NA", "data_node should succeed")
+check(is_error(r_data) == false)
 r_model = read_node(p.model_node)
-assert(type(r_model.error) == "NA", "model_node (R GLM) should succeed")
-assert(type(preds) != "Error", "predictions should not be an error")
+check(is_error(r_model) == false)
+check(is_error(preds) == false)
 
 print("✓ glm_basic_r_t: all assertions passed")

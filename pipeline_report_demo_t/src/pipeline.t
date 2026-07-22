@@ -58,6 +58,6 @@ post_report = pipeline_report(p, file = "_pipeline/report_after.md", target = "s
 print(str_join(["Post-build report saved to: ", post_report]))
 
 -- Verify
-assert(type(p.mtcars) == "DataFrame", "mtcars should be a DataFrame")
-assert(nrow(p.filtered_mtcars) > 0, "filtered_mtcars should have at least 1 row")
+check(expect_type(p.mtcars, "DataFrame"))
+check(expect_gt(nrow(p.filtered_mtcars), 0))
 print("✓ pipeline_report_demo_t: all assertions passed")

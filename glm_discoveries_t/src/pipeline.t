@@ -95,18 +95,14 @@ if (is_error(res)) {
     print("\nPoisson MAE (R vs Py) in T:")
     print(mae_p)
     
-    if (mae_p < 0.1) {
-        print("SUCCESS: Poisson predictions match!")
-    } else {
-        print("WARNING: Poisson predictions differ.")
-    }
+    check(expect_lt(mae_p, 0.1))
     
     -- Node correctness assertions
     r_data = read_node(p.data_node)
-    assert(type(r_data.error) == "NA", "data_node should succeed")
-    assert(type(read_node(p.poisson_r).error) == "NA", "poisson_r should succeed")
-    assert(type(read_node(p.nb_r).error) == "NA", "nb_r should succeed")
-    assert(type(read_node(p.poisson_py).error) == "NA", "poisson_py should succeed")
+    check(is_error(r_data) == false)
+    check(is_error(read_node(p.poisson_r)) == false)
+    check(is_error(read_node(p.nb_r)) == false)
+    check(is_error(read_node(p.poisson_py)) == false)
     
     print("✓ glm_discoveries_t: all assertions passed")
 }
