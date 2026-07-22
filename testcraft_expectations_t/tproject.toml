@@ -1,0 +1,29 @@
+[project]
+name = "testcraft_expectations_t"
+description = "Comprehensive demonstration of all Testcraft expectation primitives (expect_*) in T pipelines"
+authors = ["Antigravity"]
+
+[dependencies]
+
+[r-dependencies]
+packages = ["arrow"]
+
+[py-dependencies]
+version = "python314"
+packages = ["pandas"]
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = ["which"]
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.52.0"
+
+[nixpkgs]
+date = ""
