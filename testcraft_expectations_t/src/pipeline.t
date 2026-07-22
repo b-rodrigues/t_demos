@@ -2,15 +2,6 @@
 --
 -- Run with: t run src/pipeline.t
 
--- Helper function: asserts expectation and raises a runtime error immediately if it fails
-check = \(val: Any -> Any) {
-  ans = assert(val)
-  if (is_error(ans)) {
-    error(error_msg(ans))
-  }
-  print(ans)
-}
-
 -- 1. Pipeline Definition with Test Nodes & Patterns
 p = pipeline {
   raw_data = to_dataframe([id: [1, 2, 3, 4], val: [10.5, 20.0, 30.5, 40.0]])

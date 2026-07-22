@@ -11,16 +11,21 @@ This file provides critical instructions for AI coding assistants working on the
     *   When creating a new demonstration project, always add a corresponding GitHub Action in `.github/workflows/`.
     *   **Process**: Copy an existing workflow file (e.g., `test_r_interop_t.yml`) and modify only the necessary fields (name, path, and script to execute).
     *   Ensure the workflow uses the same Nix-based testing pattern as the other demos.
-5.  **Explicit Error Guards in T Scripts**: Errors in T are **first-class values** — they don't halt execution unless explicitly checked. A failed pipeline node or built-in silently stores an error in the variable. Every demo script must guard against this:
+5.  **Using `check()` for Assertions & Explicit Error Guards**: Errors in T are **first-class values** — they don't halt execution unless explicitly checked. Use T's built-in `check()` function on `expect_*` comparisons or boolean conditions. `check()` evaluates `assert(...)`, prints `true` on success, and raises an immediate `RuntimeError` on failure to halt execution.
     ```t
     populate_pipeline(p, build = true)
     pipeline_copy()
 
+    -- Check assertions with built-in check()
+    check(expect_nrow(p.raw_data, 100))
+    check(expect_nodes(p, ["raw_data", "processed"]))
+
+    -- Guard against failed pipeline node execution
     if (is_error(p.some_node)) {
       error(str_join(["Node 'some_node' errored: ", error_msg(p.some_node)]))
     }
     ```
-    Without this guard, CI tests will print "all tests passed" while every assertion operates on error values instead of real data.
+    Without `check()`, assertions evaluating to `VError` will return the error value without halting script execution.
 
 ## Pulling & Pushing
 
