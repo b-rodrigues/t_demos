@@ -134,12 +134,11 @@ test_filter = pipeline {
     deserializer = ^csv
   )
   check_filter = node(
-    command = {
-      assert(expect_nrow(filtered_data, 2))
-      assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
-      "check_filter passed"
-    },
-    serializer = ^text,
+    command = [
+      nrow_check: assert(expect_nrow(filtered_data, 2)),
+      colnames_check: assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
+    ],
+    serializer = ^json,
     deserializer = ^csv
   )
 }
@@ -151,12 +150,11 @@ test_mutate = pipeline {
     deserializer = ^csv
   )
   check_mutate = node(
-    command = {
-      assert(expect_in("pass", colnames(mutated_data)))
-      assert(expect_nrow(mutated_data |> filter($pass == true), 4))
-      "check_mutate passed"
-    },
-    serializer = ^text,
+    command = [
+      pass_col_check: assert(expect_in("pass", colnames(mutated_data))),
+      pass_count_check: assert(expect_nrow(mutated_data |> filter($pass == true), 4))
+    ],
+    serializer = ^json,
     deserializer = ^csv
   )
 }

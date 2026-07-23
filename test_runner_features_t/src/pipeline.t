@@ -2,13 +2,13 @@
 --
 -- Exercises:
 --   chain() + parallel() fixture pattern with separated data and test nodes
---   (Data transformation node -> Test assertion node)
+--   (Data transformation node -> Test result dictionary node)
 --
 -- Run with: t run src/pipeline.t or via t_make() in REPL
 
 -- === Fixture Pipeline Pattern ===
 -- A fixture pipeline produces base data; downstream test pipelines
--- consume it to perform transformations and execute assertions in separate nodes.
+-- consume it to perform transformations and capture test results in separate nodes.
 
 fixture = pipeline {
   data = node(
@@ -24,14 +24,15 @@ test_filter = pipeline {
     serializer = ^csv,
     deserializer = ^csv
   )
-  -- Test assertion node (consumes CSV filtered_data, returns text status)
+  -- Test node (consumes CSV filtered_data, returns named Dict of assertion results)
+  -- On success: serializes [ nrow_check: true, colnames_check: true ] as JSON
+  -- On failure: assert short-circuits and captures VError failure object
   check_filter = node(
-    command = {
-      assert(expect_nrow(filtered_data, 3))
-      assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
-      "check_filter passed"
-    },
-    serializer = ^text,
+    command = [
+      nrow_check: assert(expect_nrow(filtered_data, 2)),
+      colnames_check: assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
+    ],
+    serializer = ^json,
     deserializer = ^csv
   )
 }
@@ -43,14 +44,15 @@ test_mutate = pipeline {
     serializer = ^csv,
     deserializer = ^csv
   )
-  -- Test assertion node (consumes CSV mutated_data, returns text status)
+  -- Test node (consumes CSV mutated_data, returns named Dict of assertion results)
+  -- On success: serializes [ pass_col_check: true, pass_count_check: true ] as JSON
+  -- On failure: assert short-circuits and captures VError failure object
   check_mutate = node(
-    command = {
-      assert(expect_in("pass", colnames(mutated_data)))
-      assert(expect_nrow(mutated_data |> filter($pass == true), 4))
-      "check_mutate passed"
-    },
-    serializer = ^text,
+    command = [
+      pass_col_check: assert(expect_in("pass", colnames(mutated_data))),
+      pass_count_check: assert(expect_nrow(mutated_data |> filter($pass == true), 4))
+    ],
+    serializer = ^json,
     deserializer = ^csv
   )
 }
@@ -65,4 +67,4 @@ if (is_error(res)) {
   error(str_join(["Fixture pipeline build failed: ", error_msg(res)]))
 }
 
-print("Fixture pipeline: chain + parallel with separated transformation & check nodes all passed")
+print("Fixture pipeline: chain + parallel with separated transformation & test result dict nodes all passed")
