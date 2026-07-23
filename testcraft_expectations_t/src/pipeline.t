@@ -84,7 +84,15 @@ check(expect_in(20, [10, 20, 30]))
 check(expect_in("b", ["a", "b", "c"]))
 check(expect_set_equal([1, 2, 3], [3, 2, 1]))
 
--- 8. String Pattern Expectations
+-- 8. DataFrame Quality Expectations
+print("=== Testing DataFrame Quality Expectations ===")
+raw_df = read_node(p.raw_data)
+check(expect_column_types(raw_df, [id: "Int", val: "Float"]))
+check(expect_values(raw_df, "id", [1, 2, 3, 4]))
+check(expect_range(raw_df, "val", 5.0, 45.0))
+check(expect_table_equal(raw_df, raw_df))
+
+-- 9. String Pattern Expectations
 print("=== Testing String Expectations ===")
 check(expect_match("user@example.com", ".*@.*"))
 check(expect_str_contains("hello world", "world"))
