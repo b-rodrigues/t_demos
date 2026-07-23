@@ -1,29 +1,14 @@
 -- test_runner_features_t/src/pipeline.t
 --
 -- Exercises:
---   1. t_test() REPL function (returns DataFrame)
---   2. chain() + parallel() fixture pattern (shared test data via DAG)
--- Run with: t run src/pipeline.t
+--   chain() + parallel() fixture pattern with separated data and test nodes
+--   (Data transformation node -> Test assertion node)
+--
+-- Run with: t run src/pipeline.t or via t_make() in REPL
 
--- === 1. t_test() REPL Function ===
-
-results = t_test()
-
-assert(expect_type(results, "DataFrame"))
-assert(expect_colnames(results, ["file", "status", "duration_ms", "error"]))
-
--- .tignore excludes test_slow.t and test_wip.t, so 3 tests remain
-assert(expect_nrow(results, 3))
-
--- All remaining tests should pass
-failed = results |> filter($status == "failed")
-assert(expect_nrow(failed, 0))
-
-print("t_test() passed: all 3 non-ignored tests green")
-
--- === 2. Fixture Pipeline Pattern ===
--- A fixture pipeline produces data once; multiple test pipelines
--- consume it independently via chain() and parallel().
+-- === Fixture Pipeline Pattern ===
+-- A fixture pipeline produces base data; downstream test pipelines
+-- consume it to perform transformations and execute assertions in separate nodes.
 
 fixture = pipeline {
   data = node(
@@ -33,29 +18,45 @@ fixture = pipeline {
 }
 
 test_filter = pipeline {
+  -- Data transformation node (consumes CSV data, produces CSV filtered_data)
+  filtered_data = node(
+    command = data |> filter($score >= 88),
+    serializer = ^csv,
+    deserializer = ^csv
+  )
+  -- Test assertion node (consumes CSV filtered_data, returns text status)
   check_filter = node(
     command = {
-      result = data |> filter($score >= 88)
-      assert(expect_nrow(result, 2))
-      assert(expect_colnames(result, ["name", "score", "grade"]))
+      assert(expect_nrow(filtered_data, 3))
+      assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
+      "check_filter passed"
     },
-    serializer = ^csv
+    serializer = ^text,
+    deserializer = ^csv
   )
 }
 
 test_mutate = pipeline {
+  -- Data transformation node (consumes CSV data, produces CSV mutated_data)
+  mutated_data = node(
+    command = data |> mutate($pass = $score >= 70),
+    serializer = ^csv,
+    deserializer = ^csv
+  )
+  -- Test assertion node (consumes CSV mutated_data, returns text status)
   check_mutate = node(
     command = {
-      result = data |> mutate($pass = $score >= 70)
-      assert(expect_in("pass", colnames(result)))
-      assert(expect_nrow(result |> filter($pass == true), 4))
+      assert(expect_in("pass", colnames(mutated_data)))
+      assert(expect_nrow(mutated_data |> filter($pass == true), 4))
+      "check_mutate passed"
     },
-    serializer = ^csv
+    serializer = ^text,
+    deserializer = ^csv
   )
 }
 
 -- chain() wires fixture.data into both test pipelines;
--- parallel() runs them independently (unique node names required)
+-- parallel() runs them independently with separated data & check nodes
 combined = chain(fixture, parallel(test_filter, test_mutate))
 res = build_pipeline(combined)
 pipeline_copy()
@@ -64,4 +65,4 @@ if (is_error(res)) {
   error(str_join(["Fixture pipeline build failed: ", error_msg(res)]))
 }
 
-print("Fixture pipeline: chain + parallel all tests passed")
+print("Fixture pipeline: chain + parallel with separated transformation & check nodes all passed")

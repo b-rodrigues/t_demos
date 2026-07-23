@@ -128,27 +128,41 @@ fixture = pipeline {
 }
 
 test_filter = pipeline {
+  filtered_data = node(
+    command = data |> filter($score >= 88),
+    serializer = ^csv,
+    deserializer = ^csv
+  )
   check_filter = node(
     command = {
-      result = data |> filter($score >= 88)
-      assert(expect_nrow(result, 2))
+      assert(expect_nrow(filtered_data, 2))
+      assert(expect_colnames(filtered_data, ["name", "score", "grade"]))
+      "check_filter passed"
     },
-    serializer = ^csv
+    serializer = ^text,
+    deserializer = ^csv
   )
 }
 
 test_mutate = pipeline {
+  mutated_data = node(
+    command = data |> mutate($pass = $score >= 70),
+    serializer = ^csv,
+    deserializer = ^csv
+  )
   check_mutate = node(
     command = {
-      result = data |> mutate($pass = $score >= 70)
-      assert(expect_in("pass", colnames(result)))
+      assert(expect_in("pass", colnames(mutated_data)))
+      assert(expect_nrow(mutated_data |> filter($pass == true), 4))
+      "check_mutate passed"
     },
-    serializer = ^csv
+    serializer = ^text,
+    deserializer = ^csv
   )
 }
 
 -- chain() wires fixture.data into both pipelines;
--- parallel() runs them independently (unique node names required)
+-- parallel() runs them independently with separated data & check nodes
 combined = chain(fixture, parallel(test_filter, test_mutate))
 build_pipeline(combined)
 ```
