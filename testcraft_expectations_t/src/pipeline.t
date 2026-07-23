@@ -6,14 +6,14 @@
 p = pipeline {
   raw_data = to_dataframe([id: [1, 2, 3, 4], val: [10.5, 20.0, 30.5, 40.0]])
 
-  -- Check raw dataset properties inline
+  -- Check raw dataset properties inline (returns JSON dictionary of assertion statuses)
   check_raw = node(
-    command = {
-      assert(expect_nrow(raw_data, 4))
-      assert(expect_ncol(raw_data, 2))
-      assert(expect_colnames(raw_data, ["id", "val"]))
-    },
-    runtime = T
+    command = [
+      nrow_check: assert(expect_nrow(raw_data, 4)),
+      ncol_check: assert(expect_ncol(raw_data, 2)),
+      colnames_check: assert(expect_colnames(raw_data, ["id", "val"]))
+    ],
+    serializer = ^json
   )
 
   -- Transform data in T
