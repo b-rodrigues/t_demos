@@ -11,7 +11,8 @@ p = pipeline {
     command = [
       nrow_check: assert(expect_nrow(raw_data, 4)),
       ncol_check: assert(expect_ncol(raw_data, 2)),
-      colnames_check: assert(expect_colnames(raw_data, ["id", "val"]))
+      colnames_check: assert(expect_colnames(raw_data, ["id", "val"])),
+      no_na_check: assert(expect_no_na(raw_data, "val"))
     ],
     serializer = ^json
   )
@@ -52,6 +53,7 @@ check(expect_gt(10, 5))
 check(expect_gte(10, 10))
 check(expect_lt(5, 10))
 check(expect_lte(5, 5))
+check(expect_between(25.0, 10.0, 50.0))
 
 -- 5. Equality & Meta Expectations
 print("=== Testing Equality & Meta Expectations ===")
@@ -72,6 +74,7 @@ check(expect_falsy(false))
 check(expect_type(42, "Int"))
 check(expect_type(to_dataframe([a: [1]]), "DataFrame"))
 check(expect_length([1, 2, 3, 4], 4))
+check(expect_empty([]))
 
 -- 7. Data Structure & Field Expectations
 print("=== Testing Data Structure Expectations ===")
@@ -79,7 +82,22 @@ dict_val = [a: 100, b: 200]
 check(expect_fields(dict_val, ["a", "b"]))
 check(expect_in(20, [10, 20, 30]))
 check(expect_in("b", ["a", "b", "c"]))
+check(expect_set_equal([1, 2, 3], [3, 2, 1]))
 
--- 8. Condition & Error Expectations
+-- 8. String Pattern Expectations
+print("=== Testing String Expectations ===")
+check(expect_match("user@example.com", ".*@.*"))
+check(expect_str_contains("hello world", "world"))
+
+-- 9. Condition & Error Expectations
 print("=== Testing Condition & Error Expectations ===")
 check(expect_error(error("Sample test failure"), class = "GenericError"))
+
+-- 10. Expectation Summary Reporting
+print("=== Testing Expectation Summary ===")
+summary_df = expect_summary([
+  c1: expect_equal(1, 1),
+  c2: expect_equal(2, 2)
+])
+check(expect_nrow(summary_df, 2))
+check(expect_colnames(summary_df, ["check", "status", "message"]))
