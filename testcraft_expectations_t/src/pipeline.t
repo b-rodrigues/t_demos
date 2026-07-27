@@ -17,6 +17,17 @@ p = pipeline {
     serializer = ^json
   )
 
+  -- Node with explicit serializer and deserializer for testing
+  roundtrip = node(
+    command = raw_data,
+    serializer = ^csv,
+    deserializer = ^csv
+  )
+
+  -- Node that triggers NAExcluded warning (filter on NA predicate)
+  na_data = to_dataframe([x: [1, 2, 3, 4], y: [10, na(), 30, na()]])
+  na_filtered = na_data |> filter($y > 15)
+
   -- Transform data in T
   processed = raw_data |> filter($val > 15.0)
 
@@ -39,11 +50,14 @@ if (is_error(p.check_raw)) {
 -- 3. Pipeline DAG Expectations
 print("=== Testing Pipeline DAG Expectations ===")
 check(expect_pipeline(p))
-check(expect_nodes(p, ["raw_data", "check_raw", "processed", "branch_data", "branch_data_branch_1", "branch_data_branch_2", "branch_data_branch_3", "branch_data_branch_4"]))
+check(expect_nodes(p, ["raw_data", "check_raw", "roundtrip", "na_data", "na_filtered", "processed", "branch_data", "branch_data_branch_1", "branch_data_branch_2", "branch_data_branch_3", "branch_data_branch_4"]))
 check(expect_dependency(p, "raw_data", "check_raw"))
 check(expect_dependency(p, "raw_data", "processed"))
 check(expect_has_pattern(p, "branch_data"))
 check(expect_runtime(p, "processed", "T"))
+check(expect_serializer(p, "check_raw", ^json))
+check(expect_serializer(p, "roundtrip", ^csv))
+check(expect_deserializer(p, "roundtrip", ^csv))
 check(expect_noop(p, "processed", false))
 check(expect_computed(p.processed))
 
@@ -91,6 +105,8 @@ check(expect_column_types(raw_df, [id: "Int", val: "Float"]))
 check(expect_values(raw_df, "id", [1, 2, 3, 4]))
 check(expect_range(raw_df, "val", 5.0, 45.0))
 check(expect_table_equal(raw_df, raw_df))
+check(expect_has_colnames(raw_df, ["id"]))
+check(expect_unique([1, 2, 3, 4]))
 
 -- 9. String Pattern Expectations
 print("=== Testing String Expectations ===")
@@ -100,6 +116,9 @@ check(expect_str_contains("hello world", "world"))
 -- 9. Condition & Error Expectations
 print("=== Testing Condition & Error Expectations ===")
 check(expect_error(error("Sample test failure"), class = "GenericError"))
+check(expect_warning(read_node(p.na_filtered)))
+check(expect_warning(read_node(p.na_filtered), kind = "NAExcluded"))
+check(expect_warning(read_node(p.na_filtered), message = "excluded.*NA"))
 
 -- 10. Expectation Summary Reporting
 print("=== Testing Expectation Summary ===")
