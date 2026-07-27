@@ -1,11 +1,11 @@
 import chrono
 
-csv_text = str_join(
+csv_text = str_join([
     "id;quoted;all_na;date_str\n",
     "1;\"alpha,beta\";;2024-01-31\n",
     "2;\"two words\";;2024-02-29\n",
     "3;\"say \"\"hello\"\"\";;2024-03-31\n"
-)
+], "")
 
 write_text("arrow_disable_arrow.csv", csv_text)
 

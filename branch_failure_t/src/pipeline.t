@@ -87,25 +87,26 @@ if (is_error(res)) {
   failed_count = length(res.failed_nodes)
   assert(failed_count >= 1, str_join(["Expected at least 1 failed node, got ", failed_count], ""))
 
-  -- errored_nodes also works on success path
-  errors = errored_nodes(p)
-  assert(length(errors) == 1, str_join(["Expected 1 errored node, got ", length(errors)], ""))
+  -- Build log should show all branch entries including the failed one
+  log_frame = build_log_to_frame(res)
+  assert(nrow(log_frame) == 3, str_join(["Expected 3 log entries, got ", nrow(log_frame)], ""))
 
-  first_error = errors |> head(1)
-  error_message = error_msg(first_error)
+  -- Filter to failed branches in the log
+  failed_branches = filter(log_frame, \(r) starts_with(r.name, "results_branch") && !is_na(r.error))
+  assert(nrow(failed_branches) == 1, str_join(["Expected 1 failed branch, got ", nrow(failed_branches)], ""))
+
+  -- Verify the error message is informative
+  error_message = error_msg(failed_branches |> head(1))
   print(str_join(["Error message: ", error_message], ""))
+  assert(contains(error_message, "results_branch_2") || contains(error_message, "results_branch"),
+    str_join(["Expected error message to contain branch name, got: ", error_message], ""))
   assert(contains(error_message, "intentional branch failure"),
-    str_join(["Expected error to mention cause, got: ", error_message], ""))
-  print("✓ error diagnostics: 1 failed node, informative message")
+    str_join(["Expected error message to mention cause, got: ", error_message], ""))
+  print("✓ error diagnostics: 1 failed branch, informative message")
 
   -- Successful branches should be readable
   branch1 = read_node(p.results_branch_1)
   assert(branch1 == 20, str_join(["Expected branch 1 to be 20, got ", branch1], ""))
-
-  -- Build log should show 3 entries
-  log_frame = build_log_to_frame(res)
-  assert(nrow(log_frame) == 3, str_join(["Expected 3 log entries, got ", nrow(log_frame)], ""))
-  print("✓ successful branches readable, build log shows 3 entries")
 }
 
 print("")

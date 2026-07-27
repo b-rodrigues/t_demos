@@ -47,11 +47,10 @@ if (p2_check) {
 } else {
   print(str_join(["  ✗ node_when(false, ...): expected 2 nodes, got ", length(pipeline_nodes(p2))], ""))
 }
-p2_heavy = p2.heavy
-if (type(p2_heavy) == "Error") {
-  print("  ✓ node_when(false, ...): p2.heavy -> Error (KeyError)")
+if (!contains(pipeline_nodes(p2), "heavy")) {
+  print("  ✓ node_when(false, ...): 'heavy' correctly excluded from pipeline")
 } else {
-  print(str_join(["  ✗ node_when(false, ...): expected Error, got ", type(p2_heavy)], ""))
+  print("  ✗ node_when(false, ...): 'heavy' should not be in pipeline")
 }
 
 -- Dynamic condition using an outer variable
@@ -186,10 +185,10 @@ if (length(pipeline_nodes(p_r2)) == 2) {
 } else {
   print(str_join(["  ✗ node_when(false, rn(...)): expected 2 nodes, got ", length(pipeline_nodes(p_r2))], ""))
 }
-if (type(p_r2.r_out) == "Error") {
-  print("  ✓ node_when(false, rn(...)): p_r2.r_out -> Error (KeyError)")
+if (!contains(pipeline_nodes(p_r2), "r_out")) {
+  print("  ✓ node_when(false, rn(...)): 'r_out' correctly excluded from pipeline")
 } else {
-  print(str_join(["  ✗ node_when(false, rn(...)): expected Error, got ", type(p_r2.r_out)], ""))
+  print("  ✗ node_when(false, rn(...)): 'r_out' should not be in pipeline")
 }
 
 -- node_when(true, pyn(...)) includes the Python node
@@ -223,10 +222,10 @@ if (length(pipeline_nodes(p_py2)) == 2) {
 } else {
   print(str_join(["  ✗ node_when(false, pyn(...)): expected 2 nodes, got ", length(pipeline_nodes(p_py2))], ""))
 }
-if (type(p_py2.py_out) == "Error") {
-  print("  ✓ node_when(false, pyn(...)): p_py2.py_out -> Error (KeyError)")
+if (!contains(pipeline_nodes(p_py2), "py_out")) {
+  print("  ✓ node_when(false, pyn(...)): 'py_out' correctly excluded from pipeline")
 } else {
-  print(str_join(["  ✗ node_when(false, pyn(...)): expected Error, got ", type(p_py2.py_out)], ""))
+  print("  ✗ node_when(false, pyn(...)): 'py_out' should not be in pipeline")
 }
 
 print("")

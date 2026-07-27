@@ -20,7 +20,7 @@ p = pipeline {
 nodes = pipeline_nodes(p)
 expected_nodes = ["a", "aa", "a_b", "result_branch_1", "result_branch_2"]
 assert(nodes == expected_nodes,
-  str_join(["pipeline_nodes: expected ", str(expected_nodes), ", got ", str(nodes)], ""))
+  str_join(["pipeline_nodes: expected ", to_string(expected_nodes), ", got ", to_string(nodes)], ""))
 
 -- Dot access lazily returns a computed node
 b1_type = type(p.result_branch_1)
@@ -30,7 +30,7 @@ assert(b1_type == "ComputedNode",
 -- read_node on patterned node gives helpful error
 err = read_node(p.result)
 assert(is_error(err), "read_node(p.result) should return an error before building")
-err_str = str(err)
+err_str = to_string(err)
 assert(contains(err_str, "result_branch_1"),
   "read_node error should list available branch names")
 assert(contains(err_str, "result_branch_2"),
