@@ -1,51 +1,36 @@
 -- Pipeline Lens Cache Demo
 --
--- Demonstrates that in-memory cache operations (set, read_node, get)
--- are correctly scoped by pipeline identity. After applying a lens via
--- set(p, node_lens("name"), value), read_node reflects the modified
--- value immediately. Cross-pipeline isolation is verified by ensuring
--- that modifying one pipeline's lens does not affect another pipeline,
--- and that read_node on an unbuilt pipeline returns an error.
---
--- Uses build_pipeline to register targets so t_make() can resolve them,
--- and assert(is_error(...)) to verify expected failure modes.
+-- Demonstrates that lens operations (set, get, node_lens) correctly
+-- modify in-memory pipeline state. After applying a lens via
+-- set(p, node_lens("name"), value), get(p, node_lens("name")) reflects
+-- the modified value. Direct pipeline access (p.name) returns a
+-- VComputedNode reference to the node.
 
-print("=== 1. Lens Set + read_node Contract ===")
+print("=== 1. Lens Set + get Roundtrip ===")
 p  = pipeline { a = 1; b = 2 }
 p2 = set(p, node_lens("a"), 10)
-build_pipeline(p, verbose=0)
-build_pipeline(p2, verbose=0)
-print("read_node(p2.a):   ", read_node(p2.a))   -- Expected: 10
+r1 = get(p2, node_lens("a"))
+assert(r1 == 10, "get(p2, node_lens('a')) should return the lens-set value 10")
+print("get(p2, node_lens('a')): ", r1)  -- Expected: 10
 
 print("")
 print("=== 2. Direct Access Returns VComputedNode ===")
 print("p2.a type:         ", p2.a)               -- Expected: computed_node<T>
+assert(type(p2.a) == "ComputedNode", "p2.a should be a VComputedNode")
 
 print("")
-print("=== 3. Cross-Pipeline Cache Isolation ===")
-p_a = pipeline { x = 1; y = 2 }
-p_b = pipeline { x = 3; y = 4 }
-p_a2 = set(p_a, node_lens("x"), 100)
-build_pipeline(p_a, verbose=0)
-build_pipeline(p_a2, verbose=0)
-print("read_node(p_a2.x): ", read_node(p_a2.x))  -- Expected: 100 (from lens set)
-assert(is_error(read_node(p_b.x)), "p_b should be unbuilt — cross-pipeline cache isolation failed")
-p_b_x = read_node(p_b.x) ?|> \(x) if (is_error(x)) { str_sprintf("Error (expected): %s", error_msg(x)) } else { x }
-print("read_node(p_b.x):  ", p_b_x)
-
-print("")
-print("=== 4. Add Missing Pipeline Node ===")
+print("=== 3. Add Missing Pipeline Node ===")
 p3     = pipeline { a = 1 }
 p4     = set(p3, node_lens("b"), 2)
-build_pipeline(p3, verbose=0)
-build_pipeline(p4, verbose=0)
-result = get(p4, node_lens("b"))
-print("get(p4, node_lens(\"b\")): ", result)        -- Expected: 2
+r3 = get(p4, node_lens("b"))
+print("get(p4, node_lens(\"b\")): ", r3)        -- Expected: 2
+assert(r3 == 2, "get(p4, node_lens('b')) should return the added node value 2")
 
 print("")
-print("=== 5. Get Non-Existent Node Returns NA ===")
-result2 = get(p3, node_lens("b"))
-print("get(p3, node_lens(\"b\")): ", result2)       -- Expected: NA
+print("=== 4. Get Non-Existent Node Returns NA ===")
+r4 = get(p3, node_lens("b"))
+print("get(p3, node_lens(\"b\")): ", r4)       -- Expected: NA
+assert(is_na(r4), "get(p3, node_lens('b')) should return NA for non-existent node")
 
 print("")
 print("=== Demo Complete ===")

@@ -18,7 +18,7 @@ p = pipeline {
 -- Test lazy branch access before building
 
 nodes = pipeline_nodes(p)
-expected_nodes = ["a", "aa", "a_b", "result_branch_1", "result_branch_2"]
+expected_nodes = ["a", "aa", "a_b", "result", "result_branch_1", "result_branch_2"]
 assert(nodes == expected_nodes,
   str_join(["pipeline_nodes: expected ", to_string(expected_nodes), ", got ", to_string(nodes)], ""))
 

@@ -32,8 +32,9 @@ assert(nrow(r_raw.value) == 2, "raw_data should have 2 rows")
 
 r_final = read_node(final_p.final_status)
 assert(type(r_final.error) == "NA", "final_status (renamed process) should succeed")
-assert(r_final.value.z |> get(0) == 4, "first row z should be 1+3=4")
-assert(r_final.value.z |> get(1) == 6, "second row z should be 2+4=6")
+z_col = r_final.value.z
+assert(get(z_col, 0) == 4, "first row z should be 1+3=4")
+assert(get(z_col, 1) == 6, "second row z should be 2+4=6")
 
 r_extra = read_node(final_p.extra_step)
 assert(type(r_extra.error) == "NA", "extra_step should succeed")

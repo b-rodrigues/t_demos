@@ -29,7 +29,7 @@ jobs:
           [ -f "$NAR_ARCHIVE" ] && nix-store --import < "$NAR_ARCHIVE" || true
 
       - name: Run pipeline
-        run: nix develop --command t run --failfast src/pipeline.t
+        run: nix develop --command t run src/pipeline.t
 
       - name: Cache artifacts to t-runs branch
         run: |

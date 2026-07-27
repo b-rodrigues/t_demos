@@ -37,9 +37,12 @@ populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
 
 -- Node correctness assertions
-assert(type(p.mtcars) == "DataFrame", "mtcars should be a DataFrame")
-assert(type(p.filtered_mtcars) == "DataFrame", "filtered_mtcars should be a DataFrame")
-assert(type(p.mtcars_mpg) == "DataFrame", "mtcars_mpg should be a DataFrame")
+r_mtcars = read_node(p.mtcars)
+assert(type(r_mtcars) == "DataFrame", "mtcars should be a DataFrame")
+r_filtered = read_node(p.filtered_mtcars)
+assert(type(r_filtered) == "DataFrame", "filtered_mtcars should be a DataFrame")
+r_mpg = read_node(p.mtcars_mpg)
+assert(type(r_mpg) == "DataFrame", "mtcars_mpg should be a DataFrame")
 
 r_awk = read_node(p.awk_node)
 assert(type(r_awk.error) == "NA", "awk_node (shell) should succeed")

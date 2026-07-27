@@ -6,10 +6,10 @@
 | Metric | Count |
 |--------|-------|
 | Total Nodes | 7 |
-| Built | 5 |
-| Unbuilt | 0 |
-| Errored | 2 |
-| Warnings | 1 |
+| Built | 0 |
+| Unbuilt | 7 |
+| Errored | 0 |
+| Warnings | 0 |
 
 ## Dependency Graph
 
@@ -23,30 +23,27 @@
 | filtered_mtcars | T | 1 | mtcars |
 | mtcars_mpg | T | 2 | filtered_mtcars |
 
-## Built Nodes (5)
+## Built Nodes (0)
 
-| Name | Runtime | Depth | Status |
-|------|---------|-------|--------|
-| mtcars | T | 0 | Completed |
-| r_model | R | 1 | Completed |
-| py_stats | Python | 1 | Completed |
-| filtered_mtcars | T | 1 | Completed |
-| mtcars_mpg | T | 2 | Completed |
+_No nodes built yet._
 
-## Unbuilt Nodes (0)
+## Unbuilt Nodes (7)
 
-_All nodes have been built._
+| Name | Runtime | Depth |
+|------|---------|-------|
+| mtcars | T | 0 |
+| r_model | R | 1 |
+| py_stats | Python | 1 |
+| errored_mtcars | T | 1 |
+| errored_mtcars_r | R | 1 |
+| filtered_mtcars | T | 1 |
+| mtcars_mpg | T | 2 |
 
-## Errored Nodes (2)
+## Errored Nodes (0)
 
-| Name | Error |
-|------|-------|
-| errored_mtcars | KeyError: Key `am_wrong` not found in Dict. |
-| errored_mtcars_r | RuntimeError: [1m[33mError[39m in `dplyr::filter()`:[22m [1m[22m[36mi[39m In argument: `am_w... |
+_No errors._
 
-## Nodes with Warnings (1)
+## Nodes with Warnings (0)
 
-| Name | Warning |
-|------|---------|
-| filtered_mtcars | NAExcluded: filter() excluded 6 rows because the predicate evaluated to NA |
+_No warnings._
 

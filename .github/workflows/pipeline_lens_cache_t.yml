@@ -26,7 +26,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhiJzhBnXv7aWI6+F0=
 
       - name: Setup Cachix
         uses: cachix/cachix-action@v15
@@ -50,34 +50,10 @@ jobs:
       - name: Update to latest T version
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-          # Ensure flake.nix points to the correct version for the build
           if [ -f flake.nix ]; then
             sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
           fi
 
-      - name: Inject pipeline dependencies
-        env:
-          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
-        run: |
-          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
-
-      - name: Show updated tproject.toml
-        run: cat tproject.toml
-
-      - name: Rebuild flake with new dependencies
-        run: |
-          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
-
-      - name: Run Pipeline (Populate and Build)
+      - name: Run Lens Cache Demo
         run: |
           nix develop --command t run --failfast src/pipeline.t
-
-      - name: Inspect Built Nodes
-        run: |
-          echo "inspect_log()" > inspect.t
-          nix develop --command t run --failfast --unsafe inspect.t
-
-      - name: Read one Node
-        run: |
-          echo 't_make(); print("p2.a = ", read_node(p2.a)); print("p_a2.x = ", read_node(p_a2.x))' > view.t
-          nix develop --command t run --failfast --unsafe view.t

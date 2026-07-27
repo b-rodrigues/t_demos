@@ -25,7 +25,7 @@ print(plan1.action)
 
 -- Verify dry run returns a DataFrame with expected columns
 assert(type(plan1) == "DataFrame", "dry_run should return a DataFrame")
-assert(identical(colnames(plan1), ["node", "action"]), "dry_run plan should have 'node' and 'action' columns")
+assert(identical(colnames(plan1), ["node", "action", "store_path"]), "dry_run plan should have 'node', 'action', and 'store_path' columns")
 assert(nrow(plan1) == 3, "dry_run plan should have 3 rows for 3 nodes")
 
 -- Verify all actions in plan1 are "rebuild" (fresh pipeline, never built)

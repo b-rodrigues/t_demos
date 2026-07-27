@@ -37,9 +37,9 @@ print("map_pattern → 9 ggplot branches")
 nodes = pipeline_nodes(p)
 assert(length(nodes) == 22,
   str_join(["Expected 22 nodes (4 base + 9 points branches + 9 single_plot branches), got ", length(nodes)], ""))
-assert(contains(str(nodes), "points_branch_1"),
+assert(contains(to_string(nodes), "points_branch_1"),
   "pipeline_nodes should contain points_branch_1")
-assert(contains(str(nodes), "points_branch_9"),
+assert(contains(to_string(nodes), "points_branch_9"),
   "pipeline_nodes should contain points_branch_9")
 
 -- inspect_pipeline shows branch rows pre-build
