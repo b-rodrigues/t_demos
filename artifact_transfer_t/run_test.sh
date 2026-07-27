@@ -9,7 +9,7 @@ echo "=== Initializing and building pipeline with sleep 20 ==="
 sed -i 's/sleep [0-9]\+ && echo "Node 2"/sleep 20 \&\& echo "Node 2"/' src/pipeline_def.t
 
 # Build and export cache
-nix develop --command t run --unsafe src/export.t
+nix develop --command t run --failfast --unsafe src/export.t
 
 # Clear Nix store
 echo "=== Running Nix Garbage Collector ==="
@@ -22,7 +22,7 @@ sed -i 's/sleep [0-9]\+ && echo "Node 2"/sleep 1 \&\& echo "Node 2"/' src/pipeli
 # Measure Scenario A: Rebuild without cache import
 echo "=== SCENARIO A: Rebuild WITHOUT cache import ==="
 START_A=$(date +%s)
-nix develop --command t run --unsafe src/build_only.t
+nix develop --command t run --failfast --unsafe src/build_only.t
 END_A=$(date +%s)
 DURATION_A=$((END_A - START_A))
 echo "Scenario A took: ${DURATION_A} seconds"
@@ -34,7 +34,7 @@ nix-store --gc
 # Measure Scenario B: Rebuild WITH cache import
 echo "=== SCENARIO B: Rebuild WITH cache import ==="
 START_B=$(date +%s)
-nix develop --command t run --unsafe src/import.t
+nix develop --command t run --failfast --unsafe src/import.t
 END_B=$(date +%s)
 DURATION_B=$((END_B - START_B))
 echo "Scenario B took: ${DURATION_B} seconds"
@@ -52,6 +52,6 @@ fi
 
 echo ""
 echo "=== SCENARIO C: Run Granular, Variadic, and Introspection Demo Test ==="
-nix develop --command t run --unsafe src/granular_test.t
+nix develop --command t run --failfast --unsafe src/granular_test.t
 echo "SUCCESS: All scenarios completed successfully!"
 

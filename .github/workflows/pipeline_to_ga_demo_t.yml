@@ -69,7 +69,7 @@ jobs:
 
       - name: Run Pipeline (Populate and Build)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Compare generated workflow against snapshot
         run: |

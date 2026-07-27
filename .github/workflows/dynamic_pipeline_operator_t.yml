@@ -70,14 +70,14 @@ jobs:
 
       - name: Run Pipeline (Populate and Build)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Inspect Dynamic DAG
         run: |
           echo "inspect_log()" > inspect.t
-          nix develop --command t run --unsafe inspect.t
+          nix develop --command t run --failfast --unsafe inspect.t
 
       - name: Verify Dynamic Renaming
         run: |
           echo "t_make(); read_node(final_p.final_status) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t

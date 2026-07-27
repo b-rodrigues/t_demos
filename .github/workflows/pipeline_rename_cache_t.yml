@@ -70,14 +70,14 @@ jobs:
 
       - name: Run Pipeline (Populate and Build)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Inspect Built Nodes
         run: |
           echo "inspect_log()" > inspect.t
-          nix develop --command t run --unsafe inspect.t
+          nix develop --command t run --failfast --unsafe inspect.t
 
       - name: Read one Node
         run: |
           echo 't_make(); print("p2.a = ", read_node(p2.a)); print("p3.a_v2 = ", read_node(p3.a_v2))' > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t

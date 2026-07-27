@@ -131,7 +131,7 @@ jobs:
           sudo chmod +x /tmp/ssh-wrapper
           sudo mv /tmp/ssh-wrapper /usr/bin/ssh
 
-          nix develop --command bash -lc "export NIX_CONFIG='max-jobs = 0'; t run src/pipeline.t"
+          nix develop --command bash -lc "export NIX_CONFIG='max-jobs = 0'; t run --failfast src/pipeline.t"
 
           echo "=== SSH wrapper log ==="
           cat "$SSH_WRAPPER_LOG"

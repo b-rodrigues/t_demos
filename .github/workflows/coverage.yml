@@ -95,7 +95,7 @@ jobs:
               # 3. Actual coverage run — use instrumented binary
               if ! nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
                     --accept-flake-config \
-                    --command t run --unsafe "$script_path"
+                    --command t run --failfast --unsafe "$script_path"
               then
                 echo "Coverage run failed for $script_path (continuing)"
               fi
@@ -116,7 +116,7 @@ jobs:
             TLANG_DISABLE_ARROW=1 \
               nix shell "github:$TLANG_REPO/$TLANG_SHA#t-coverage" \
                 --accept-flake-config \
-                --command t run --unsafe src/fallback.t
+                --command t run --failfast --unsafe src/fallback.t
           ) || echo "Arrow fallback validation failed for ./arrow_edge_cases_t/src/fallback.t (continuing)"
 
           echo "Coverage files collected:"

@@ -69,11 +69,11 @@ jobs:
 
       - name: Run normal Arrow demo
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Run Arrow-disabled fallback script
         env:
           TLANG_DISABLE_ARROW: "1"
         run: |
-          nix develop --command t run --unsafe src/fallback.t
+          nix develop --command t run --failfast --unsafe src/fallback.t
 

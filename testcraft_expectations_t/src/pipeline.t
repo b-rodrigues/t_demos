@@ -124,6 +124,7 @@ check(expect_warning(read_node(p.na_filtered), message = "excluded.*NA"))
 print("=== Testing Expectation Summary ===")
 summary_df = expect_summary([
   c1: expect_equal(1, 1),
+  ca: expect_equal(1, 3),
   c2: expect_equal(2, 2)
 ])
 check(expect_nrow(summary_df, 2))

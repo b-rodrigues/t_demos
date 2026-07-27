@@ -70,19 +70,19 @@ jobs:
 
       - name: Run Pipeline (Populate and Build)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Inspect Built Nodes
         run: |
           echo "inspect_log()" > inspect.t
-          nix develop --command t run --unsafe inspect.t
+          nix develop --command t run --failfast --unsafe inspect.t
 
       - name: Read Recovered Node (match)
         run: |
           echo "t_make(); explain(read_node(p.recovered_with_match))" > view_recovered.t
-          nix develop --command t run --unsafe view_recovered.t
+          nix develop --command t run --failfast --unsafe view_recovered.t
 
       - name: Read Recovered Node (maybe-pipe)
         run: |
           echo "t_make(); explain(read_node(p.recovered_with_maybe_pipe))" > view_maybe.t
-          nix develop --command t run --unsafe view_maybe.t
+          nix develop --command t run --failfast --unsafe view_maybe.t

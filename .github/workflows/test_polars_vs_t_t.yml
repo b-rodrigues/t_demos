@@ -25,5 +25,5 @@ jobs:
         nix shell github:b-rodrigues/tlang/v0.51.4#tlang --command bash -c "
           cd polars_vs_t_t
           t update
-          t run src/pipeline.t
+          t run --failfast src/pipeline.t
         "

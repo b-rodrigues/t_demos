@@ -83,7 +83,7 @@ jobs:
           assert(t_ok_res.value == 99, str_join(["t_ok should be 99, got: ", t_ok_res.value], ""))
           print("+ in-memory diagnostics: ok")
           EOF
-          nix develop --command t run --unsafe verify_diag.t
+          nix develop --command t run --failfast --unsafe verify_diag.t
 
       - name: Test t explain --json --node p.r_err
         working-directory: ./explain_node_test_t

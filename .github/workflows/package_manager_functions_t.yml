@@ -58,4 +58,4 @@ jobs:
 
       - name: Run package manager demo
         run: |
-          nix develop --command t run --unsafe src/pipeline.t
+          nix develop --command t run --failfast --unsafe src/pipeline.t

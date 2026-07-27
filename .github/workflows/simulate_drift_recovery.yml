@@ -29,7 +29,7 @@ jobs:
       working-directory: ./drift_guardrail_t
       run: |
         echo "Starting initial run with threshold 15.0..."
-        nix develop --command t run src/pipeline.t --unsafe
+        nix develop --command t run --failfast src/pipeline.t --unsafe
 
     - name: 2. Trigger Guardrail Failure (Set threshold to 2.0)
       working-directory: ./drift_guardrail_t
@@ -44,13 +44,13 @@ jobs:
       continue-on-error: true
       run: |
         echo "Running pipeline with tight threshold..."
-        nix develop --command t run src/pipeline.t --unsafe
+        nix develop --command t run --failfast src/pipeline.t --unsafe
 
     - name: 4. Inspect Failure (Verify Guardrail Triggered)
       working-directory: ./drift_guardrail_t
       run: |
         echo "Verifying guardrail failure..."
-        nix develop --command t run --expr "import 'src/pipeline.t'; node_res = read_node(p.drift_guardrail); if (is_error(node_res)) { print('✓ Guardrail failure detected:'); print(error_message(node_res)) } else { print('✖ FAILURE: Guardrail did not trigger!'); exit(1) }"
+        nix develop --command t run --failfast --expr "import 'src/pipeline.t'; node_res = read_node(p.drift_guardrail); if (is_error(node_res)) { print('✓ Guardrail failure detected:'); print(error_message(node_res)) } else { print('✖ FAILURE: Guardrail did not trigger!'); exit(1) }"
 
     - name: 5. Recovery - Adjust Threshold (Policy Update)
       working-directory: ./drift_guardrail_t
@@ -63,5 +63,5 @@ jobs:
       working-directory: ./drift_guardrail_t
       run: |
         echo "Verifying recovery..."
-        nix develop --command t run src/pipeline.t --unsafe
-        nix develop --command t run --expr "import 'src/pipeline.t'; node_res = read_node(p.drift_guardrail); if (is_error(node_res)) { print('✖ FAILURE: Guardrail failed after recovery!'); print(error_message(node_res)); exit(1) } else { print('✓ Recovery successful: Guardrail passed.') }"
+        nix develop --command t run --failfast src/pipeline.t --unsafe
+        nix develop --command t run --failfast --expr "import 'src/pipeline.t'; node_res = read_node(p.drift_guardrail); if (is_error(node_res)) { print('✖ FAILURE: Guardrail failed after recovery!'); print(error_message(node_res)); exit(1) } else { print('✓ Recovery successful: Guardrail passed.') }"

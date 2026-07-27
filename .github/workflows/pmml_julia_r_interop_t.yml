@@ -63,14 +63,14 @@ jobs:
 
       - name: Run Pipeline
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Verify Model
         run: |
           echo "t_make(); read_node(p.model_jl) |> print" > verify-model.t
-          nix develop --command t run --unsafe verify-model.t
+          nix develop --command t run --failfast --unsafe verify-model.t
 
       - name: Verify Numerical Parity
         run: |
           echo "read_log('verify_node')" > verify.t
-          nix develop --command t run --unsafe verify.t
+          nix develop --command t run --failfast --unsafe verify.t

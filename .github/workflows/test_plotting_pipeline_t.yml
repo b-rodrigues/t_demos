@@ -63,7 +63,7 @@ jobs:
       - name: Run Full Pipeline
         working-directory: ./plotting_pipeline_t
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Upload Plot Artifacts
         if: always()

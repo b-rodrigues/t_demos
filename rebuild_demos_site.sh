@@ -64,7 +64,7 @@ for demo_dir in */; do
         nix shell github:b-rodrigues/tlang/main --command t update
         sed -i 's|t-lang.url = "github:b-rodrigues/tlang/.*";|t-lang.url = "github:b-rodrigues/tlang/main";|' flake.nix
 
-        nix develop --command t run --unsafe "$ABS_ENTRY"
+        nix develop --command t run --failfast --unsafe "$ABS_ENTRY"
         
         # 3. Extract metadata from tproject.toml
         description=$(grep "^description =" tproject.toml | head -n 1 | sed 's/description = "//;s/"$//')

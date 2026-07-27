@@ -70,19 +70,19 @@ jobs:
 
       - name: Run Pipeline (Populate and Build)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Inspect Built Nodes
         run: |
           echo "inspect_log()" > inspect.t
-          nix develop --command t run --unsafe inspect.t
+          nix develop --command t run --failfast --unsafe inspect.t
 
       - name: Verify R Env Vars
         run: |
           echo "t_make(); read_node(p.r_node) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
       
       - name: Verify Python Env Vars
         run: |
           echo "t_make(); read_node(p.py_node) |> print" > view_py.t
-          nix develop --command t run --unsafe view_py.t
+          nix develop --command t run --failfast --unsafe view_py.t

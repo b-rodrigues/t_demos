@@ -52,4 +52,4 @@ jobs:
       - name: Run pipeline demo
         working-directory: ./per_node_flake_t
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t

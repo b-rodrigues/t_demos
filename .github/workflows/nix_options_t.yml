@@ -90,7 +90,7 @@ jobs:
           
           # Prepend mock_bin to PATH and run the pipeline
           export PATH="$(pwd)/mock_bin:$PATH"
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
           
           echo "=== nix-build Interceptor Log ==="
           cat nix-build-wrapper.log

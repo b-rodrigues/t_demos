@@ -70,87 +70,87 @@ jobs:
 
       - name: Run Pipeline (Build and Materialize)
         run: |
-          nix develop --command t run src/pipeline.t
+          nix develop --command t run --failfast src/pipeline.t
 
       - name: Inspect Built Nodes (Summary)
         run: |
           echo "inspect_log()" > inspect.t
-          nix develop --command t run --unsafe inspect.t
+          nix develop --command t run --failfast --unsafe inspect.t
 
       - name: Inspect data_t (T list)
         run: |
           echo "t_make(); read_node(p.data_t) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect df_r (R node -> Arrow -> T dataframe)
         run: |
           echo "t_make(); read_node(p.df_r) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect df_py (Python node -> Arrow -> T dataframe)
         run: |
           echo "t_make(); read_node(p.df_py) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect plot_r (R node -> ggplot object)
         run: |
           echo "t_make(); read_node(p.plot_r) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect lm_r (R node -> lm object)
         run: |
           echo "t_make(); read_node(p.lm_r) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect glm_r (R node -> glm object)
         run: |
           echo "t_make(); read_node(p.glm_r) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect lm_py (Python node -> sklearn model)
         run: |
           echo "t_make(); read_node(p.lm_py) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect logit_py (Python node -> statsmodels model)
         run: |
           echo "t_make(); read_node(p.logit_py) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect r_model_pmml (R node -> PMML)
         run: |
           echo "t_make(); read_node(p.r_model_pmml) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect pred_t_r (T node -> prediction of R model)
         run: |
           echo "t_make(); read_node(p.pred_t_r) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect py_model_pmml (Python node -> PMML)
         run: |
           echo "t_make(); read_node(p.py_model_pmml) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect pred_t_py (T node -> prediction of Python model)
         run: |
           echo "t_make(); read_node(p.pred_t_py) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect model_r_json (R node -> JSON summary)
         run: |
           echo "t_make(); read_node(p.model_r_json) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect vector_py (Python node -> JSON -> T vector)
         run: |
           echo "t_make(); read_node(p.vector_py) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Inspect res_bash (Bash node -> Text -> T string)
         run: |
           echo "t_make(); read_node(p.res_bash) |> print" > view.t
-          nix develop --command t run --unsafe view.t
+          nix develop --command t run --failfast --unsafe view.t
 
       - name: Render Quarto Report
         run: |
