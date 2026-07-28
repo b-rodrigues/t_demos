@@ -63,6 +63,8 @@ p = pipeline {
 key_l = env_var_lens("secret_node", "KEY_SCOPE")
 p_injected = p |> set(key_l, "production")
 
+populate_pipeline(p_injected, build=false)
+
 print("Injected scope to pipeline node:")
 print(get(p_injected, key_l))
 

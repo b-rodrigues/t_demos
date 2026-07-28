@@ -1,0 +1,15 @@
+[project]
+name = "lens_stress_test_t"
+description = "Stress test for all lens types, compositions, and pipeline lens operations"
+
+[dependencies]
+
+[r-dependencies]
+packages = []
+
+[py-dependencies]
+version = "python313"
+packages = []
+
+[t]
+min_version = "0.52.0"

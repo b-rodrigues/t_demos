@@ -5,7 +5,7 @@ description = "A T project demonstrating functional lenses for deep data manipul
 [dependencies]
 
 [r-dependencies]
-packages = [ "dplyr",]
+packages = [ "dplyr", "jsonlite",]
 
 [py-dependencies]
 version = "python313"
