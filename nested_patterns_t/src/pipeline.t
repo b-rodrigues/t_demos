@@ -69,7 +69,7 @@ assert(nrow(final_branches) == 6, str_join(["Expected 6 final branches, got ", n
 
 -- Verify runtime propagation (all T, the default)
 t_nodes = filter(frame, \(r) r.runtime == "T")
-assert(nrow(t_nodes) == 8, str_join(["Expected 8 nodes with runtime=T, got ", nrow(t_nodes)], ""))
+assert(nrow(t_nodes) == 10, str_join(["Expected 10 nodes with runtime=T, got ", nrow(t_nodes)], ""))
 
 -- Verify edge count
 edge_count = length(pipeline_edges(p_expanded))

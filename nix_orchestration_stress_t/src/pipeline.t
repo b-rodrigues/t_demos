@@ -52,7 +52,7 @@ print("=== Test 3: Selective build via populate_pipeline ===")
 selective_path = populate_pipeline(
   p,
   build = true,
-  targets = ["node_a"],
+  nix_options = [targets: ["node_a"]],
   verbose = 1
 )
 
