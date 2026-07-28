@@ -71,7 +71,7 @@ val6 = read_node(p6.joined)
 print(str_join(["p6.joined = \"", val6, "\""], ""))
 assert(val6 == "hello | world | from | T", "join with pipe should produce expected string")
 p6_len = read_node(p6.length)
-assert(p6_len == 21, "length of pipe-joined string should be 21")
+assert(p6_len == 24, "length of pipe-joined string should be 24")
 
 -- ============================================================
 -- 4. Composing results from parameterized pipelines

@@ -29,9 +29,8 @@ assert(identical(colnames(plan1), ["node", "action", "store_path"]), "dry_run pl
 assert(nrow(plan1) == 3, "dry_run plan should have 3 rows for 3 nodes")
 
 -- Verify all actions in plan1 are "rebuild" (fresh pipeline, never built)
-action1 = plan1.action .== "rebuild"
-all_rebuild = length(action1) == sum(action1)
-assert(all_rebuild, "fresh pipeline dry_run should show 'rebuild' for all nodes")
+rebuild_rows = filter(plan1, \(r) r.action == "rebuild")
+assert(nrow(rebuild_rows) == nrow(plan1), "fresh pipeline dry_run should show 'rebuild' for all nodes")
 
 -- 2. Build the pipeline p
 print("\n2. Building the pipeline p...")
@@ -52,9 +51,8 @@ print(plan2.action)
 
 -- Verify all actions in plan2 are "cache_hit" (p was just built)
 assert(type(plan2) == "DataFrame", "second dry_run should return a DataFrame")
-action2 = plan2.action .== "cache_hit"
-all_cache_hit = length(action2) == sum(action2)
-assert(all_cache_hit, "after build, dry_run should show 'cache_hit' for all nodes")
+cache_rows = filter(plan2, \(r) r.action == "cache_hit")
+assert(nrow(cache_rows) == nrow(plan2), "after build, dry_run should show 'cache_hit' for all nodes")
 
 -- 4. Check show_plot with a pipeline (returns HTML path)
 print("\n4. Exercising show_plot(p) on pipeline...")
