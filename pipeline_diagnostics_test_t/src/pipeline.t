@@ -95,7 +95,7 @@ assert(read_node(p_math.x) == 10, "read_node(p.x) returns 10") |> print()
 assert(read_node(p_math.total) == 30, "read_node(p.total) returns 30") |> print()
 
 -- Test: pipeline_node() gets specific node value
-node_val = pipeline_node(p_math, "total")
+node_val = read_node(pipeline_node(p_math, "total"))
 assert(node_val == 30, "pipeline_node(p, 'total') returns 30") |> print()
 
 
