@@ -81,49 +81,49 @@ populate_pipeline(p, build = true)
 nix = read_file("_pipeline/pipeline.nix")
 
 -- Verify the Nix template contains the mkNodeEnv helper function
-assert(contains(nix, "mkNodeEnv"), "Generated Nix should define mkNodeEnv function")
+assert(str_detect(nix, "mkNodeEnv"), "Generated Nix should define mkNodeEnv function")
 
 -- Verify per-flake env bindings exist for all custom flakes
-assert(contains(nix, "env_github_b_rodrigues_tlang"),
+assert(str_detect(nix, "env_github_b_rodrigues_tlang"),
        "Nix should contain env binding for github:b-rodrigues/tlang")
-assert(contains(nix, "env_github_jbedo_rshells"),
+assert(str_detect(nix, "env_github_jbedo_rshells"),
        "Nix should contain env binding for github:jbedo/rshells")
-assert(contains(nix, "env_path_test_flake"),
+assert(str_detect(nix, "env_path_test_flake"),
        "Nix should contain env binding for local path flake (path:../test_flake)")
 
 -- Verify each custom flake node uses its own env
-assert(contains(nix, "env_github_b_rodrigues_tlang.stdenv"),
+assert(str_detect(nix, "env_github_b_rodrigues_tlang.stdenv"),
        "Node b should use its own flake env (tlang)")
-assert(contains(nix, "env_github_jbedo_rshells.\"r-env\""),
+assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
        "Node c should use its own flake env (rshells)")
-assert(contains(nix, "env_path_test_flake.stdenv"),
+assert(str_detect(nix, "env_path_test_flake.stdenv"),
        "Node d should use its own flake env (path flake)")
 
 -- Verify env bindings for new per-node flakes
-assert(contains(nix, "env_github_NixOS_nixpkgs"),
+assert(str_detect(nix, "env_github_NixOS_nixpkgs"),
        "Nix should contain env binding for github:NixOS/nixpkgs (Julia node)")
-assert(contains(nix, "env_path_minimal_r_flake"),
+assert(str_detect(nix, "env_path_minimal_r_flake"),
        "Nix should contain env binding for minimal R flake (path:minimal_r_flake)")
 
 -- Verify each new node uses its own env
-assert(contains(nix, "env_github_jbedo_rshells.\"r-env\""),
+assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
        "Node f should use its own flake env (rshells)")
-assert(contains(nix, "env_path_minimal_r_flake"),
+assert(str_detect(nix, "env_path_minimal_r_flake"),
        "Node g should use its own flake env (minimal R)")
 
 -- Verify backward compat: project-level env bindings still exist
-assert(contains(nix, "projectStdenv"), "Nix should contain project-level stdenv binding")
-assert(contains(nix, "projectFlake"), "Nix should contain project-level flake binding")
+assert(str_detect(nix, "projectStdenv"), "Nix should contain project-level stdenv binding")
+assert(str_detect(nix, "projectFlake"), "Nix should contain project-level flake binding")
 
 -- Verify backward compat: alias bindings exist for project env
-assert(contains(nix, "stdenv = projectStdenv"), "Nix should alias stdenv to projectStdenv")
-assert(contains(nix, "tBin   = projectTBin"), "Nix should alias tBin to projectTBin")
+assert(str_detect(nix, "stdenv = projectStdenv"), "Nix should alias stdenv to projectStdenv")
+assert(str_detect(nix, "tBin   = projectTBin"), "Nix should alias tBin to projectTBin")
 
 -- Verify fallback logic for R-only flakes (rshells lacks t-lang infrastructure)
 -- The env should still reference projectTBin for T serialization
-assert(contains(nix, "tBin = if tlangPkgSet ? default then tlangPkgSet.default else projectTBin"),
+assert(str_detect(nix, "tBin = if tlangPkgSet ? default then tlangPkgSet.default else projectTBin"),
        "mkNodeEnv should fall back to projectTBin when flake lacks t-lang")
-assert(contains(nix, "r-env = pkgs.rWrapper.override"),
+assert(str_detect(nix, "r-env = pkgs.rWrapper.override"),
        "R env is built from the custom flake's nixpkgs")
 
 -- Now read back the computed results
@@ -155,7 +155,7 @@ print(to_string(result_g))
 assert(result_a == 15, "sum([1, 2, 3, 4, 5]) should be 15")
 assert(result_b == 4, "length([10, 20, 30, 40]) should be 4")
 assert(result_c == 20.09062, "mean(mtcars$mpg) should be 20.09062 (R's value)")
-assert(result_d == [10, 20, 30], "map(x * 10) over [1,2,3] should produce [10,20,30]")
+assert(identical(result_d, [10, 20, 30]), "map(x * 10) over [1,2,3] should produce [10,20,30]")
 assert(result_e == 3.0, "Julia sum([1..5])/len([1..5]) should be 3.0")
 
 -- Per-node flake R nodes: dplyr availability depends on project-level
@@ -163,9 +163,9 @@ assert(result_e == 3.0, "Julia sum([1..5])/len([1..5]) should be 3.0")
 -- absent from tproject.toml, both nodes should report it unavailable.
 assert(type(result_f) == "string", "Node f should return a dplyr availability string")
 assert(type(result_g) == "string", "Node g should return a dplyr availability string")
-assert(contains(result_f, "dplyr"),
+assert(str_detect(result_f, "dplyr"),
        "Node f result should mention dplyr")
-assert(contains(result_g, "dplyr"),
+assert(str_detect(result_g, "dplyr"),
        "Node g result should mention dplyr")
 
 print("✓ per_node_flake_t: all Nix verification and computation assertions passed")

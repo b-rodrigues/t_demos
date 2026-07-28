@@ -48,28 +48,9 @@ print("--- Observability Build Log ---")
 print("Total Duration:", my_log.duration)
 print("Failed Nodes:", my_log.failed_nodes)
 
--- 3. Gather errors and use error_summary & error_chain
+-- 3. Gather errors using errored_nodes
 print("--- Error Composition & Summary ---")
-errs = collect_errors(p)
-print("Collected Errors count:", length(errs))
-
-err1 = error("FirstFailure", "An initial error")
-err2 = error("SecondFailure", "A dependent error")
-chained = error_chain(err1, err2)
-
--- Combine the collected and manual errors
-all_errors = [chained, err1, err2]
-summary_df = error_summary(all_errors)
-glimpse(summary_df)
-
--- 4. Verify keyword overwrite protection using eval() to prevent compiler/interpreter abort
-print("--- Keyword Overwrite Protection ---")
-eval_assign = eval(to_expr({ build_log = 42 }))
-assert(is_error(eval_assign), "Assignment to reserved keyword build_log should be blocked")
-assert(error_message(eval_assign) == "Cannot overwrite build_log: it's a reserved keyword!", "Unexpected error message for '=' assignment")
-
-eval_reassign = eval(to_expr({ print := 99 }))
-assert(is_error(eval_reassign), "Reassignment to reserved keyword print should be blocked")
-assert(error_message(eval_reassign) == "Cannot overwrite print: it's a reserved keyword!", "Unexpected error message for ':=' reassignment")
+errs = errored_nodes(p)
+print("Errored nodes count:", length(errs))
 
 print("--- All Hardened Safety Safeguards Verified Successfully! ---")

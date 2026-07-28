@@ -43,9 +43,9 @@ print("")
 nodes = pipeline_nodes(p)
 assert(length(nodes) == 12,
   str_join(["Expected 12 nodes (4 base + 2 base_branch + 6 final_branch), got ", length(nodes)], ""))
-assert(contains(str(nodes), "final_branch_1"),
+assert(str_detect(str_join(nodes, " "), "final_branch_1"),
   "pipeline_nodes should contain final_branch_1")
-assert(contains(str(nodes), "final_branch_6"),
+assert(str_detect(str_join(nodes, " "), "final_branch_6"),
   "pipeline_nodes should contain final_branch_6")
 
 -- inspect_pipeline shows chained branches pre-build

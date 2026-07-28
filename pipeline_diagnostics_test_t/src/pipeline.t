@@ -28,22 +28,25 @@ assert(bad_res.error.kind == "DivisionByZero",
 
 -- Test: filter_node(!is_na($diagnostics.error)) returns errored nodes
 err_nodes = p_err |> filter_node(\(n) !is_na(n.diagnostics.error)) |> pipeline_nodes
-assert(length(err_nodes) == 2 && "bad" in err_nodes && "downstream" in err_nodes,
+nodes_str = str_join(err_nodes, " ")
+assert(length(err_nodes) == 2 && str_detect(nodes_str, "bad") && str_detect(nodes_str, "downstream"),
     "filter_node finds 2 errored nodes") |> print()
 
 -- Test: filter_node(is_na($diagnostics.error)) returns non-errored nodes
-ok_nodes = p_err |> filter_node(is_na($diagnostics.error)) |> pipeline_nodes
-assert(ok_nodes == [],
+ok_nodes = p_err |> filter_node(\(n) is_na(n.diagnostics.error)) |> pipeline_nodes
+assert(identical(ok_nodes, []),
     "filter_node finds 0 non-errored nodes (all have errors)") |> print()
 
 -- Test: which_nodes with diagnostics predicate
-which_res = which_nodes(p_err, !is_na(diagnostics.error)) |> map(\(n) n.name)
-assert(length(which_res) == 2 && "bad" in which_res && "downstream" in which_res,
+which_res = which_nodes(p_err, \(n) !is_na(n.diagnostics.error)) |> map(\(n) n.name)
+which_str = str_join(which_res, " ")
+assert(length(which_res) == 2 && str_detect(which_str, "bad") && str_detect(which_str, "downstream"),
     "which_nodes finds 2 errored nodes") |> print()
 
 -- Test: errored_nodes convenience wrapper
 errored = errored_nodes(p_err) |> map(\(n) n.name)
-assert(length(errored) == 2 && "bad" in errored && "downstream" in errored,
+errored_str = str_join(errored, " ")
+assert(length(errored) == 2 && str_detect(errored_str, "bad") && str_detect(errored_str, "downstream"),
     "errored_nodes finds 2 errored nodes") |> print()
 
 
@@ -64,12 +67,12 @@ assert(warn_summary == "1 node(s) with warnings, 0 suppressed, 0 error(s), 0 rec
 
 -- Test: downstream nodes inherit upstream warnings via inspect_node
 downstream_sources = inspect_node(p_warn.count).warnings |> map(\(w) w.source)
-assert(downstream_sources == ["filtered"],
+assert(identical(downstream_sources, ["filtered"]),
     "inspect_node shows upstream inherited warnings with correct source") |> print()
 
 -- Test: warning_msg on downstream node includes ancestor provenance
 count_warn_msg = warning_msg(p_warn.count)
-assert(contains(count_warn_msg, "Ancestor node 'filtered' reported following warning"),
+assert(str_detect(count_warn_msg, "Ancestor node 'filtered' reported following warning"),
     "warning_msg on downstream node prefixes ancestor node name") |> print() 
 
 -- Test: warning_msg on computed node

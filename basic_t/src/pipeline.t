@@ -26,13 +26,13 @@ populate_pipeline(p, build = true, verbose=1)
 pipeline_copy()
 
 -- Verify all data nodes succeeded
-assert(type(p.mtcars) == "DataFrame", "mtcars should be a DataFrame")
-assert(type(p.filtered_mtcars) == "DataFrame", "filtered_mtcars should be a DataFrame")
-assert(type(p.mtcars_mpg) == "DataFrame", "mtcars_mpg should be a DataFrame")
-assert(length(colnames(p.mtcars_mpg)) == 1, "mtcars_mpg should have exactly 1 column")
-assert(colnames(p.mtcars_mpg) == ["mpg"], "mtcars_mpg column should be 'mpg'")
+assert(type(read_node(p.mtcars)) == "DataFrame", "mtcars should be a DataFrame")
+assert(type(read_node(p.filtered_mtcars)) == "DataFrame", "filtered_mtcars should be a DataFrame")
+assert(type(read_node(p.mtcars_mpg)) == "DataFrame", "mtcars_mpg should be a DataFrame")
+assert(length(colnames(read_node(p.mtcars_mpg))) == 1, "mtcars_mpg should have exactly 1 column")
+assert(identical(colnames(read_node(p.mtcars_mpg)), ["mpg"]), "mtcars_mpg column should be 'mpg'")
 -- mtcars with am == 1 and 4 cyl: mpg should be 22.8, so filtered should be non-empty
-assert(nrow(p.filtered_mtcars) > 0, "filtered_mtcars should have at least 1 row")
+assert(nrow(read_node(p.filtered_mtcars)) > 0, "filtered_mtcars should have at least 1 row")
 -- Report node may or may not render depending on Quarto availability
 if (is_error(p.report)) {
   print(str_join(["Warning: Report node did not render (", error_msg(p.report), ")"]))
