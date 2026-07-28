@@ -72,11 +72,11 @@ print(" Lens Demo Complete ")
 
 -- Assertions: verify all lens operations produced correct results
 assert(get(world, tokyo_l) == 14.0, "Tokyo original pop should be 14.0")
-assert(get(world_boosted, tokyo_l) == 14.7, "Tokyo boosted pop should be 14.7")
+assert(abs(get(world_boosted, tokyo_l) - 14.7) < 0.001, "Tokyo boosted pop should be approximately 14.7")
 
 assert(get(df2, cell_l) == "verified", "row 0 status should be 'verified'")
 
-assert(get(df3, id_2_l) == 1000, "A2 value after 5x boost should be 1000 (200 * 5)")
+assert(get(df3, id_2_l) .== 1000, "A2 value after 5x boost should be 1000 (200 * 5)")
 
 assert(get(p_injected, key_l) == "production", "injected scope should be 'production'")
 

@@ -27,8 +27,8 @@ assert(bad_res.error.kind == "DivisionByZero",
     "read_node exposes DivisionByZero on bad node") |> print()
 
 -- Test: filter_node(!is_na($diagnostics.error)) returns errored nodes
-err_nodes = p_err |> filter_node(!is_na($diagnostics.error)) |> pipeline_nodes
-assert(length(err_nodes) == 2 && contains(err_nodes, "bad") && contains(err_nodes, "downstream"),
+err_nodes = p_err |> filter_node(\(n) !is_na(n.diagnostics.error)) |> pipeline_nodes
+assert(length(err_nodes) == 2 && "bad" in err_nodes && "downstream" in err_nodes,
     "filter_node finds 2 errored nodes") |> print()
 
 -- Test: filter_node(is_na($diagnostics.error)) returns non-errored nodes
@@ -38,12 +38,12 @@ assert(ok_nodes == [],
 
 -- Test: which_nodes with diagnostics predicate
 which_res = which_nodes(p_err, !is_na(diagnostics.error)) |> map(\(n) n.name)
-assert(length(which_res) == 2 && contains(which_res, "bad") && contains(which_res, "downstream"),
+assert(length(which_res) == 2 && "bad" in which_res && "downstream" in which_res,
     "which_nodes finds 2 errored nodes") |> print()
 
 -- Test: errored_nodes convenience wrapper
 errored = errored_nodes(p_err) |> map(\(n) n.name)
-assert(length(errored) == 2 && contains(errored, "bad") && contains(errored, "downstream"),
+assert(length(errored) == 2 && "bad" in errored && "downstream" in errored,
     "errored_nodes finds 2 errored nodes") |> print()
 
 

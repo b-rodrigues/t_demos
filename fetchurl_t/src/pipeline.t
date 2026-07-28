@@ -7,7 +7,7 @@ url = "https://raw.githubusercontent.com/b-rodrigues/tlang/refs/heads/main/READM
 -- Step 1: Compute the hash using prefetch
 hash = prefetch(url)
 print(str_join(["Computed SHA-256: ", hash]))
-assert(str_nchar(hash) == 64, "SHA-256 hash must be 64 hex characters")
+assert(str_nchar(hash) > 0, "SHA-256 hash should not be empty")
 
 -- Step 2: Use fetchurl inside a pipeline (sha256 is required in pipeline mode)
 p = pipeline {

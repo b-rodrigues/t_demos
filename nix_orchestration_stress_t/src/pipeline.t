@@ -23,8 +23,7 @@ dry_run_plan = populate_pipeline(
   build = true,
   dry_run = true,
   verbose = 1,
-  max_jobs = 4,
-  cache = "rstats-on-nix"
+  nix_options = [max_jobs: 4, cache: "rstats-on-nix"]
 )
 
 if (type(dry_run_plan) == "DataFrame") {

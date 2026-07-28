@@ -116,9 +116,9 @@ check(expect_str_contains("hello world", "world"))
 -- 9. Condition & Error Expectations
 print("=== Testing Condition & Error Expectations ===")
 check(expect_error(error("Sample test failure"), class = "GenericError"))
-check(expect_warning(p.na_filtered))
-check(expect_warning(p.na_filtered, kind = "NAExcluded"))
-check(expect_warning(p.na_filtered, message = "excluded.*NA"))
+check(expect_warning(read_node(p.na_filtered)))
+check(expect_warning(read_node(p.na_filtered), kind = "NAExcluded"))
+check(expect_warning(read_node(p.na_filtered), message = "excluded.*NA"))
 
 -- 10. Expectation Summary Reporting
 print("=== Testing Expectation Summary ===")

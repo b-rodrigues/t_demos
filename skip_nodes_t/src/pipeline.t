@@ -50,9 +50,11 @@ r_data = read_node(p.data)
 assert(type(r_data.error) == "NA", "data should succeed")
 assert(length(r_data.value) == 5, "data should have 5 elements")
 
--- expensive_node is marked noop=true — it should be either skipped or an Error
+-- expensive_node is marked noop=true — read_node errors for skipped nodes
 r_expensive = read_node(p.expensive_node)
-if (type(r_expensive.error) == "NA") {
+if (is_error(r_expensive)) {
+  print(str_join(["expensive_node skipped (noop=true): ", error_msg(r_expensive)]))
+} else if (type(r_expensive.error) == "NA") {
   print("expensive_node succeeded as a stub (noop=true)")
 } else {
   print(str_join(["expensive_node error: ", error_msg(r_expensive.error)]))

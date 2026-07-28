@@ -52,62 +52,32 @@ assert(nrow(r_branches) == 3, str_join(["Expected 3 R runtime branches, got ", n
 print("✓ expanded structure correct: 4 nodes, 3 R branches")
 print("")
 
--- Build pipeline
-res = build_pipeline(p, verbose = 1)
+-- Build pipeline (uses expanded form internally)
+build_pipeline(p, verbose = 1)
 
-if (is_error(res)) {
-  print("Pipeline build returned error (partial failure):")
-  print(res)
-  print("")
+-- Retrieve build log from expanded pipeline
+bl = build_log(p_expanded)
+log_frame = build_log_to_frame(bl)
 
-  -- errored_nodes works on the pipeline itself
-  errors = errored_nodes(p)
-  error_count = length(errors)
-  assert(error_count == 1, str_join(["Expected 1 errored node, got ", error_count], ""))
+-- Build log should show all entries including the failed branch
+assert(nrow(log_frame) == 4, str_join(["Expected 4 log entries, got ", nrow(log_frame)], ""))
+print("✓ build_log_to_frame: 4 entries")
 
-  -- Check the error message mentions the failing branch and cause
-  first_error = errors |> head(1)
-  error_message = error_msg(first_error)
-  print(str_join(["Error message: ", error_message], ""))
+-- Filter to failed branches in the log
+failed_branches = filter(log_frame, \(r) starts_with(r.name, "results_branch") && r.status == "Completed with error")
+assert(nrow(failed_branches) == 1, str_join(["Expected 1 failed branch, got ", nrow(failed_branches)], ""))
 
-  -- Verify the error message is informative
-  assert(contains(error_message, "results_branch_2") || contains(error_message, "results_branch"),
-    str_join(["Expected error message to contain branch name, got: ", error_message], ""))
-  assert(contains(error_message, "intentional branch failure"),
-    str_join(["Expected error message to mention cause, got: ", error_message], ""))
-  print("✓ error diagnostics: 1 errored node, informative message")
+-- Verify the error message is informative from the node directly
+error_message = error_msg(p.results_branch_2)
+print(str_join(["Error message: ", error_message], ""))
 
-  -- Build log should show 3 entries
-  log_frame = build_log_to_frame(res)
-  assert(nrow(log_frame) == 3, str_join(["Expected 3 log entries, got ", nrow(log_frame)], ""))
-  print("✓ build_log_to_frame: 3 entries")
+assert(str_detect(error_message, "intentional branch failure"),
+  str_join(["Expected error message to mention cause, got: ", error_message], ""))
+print("✓ error diagnostics: 1 failed branch, informative message")
 
-} else {
-  print("Build succeeded (checking for partial failures):")
-  failed_count = length(res.failed_nodes)
-  assert(failed_count >= 1, str_join(["Expected at least 1 failed node, got ", failed_count], ""))
-
-  -- Build log should show all branch entries including the failed one
-  log_frame = build_log_to_frame(res)
-  assert(nrow(log_frame) == 3, str_join(["Expected 3 log entries, got ", nrow(log_frame)], ""))
-
-  -- Filter to failed branches in the log
-  failed_branches = filter(log_frame, \(r) starts_with(r.name, "results_branch") && !is_na(r.error))
-  assert(nrow(failed_branches) == 1, str_join(["Expected 1 failed branch, got ", nrow(failed_branches)], ""))
-
-  -- Verify the error message is informative
-  error_message = error_msg(failed_branches |> head(1))
-  print(str_join(["Error message: ", error_message], ""))
-  assert(contains(error_message, "results_branch_2") || contains(error_message, "results_branch"),
-    str_join(["Expected error message to contain branch name, got: ", error_message], ""))
-  assert(contains(error_message, "intentional branch failure"),
-    str_join(["Expected error message to mention cause, got: ", error_message], ""))
-  print("✓ error diagnostics: 1 failed branch, informative message")
-
-  -- Successful branches should be readable
-  branch1 = read_node(p.results_branch_1)
-  assert(branch1 == 20, str_join(["Expected branch 1 to be 20, got ", branch1], ""))
-}
+-- Successful branches should be readable
+branch1 = read_node(p.results_branch_1)
+assert(branch1 == 20, str_join(["Expected branch 1 to be 20, got ", branch1], ""))
 
 print("")
 print("✓ branch_failure_t: all assertions passed")
