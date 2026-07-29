@@ -150,7 +150,7 @@ assert(diff_scalar.summary.changed == true, "scalar should have changed between 
 assert(diff_scalar.summary.value_a == 200, "scalar V3 value should be 200")
 assert(diff_scalar.summary.value_b == 150, "scalar V2 value should be 150")
 
-assert(diff_df.summary.changed == true, "data should have changed between V2 and V3")
+assert(!diff_df.identical, "data should have changed between V2 and V3")
 assert(diff_df.summary.rows_changed == 3, "all 3 data rows should show as changed")
 
 assert(diff_text.summary.changed == true, "text should have changed between V2 and V3")
