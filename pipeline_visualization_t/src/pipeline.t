@@ -40,7 +40,7 @@ build_pipeline(p)
 assert(type(p.raw_data) != "Error", "raw_data should not be an Error")
 assert(type(p.processed) != "Error", "processed should not be an Error")
 assert(!is_error(p.summary_val), "summary_val should not be an error")
-assert(p.summary_val == 300, "summary_val should equal sum of [20,40,60,80,100] = 300")
+assert(read_node(p.summary_val) == 300, "summary_val should equal sum of [20,40,60,80,100] = 300")
 
 -- 3. Dry run again (all should be cache_hit now for p)
 print("\n3. Performing dry-run after build (should be cache_hit):")

@@ -62,15 +62,15 @@ assert(type(r_d.error) == "NA", "r_dates node should succeed")
 assert(type(read_node(p.comparison).error) == "NA", "comparison node should succeed")
 
 -- Verify lubridate/chrono parity
-res = res |> mutate(.yr_match = $r_year .== $t_year)
+res := res |> mutate(.yr_match = $r_year .== $t_year)
 yr_fails = filter(res, \(r) !r.yr_match)
 assert(nrow(yr_fails) == 0, "year parity: all r_year should match t_year")
 
-res = res |> mutate(.mo_match = $r_month .== $t_month)
+res := res |> mutate(.mo_match = $r_month .== $t_month)
 mo_fails = filter(res, \(r) !r.mo_match)
 assert(nrow(mo_fails) == 0, "month parity: all r_month should match t_month")
 
-res = res |> mutate(.day_match = $r_day .== $t_day)
+res := res |> mutate(.day_match = $r_day .== $t_day)
 day_fails = filter(res, \(r) !r.day_match)
 assert(nrow(day_fails) == 0, "day parity: all r_day should match t_day")
 
