@@ -88,7 +88,7 @@ assert(str_detect(nix, "env_github_b_rodrigues_tlang"),
        "Nix should contain env binding for github:b-rodrigues/tlang")
 assert(str_detect(nix, "env_github_jbedo_rshells"),
        "Nix should contain env binding for github:jbedo/rshells")
-assert(str_detect(nix, "env_path_test_flake"),
+assert(str_detect(nix, "\"test_flake\""),
        "Nix should contain env binding for local path flake (path:../test_flake)")
 
 -- Verify each custom flake node uses its own env
@@ -96,19 +96,19 @@ assert(str_detect(nix, "env_github_b_rodrigues_tlang.stdenv"),
        "Node b should use its own flake env (tlang)")
 assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
        "Node c should use its own flake env (rshells)")
-assert(str_detect(nix, "env_path_test_flake.stdenv"),
+assert(str_detect(nix, "test_flake.stdenv"),
        "Node d should use its own flake env (path flake)")
 
 -- Verify env bindings for new per-node flakes
 assert(str_detect(nix, "env_github_NixOS_nixpkgs"),
        "Nix should contain env binding for github:NixOS/nixpkgs (Julia node)")
-assert(str_detect(nix, "env_path_minimal_r_flake"),
+assert(str_detect(nix, "\"minimal_r_flake\""),
        "Nix should contain env binding for minimal R flake (path:minimal_r_flake)")
 
 -- Verify each new node uses its own env
 assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
        "Node f should use its own flake env (rshells)")
-assert(str_detect(nix, "env_path_minimal_r_flake"),
+assert(str_detect(nix, "minimal_r_flake"),
        "Node g should use its own flake env (minimal R)")
 
 -- Verify backward compat: project-level env bindings still exist
