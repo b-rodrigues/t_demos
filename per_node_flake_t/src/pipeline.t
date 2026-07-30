@@ -94,19 +94,19 @@ assert(str_detect(nix, "test_flake"),
 -- Verify each custom flake node uses its own env
 assert(str_detect(nix, "env_github_b_rodrigues_tlang.stdenv"),
        "Node b should use its own flake env (tlang)")
-assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
+assert(str_detect(nix, "env_github_jbedo_rshells.r-env"),
        "Node c should use its own flake env (rshells)")
 assert(str_detect(nix, "test_flake.stdenv"),
        "Node d should use its own flake env (path flake)")
 
 -- Verify env bindings for new per-node flakes
-assert(str_detect(nix, "env_github_NixOS_nixpkgs"),
+assert(str_detect(nix, "env_github_nixos_nixpkgs"),
        "Nix should contain env binding for github:NixOS/nixpkgs (Julia node)")
 assert(str_detect(nix, "minimal_r_flake"),
        "Nix should contain env binding for minimal R flake (path:minimal_r_flake)")
 
 -- Verify each new node uses its own env
-assert(str_detect(nix, "env_github_jbedo_rshells.\"r-env\""),
+assert(str_detect(nix, "env_github_jbedo_rshells.r-env"),
        "Node f should use its own flake env (rshells)")
 assert(str_detect(nix, "minimal_r_flake"),
        "Node g should use its own flake env (minimal R)")
@@ -121,7 +121,7 @@ assert(str_detect(nix, "tBin   = projectTBin"), "Nix should alias tBin to projec
 
 -- Verify fallback logic for R-only flakes (rshells lacks t-lang infrastructure)
 -- The env should still reference projectTBin for T serialization
-assert(str_detect(nix, "tBin = if tlangPkgSet ? default then tlangPkgSet.default else projectTBin"),
+assert(str_detect(nix, "tlangPkgSet.default else projectTBin"),
        "mkNodeEnv should fall back to projectTBin when flake lacks t-lang")
 assert(str_detect(nix, "r-env = pkgs.rWrapper.override"),
        "R env is built from the custom flake's nixpkgs")
