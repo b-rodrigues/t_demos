@@ -10,8 +10,12 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  test:
+  basic-t:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./per_node_flake_t
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,8 +55,25 @@ jobs:
             sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
           fi
 
+      - name: Inject pipeline dependencies
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
-      - name: Run pipeline demo
-        working-directory: ./per_node_flake_t
+      - name: Show updated tproject.toml
+        run: cat tproject.toml
+
+      - name: Rebuild flake with new dependencies
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run --failfast src/pipeline.t
+
+
+      - name: Read one Node
+        run: |
+          echo "t_make(); read_node(p.mtcars_mpg) |> print" > view.t
+          nix develop --command t run --failfast --unsafe view.t
