@@ -154,15 +154,15 @@ print(to_string(result_g))
 -- Verify correctness
 assert(result_a == 15, "sum([1, 2, 3, 4, 5]) should be 15")
 assert(result_b == 4, "length([10, 20, 30, 40]) should be 4")
-assert(result_c == 20.09062, "mean(mtcars$mpg) should be 20.09062 (R's value)")
+assert(result_c == 20.090625, "mean(mtcars$mpg) should be 20.090625 (R's value)")
 assert(identical(result_d, [10, 20, 30]), "map(x * 10) over [1,2,3] should produce [10,20,30]")
 assert(result_e == 3.0, "Julia sum([1..5])/len([1..5]) should be 3.0")
 
 -- Per-node flake R nodes: dplyr availability depends on project-level
 -- [r-dependencies] and what the flake's nixpkgs provides. With dplyr
 -- absent from tproject.toml, both nodes should report it unavailable.
-assert(type(result_f) == "string", "Node f should return a dplyr availability string")
-assert(type(result_g) == "string", "Node g should return a dplyr availability string")
+assert(type(result_f) == "String", "Node f should return a dplyr availability string")
+assert(type(result_g) == "String", "Node g should return a dplyr availability string")
 assert(str_detect(result_f, "dplyr"),
        "Node f result should mention dplyr")
 assert(str_detect(result_g, "dplyr"),
