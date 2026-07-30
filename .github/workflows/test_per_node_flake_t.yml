@@ -10,7 +10,7 @@ on:
     types: [ trigger-demo ]
 
 jobs:
-  basic-t:
+  per-node-flake:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -71,9 +71,3 @@ jobs:
       - name: Run Pipeline (Populate and Build)
         run: |
           nix develop --command t run --failfast src/pipeline.t
-
-
-      - name: Read one Node
-        run: |
-          echo "t_make(); read_node(p.mtcars_mpg) |> print" > view.t
-          nix develop --command t run --failfast --unsafe view.t
