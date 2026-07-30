@@ -127,5 +127,5 @@ summary_df = expect_summary([
   ca: expect_equal(1, 3),
   c2: expect_equal(2, 2)
 ])
-check(expect_nrow(summary_df, 2))
+check(expect_nrow(summary_df, 3))
 check(expect_colnames(summary_df, ["check", "status", "message"]))
