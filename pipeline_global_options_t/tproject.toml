@@ -1,0 +1,29 @@
+[project]
+name = "pipeline_global_options_t"
+description = "A T project demonstrating set_pipeline_global_options and pipeline_node_options"
+authors = []
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr", "jsonlite", "arrow"]
+
+[py-dependencies]
+version = "python313"
+packages = ["pandas", "ipykernel", "nbclient", "nbformat", "pyyaml"]
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = ["which"]
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.54.3"
+
+[nixpkgs]
+date = ""

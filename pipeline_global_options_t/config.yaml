@@ -1,0 +1,3 @@
+# Global configuration merged into every node's sandbox via include.
+mode: demo
+verbosity: 1
