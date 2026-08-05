@@ -5,14 +5,14 @@ p = pipeline {
   -- T node: load data
   mtcars = node(
     command = read_csv("data/mtcars.csv", separator = "|"),
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- R node: fit a linear model
   r_model = rn(
     command = <{ Sys.sleep(12);lm(mpg ~ wt + hp, data = mtcars) }>,
     serializer = ^pmml,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- Python node: compute summary statistics using pandas
@@ -22,24 +22,24 @@ import pandas as pd
 df = mtcars
 py_stats = df.describe()
     }>,
-    serializer = ^arrow,
-    deserializer = ^arrow
+    serializer = ^ipc,
+    deserializer = ^ipc
   )
 
   -- T node: filter automatic transmission cars
   errored_mtcars =  node(
     command = mtcars |> filter($am_wrong == 1),
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   errored_mtcars_r = rn(
     command = <{  mtcars |> dplyr::filter(am_wrong == 1) }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   filtered_mtcars = node(
     command = mtcars |> filter($am == 1),
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- T node: select mpg column

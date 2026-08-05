@@ -48,7 +48,7 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
 from pandas import DataFrame
 roc_df = DataFrame({"target": y_test, "proba": y_proba})
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- Combine into DataFrame
@@ -57,7 +57,7 @@ roc_df = DataFrame({"target": y_test, "proba": y_proba})
 from pandas import DataFrame
 combined_df = DataFrame({"target": y_test, "prediction": y_pred})
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- Confusion matrix in R
@@ -71,7 +71,7 @@ cm_obj = combined_df %>%
 confusion_matrix = as.data.frame(cm_obj$table)
     }>,
     serializer = ^json,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- Accuracy score in Python
@@ -92,8 +92,8 @@ roc_data = roc_df %>%
   mutate(target = as.factor(target)) %>%
   roc_curve(truth = target, proba)
     }>,
-    serializer = ^arrow,
-    deserializer = ^arrow
+    serializer = ^ipc,
+    deserializer = ^ipc
   )
 
   -- ROC AUC value via yardstick
@@ -106,7 +106,7 @@ roc_auc = roc_df %>%
   roc_auc(truth = target, proba)
     }>,
     serializer = ^json,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- ROC curve plot (manual ggplot, no autoplot)
@@ -124,7 +124,7 @@ roc_plot = ggplot(roc_curve_obj, aes(x = 1 - specificity, y = sensitivity)) +
   coord_fixed() +
   labs(title = "ROC Curve", x = "1 - Specificity (FPR)", y = "Sensitivity (TPR)")
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- Render Quarto report

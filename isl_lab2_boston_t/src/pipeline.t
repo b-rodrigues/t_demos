@@ -5,7 +5,7 @@ import dataframe
 p = pipeline {
     boston_raw = node(
         command = <{ read_csv("data/Boston.csv") }>,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     data_node = node(
@@ -15,8 +15,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow -- Added explicit deserializer for T -> R
+        serializer = ^ipc,
+        deserializer = ^ipc -- Added explicit deserializer for T -> R
     );
 
     r_model = node(
@@ -26,7 +26,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     );
 
     py_model = node(
@@ -40,7 +40,7 @@ py_model = sm.OLS(y, X).fit()
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

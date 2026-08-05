@@ -7,7 +7,7 @@ p = pipeline {
 mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
     }>,
     include = ["data/mtcars.csv"],
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 2. Filter node
@@ -16,8 +16,8 @@ mtcars <- read.csv(file = "data/mtcars.csv", sep = "|")
 library(dplyr)
 mtcars_am <- mtcars %>% filter(TRUE)
     }>,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
   )
 
   -- 3. Head node with "write.csv" serializer
@@ -25,7 +25,7 @@ mtcars_am <- mtcars %>% filter(TRUE)
     command = <{
 mtcars_head <- my_head(mtcars_am, 100)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     functions = ["src/my_head.R"],
     serializer = ^csv
   )
@@ -36,7 +36,7 @@ mtcars_head <- my_head(mtcars_am, 100)
 library(dplyr)
 mtcars_tail <- mtcars_am %>% tail(5)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^json
   )
 

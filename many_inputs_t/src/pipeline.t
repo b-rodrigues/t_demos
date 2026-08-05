@@ -7,7 +7,7 @@ p = pipeline {
       readr::read_delim(list.files("data", full.names = TRUE), delim = "|")
     }>,
     include = ["data"],
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- Load multiple CSVs using Python
@@ -17,15 +17,15 @@ p = pipeline {
     }>,
     functions = ["src/functions.py"],
     include = ["data"],
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- Python node taking head of mtcars_py
   -- Mimics rxp_py(name = head_mtcars, expr = "mtcars_py.head()", ...)
   head_mtcars = pyn(
     command = <{ mtcars_py.head() }>,
-    deserializer = ^arrow,
-    serializer = ^arrow -- Optional
+    deserializer = ^ipc,
+    serializer = ^ipc -- Optional
   )
 
   -- Render Quarto report

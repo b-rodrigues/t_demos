@@ -22,7 +22,7 @@ packages = []
 packages = []
 
 [t]
-min_version = "0.52.0-modified"
+min_version = "0.55.0"
 
 [nixpkgs]
 date = "2026-04-02"

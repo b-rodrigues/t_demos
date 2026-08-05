@@ -1,10 +1,10 @@
 {
-  description = "arrow_edge_cases_t — a T data analysis project";
+  description = "observability_hardening_t — a T data analysis project";
 
   inputs = {
-    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-05-08";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-06-23";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "github:b-rodrigues/tlang/v0.52.0";
+    t-lang.url = "path:/home/brodrigues/Documents/repos/tlang";
   };
 
   nixConfig = {
@@ -25,7 +25,7 @@
         r-env = pkgs.rWrapper.override {
           packages = with pkgs.rPackages; [
             t-lang.packages.${system}.tlang-r
-            arrow
+            dplyr
             jsonlite
           ];
         };
@@ -34,11 +34,10 @@
         py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
           deepdiff
           pandas
-          pyarrow
         ]);
 
         # Julia environment
-        juliaPkg = pkgs.julia-lts.withPackages [ "JSON" ];
+        juliaPkg = pkgs.julia-lts.withPackages [ "DataFrames" "JSON" "CSV" ];
       in
       {
         devShells.default = pkgs.mkShell {
@@ -145,7 +144,7 @@ EOF
             export PATH="$python_guard_bin:$PATH"
             export PYTHONPATH="$python_guard_lib:''${PYTHONPATH:-}"
             echo "=================================================="
-            echo "T Project: arrow_edge_cases_t"
+            echo "T Project: observability_hardening_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"

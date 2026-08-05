@@ -5,4 +5,4 @@ description = "A demo verifying pipeline cache export and import"
 [dependencies]
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"

@@ -11,7 +11,7 @@ p = pipeline {
             disc
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     poisson_r = node(
@@ -20,7 +20,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     );
 
     nb_r = node(
@@ -31,7 +31,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     );
 
     poisson_py = node(
@@ -44,7 +44,7 @@ poisson_py = sm.GLM(y, X, family=sm.families.Poisson()).fit()
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

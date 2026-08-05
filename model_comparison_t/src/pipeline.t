@@ -11,7 +11,7 @@ library(datasets)
 data(mtcars)
 mtcars 
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 2. Define Model A (R)
@@ -20,7 +20,7 @@ mtcars
 model = lm(mpg ~ hp + wt, data = raw_data)
 summary(model)$r.squared
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^json
   )
 
@@ -36,7 +36,7 @@ rf.fit(X, y)
 res = rf.score(X, y)
 res
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^json
   )
 

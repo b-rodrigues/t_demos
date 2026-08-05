@@ -3,7 +3,7 @@ name = "glm_discoveries_t"
 description = "GLM Example: Discoveries count response"
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"
 
 [r-dependencies]
 packages = ["arrow", "MASS"]

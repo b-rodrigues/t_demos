@@ -5,7 +5,7 @@
 base_p = pipeline {
   raw = node(
     command = read_csv("data/sample.csv"),
-    serializer = ^arrow
+    serializer = ^ipc
   )
   
   heavy_r_node = rn(
@@ -13,14 +13,14 @@ base_p = pipeline {
       library(dplyr)
       raw %>% group_by(group) %>% summarize(total = sum(value))
     }>,
-    deserializer = ^arrow,
-    serializer = ^arrow,
+    deserializer = ^ipc,
+    serializer = ^ipc,
     noop = true
   )
 
   summary = node(
     command = heavy_r_node |> filter($total > 100),
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 }
 

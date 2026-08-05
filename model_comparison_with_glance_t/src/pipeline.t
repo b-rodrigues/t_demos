@@ -9,7 +9,7 @@ p = pipeline {
       data(mtcars)
       mtcars
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 2. R Linear Model
@@ -18,7 +18,7 @@ p = pipeline {
     command = <{
       lm(mpg ~ hp + wt + qsec, data = df)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^pmml
   )
 
@@ -35,7 +35,7 @@ X = df[['hp', 'wt', 'qsec']]
 y = df['mpg']
 model_py = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^pmml
   )
 

@@ -15,4 +15,4 @@ packages = [ "pandas", "pyarrow", "numpy", "scikit-learn", "statsmodels", "sklea
 packages = [ "quarto",]
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"

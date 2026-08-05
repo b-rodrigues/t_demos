@@ -18,4 +18,4 @@ command = "echo"
 packages = []
 
 [t]
-min_version = "0.52.2"
+min_version = "0.55.0"

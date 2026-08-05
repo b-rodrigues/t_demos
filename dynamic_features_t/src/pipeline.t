@@ -16,7 +16,7 @@ p = pipeline {
             stringsAsFactors = FALSE
         )
         df
-    }>, serializer = ^arrow)
+    }>, serializer = ^ipc)
 
     -- 2. Dynamic Feature Engineering (T)
     features_t = node(raw_data, command = <{
@@ -29,7 +29,7 @@ p = pipeline {
         ]
         -- Apply the transformations using our T-Lang function
         engineer_features(raw_data, feature_specs)
-    }>, runtime = T, deserializer = ^arrow, serializer = ^arrow)
+    }>, runtime = T, deserializer = ^ipc, serializer = ^ipc)
 
     -- 3. Reference Implementation (R)
     features_r = node(raw_data, command = <{
@@ -40,7 +40,7 @@ p = pipeline {
                 income_z = (income - mean(income)) / sd(income),
                 age_sqrt = sqrt(age)
             )
-    }>, runtime = R, deserializer = ^arrow, serializer = ^arrow)
+    }>, runtime = R, deserializer = ^ipc, serializer = ^ipc)
 
     -- 4. Validation
     validation = node(features_t, features_r, command = <{
@@ -62,7 +62,7 @@ p = pipeline {
         check_feature("age_sqrt")
         
         "Validation Successful: T-Lang dynamic features match R reference!"
-    }>, runtime = T, deserializer = [features_t: ^arrow, features_r: ^arrow])
+    }>, runtime = T, deserializer = [features_t: ^ipc, features_r: ^ipc])
 }
 
 print("==================================================")

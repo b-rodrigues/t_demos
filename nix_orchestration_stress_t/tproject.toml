@@ -5,4 +5,4 @@ description = "A stress test demo for Nix-native pipeline orchestration paramete
 [dependencies]
 
 [t]
-min_version = "0.52.2"
+min_version = "0.55.0"

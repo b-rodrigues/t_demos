@@ -10,7 +10,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
     
     model_node = node(
@@ -20,7 +20,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

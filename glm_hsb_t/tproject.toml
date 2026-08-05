@@ -3,7 +3,7 @@ name = "glm_hsb_t"
 description = "GLM Example: HSB binary logistic regression"
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"
 
 [r-dependencies]
 packages = ["arrow", "faraway", "XML", "jsonlite", "r2pmml"]

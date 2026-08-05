@@ -11,7 +11,7 @@ df_r <- data.frame(
 )
     }>,
     runtime = R,
-    serializer = ^arrow
+    serializer = ^ipc
 )
 
 df_py = node(
@@ -24,8 +24,8 @@ res['val'] = res['val'] * 2
 df_py = res
     }>,
     runtime = Python,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
 )
 
 final_t = node(
@@ -35,7 +35,7 @@ glimpse(df_py)
 df_py
     }>,
     runtime = T,
-    deserializer = ^arrow
+    deserializer = ^ipc
 )
 
 p = pipeline {
@@ -56,4 +56,4 @@ assert(type(read_node(p.df_r).error) == "NA", "df_r (R Arrow) should succeed")
 assert(type(read_node(p.df_py).error) == "NA", "df_py (Python Arrow) should succeed")
 assert(type(read_node(p.final_t).error) == "NA", "final_t (T Arrow) should succeed")
 
-print("✓ arrow_interop_t: all assertions passed")
+print("✓ ipc_interop_t: all assertions passed")

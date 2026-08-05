@@ -7,7 +7,7 @@ p = pipeline {
         command = <{ 
             read_csv("data/Wage.csv")
         }>,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     -- T node: Prepare data with poly
@@ -20,8 +20,8 @@ p = pipeline {
             cols = poly(wage_raw.age, 4, raw = true)
             eval(to_expr(mutate(wage_raw, !!!cols)))
         }>,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- T node: Fit model using T's lm
@@ -35,7 +35,7 @@ p = pipeline {
                 lm(t_data, wage ~ poly1 + poly2 + poly3 + poly4)
             }
         }>,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     -- R node: Fit model using R for comparison
@@ -53,7 +53,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

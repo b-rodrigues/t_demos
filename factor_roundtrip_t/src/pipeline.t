@@ -14,7 +14,7 @@ node_r = node(
         df_r
     }>,
     runtime = R,
-    serializer = ^arrow
+    serializer = ^ipc
 )
 
 node_t = node(
@@ -34,8 +34,8 @@ node_t = node(
         node_r
     }>,
     runtime = T,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
 )
 
 node_py = node(
@@ -61,8 +61,8 @@ print(output)
 output
     }>,
     runtime = Python,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
 )
 
 node_r_final = node(
@@ -86,8 +86,8 @@ node_r_final = node(
         node_py
     }>,
     runtime = R,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
 )
 
 p = pipeline {

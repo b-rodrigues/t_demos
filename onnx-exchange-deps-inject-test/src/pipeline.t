@@ -12,7 +12,7 @@ p = pipeline {
         y: [2.1, 3.9, 6.2, 8.0, 9.8, 12.1, 14.2, 15.9, 17.8, 20.1]
       ])
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 2. Train a Linear Regression model in Python and export to ONNX
@@ -32,7 +32,7 @@ model.fit(X, y)
 # Return the model name for the automatic ^onnx serializer in tlang
 model_py = model
     }>,
-    deserializer = [training_data: ^arrow],
+    deserializer = [training_data: ^ipc],
     serializer = ^onnx
   )
 
@@ -46,7 +46,7 @@ model_py = model
       # the conversion using the 'pmml' and 'xml2' packages.
       model_r <- model
     }>,
-    deserializer = [training_data: ^arrow],
+    deserializer = [training_data: ^ipc],
     serializer = ^pmml
   )
 
@@ -59,8 +59,8 @@ model_py = model
       preds = predict(X, model_py)
       X |> mutate($t_pred_py = preds)
     }>,
-    deserializer = [training_data: ^arrow, model_py: ^onnx],
-    serializer = ^arrow
+    deserializer = [training_data: ^ipc, model_py: ^onnx],
+    serializer = ^ipc
   )
 
   -- 5. Native Prediction in T from R's PMML model
@@ -71,8 +71,8 @@ model_py = model
       preds = predict(X, model_r)
       X |> mutate($t_pred_r = preds)
     }>,
-    deserializer = [training_data: ^arrow, model_r: ^pmml],
-    serializer = ^arrow
+    deserializer = [training_data: ^ipc, model_r: ^pmml],
+    serializer = ^ipc
   )
 
   -- 6. Prediction in Python using R's PMML model
@@ -90,8 +90,8 @@ predictions = model_r.predict(X_new)
 # The PMML predict method returns the prediction results
 pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
     }>,
-    deserializer = [training_data: ^arrow, model_r: ^pmml],
-    serializer = ^arrow
+    deserializer = [training_data: ^ipc, model_r: ^pmml],
+    serializer = ^ipc
   )
 
   -- 7. Prediction in R using Python's ONNX model
@@ -104,8 +104,8 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
       res <- data.frame(r_pred_py = training_data$x * 1.99)
       pred_r_py <- res
     }>,
-    deserializer = [training_data: ^arrow, model_py: ^onnx],
-    serializer = ^arrow
+    deserializer = [training_data: ^ipc, model_py: ^onnx],
+    serializer = ^ipc
   )
 
   -- 8. Statistics inspection
@@ -118,7 +118,7 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
       stats
     }>,
     deserializer = [model_py: ^onnx, model_r: ^pmml],
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 9. Final Results Comparison in T
@@ -133,8 +133,8 @@ pred_py_r = pd.DataFrame({"py_pred_r": predictions.iloc[:, 0]})
       glimpse(res)
       res
     }>,
-    deserializer = [pred_t_py: ^arrow, pred_t_r: ^arrow, pred_py_r: ^arrow, pred_r_py: ^arrow],
-    serializer = ^arrow
+    deserializer = [pred_t_py: ^ipc, pred_t_r: ^ipc, pred_py_r: ^ipc, pred_r_py: ^ipc],
+    serializer = ^ipc
   )
 }
 

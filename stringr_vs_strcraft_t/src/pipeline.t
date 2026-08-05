@@ -14,7 +14,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- T node using strcraft
@@ -27,7 +27,7 @@ p = pipeline {
                 t_replaced = str_replace($raw, "cool", "awesome")
               ),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

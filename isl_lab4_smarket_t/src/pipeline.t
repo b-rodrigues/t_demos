@@ -5,7 +5,7 @@ import dataframe
 p = pipeline {
     smarket_raw = node(
         command = <{ read_csv("data/Smarket.csv") }>,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     data_node = node(
@@ -16,8 +16,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     );
 
     r_model = node(
@@ -28,7 +28,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     );
 
     py_model = node(
@@ -45,7 +45,7 @@ py_model = sm.GLM(y, X, family=sm.families.Binomial()).fit()
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

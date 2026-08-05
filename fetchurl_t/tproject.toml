@@ -6,7 +6,7 @@ authors = []
 [dependencies]
 
 [t]
-min_version = "0.53.3"
+min_version = "0.55.0"
 
 [nixpkgs]
 date = ""

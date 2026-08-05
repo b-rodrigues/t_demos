@@ -1,5 +1,5 @@
 [project]
-name = "arrow_source_coverage_t"
+name = "ipc_source_coverage_t"
 description = "A T demo that exercises Arrow I/O, compute, nested data, and stats bridges"
 
 [dependencies]
@@ -11,4 +11,4 @@ stats = "*"
 math = "*"
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"

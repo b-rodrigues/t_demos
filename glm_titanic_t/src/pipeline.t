@@ -10,7 +10,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     r_model_node = node(
@@ -20,7 +20,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     );
 
     py_model_node = node(
@@ -35,7 +35,7 @@ py_model_node = sm.GLM(y, X, family=sm.families.Binomial()).fit()
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

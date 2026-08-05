@@ -4,3 +4,6 @@ description = "Stress test data frame shapes: empty, all-NA, duplicate names, ty
 
 [t-dependencies]
 packages = ["core", "dataframe", "colcraft", "base"]
+
+[t]
+min_version = "0.55.0"

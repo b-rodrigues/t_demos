@@ -16,7 +16,7 @@
 p = pipeline {
   raw = node(
     command = read_csv("data/sample.csv"),
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   heavy_r = rn(
@@ -25,8 +25,8 @@ p = pipeline {
       raw %>% group_by(group) %>% summarize(total = sum(value))
     }>,
     deps = [raw],
-    deserializer = ^arrow,
-    serializer = ^arrow,
+    deserializer = ^ipc,
+    serializer = ^ipc,
     noop = true,
     env_vars = [RN_MODE: "fast"]
   )
@@ -47,7 +47,7 @@ p = pipeline {
   report = node(
     command = nrow(raw) > 0,
     deps = [raw],
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 }
 

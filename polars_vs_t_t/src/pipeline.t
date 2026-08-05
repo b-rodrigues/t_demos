@@ -23,11 +23,11 @@ p = pipeline {
             )
             
             # T-Lang will automatically convert this Polars DataFrame to Arrow 
-            # and then to a T DataFrame because we use serializer = ^arrow
+            # and then to a T DataFrame because we use serializer = ^ipc
             df
         }>,
         runtime = Python,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- T node consuming Polars output and performing native aggregations
@@ -40,7 +40,7 @@ p = pipeline {
                 count = n()
               ),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

@@ -3,7 +3,7 @@
 p = pipeline {
     hitters_raw = node(
         command = <{ read_csv("data/Hitters.csv") }>,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     data_node = node(
@@ -14,8 +14,8 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     r_model = node(
@@ -30,7 +30,7 @@ p = pipeline {
         }>,
         runtime = R,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     py_model = node(
@@ -55,7 +55,7 @@ py_model.fit(X, y)
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

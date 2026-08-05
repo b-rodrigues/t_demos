@@ -1,5 +1,5 @@
 [project]
-name = "arrow_edge_cases_t"
+name = "ipc_edge_cases_t"
 description = "A T demo covering Arrow edge cases, Parquet ingestion, and fallback CSV parsing"
 
 [dependencies]
@@ -22,7 +22,7 @@ packages = []
 packages = []
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"
 
 [nixpkgs]
 date = ""

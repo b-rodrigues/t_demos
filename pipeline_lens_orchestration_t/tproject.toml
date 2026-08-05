@@ -6,3 +6,6 @@ authors = ["Antigravity"]
 
 [dependencies]
 # Standard T library is enough
+
+[t]
+min_version = "0.55.0"

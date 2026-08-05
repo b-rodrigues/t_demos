@@ -3,4 +3,4 @@ name = "dynamic_branching_substitution_t"
 description = "Validates word-boundary regex substitution in pattern expansion"
 
 [t]
-min_version = "0.53.0"
+min_version = "0.55.0"

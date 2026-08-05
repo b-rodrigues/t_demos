@@ -20,7 +20,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- Guardrail 1: Numeric Range Checks
@@ -41,8 +41,8 @@ p = pipeline {
             raw_data
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     );
 
     -- Guardrail 2: Temporal Consistency Checks
@@ -64,8 +64,8 @@ p = pipeline {
             raw_data
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     );
 
     -- Guardrail 3: Missingness Checks
@@ -80,8 +80,8 @@ p = pipeline {
             raw_data
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     );
 
     -- Downstream Analytics (Depends on all guardrails passing)
@@ -97,7 +97,7 @@ p = pipeline {
             }
         }>,
         runtime = T,
-        deserializer = [validate_ranges: ^arrow, validate_dates: ^arrow, validate_nulls: ^arrow]
+        deserializer = [validate_ranges: ^ipc, validate_dates: ^ipc, validate_nulls: ^ipc]
     )
 }
 

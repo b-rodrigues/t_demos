@@ -7,4 +7,4 @@ resolver = "uv"
 workspace = "python"
 
 [t]
-min_version = "0.54.0"
+min_version = "0.55.0"

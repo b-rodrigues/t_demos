@@ -15,4 +15,4 @@ packages = []
 packages = []
 
 [t]
-min_version = "0.53.0"
+min_version = "0.55.0"

@@ -19,7 +19,7 @@ p = pipeline {
         group = rep(c("A", "B"), each = 50)
       )
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- 3. Python node: Consume Arrow DF from R, add a column, and output as Arrow
@@ -36,8 +36,8 @@ df_py['val_py'] = df_py['val'] * 1.5 + df_py['val_noisy'] * 0.5 + np.random.norm
 df_py['is_high'] = (df_py['val_py'] + np.random.normal(0, 0.2, len(df_py)) > 0.5).astype(int)
 df_py['lang'] = 'python'
     }>,
-    deserializer = ^arrow,
-    serializer = ^arrow
+    deserializer = ^ipc,
+    serializer = ^ipc
   )
 
   -- 4. R node: Create a ggplot graph
@@ -49,7 +49,7 @@ df_py['lang'] = 'python'
         geom_boxplot() +
         theme_minimal()
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- 5. R node: Linear model (lm)
@@ -58,7 +58,7 @@ df_py['lang'] = 'python'
     command = <{
       lm(val_py ~ val + group, data = df_py)
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- 6. R node: Generalized Linear Model (glm)
@@ -67,7 +67,7 @@ df_py['lang'] = 'python'
     command = <{
       glm(is_high ~ val, data = df_py, family = binomial)
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- 7. Python node: Linear Regression (scikit-learn)
@@ -79,7 +79,7 @@ X = df_py[['val']]
 y = df_py['val_py']
 lm_py = LinearRegression().fit(X, y)
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- 8. Python node: Logit model (statsmodels)
@@ -91,7 +91,7 @@ X = sm.add_constant(df_py[['val']])
 y = df_py['is_high']
 logit_py = sm.Logit(y, X).fit()
     }>,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- 9. R node: Hand-written summary (JSON)
@@ -106,7 +106,7 @@ logit_py = sm.Logit(y, X).fit()
         r_squared = summary(model)$r.squared
       )
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^json
   )
 
@@ -115,7 +115,7 @@ logit_py = sm.Logit(y, X).fit()
     command = <{
       lm(val_py ~ val, data = df_py)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^pmml
   )
 
@@ -126,7 +126,7 @@ logit_py = sm.Logit(y, X).fit()
       predict(df_py, r_model_pmml)
     }>,
     deserializer = [
-      df_py: ^arrow,
+      df_py: ^ipc,
       r_model_pmml: ^pmml
     ]
   )
@@ -141,7 +141,7 @@ X = df_py[['val']]
 y = df_py['val_py']
 py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
     }>,
-    deserializer = ^arrow,
+    deserializer = ^ipc,
     serializer = ^pmml
   )
 
@@ -151,7 +151,7 @@ py_model_pmml = PMMLPipeline([("regressor", LinearRegression())]).fit(X, y)
       predict(df_py, py_model_pmml)
     }>,
     deserializer = [
-      df_py: ^arrow,
+      df_py: ^ipc,
       py_model_pmml: ^pmml
     ]
   )

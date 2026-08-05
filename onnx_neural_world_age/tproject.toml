@@ -17,3 +17,6 @@ packages = ["Flux", "Zygote", "ChainRulesCore", "ZygoteRules", "JSON", "JLD2", "
 
 [nixpkgs]
 date = "2026-04-02"
+
+[t]
+min_version = "0.55.0"

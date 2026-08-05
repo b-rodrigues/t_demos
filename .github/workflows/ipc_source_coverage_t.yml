@@ -1,4 +1,4 @@
-name: Demo Arrow Source Coverage T
+name: Demo Arrow IPC Source Coverage T
 
 on:
   push:
@@ -13,11 +13,11 @@ permissions:
   contents: read
 
 jobs:
-  arrow-source-coverage-t:
+  ipc-source-coverage-t:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./arrow_source_coverage_t
+        working-directory: ./ipc_source_coverage_t
 
     steps:
       - name: Checkout repository

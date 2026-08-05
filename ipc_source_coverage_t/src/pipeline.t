@@ -16,30 +16,30 @@ p = pipeline {
             ])
             print("Seed type:")
             print(type(seed))
-            csv_path = "arrow_source_coverage_seed.csv"
+            csv_path = "ipc_source_coverage_seed.csv"
             res_w = write_csv(seed, csv_path)
             print("Write result:")
             print(res_w)
             read_csv(csv_path)
         }>,
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
-    arrow_roundtrip = node(
+    ipc_roundtrip = node(
         command = <{
-            arrow_path = "arrow_source_coverage.arrow"
-            write_arrow(source_csv, arrow_path)
-            read_arrow(arrow_path)
+            ipc_path = "ipc_source_coverage.arrow"
+            write_ipc(source_csv, ipc_path)
+            read_ipc(ipc_path)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     compute_features = node(
         command = <{
-            arrow_roundtrip
+            ipc_roundtrip
                 |> mutate(
                     $stage = to_factor($stage, levels = ["low", "medium", "high"], ordered = true),
                     $net = $amount - $offset,
@@ -65,29 +65,29 @@ p = pipeline {
                 |> distinct()
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     top_slice = node(
         command = compute_features |> arrange($amount, direction = "desc") |> slice([0, 1, 2]),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     active_projection = node(
         command = compute_features |> filter($flag) |> select($id, $segment, $amount, $net, $stage),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     segment_counts = node(
         command = count(compute_features, $segment),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     grouped_summary = node(
@@ -104,8 +104,8 @@ p = pipeline {
             )
             |> arrange($segment),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     aggregate_snapshot = node(
@@ -117,20 +117,20 @@ p = pipeline {
                 avg_exp_offset = mean($exp_offset)
             ),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     nested_groups = node(
         command = compute_features |> group_by($segment) |> nest(),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     roundtrip_nested = node(
         command = nested_groups |> unnest($data) |> arrange($id),
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     model_diagnostics = node(
@@ -139,8 +139,8 @@ p = pipeline {
             add_diagnostics(model, data = compute_features)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_predictions = node(
@@ -149,7 +149,7 @@ p = pipeline {
             predict(compute_features, model)
         }>,
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     model_augmented = node(
@@ -158,8 +158,8 @@ p = pipeline {
             add_diagnostics(compute_features, model)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_residuals = node(
@@ -168,8 +168,8 @@ p = pipeline {
             residuals(compute_features, model)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_coefficients = node(
@@ -178,8 +178,8 @@ p = pipeline {
             coef(model)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_confidence = node(
@@ -188,8 +188,8 @@ p = pipeline {
             conf_int(model)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_fit_stats = node(
@@ -199,7 +199,7 @@ p = pipeline {
             fit_stats([reduced: reduced, full: full])
         }>,
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     model_anova = node(
@@ -209,8 +209,8 @@ p = pipeline {
             anova(reduced, full)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_wald = node(
@@ -219,13 +219,13 @@ p = pipeline {
             wald_test(model, terms = ["offset"])
         }>,
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     validation_report = node(
         command = <{
             assert(nrow(source_csv) == 6, "CSV roundtrip should preserve all rows")
-            assert(get(pull(arrow_roundtrip, $note), 0) == "alpha,beta", "CSV quoting should roundtrip commas")
+            assert(get(pull(ipc_roundtrip, $note), 0) == "alpha,beta", "CSV quoting should roundtrip commas")
             assert(nrow(top_slice) == 3, "slice() should keep the requested number of rows")
             assert(nrow(active_projection) == 4, "filter() should keep the four flagged rows")
             assert(ncol(active_projection) == 5, "select() should project the requested columns")
@@ -261,26 +261,26 @@ p = pipeline {
         }>,
         runtime = T,
         deserializer = [
-            source_csv: ^arrow,
-            arrow_roundtrip: ^arrow,
-            top_slice: ^arrow,
-            active_projection: ^arrow,
-            segment_counts: ^arrow,
-            grouped_summary: ^arrow,
-            aggregate_snapshot: ^arrow,
-            roundtrip_nested: ^arrow,
-            compute_features: ^arrow,
-            model_diagnostics: ^arrow,
-            model_augmented: ^arrow,
-            model_residuals: ^arrow,
-            model_coefficients: ^arrow,
-            model_confidence: ^arrow,
-            model_anova: ^arrow
+            source_csv: ^ipc,
+            ipc_roundtrip: ^ipc,
+            top_slice: ^ipc,
+            active_projection: ^ipc,
+            segment_counts: ^ipc,
+            grouped_summary: ^ipc,
+            aggregate_snapshot: ^ipc,
+            roundtrip_nested: ^ipc,
+            compute_features: ^ipc,
+            model_diagnostics: ^ipc,
+            model_augmented: ^ipc,
+            model_residuals: ^ipc,
+            model_coefficients: ^ipc,
+            model_confidence: ^ipc,
+            model_anova: ^ipc
         ]
     )
 }
 
-print("Running arrow source coverage demo...")
+print("Running IPC source coverage demo...")
 res = populate_pipeline(p, build = true, verbose = 1)
 if (is_error(res)) {
     print(res)
@@ -298,4 +298,4 @@ print(summary_preview)
 print("Validation report:")
 print(report)
 
-assert(report.status == "ok", "Arrow source coverage demo failed")
+assert(report.status == "ok", "IPC source coverage demo failed")

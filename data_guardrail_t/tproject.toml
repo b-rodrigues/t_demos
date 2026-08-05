@@ -10,3 +10,6 @@ packages = ["dplyr", "arrow", "jsonlite"]
 
 [t-dependencies]
 packages = ["core", "dataframe", "colcraft", "base", "stats", "chrono"]
+
+[t]
+min_version = "0.55.0"

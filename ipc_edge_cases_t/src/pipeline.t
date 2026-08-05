@@ -14,7 +14,7 @@ p = pipeline {
             read_csv("n.csv")
         }>,
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     seed_fallback_df = node(
@@ -29,7 +29,7 @@ p = pipeline {
             read_csv("f.csv", separator = ";")
         }>,
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     seed_parquet = node(
@@ -50,10 +50,10 @@ parquet_df = pd.DataFrame({
 
 import os
 out_dir = os.environ.get("out", ".")
-parquet_path = os.path.join(out_dir, "arrow_edge.parquet")
+parquet_path = os.path.join(out_dir, "ipc_edge.parquet")
 parquet_df.to_parquet(parquet_path, index = False)
 print(f"Wrote parquet to {parquet_path}")
-seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
+seed_parquet = {"status": "ready", "path": "ipc_edge.parquet"}
         }>,
         runtime = Python,
         serializer = ^json
@@ -62,15 +62,15 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
     native_csv = node(
         command = seed_native_df,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     fallback_csv = node(
         command = seed_fallback_df,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     parsed_native = node(
@@ -82,20 +82,20 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
             )
             |> arrange($id),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     parquet_scan = node(
         command = <{
             _ = seed_parquet
             root = env("T_NODE_seed_parquet")
-            parquet_file = path_join(root, "arrow_edge.parquet")
+            parquet_file = path_join(root, "ipc_edge.parquet")
             read_parquet(parquet_file)
         }>,
         runtime = T,
         deserializer = ^json,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     r_temporal = node(
@@ -109,7 +109,7 @@ seed_parquet = {"status": "ready", "path": "arrow_edge.parquet"}
             )
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     py_temporal = node(
@@ -122,8 +122,8 @@ df["score"] = df["amount"] * 2.0
 py_temporal = df
         }>,
         runtime = Python,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     temporal_roundtrip = node(
@@ -135,8 +135,8 @@ py_temporal = df
             )
             |> arrange($id),
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     validation_report = node(
@@ -162,16 +162,16 @@ py_temporal = df
         }>,
         runtime = T,
         deserializer = [
-            native_csv: ^arrow,
-            fallback_csv: ^arrow,
-            parsed_native: ^arrow,
-            parquet_scan: ^arrow,
-            temporal_roundtrip: ^arrow
+            native_csv: ^ipc,
+            fallback_csv: ^ipc,
+            parsed_native: ^ipc,
+            parquet_scan: ^ipc,
+            temporal_roundtrip: ^ipc
         ]
     )
 }
 
-print("Running arrow edge-case demo...")
+print("Running IPC edge-case demo...")
 res = populate_pipeline(p, build = true, verbose = 1)
 if (is_error(res)) {
     print(res)

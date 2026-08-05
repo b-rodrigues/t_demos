@@ -3,8 +3,8 @@ p = pipeline {
     baseline_data = node(
         command = <{ read_csv("data/mtcars.csv", separator = "|") }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     -- 2. Compute Baseline Statistics
@@ -16,8 +16,8 @@ p = pipeline {
             )
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     -- 3. Simulate "Live" Data with a drift in mpg
@@ -29,8 +29,8 @@ p = pipeline {
             )
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     -- 4. The Statistical Guardrail Node
@@ -57,7 +57,7 @@ p = pipeline {
             }
         }>,
         runtime = T,
-        deserializer = [ live_data: ^arrow, baseline_stats: ^arrow ],
+        deserializer = [ live_data: ^ipc, baseline_stats: ^ipc ],
         serializer = ^json
     )
 }

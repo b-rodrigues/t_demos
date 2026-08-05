@@ -7,9 +7,9 @@ csv_text = str_join([
     "3;\"say \"\"hello\"\"\";;2024-03-31\n"
 ], "")
 
-write_text("arrow_disable_arrow.csv", csv_text)
+write_text("ipc_disable_arrow.csv", csv_text)
 
-df = read_csv("arrow_disable_arrow.csv", separator = ";")
+df = read_csv("ipc_disable_arrow.csv", separator = ";")
 parsed = df
     |> mutate(
         parsed_date = to_date($date_str),

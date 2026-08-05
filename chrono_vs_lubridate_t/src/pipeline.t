@@ -21,7 +21,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- T node using chrono
@@ -37,7 +37,7 @@ p = pipeline {
                 t_plus_one_month = $t_parsed + months(1)
               ),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

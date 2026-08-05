@@ -19,7 +19,7 @@ p = pipeline {
             ])
         }>,
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     counts_t = node(
@@ -31,8 +31,8 @@ p = pipeline {
                 |> arrange($group)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     counts_r = node(
@@ -45,8 +45,8 @@ p = pipeline {
                 arrange(group)
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     descriptive_t = node(
@@ -102,7 +102,7 @@ p = pipeline {
             ]
         }>,
         runtime = T,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -170,7 +170,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -191,8 +191,8 @@ p = pipeline {
             basis_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     basis_r = node(
@@ -208,8 +208,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_summary_t = node(
@@ -227,8 +227,8 @@ p = pipeline {
                 )
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_summary_r = node(
@@ -246,8 +246,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_coef_t = node(
@@ -260,8 +260,8 @@ p = pipeline {
             coef_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_coef_r = node(
@@ -272,8 +272,8 @@ p = pipeline {
             data.frame(term = names(vals), estimate = round(as.numeric(vals), 8), row.names = NULL)
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_conf_int_t = node(
@@ -286,8 +286,8 @@ p = pipeline {
             conf_int_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_conf_int_r = node(
@@ -303,8 +303,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_predict_t = node(
@@ -320,7 +320,7 @@ p = pipeline {
             ]
         }>,
         runtime = T,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -336,7 +336,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -354,8 +354,8 @@ p = pipeline {
             resid_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_residuals_r = node(
@@ -369,8 +369,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_augment_t = node(
@@ -388,8 +388,8 @@ p = pipeline {
             augment_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_augment_r = node(
@@ -405,8 +405,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_diagnostics_t = node(
@@ -427,8 +427,8 @@ p = pipeline {
             diag_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_diagnostics_r = node(
@@ -447,8 +447,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_fit_stats_t = node(
@@ -475,8 +475,8 @@ p = pipeline {
             fit_stats_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_fit_stats_r = node(
@@ -500,8 +500,8 @@ p = pipeline {
             rbind(make_row("reduced", reduced), make_row("full", full))
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_compare_t = node(
@@ -521,8 +521,8 @@ p = pipeline {
             compare_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_compare_r = node(
@@ -543,8 +543,8 @@ p = pipeline {
             out
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_score_t = node(
@@ -556,8 +556,8 @@ p = pipeline {
             score_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_score_r = node(
@@ -572,8 +572,8 @@ p = pipeline {
             data.frame(rmse = round(rmse, 8), mae = round(mae, 8), r2 = round(r2, 8))
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_anova_t = node(
@@ -612,7 +612,7 @@ p = pipeline {
             ]
         }>,
         runtime = T,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -646,7 +646,7 @@ p = pipeline {
             rows
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -664,8 +664,8 @@ p = pipeline {
             wald_df
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_wald_r = node(
@@ -688,8 +688,8 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 
     model_scalars_t = node(
@@ -705,7 +705,7 @@ p = pipeline {
             ]
         }>,
         runtime = T,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -721,7 +721,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -732,7 +732,7 @@ p = pipeline {
             glm(success ~ feature_a + feature_b, data = stats_data, family = binomial(link = "logit"))
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^pmml
     )
 
@@ -754,7 +754,7 @@ p = pipeline {
             list(dispersion = round(summary(fit)$dispersion, 8))
         }>,
         runtime = R,
-        deserializer = ^arrow,
+        deserializer = ^ipc,
         serializer = ^json
     )
 
@@ -786,37 +786,37 @@ p = pipeline {
         }>,
         runtime = T,
         deserializer = [
-            stats_data: ^arrow,
-            counts_t: ^arrow,
-            counts_r: ^arrow,
+            stats_data: ^ipc,
+            counts_t: ^ipc,
+            counts_r: ^ipc,
             descriptive_t: ^json,
             descriptive_r: ^json,
-            basis_t: ^arrow,
-            basis_r: ^arrow,
-            model_summary_t: ^arrow,
-            model_summary_r: ^arrow,
-            model_coef_t: ^arrow,
-            model_coef_r: ^arrow,
-            model_conf_int_t: ^arrow,
-            model_conf_int_r: ^arrow,
+            basis_t: ^ipc,
+            basis_r: ^ipc,
+            model_summary_t: ^ipc,
+            model_summary_r: ^ipc,
+            model_coef_t: ^ipc,
+            model_coef_r: ^ipc,
+            model_conf_int_t: ^ipc,
+            model_conf_int_r: ^ipc,
             model_predict_t: ^json,
             model_predict_r: ^json,
-            model_residuals_t: ^arrow,
-            model_residuals_r: ^arrow,
-            model_augment_t: ^arrow,
-            model_augment_r: ^arrow,
-            model_diagnostics_t: ^arrow,
-            model_diagnostics_r: ^arrow,
-            model_fit_stats_t: ^arrow,
-            model_fit_stats_r: ^arrow,
-            model_compare_t: ^arrow,
-            model_compare_r: ^arrow,
-            model_score_t: ^arrow,
-            model_score_r: ^arrow,
+            model_residuals_t: ^ipc,
+            model_residuals_r: ^ipc,
+            model_augment_t: ^ipc,
+            model_augment_r: ^ipc,
+            model_diagnostics_t: ^ipc,
+            model_diagnostics_r: ^ipc,
+            model_fit_stats_t: ^ipc,
+            model_fit_stats_r: ^ipc,
+            model_compare_t: ^ipc,
+            model_compare_r: ^ipc,
+            model_score_t: ^ipc,
+            model_score_r: ^ipc,
             model_anova_t: ^json,
             model_anova_r: ^json,
-            model_wald_t: ^arrow,
-            model_wald_r: ^arrow,
+            model_wald_t: ^ipc,
+            model_wald_r: ^ipc,
             model_scalars_t: ^json,
             model_scalars_r: ^json,
             model_dispersion_t: ^json,

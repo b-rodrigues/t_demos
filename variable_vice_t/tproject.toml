@@ -4,3 +4,6 @@ description = "Stress test T language runtime: type errors, name suggestions, pi
 
 [t-dependencies]
 packages = ["core", "base"]
+
+[t]
+min_version = "0.55.0"

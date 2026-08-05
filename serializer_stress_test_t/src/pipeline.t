@@ -17,7 +17,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- Process in T
@@ -30,7 +30,7 @@ p = pipeline {
                 sum_i = sum($val_i)
               ),
         runtime = T,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

@@ -8,3 +8,6 @@ packages = ["dplyr", "readr", "jsonlite", "arrow"]
 
 [additional-tools]
 packages = ["jq"]
+
+[t]
+min_version = "0.55.0"

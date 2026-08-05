@@ -12,4 +12,4 @@ version = "python313"
 packages = [ "numpy", "pillow",]
 
 [t]
-min_version = "0.52.0"
+min_version = "0.55.0"

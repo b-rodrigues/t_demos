@@ -13,7 +13,7 @@ p = pipeline {
             )
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     )
 
     -- R Node that triggers a native warning but completes successfully
@@ -23,8 +23,8 @@ p = pipeline {
             raw_data[raw_data$val > 30, ]
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- R Node that triggers a second warning (accumulation test)
@@ -34,8 +34,8 @@ p = pipeline {
             r_warn
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- R Node with no new warning (should inherit accumulated warnings from chain)
@@ -44,8 +44,8 @@ p = pipeline {
             r_warn2
         }>,
         runtime = R,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- R Node that fails with a terminal error
@@ -67,8 +67,8 @@ p = pipeline {
             return raw_data
         }>,
         runtime = Python,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- Python node that raises an exception
@@ -88,8 +88,8 @@ p = pipeline {
             py_warn
         }>,
         runtime = Python,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- Python node with no new warning (should inherit accumulated warnings)
@@ -98,8 +98,8 @@ p = pipeline {
             py_warn2
         }>,
         runtime = Python,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- --- Julia Nodes (Warning Accumulation) ---
@@ -111,8 +111,8 @@ p = pipeline {
             raw_data
         }>,
         runtime = Julia,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- Julia node with a second warning (accumulation test)
@@ -122,8 +122,8 @@ p = pipeline {
             jl_warn
         }>,
         runtime = Julia,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- Julia node with no new warning (should inherit accumulated warnings)
@@ -132,8 +132,8 @@ p = pipeline {
             jl_warn2
         }>,
         runtime = Julia,
-        serializer = ^arrow,
-        deserializer = ^arrow
+        serializer = ^ipc,
+        deserializer = ^ipc
     )
 
     -- --- T Nodes (First-Class Diagnostics) ---
@@ -142,20 +142,20 @@ p = pipeline {
     -- The filter() function will exclude the row where val is NA
     t_warn = node(
         command = raw_data |> filter($val > 20),
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 
     -- T node that triggers a Runtime Error due to NA propagation
     -- sum() will fail because na_rm defaults to false and NAs are present
     -- t_err = node(
     --     command = sum(raw_data.val),
-    --     deserializer = ^arrow
+    --     deserializer = ^ipc
     -- )
 
     -- Successful aggregation node for comparison
     summary_stats = node(
         command = raw_data |> group_by($category) |> summarize($avg = mean($val, na_rm = true)),
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 

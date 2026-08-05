@@ -19,7 +19,7 @@ p = pipeline {
             df
         }>,
         runtime = R,
-        serializer = ^arrow
+        serializer = ^ipc
     );
 
     -- R node performing transformations
@@ -32,8 +32,8 @@ p = pipeline {
                 relocate(tag, .before = id)
         }>,
         runtime = R,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     );
 
     -- T node performing the SAME transformations as R
@@ -45,8 +45,8 @@ p = pipeline {
               |> relocate($tag, .before = $id)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     );
 
     -- Parity check node
@@ -58,7 +58,7 @@ p = pipeline {
             true
         }>,
         runtime = T,
-        deserializer = [r_across: ^arrow, t_across_parity: ^arrow]
+        deserializer = [r_across: ^ipc, t_across_parity: ^ipc]
     );
 
 
@@ -69,8 +69,8 @@ p = pipeline {
             raw_data |> summarize_across(["val_a", "val_b", "val_c"], mean)
         }>,
         runtime = T,
-        deserializer = ^arrow,
-        serializer = ^arrow
+        deserializer = ^ipc,
+        serializer = ^ipc
     )
 }
 

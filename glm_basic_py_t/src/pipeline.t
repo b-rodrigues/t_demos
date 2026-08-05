@@ -11,7 +11,7 @@ p = pipeline {
             to_dataframe(data)
         }>,
         runtime = T,
-        serializer = ^arrow
+        serializer = ^ipc
     );
     
     model_node = node(
@@ -26,7 +26,7 @@ p = pipeline {
         }>,
         runtime = Python,
         serializer = ^pmml,
-        deserializer = ^arrow
+        deserializer = ^ipc
     )
 }
 
