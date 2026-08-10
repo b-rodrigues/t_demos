@@ -5,11 +5,14 @@ description = "A T project focused on skipping nodes"
 [dependencies]
 
 [r-dependencies]
-packages = [ "dplyr",]
+packages = [ "dplyr", "knitr", "rmarkdown",]
 
 [py-dependencies]
 version = "python313"
-packages = [ "pandas",]
+packages = [ "pandas", "ipykernel", "nbclient", "nbformat", "pyyaml",]
+
+[additional-tools]
+packages = [ "quarto", "which",]
 
 [t]
 min_version = "0.55.0"

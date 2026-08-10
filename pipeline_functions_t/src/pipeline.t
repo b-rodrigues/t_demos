@@ -17,11 +17,11 @@ base_p = pipeline {
 
   grouped_rows = quiet_positive_rows |> group_by($group)
 
-  summary = grouped_rows |> summarize($total = sum($value, na_rm = true))
+  summary_stats = grouped_rows |> summarize($total = sum($value, na_rm = true))
 }
 
 edited_p = base_p
-  |> rename_node("summary", "final_summary")
+  |> rename_node("summary_stats", "final_summary")
   |> patch(pipeline {
     final_summary = grouped_rows |> summarize($total = sum($value, na_rm = true))
   })

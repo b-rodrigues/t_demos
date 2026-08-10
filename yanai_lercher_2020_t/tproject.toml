@@ -5,11 +5,14 @@ description = "A T data analysis project"
 [dependencies]
 
 [r-dependencies]
-packages = [ "dplyr", "ggplot2",]
+packages = [ "dplyr", "ggplot2", "arrow", "knitr", "rmarkdown",]
 
 [py-dependencies]
 version = "python313"
-packages = [ "numpy", "pillow",]
+packages = [ "numpy", "pillow", "pandas", "ipykernel", "nbclient", "nbformat", "pyyaml",]
+
+[additional-tools]
+packages = [ "quarto", "which",]
 
 [t]
 min_version = "0.55.0"

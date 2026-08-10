@@ -21,7 +21,7 @@ p = pipeline {
   )
 
   -- This node depends on expensive_node, so it also becomes a noop
-  summary = node(
+  summary_stats = node(
     command = sum(expensive_node),
     deserializer = ^json
   )

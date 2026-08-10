@@ -56,7 +56,7 @@ assert(length(errored) == 2 && str_detect(errored_str, "bad") && str_detect(erro
 p_warn = pipeline {
     data = to_dataframe([[x: 1], [x: NA], [x: 3]])
     filtered = filter(data, $x > 1)
-    count = nrow(filtered)
+    n_obs = nrow(filtered)
 }
 build_pipeline(p_warn, verbose=0)
 
@@ -66,12 +66,12 @@ assert(warn_summary == "1 node(s) with warnings, 0 suppressed, 0 error(s), 0 rec
     "read_pipeline summarizes 1 warning origin") |> print()
 
 -- Test: downstream nodes inherit upstream warnings via inspect_node
-downstream_sources = inspect_node(p_warn.count).warnings |> map(\(w) w.source)
+downstream_sources = inspect_node(p_warn.n_obs).warnings |> map(\(w) w.source)
 assert(identical(downstream_sources, ["filtered"]),
     "inspect_node shows upstream inherited warnings with correct source") |> print()
 
 -- Test: warning_msg on downstream node includes ancestor provenance
-count_warn_msg = warning_msg(p_warn.count)
+count_warn_msg = warning_msg(p_warn.n_obs)
 assert(str_detect(count_warn_msg, "Ancestor node 'filtered' reported following warning"),
     "warning_msg on downstream node prefixes ancestor node name") |> print() 
 
@@ -112,11 +112,11 @@ assert(read_node(p_pipe.b) == 10, "pipeline with pipe operator: read_node(p.b) =
 p_func = pipeline {
     data = [1, 2, 3]
     total = sum(data)
-    count = length(data)
+    n_items = length(data)
 }
 build_pipeline(p_func, verbose=0)
 assert(read_node(p_func.total) == 6, "pipeline with function calls: read_node(p.total) == 6") |> print()
-assert(read_node(p_func.count) == 3, "pipeline nodes available: read_node(p.count) == 3") |> print()
+assert(read_node(p_func.n_items) == 3, "pipeline nodes available: read_node(p.n_items) == 3") |> print()
 
 
 -- ═══════════════════════════════════════════════════════════════

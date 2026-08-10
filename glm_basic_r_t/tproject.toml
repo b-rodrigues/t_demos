@@ -6,7 +6,7 @@ description = "GLM Example: Basic R logistic regression"
 min_version = "0.55.0"
 
 [r-dependencies]
-packages = ["arrow"]
+packages = ["arrow", "jsonlite", "r2pmml", "XML"]
 
 [additional-tools]
 packages = ["jpmml-evaluator", "jre"]

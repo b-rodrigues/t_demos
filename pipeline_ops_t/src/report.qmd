@@ -17,7 +17,7 @@ T allows converting a pipeline's definition into a DataFrame for introspection.
 #| label: pipeline-meta
 p = pipeline {
   raw = read_csv("data/sample.csv")
-  summary = raw |> filter($value > 10)
+  summary_stats = raw |> filter($value > 10)
 }
 
 # Introspect nodes

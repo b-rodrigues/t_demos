@@ -18,7 +18,7 @@ base_p = pipeline {
     noop = true
   )
 
-  summary = node(
+  summary_stats = node(
     command = heavy_r_node |> filter($total > 100),
     deserializer = ^ipc
   )
@@ -40,8 +40,8 @@ print("R nodes:")
 print(pipeline_nodes(r_only))
 
 -- 5. Mutating and Renaming
--- Rename 'raw' to 'source'
-p_renamed = base_p |> rename_node("raw", "source")
+-- Rename 'raw' to 'origin'
+p_renamed = base_p |> rename_node("raw", "origin")
 
 -- 6. Set Operations
 other_p = pipeline {
@@ -55,9 +55,9 @@ print("Nodes in union (parallel):")
 print(pipeline_nodes(p_union))
 
 -- Patch
-p_patch = base_p |> patch(pipeline { summary = 99 })
+p_patch = base_p |> patch(pipeline { summary_stats = 99 })
 print("Patched summary node value in-memory:")
-print(p_patch.summary)
+print(p_patch.summary_stats)
 
 -- 7. DAG-Aware Transformations
 -- Subgraph of heavy_r_node
@@ -114,7 +114,7 @@ print("Pipeline Demo Complete")
 r_raw = read_node(p_site.raw)
 assert(type(r_raw.error) == "NA", "raw node should succeed")
 -- Summary depends on noop heavy_r_node, so it may be skipped
-r_summary = read_node(p_site.summary)
+r_summary = read_node(p_site.summary_stats)
 if (is_error(r_summary)) {
   print(str_join(["summary skipped (downstream of noop): ", error_msg(r_summary)]))
 } else {

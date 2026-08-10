@@ -4,7 +4,7 @@ p_etl = pipeline {
 }
 
 p_stats = pipeline {
-  summary = etl.clean * 3
+  total = etl.clean * 3
 }
 
 meta = pipeline_of {
@@ -26,8 +26,8 @@ populate_pipeline(meta, build = true, verbose = 1)
 pipeline_copy()
 
 -- Read the materialized node directly using nested dot-access!
-print("Value of stats.summary:")
-val = read_node(meta.stats.summary)
+print("Value of stats.total:")
+val = read_node(meta.stats.total)
 print(val)
 
 -- Verify that the value is indeed (10 + 2) * 3 = 36

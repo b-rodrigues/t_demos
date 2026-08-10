@@ -54,7 +54,7 @@ assert(val3 != val4, "different params should produce different results")
 make_join_pipeline = \(sep: String -> Pipeline) pipeline {
   words  = ["hello", "world", "from", "T"]
   joined = str_join(words, sep = sep)
-  length = str_nchar(joined)
+  char_len = str_nchar(joined)
 }
 
 p5 = make_join_pipeline(", ")
@@ -62,7 +62,7 @@ populate_pipeline(p5, build = true, verbose = 1)
 val5 = read_node(p5.joined)
 print(str_join(["p5.joined = \"", val5, "\""], ""))
 assert(val5 == "hello, world, from, T", "join with comma-space should produce expected string")
-p5_len = read_node(p5.length)
+p5_len = read_node(p5.char_len)
 assert(p5_len == 21, "length of joined string should be 21")
 
 p6 = make_join_pipeline(" | ")
@@ -70,7 +70,7 @@ populate_pipeline(p6, build = true, verbose = 1)
 val6 = read_node(p6.joined)
 print(str_join(["p6.joined = \"", val6, "\""], ""))
 assert(val6 == "hello | world | from | T", "join with pipe should produce expected string")
-p6_len = read_node(p6.length)
+p6_len = read_node(p6.char_len)
 assert(p6_len == 24, "length of pipe-joined string should be 24")
 
 -- ============================================================
