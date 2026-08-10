@@ -1,6 +1,6 @@
--- check_fix_diff_t: Demonstrates expect() contracts, t check, t fix, and t diff
+-- check_fix_diff_t: Demonstrates t check, t fix, and t diff
 --
--- Run:  t check --schema src/pipeline.t      (static contract validation)
+-- Run:  t check --schema src/pipeline.t      (static validation)
 -- Run:  t run src/pipeline.t                 (full pipeline build + assertions)
 -- Run:  t diff src/pipeline.t                (compare last two builds)
 
@@ -8,22 +8,12 @@ import dataframe
 import colcraft
 
 -- ── Build pipeline ─────────────────────────────────────────────────────────────
--- expect() contracts are declared inside pipeline nodes:
---   Column contract:  output must have exactly these 4 columns
---   Type contract:    amount must be double (verified statically via t check --schema)
---   Null-rate contract: amount must have < 5% nulls (deferred to runtime)
 p = pipeline {
   raw = read_csv("data/sales.csv")
 
-  clean = raw
-    |> filter($amount > 0)
-    |> expect(
-         columns = ["id", "amount", "date", "status"],
-         amount ~ double(),
-         null_rate("amount") < 0.05
-       )
+  clean = raw |> filter($amount > 0)
 
-  summary = clean |> summarize(
+  summary_node = clean |> summarize(
     $total = sum($amount),
     $n = nrow(clean)
   )
@@ -37,15 +27,21 @@ res = populate_pipeline(p, build = true)
 built = !is_error(res) && type(res) != "String"
 
 if (built) {
-  assert(!is_error(read_node(p.clean)), "clean node errored")
-  assert(!is_error(read_node(p.summary)), "summary node errored")
+  clean_df = read_node(p.clean)
+  assert(!is_error(clean_df), "clean node errored")
+  assert(!is_error(read_node(p.summary_node)), "summary node errored")
+
+  -- Runtime contract checks on the built output (testcraft)
+  assert(expect_colnames(clean_df, ["id", "amount", "date", "status"]), "clean has expected columns")
+  assert(expect_column_types(clean_df, [amount: "Float"]), "amount column is a double")
+  assert(expect_no_na(clean_df, "amount"), "amount column has no NAs")
 
   print("=== Clean data (first 5 rows) ===")
-  print(head(clean))
+  print(head(clean_df))
 
   print("")
   print("=== Summary ===")
-  print(read_node(p.summary).value)
+  print(read_node(p.summary_node).value)
 
   print("")
   print("=== Pipeline Diagnostics ===")
@@ -54,10 +50,10 @@ if (built) {
   print("")
   print("=== Build Diff Summary ===")
   diff = diff_summary(p)
-  if (nrow(diff) > 0) {
-    print(diff)
-  } else {
+  if (is_error(diff)) {
     print("(run 't run src/pipeline.t' twice to see build diffs)")
+  } else {
+    print(diff)
   }
 }
 

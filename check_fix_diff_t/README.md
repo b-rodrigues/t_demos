@@ -1,6 +1,6 @@
 # check_fix_diff_t
 
-Demonstrates T's static contract system (`expect()`), mechanical fix application (`t fix`), and content-addressed build diffing (`t diff`).
+Demonstrates T's structural checker (`t check`), mechanical fix application (`t fix`), and content-addressed build diffing (`t diff`).
 
 ## Quick start
 
@@ -10,46 +10,42 @@ t run src/pipeline.t
 
 ## What this demo shows
 
-### 1. `expect()` contracts
-
-The `clean` node declares three contract types:
-
-| Contract | Syntax | Checked by |
-|----------|--------|------------|
-| Column presence | `columns = ["id", ...]` | `t check --schema` (static) |
-| Type | `amount ~ double()` | `t check --schema` (static) |
-| Null-rate | `null_rate("amount") < 0.05` | runtime (warning at check time) |
-
-### 2. `t check --schema` — static contract validation
+### 1. `t check --schema` — static pipeline validation
 
 ```bash
 t check --schema src/pipeline.t
 ```
 
-Runs the full evaluator but short-circuits Nix builds. Validates pipeline DAG structure, column references, and `expect()` contracts against the inferred Arrow schema. Completes instantly without requiring Nix or runtime dependencies.
+Runs the full evaluator but short-circuits Nix builds. Validates pipeline DAG structure, node dependency references, and column references against the inferred schema. Completes instantly without requiring Nix or runtime dependencies.
 
-### 3. `t fix` — mechanical fix application
+### 2. `t fix` — mechanical fix application
 
-If a type contract fails (e.g., `amount ~ string()` when the schema infers `double`), `t check --schema` emits a `contract_violation` diagnostic with a `suggested_fix` of kind `cast`. `t fix` applies it:
+If a structural diagnostic has a suggested fix (e.g. a `Rename_column` for a misspelled column reference), `t fix` can apply it:
 
 ```bash
 # Preview what would change
 t fix --dry-run src/pipeline.t
 
-# Apply the fix (inserts |> mutate($amount = as.string($amount)) before the expect())
+# Apply the fix
 t fix src/pipeline.t
-
-# Verify the fix worked
-t check --schema src/pipeline.t
 ```
 
 **Try it yourself:**
 
-1. In `src/pipeline.t`, change `amount ~ double()` to `amount ~ string()` in the `expect()` call.
-2. Run `t check --schema src/pipeline.t` — you'll see a `contract_violation` error with a `cast` suggested_fix.
-3. Run `t fix src/pipeline.t` — it inserts a `mutate()` call to cast the column.
-4. Run `t check --schema src/pipeline.t` again — the contract passes.
-5. Revert with `git checkout src/pipeline.t`.
+1. In `src/pipeline.t`, change `filter($amount > 0)` to `filter($amout > 0)` (typo).
+2. Run `t check --schema src/pipeline.t` — you'll see a column-reference diagnostic.
+3. Run `t fix src/pipeline.t` — it renames the column back.
+4. Revert with `git checkout src/pipeline.t`.
+
+### 3. Runtime contract checks (testcraft)
+
+After the pipeline builds, runtime `expect_*` assertions verify the output:
+
+```t
+assert(expect_colnames(clean_df, ["id", "amount", "date", "status"]), "clean has expected columns")
+assert(expect_column_types(clean_df, [amount: "Float"]), "amount column is a double")
+assert(expect_no_na(clean_df, "amount"), "amount column has no NAs")
+```
 
 ### 4. `t diff` — content-addressed build diffing
 
@@ -71,6 +67,6 @@ diff_summary(p)  -- returns a DataFrame with columns: name, status, hash_a, hash
 
 | File | Description |
 |------|-------------|
-| `src/pipeline.t` | Main pipeline script with `expect()` contracts |
+| `src/pipeline.t` | Main pipeline script with structural validation and runtime contract checks |
 | `data/sales.csv` | Input data (5 rows, 4 columns) |
 | `tproject.toml` | Project config (T-only, no R/Python deps) |

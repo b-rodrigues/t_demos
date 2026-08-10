@@ -1,9 +1,9 @@
 [project]
 name = "check_fix_diff_t"
-description = "Demonstrates expect() contracts, t check --schema, t fix, and t diff"
+description = "Demonstrates t check --schema, t fix, and t diff"
 
 [t-dependencies]
-packages = ["core", "dataframe", "colcraft", "stats", "pipeline"]
+packages = ["core", "dataframe", "colcraft", "stats", "pipeline", "testcraft"]
 
 [t]
 min_version = "0.55.0"
