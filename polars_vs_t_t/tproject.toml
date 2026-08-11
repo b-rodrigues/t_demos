@@ -5,7 +5,6 @@ description = "Comparison of Python Polars and T-Lang native DataFrames"
 
 [dependencies]
 python = ["polars", "pyarrow"]
-r = ["arrow"]
 
 [t]
 min_version = "0.55.0"
