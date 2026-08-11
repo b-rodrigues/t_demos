@@ -4,12 +4,6 @@ version = "0.1.0"
 description = "A demo comparing R and Python models using the newly expanded glance()."
 
 [dependencies]
-base = "*"
-pipeline = "*"
-dataframe = "*"
-colcraft = "*"
-math = "*"
-stats = "*"
 
 [r-dependencies]
 packages = [ "dplyr", "readr", "arrow", "jsonlite", "pmml", "XML", "r2pmml",]

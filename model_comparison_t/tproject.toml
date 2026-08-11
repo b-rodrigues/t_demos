@@ -4,12 +4,6 @@ version = "0.1.0"
 description = "A demo showcasing model comparison using pipeline operations."
 
 [dependencies]
-base = "*"
-pipeline = "*"
-dataframe = "*"
-colcraft = "*"
-math = "*"
-stats = "*"
 
 [r-dependencies]
 packages = [ "dplyr", "readr", "arrow", "jsonlite",]

@@ -4,9 +4,6 @@ version = "0.1.0"
 authors = ["Bruno Rodrigues <bruno@brodrigues.co>"]
 description = "Testing World Age safety with Flux in T-lang"
 
-[dependencies]
-tlang = ">=0.52.0"
-
 [py-dependencies]
 version = "python314"
 packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]

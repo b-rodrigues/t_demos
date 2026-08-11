@@ -4,9 +4,6 @@ version = "0.1.0"
 authors = ["Bruno Rodrigues <bruno@brodrigues.co>"]
 description = "Demonstrating T-Lang native model inspection and diagnostic capabilities"
 
-[dependencies]
-tlang = ">=0.52.0"
-
 [nixpkgs]
 date = "2026-04-02"
 
