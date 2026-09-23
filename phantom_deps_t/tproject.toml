@@ -5,7 +5,7 @@ description = "Repro for tlang issue 527 follow-up: node names in trailing comme
 [dependencies]
 
 [r-dependencies]
-packages = []
+packages = ["arrow", "jsonlite"]
 
 [py-dependencies]
 version = "python314"
