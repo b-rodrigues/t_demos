@@ -23,6 +23,8 @@
 
         rpkgs = with pkgs.rPackages; [
           t-lang.packages.${system}.tlang-r
+          arrow
+          jsonlite
         ];
 
         # R environment
