@@ -162,5 +162,18 @@ build_pipeline(p_rerun2, verbose=0)
 assert(read_node(p_rerun2.total) == 30, "re-run deterministic execution") |> print()
 
 
+-- ═══════════════════════════════════════════════════════════════
+-- 8. pipeline_status health table + read_log(p.node) form
+-- ═══════════════════════════════════════════════════════════════
+st = pipeline_status(p_rerun2)
+assert(expect_has_colnames(st, ["name", "runtime", "status", "duration", "path", "error"]),
+    "pipeline_status has health columns") |> print()
+assert(nrow(st) == 3, "pipeline_status returns one row per node") |> print()
+
+lg = read_log(p_rerun2.total)
+assert(!is_error(lg) || error_code(lg) != "TypeError",
+    "read_log(p.node) reaches log lookup (no arg-shape error)") |> print()
+
+
 print("")
 print("=== All pipeline diagnostics tests passed ===")

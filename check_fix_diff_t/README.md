@@ -60,7 +60,7 @@ t diff src/pipeline.t --log-a 2 --log-b 1  # compare specific build ranks
 Or programmatically from T:
 
 ```t
-diff_summary(p)  -- returns a DataFrame with columns: name, status, hash_a, hash_b
+diff_summary(p)  -- returns a DataFrame with columns: name, status, hash_a, hash_b, class_a, class_b, reasons, affected
 ```
 
 ## Files

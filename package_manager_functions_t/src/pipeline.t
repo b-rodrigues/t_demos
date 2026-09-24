@@ -96,6 +96,13 @@ p = pipeline {
     run(str_sprintf("sh -lc 'cd \"%s\" && t update'", project_root))
     assert_file_exists(path_join(project_root, "flake.lock"))
 
+    run(
+      str_sprintf(
+        "sh -lc 'cd \"%s\" && grep -q \".t_r_pkg_cache/\" .gitignore'",
+        project_root
+      )
+    )
+
     [
       init_output: project_init_output,
       lockfile: path_join(project_root, "flake.lock"),

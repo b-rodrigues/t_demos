@@ -72,5 +72,5 @@ jobs:
 
       - name: Verify Numerical Parity
         run: |
-          echo "read_log('verify_node')" > verify.t
+          echo "t_make(); read_log(p.verify_node)" > verify.t
           nix develop --command t run --failfast --unsafe verify.t
