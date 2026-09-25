@@ -54,7 +54,15 @@ if (built) {
     print("(run 't run src/pipeline.t' twice to see build diffs)")
   } else {
     print(diff)
+    assert(expect_has_colnames(diff, ["reasons", "affected"]), "diff_summary has reason columns")
   }
+
+  -- Unknown ^formats fail validation with an actionable hint (no build needed)
+  badfmt = pipeline { a = node(command = <{ 1 }>, serializer = ^arrow) }
+  msgs = pipeline_validate(badfmt)
+  joined = str_flatten(msgs, collapse = " ")
+  assert(contains(joined, "Unknown serializer format"), "unknown ^format is rejected at validation")
+  assert(contains(joined, "^ipc"), "^arrow hint points at ^ipc")
 }
 
 "check_fix_diff_t demo passed"

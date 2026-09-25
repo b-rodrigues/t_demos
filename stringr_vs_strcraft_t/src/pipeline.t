@@ -63,3 +63,7 @@ upper_fails = filter(res, \(r) !r.upper_match)
 assert(nrow(upper_fails) == 0, "all upper results should match")
 
 print("✓ stringr_vs_strcraft_t: all assertions passed")
+
+-- 0.55.1 helper: str_squish trims and collapses inner whitespace
+assert(str_squish("  Hello   World  ") == "Hello World", "str_squish squeezes inner whitespace")
+print("✓ stringr_vs_strcraft_t: str_squish assertion passed")

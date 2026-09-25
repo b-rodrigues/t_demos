@@ -836,3 +836,8 @@ if (is_error(res)) {
 report = read_node(p.validation)
 print(report)
 assert(report.status == "ok", "stats_functions_t validation failed")
+
+-- 0.55.1: Spearman rank correlation on monotonic non-linear data
+assert(cor([1, 2, 3], [1, 4, 9], method = "spearman") > 0.999, "spearman detects perfect monotonic increase")
+assert(cor([1, 2, 3], [9, 4, 1], method = "spearman") < -0.999, "spearman detects perfect monotonic decrease")
+print("✓ stats_functions_t: spearman assertions passed")

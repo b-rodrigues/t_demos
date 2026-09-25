@@ -90,3 +90,12 @@ parity = read_node(p.parity_check)
 print("Parity Check Result:")
 print(parity)
 
+-- 0.55.1 verbs (pure T, no extra Nix nodes)
+left = to_dataframe([[id: 1, x: "a"], [id: 2, x: "b"]])
+right = to_dataframe([[id: 2, y: "two"], [id: 3, y: "three"]])
+assert(nrow(right_join(left, right, by = $id)) == 2, "right_join keeps every row from the right table")
+assert(nrow(cross_join(left, right)) == 4, "cross_join returns the cartesian product")
+assert(sum(coalesce([1, NA, 3], [10, 20, 30])) == 24, "coalesce returns the first non-NA value per position")
+assert(n_distinct([1, 1, NA, 2], na_rm = true) == 2, "n_distinct na_rm excludes NA values")
+print("✓ dplyr_advanced_t: 0.55.1 verb assertions passed")
+

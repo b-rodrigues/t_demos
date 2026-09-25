@@ -68,3 +68,9 @@ if (is_error(res)) {
 }
 
 print("Fixture pipeline: chain + parallel with separated transformation & test result dict nodes all passed")
+
+-- 0.55.1: t_test() REPL function with filtering and verbosity flags
+results = t_test(only = ["arithmetic"], verbose = false)
+assert(nrow(results) == 1, "t_test(only) runs just the arithmetic test file")
+assert(expect_has_colnames(results, ["file", "status", "duration_ms", "error"]), "t_test returns file/status/duration_ms/error columns")
+print("t_test() with only/verbose flags works")
