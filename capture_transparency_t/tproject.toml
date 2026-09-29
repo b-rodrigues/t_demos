@@ -1,0 +1,9 @@
+[project]
+name = "capture_transparency_t"
+description = "Show what crosses the node boundary: frozen outer data, local shadowing, quoted code, symbolic functions, explicit symbol errors"
+
+[t-dependencies]
+packages = ["core", "base"]
+
+[t]
+min_version = "0.55.0"
