@@ -67,5 +67,5 @@ jobs:
 
       - name: Verify Coefficient Extraction
         run: |
-          echo "t_make(); res = read_node(p.node_coef); print(res)" > verify.t
+          echo "t_make(); coef_res = read_node(p.node_coef); print(coef_res)" > verify.t
           nix develop --command t run --failfast --unsafe verify.t
