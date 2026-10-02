@@ -55,7 +55,7 @@ model
             predict(test_df, model_skl)
         }>,
         runtime      = T,
-        deserializer = [data: ^json, model_skl: ^onnx],
+        deserializer = [model_skl: ^onnx],
         serializer   = ^json
     )
 
@@ -65,7 +65,7 @@ model
             predict(test_df, model_sgd)
         }>,
         runtime      = T,
-        deserializer = [data: ^json, model_sgd: ^onnx],
+        deserializer = [model_sgd: ^onnx],
         serializer   = ^json
     )
 }

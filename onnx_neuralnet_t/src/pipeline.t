@@ -77,30 +77,81 @@ python_model = model
         serializer = ^onnx
     )
 
-    -- Extract the learned weights and biases from the exported ONNX model
+    -- Extract the learned weights and biases from the exported ONNX model.
+    -- The network is trained exactly once (in `python_model`); this node
+    -- reuses that artifact (ONNX transfer) instead of training a second time.
     python_model_state = node(
         demo_data, python_model,
         command = <{
+import os
 import numpy as np
 import pandas as pd
-from sklearn.neural_network import MLPClassifier
+import onnx
+import onnxruntime as rt
+from onnx import numpy_helper
 
-# Re-train to extract weights as the ONNX InferenceSession doesn't expose the graph
-# We use the same random state and data to ensure parity with the python_model node
-feature_names = demo_data["feature_names"]
-training_frame = pd.DataFrame(demo_data["training_features"])[feature_names].astype(np.float32)
-training_labels = np.array(demo_data["training_labels"], dtype=np.int64)
+# The deserializer hands us an InferenceSession, which runs the network
+# but does not expose its weights. The artifact file itself is available
+# through T_INPUT_<dep>, so the `onnx` package can read the graph.
+session = python_model
+input_name = session.get_inputs()[0].name
 
-model = MLPClassifier(hidden_layer_sizes=(10, 5), max_iter=1000, random_state=42)
-model.fit(training_frame, training_labels)
+model_path = os.environ["T_INPUT_python_model"]
+if os.path.isdir(model_path):
+    candidates = [os.path.join(model_path, f) for f in os.listdir(model_path) if f.endswith(".onnx")]
+    if len(candidates) != 1:
+        raise ValueError(f"Expected one .onnx artifact for python_model, found {candidates}")
+    model_path = candidates[0]
+graph = onnx.load(model_path).graph
+tensors = {t.name: numpy_helper.to_array(t) for t in graph.initializer}
 
-weights = [w.astype(np.float32) for w in model.coefs_]
-biases = [b.astype(np.float32) for b in model.intercepts_]
+# One (MatMul|Gemm, Add) pair per dense layer, in graph order. Gemm honors
+# transB so weights come out (in, out) like sklearn's coefs_.
+weights = []
+biases = []
+have_weight = False
+for node in graph.node:
+    if node.op_type in ("MatMul", "Gemm"):
+        w = tensors[node.input[1]]
+        if node.op_type == "Gemm":
+            trans_b = 0
+            for attr in node.attribute:
+                if attr.name == "transB":
+                    trans_b = attr.i
+            if trans_b == 0:
+                w = w.T
+        weights.append(np.asarray(w, dtype=np.float32))
+        have_weight = True
+    elif node.op_type == "Add" and have_weight:
+        biases.append(np.asarray(tensors[node.input[1]], dtype=np.float32).reshape(-1))
+        have_weight = False
 
 if len(weights) != 3 or len(biases) != 3:
     raise ValueError(
         f"Expected 3 dense weight matrices and 3 bias vectors, got {len(weights)} weights and {len(biases)} biases"
     )
+for i in range(len(weights) - 1):
+    if weights[i].shape[1] != weights[i + 1].shape[0]:
+        raise ValueError(f"Layer {i} output {weights[i].shape} does not feed layer {i + 1} {weights[i + 1].shape}")
+for i, (w, b) in enumerate(zip(weights, biases)):
+    if b.shape[0] != w.shape[1]:
+        raise ValueError(f"Bias {i} length {b.shape} does not match weight columns {w.shape}")
+
+# Prove the extracted weights ARE the trained network: score training rows
+# both ways and require agreement.
+feature_names = demo_data["feature_names"]
+training_frame = pd.DataFrame(demo_data["training_features"])[feature_names].astype(np.float32)
+check_rows = training_frame.to_numpy(dtype=np.float32)[:5]
+session_probas = session.run(None, {input_name: check_rows})[1]
+activations = check_rows
+for layer_index, (weight_matrix, bias_vector) in enumerate(zip(weights, biases)):
+    activations = activations @ weight_matrix + bias_vector
+    if layer_index < len(weights) - 1:
+        activations = np.maximum(activations, 0.0)
+manual_probas = 1.0 / (1.0 + np.exp(-activations[:, 0]))
+for row_index in range(len(check_rows)):
+    if abs(float(session_probas[row_index][1]) - float(manual_probas[row_index])) > 1e-4:
+        raise ValueError(f"Extracted weights disagree with the ONNX session on row {row_index}")
 
 python_model_state = {
     "weights": [weight.astype(np.float64).tolist() for weight in weights],
@@ -238,7 +289,11 @@ python_predictions = {
                 return mat
             end
             
-            weights = [to_matrix(w)' for w in julia_flux_model["weights"]]
+            # NOTE: no `'` transpose operator anywhere in this block: T's
+            # Julia scanner treats `'` as an opening quote and misses every
+            # dependency read after it on the block. `permutedims` is the
+            # same operation for these real matrices.
+            weights = [permutedims(to_matrix(w)) for w in julia_flux_model["weights"]]
             biases = [Float32.(bias_values) for bias_values in julia_flux_model["biases"]]
 
             # Manual forward pass (World Age Safe)

@@ -9,7 +9,7 @@ packages = []
 
 [py-dependencies]
 version = "python314"
-packages = ["scikit-learn", "skl2onnx", "onnxruntime", "pandas", "numpy"]
+packages = ["scikit-learn", "skl2onnx", "onnx", "onnxruntime", "pandas", "numpy"]
 
 [julia-dependencies]
 version = "lts"
