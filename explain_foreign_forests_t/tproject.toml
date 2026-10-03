@@ -1,0 +1,17 @@
+[project]
+name = "explain_foreign_forests_t"
+description = "End-to-end test for explain(p.node).foreign_meta forest facts on R randomForest, scikit-learn, and DecisionTree.jl nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite", "randomForest"]
+
+[py-dependencies]
+packages = ["scikit-learn"]
+
+[jl-dependencies]
+packages = ["DecisionTree"]
+
+[t]
+min_version = "0.55.0"

@@ -1,0 +1,14 @@
+[project]
+name = "explain_foreign_xgboost_t"
+description = "End-to-end test for explain(p.node).foreign_meta boosted-tree facts on R and Python xgboost nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite", "xgboost"]
+
+[py-dependencies]
+packages = ["xgboost"]
+
+[t]
+min_version = "0.55.0"
