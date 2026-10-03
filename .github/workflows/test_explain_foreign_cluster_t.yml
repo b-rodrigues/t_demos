@@ -1,4 +1,4 @@
-name: Tlang E2E Test - explain_foreign_timeseries_t
+name: Tlang E2E Test - explain_foreign_cluster_t
 
 on:
   push:
@@ -44,48 +44,44 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./explain_foreign_timeseries_t
+        working-directory: ./explain_foreign_cluster_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Inject pipeline dependencies
-        working-directory: ./explain_foreign_timeseries_t
+        working-directory: ./explain_foreign_cluster_t
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
       - name: Rebuild flake with new dependencies
-        working-directory: ./explain_foreign_timeseries_t
+        working-directory: ./explain_foreign_cluster_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Build Pipeline
-        working-directory: ./explain_foreign_timeseries_t
+        working-directory: ./explain_foreign_cluster_t
         run: |
           nix develop --command t run src/pipeline.t
 
-      - name: Verify foreign_meta time-series facts
-        working-directory: ./explain_foreign_timeseries_t
+      - name: Verify foreign_meta cluster facts
+        working-directory: ./explain_foreign_cluster_t
         run: |
-          cat > verify_timeseries.t << 'EOF'
+          cat > verify_cluster.t << 'EOF'
           t_make()
-          check(explain(p.r_arima).foreign_meta.kind == "model")
-          check(explain(p.r_arima).foreign_meta.task == "time_series")
-          check(length(explain(p.r_arima).foreign_meta.order) == 3)
-          check(get(explain(p.r_arima).foreign_meta.order, 0) == 1)
-          check(length(explain(p.r_arima).foreign_meta.seasonal_order) == 4)
-          check(explain(p.r_arima).foreign_meta.n_obs > 100)
-          check(type(explain(p.r_arima).foreign_meta.metrics.loglik) == "Float")
-          check(explain(p.py_arima).foreign_meta.kind == "model")
-          check(explain(p.py_arima).foreign_meta.task == "time_series")
-          check(length(explain(p.py_arima).foreign_meta.order) == 3)
-          check(get(explain(p.py_arima).foreign_meta.order, 0) == 1)
-          check(explain(p.py_arima).foreign_meta.n_obs == 24)
-          check(type(explain(p.py_arima).foreign_meta.metrics.aic) == "Float")
-          check(explain(p.r_hw).foreign_meta.task == "time_series")
-          check(type(explain(p.r_hw).foreign_meta.metrics.alpha) == "Float")
-          check(type(explain(p.r_hw).foreign_meta.metrics.sse) == "Float")
-          print("+ foreign time-series metadata: ok")
+          check(explain(p.r_km).foreign_meta.task == "clustering")
+          check(explain(p.r_km).foreign_meta.n_clusters == 3)
+          check(explain(p.r_km).foreign_meta.n_obs == 32)
+          check(explain(p.r_km).foreign_meta.metrics.var_explained > 0.8)
+          check(explain(p.r_hc).foreign_meta.method == "complete")
+          check(explain(p.r_hc).foreign_meta.n_obs == 32)
+          check(explain(p.py_km).foreign_meta.task == "clustering")
+          check(explain(p.py_km).foreign_meta.n_clusters == 2)
+          check(type(explain(p.py_km).foreign_meta.metrics.inertia) == "Float")
+          check(explain(p.py_pca).foreign_meta.task == "dim_reduction")
+          check(explain(p.py_pca).foreign_meta.n_components == 2)
+          check(type(explain(p.py_pca).foreign_meta.metrics.var_first) == "Float")
+          print("+ foreign cluster metadata: ok")
           EOF
-          nix develop --command t run --failfast --unsafe verify_timeseries.t
+          nix develop --command t run --failfast --unsafe verify_cluster.t

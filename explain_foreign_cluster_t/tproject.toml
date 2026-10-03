@@ -1,0 +1,14 @@
+[project]
+name = "explain_foreign_cluster_t"
+description = "End-to-end test for explain(p.node).foreign_meta clustering and PCA facts on R and scikit-learn nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+packages = ["scikit-learn"]
+
+[t]
+min_version = "0.55.0"

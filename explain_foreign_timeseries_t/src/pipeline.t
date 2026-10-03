@@ -24,6 +24,12 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- R Holt-Winters on AirPassengers
+    r_hw = node(
+        command = <{ HoltWinters(AirPassengers) }>,
+        runtime = R
+    )
 }
 
 print("===============================================")
