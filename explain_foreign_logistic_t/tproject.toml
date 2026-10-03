@@ -1,0 +1,17 @@
+[project]
+name = "explain_foreign_logistic_t"
+description = "End-to-end test for explain(p.node).foreign_meta logistic-regression facts on R glm, scikit-learn, and GLM.jl nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+packages = ["scikit-learn"]
+
+[jl-dependencies]
+packages = ["GLM"]
+
+[t]
+min_version = "0.55.0"
