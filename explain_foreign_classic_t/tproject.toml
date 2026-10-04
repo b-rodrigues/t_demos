@@ -1,0 +1,14 @@
+[project]
+name = "explain_foreign_classic_t"
+description = "End-to-end test for explain(p.node).foreign_meta classic-stats facts on R nls/htest/fitdistr/loess, ETS, Pipeline, and sparse nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite", "MASS"]
+
+[py-dependencies]
+packages = ["scikit-learn", "statsmodels", "scipy"]
+
+[t]
+min_version = "0.55.0"
