@@ -1,4 +1,4 @@
-name: Tlang E2E Test - explain_foreign_frames_t
+name: Tlang E2E Test - explain_foreign_matrix_t
 
 on:
   push:
@@ -44,45 +44,54 @@ jobs:
           echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
 
       - name: Update to latest T version
-        working-directory: ./explain_foreign_frames_t
+        working-directory: ./explain_foreign_matrix_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Inject pipeline dependencies
-        working-directory: ./explain_foreign_frames_t
+        working-directory: ./explain_foreign_matrix_t
         env:
           TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
         run: |
           nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
 
       - name: Rebuild flake with new dependencies
-        working-directory: ./explain_foreign_frames_t
+        working-directory: ./explain_foreign_matrix_t
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
 
       - name: Build Pipeline
-        working-directory: ./explain_foreign_frames_t
+        working-directory: ./explain_foreign_matrix_t
         run: |
           nix develop --command t run src/pipeline.t
 
-      - name: Verify foreign_meta frame shapes
-        working-directory: ./explain_foreign_frames_t
+      - name: Verify foreign_meta matrix facts
+        working-directory: ./explain_foreign_matrix_t
         run: |
-          cat > verify_frames.t << 'EOF'
+          cat > verify_matrix.t << 'EOF'
           t_make()
-          check(explain(p.r_df).foreign_meta.kind == "dataframe")
-          check(get(explain(p.r_df).foreign_meta.dimensions, 0) == 32)
-          check(get(explain(p.r_df).foreign_meta.dimensions, 1) == 11)
-          check(length(explain(p.r_df).foreign_meta.features) == 11)
-          check(explain(p.py_df).foreign_meta.kind == "dataframe")
-          check(get(explain(p.py_df).foreign_meta.dimensions, 0) == 3)
-          check(get(explain(p.py_df).foreign_meta.dimensions, 1) == 2)
-          check(explain(p.py_pl).foreign_meta.kind == "dataframe")
-          check(get(explain(p.py_pl).foreign_meta.dimensions, 0) == 4)
-          check(get(explain(p.py_pl).foreign_meta.dimensions, 1) == 2)
-          check(explain(p.jl_df).foreign_meta.kind == "dataframe")
-          check(get(explain(p.jl_df).foreign_meta.dimensions, 0) == 5)
-          check(get(explain(p.jl_df).foreign_meta.dimensions, 1) == 2)
-          print("+ foreign frame metadata: ok")
+          check(explain(p.r_mat).foreign_meta.kind == "matrix")
+          check(get(explain(p.r_mat).foreign_meta.dimensions, 0) == 4)
+          check(get(explain(p.r_mat).foreign_meta.dimensions, 1) == 3)
+          check(explain(p.r_mat).foreign_meta.dtype == "integer")
+          check(explain(p.r_arr).foreign_meta.kind == "array")
+          check(length(explain(p.r_arr).foreign_meta.dimensions) == 3)
+          check(explain(p.r_vec).foreign_meta.kind == "vector")
+          check(get(explain(p.r_vec).foreign_meta.dimensions, 0) == 3)
+          check(explain(p.r_vec).foreign_meta.dtype == "double")
+          check(explain(p.py_mat).foreign_meta.kind == "matrix")
+          check(get(explain(p.py_mat).foreign_meta.dimensions, 0) == 3)
+          check(get(explain(p.py_mat).foreign_meta.dimensions, 1) == 2)
+          check(explain(p.py_mat).foreign_meta.dtype == "int64")
+          check(explain(p.py_arr).foreign_meta.kind == "array")
+          check(length(explain(p.py_arr).foreign_meta.dimensions) == 3)
+          check(explain(p.py_ser).foreign_meta.kind == "vector")
+          check(get(explain(p.py_ser).foreign_meta.dimensions, 0) == 3)
+          check(explain(p.jl_mat).foreign_meta.kind == "matrix")
+          check(get(explain(p.jl_mat).foreign_meta.dimensions, 0) == 2)
+          check(explain(p.jl_mat).foreign_meta.dtype == "Int64")
+          check(explain(p.jl_vec).foreign_meta.kind == "vector")
+          check(get(explain(p.jl_vec).foreign_meta.dimensions, 0) == 3)
+          print("+ foreign matrix metadata: ok")
           EOF
-          nix develop --command t run --failfast --unsafe verify_frames.t
+          nix develop --command t run --failfast --unsafe verify_matrix.t

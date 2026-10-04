@@ -10,16 +10,16 @@ independent frame nodes:
 - **`jl_df`** (Julia) — DataFrames.jl DataFrame (5 rows x 2 cols).
 
 After the build, a verify step loads the pipeline fresh via `t_make()` and
-checks `kind`, `nrow`, `ncol`, and the full `features` list through `check()`.
+checks `kind`, `dimensions`, and the full `features` list through `check()`.
 
 ## What is tested
 
 | Node | Checks |
 |:---|:---|
-| `r_df` | `kind == "dataframe"`, `nrow == 32`, `ncol == 11`, 11 features |
-| `py_df` | `nrow == 3`, `ncol == 2` |
-| `py_pl` | `nrow == 4`, `ncol == 2` |
-| `jl_df` | `nrow == 5`, `ncol == 2` |
+| `r_df` | `kind == "dataframe"`, `dimensions == [32, 11]`, 11 features |
+| `py_df` | `dimensions == [3, 2]` |
+| `py_pl` | `dimensions == [4, 2]` |
+| `jl_df` | `dimensions == [5, 2]` |
 
 ## Why a demo instead of a unit test
 
