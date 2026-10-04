@@ -75,6 +75,34 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- R kernel density estimate
+    r_density = node(
+        command = <{ density(mtcars$mpg) }>,
+        runtime = R
+    )
+
+    -- statsmodels multinomial logit
+    py_mnlogit = node(
+        command = <{
+            import pandas as pd
+            import statsmodels.formula.api as smf
+            _df = pd.DataFrame({"y": [0, 1, 1, 0, 1, 0], "a": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]})
+            smf.mnlogit("y ~ a", _df).fit(disp = 0)
+        }>,
+        runtime = Python
+    )
+
+    -- statsmodels Cox proportional hazards
+    py_phreg = node(
+        command = <{
+            import pandas as pd
+            from statsmodels.duration.hazard_regression import PHReg
+            _df = pd.DataFrame({"t": [5.0, 6.0, 6.0, 2.5, 4.0, 4.0], "e": [1, 0, 0, 1, 1, 1], "x": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]})
+            PHReg(_df["t"], _df[["x"]], status = _df["e"]).fit()
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

@@ -89,6 +89,10 @@ jobs:
           check(explain(p.py_sparse).foreign_meta.metrics.nnz == 3)
           check(explain(p.py_frozen).foreign_meta.kind == "distribution")
           check(explain(p.py_frozen).foreign_meta.method == "norm")
+          check(explain(p.r_density).foreign_meta.kind == "distribution")
+          check(explain(p.r_density).foreign_meta.n_obs == 32)
+          check(explain(p.py_mnlogit).foreign_meta.task == "classification")
+          check(explain(p.py_phreg).foreign_meta.task == "survival")
           print("+ foreign classic metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_classic.t

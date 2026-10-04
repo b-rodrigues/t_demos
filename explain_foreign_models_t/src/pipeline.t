@@ -31,6 +31,24 @@ p = pipeline {
         }>,
         runtime = R
     )
+
+    -- R recursive partitioning tree
+    r_rpart = node(
+        command = <{
+            library(rpart)
+            rpart(Species ~ ., iris)
+        }>,
+        runtime = R
+    )
+
+    -- R Kaplan-Meier curves
+    r_survfit = node(
+        command = <{
+            library(survival)
+            survfit(Surv(time, status) ~ sex, data = lung)
+        }>,
+        runtime = R
+    )
 }
 
 print("===============================================")

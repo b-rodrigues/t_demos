@@ -5,7 +5,7 @@ description = "End-to-end test for explain(p.node).foreign_meta model facts on R
 [dependencies]
 
 [r-dependencies]
-packages = ["jsonlite", "survival"]
+packages = ["jsonlite", "survival", "rpart"]
 
 [py-dependencies]
 packages = ["scikit-learn"]

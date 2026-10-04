@@ -83,6 +83,9 @@ jobs:
           check(explain(p.r_coxph).foreign_meta.task == "survival")
           check(explain(p.r_coxph).foreign_meta.n_obs == 228)
           check(type(explain(p.r_coxph).foreign_meta.metrics.concordance) == "Float")
+          check(explain(p.r_rpart).foreign_meta.n_nodes == 5)
+          check(explain(p.r_survfit).foreign_meta.task == "survival")
+          check(explain(p.r_survfit).foreign_meta.n_groups == 2)
           print("+ foreign model metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_models.t
