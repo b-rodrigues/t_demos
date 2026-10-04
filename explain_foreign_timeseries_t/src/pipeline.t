@@ -30,6 +30,18 @@ p = pipeline {
         command = <{ HoltWinters(AirPassengers) }>,
         runtime = R
     )
+
+    -- StateSpaceModels.jl seasonal ARIMA
+    jl_sarima = node(
+        command = <{
+            using StateSpaceModels
+            y_ssm = [112.0, 118.0, 132.0, 129.0, 121.0, 135.0, 148.0, 136.0, 119.0, 104.0, 118.0, 115.0, 126.0, 141.0, 135.0, 125.0, 149.0, 170.0, 158.0, 133.0, 114.0, 140.0, 145.0, 125.0]
+            m_ssm = SARIMA(y_ssm, order = (1, 1, 1), seasonal_order = (1, 1, 1, 12))
+            fit!(m_ssm)
+            m_ssm
+        }>,
+        runtime = Julia
+    )
 }
 
 print("===============================================")

@@ -87,6 +87,8 @@ jobs:
           check(type(explain(p.jl_km).foreign_meta.metrics.totalcost) == "Float")
           check(explain(p.jl_hc).foreign_meta.method == "complete")
           check(explain(p.jl_hc).foreign_meta.n_obs == 3)
+          check(explain(p.jl_pca).foreign_meta.task == "dim_reduction")
+          check(type(explain(p.jl_pca).foreign_meta.metrics.var_first) == "Float")
           print("+ foreign cluster metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_cluster.t

@@ -60,6 +60,15 @@ p = pipeline {
         }>,
         runtime = Julia
     )
+
+    -- MultivariateStats PCA (2 components)
+    jl_pca = node(
+        command = <{
+            using MultivariateStats
+            fit(PCA, [1.0 2.0 3.0 8.0; 2.0 3.0 4.0 9.0], maxoutdim = 2)
+        }>,
+        runtime = Julia
+    )
 }
 
 print("===============================================")
