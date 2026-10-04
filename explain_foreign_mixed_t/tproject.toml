@@ -1,0 +1,14 @@
+[project]
+name = "explain_foreign_mixed_t"
+description = "End-to-end test for explain(p.node).foreign_meta mixed-effects facts on R lmer and statsmodels MixedLM nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite", "lme4"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "numpy"]
+
+[t]
+min_version = "0.55.0"
