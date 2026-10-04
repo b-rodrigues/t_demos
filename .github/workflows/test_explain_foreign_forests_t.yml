@@ -81,6 +81,7 @@ jobs:
           check(explain(p.jl_forest).foreign_meta.task == "classification")
           check(explain(p.jl_forest).foreign_meta.n_trees == 10)
           check(explain(p.jl_forest).foreign_meta.n_features == 2)
+          check(explain(p.jl_tree).foreign_meta.kind == "model")
           print("+ foreign forest metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_forests.t

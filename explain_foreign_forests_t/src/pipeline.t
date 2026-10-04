@@ -35,6 +35,15 @@ p = pipeline {
         }>,
         runtime = Julia
     )
+
+    -- DecisionTree.jl single tree
+    jl_tree = node(
+        command = <{
+            using DecisionTree
+            build_tree(["a", "a", "b", "b"], [1.0 2.0; 2.0 3.0; 3.0 4.0; 4.0 5.0])
+        }>,
+        runtime = Julia
+    )
 }
 
 print("===============================================")
