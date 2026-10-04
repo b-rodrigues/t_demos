@@ -37,6 +37,12 @@ p = pipeline {
         runtime = R
     )
 
+    -- R STL decomposition (seasonal/trend/remainder)
+    r_stl = node(
+        command = <{ stl(AirPassengers, s.window = "periodic") }>,
+        runtime = R
+    )
+
     -- StateSpaceModels.jl seasonal ARIMA
     jl_sarima = node(
         command = <{

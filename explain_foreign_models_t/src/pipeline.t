@@ -22,6 +22,15 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- R Cox proportional hazards (lung, survival)
+    r_coxph = node(
+        command = <{
+            library(survival)
+            coxph(Surv(time, status) ~ age + sex, data = lung)
+        }>,
+        runtime = R
+    )
 }
 
 print("===============================================")

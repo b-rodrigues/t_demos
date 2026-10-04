@@ -28,6 +28,17 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- Python xgboost ranker (3 rounds)
+    py_ranker = node(
+        command = <{
+            import numpy as np
+            import xgboost as xgb
+            _X = np.array([[1.0], [2.0], [3.0], [4.0]])
+            xgb.XGBRanker(n_estimators = 3).fit(_X, [0, 0, 1, 1], qid = [0, 0, 0, 0])
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

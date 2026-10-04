@@ -80,6 +80,9 @@ jobs:
           check(explain(p.py_fit).foreign_meta.kind == "model")
           check(explain(p.py_fit).foreign_meta.task == "regression")
           check(explain(p.py_fit).foreign_meta.n_features == 1)
+          check(explain(p.r_coxph).foreign_meta.task == "survival")
+          check(explain(p.r_coxph).foreign_meta.n_obs == 228)
+          check(type(explain(p.r_coxph).foreign_meta.metrics.concordance) == "Float")
           print("+ foreign model metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_models.t

@@ -66,6 +66,15 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- scipy frozen distribution (standard normal)
+    py_frozen = node(
+        command = <{
+            from scipy import stats
+            stats.norm(0, 1)
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

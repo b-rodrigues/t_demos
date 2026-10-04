@@ -87,6 +87,8 @@ jobs:
           check(explain(p.py_sparse).foreign_meta.kind == "matrix")
           check(get(explain(p.py_sparse).foreign_meta.dimensions, 0) == 3)
           check(explain(p.py_sparse).foreign_meta.metrics.nnz == 3)
+          check(explain(p.py_frozen).foreign_meta.kind == "distribution")
+          check(explain(p.py_frozen).foreign_meta.method == "norm")
           print("+ foreign classic metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_classic.t

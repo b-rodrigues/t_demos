@@ -75,6 +75,8 @@ jobs:
           check(explain(p.py_xgb).foreign_meta.task == "classification")
           check(explain(p.py_xgb).foreign_meta.n_rounds == 5)
           check(explain(p.py_xgb).foreign_meta.n_features == 1)
+          check(explain(p.py_ranker).foreign_meta.task == "ranking")
+          check(explain(p.py_ranker).foreign_meta.n_rounds == 3)
           print("+ foreign xgboost metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_xgboost.t
