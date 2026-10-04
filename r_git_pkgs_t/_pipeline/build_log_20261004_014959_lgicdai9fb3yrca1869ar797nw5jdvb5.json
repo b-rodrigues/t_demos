@@ -1,0 +1,22 @@
+{
+  "timestamp": "20261004_014959",
+  "hash": "lgicdai9fb3yrca1869ar797nw5jdvb5",
+  "out_path": "/nix/store/lgicdai9fb3yrca1869ar797nw5jdvb5-pipeline_output",
+  "duration": 13.4309,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/lgicdai9fb3yrca1869ar797nw5jdvb5-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.8006
+}
+],
+  "pipeline": "p"
+}

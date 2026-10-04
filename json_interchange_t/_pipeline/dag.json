@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "config_node",
+  "depends": []
+},
+{
+  "node_name": "process_node",
+  "depends": ["config_node"]
+},
+{
+  "node_name": "final_node",
+  "depends": ["process_node"]
+}
+]

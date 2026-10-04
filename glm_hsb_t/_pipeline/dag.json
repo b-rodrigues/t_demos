@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "data_node",
+  "depends": []
+},
+{
+  "node_name": "r_model_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "py_model_node",
+  "depends": ["data_node"]
+}
+]

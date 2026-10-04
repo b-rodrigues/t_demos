@@ -1,0 +1,22 @@
+{
+  "timestamp": "20261004_015833",
+  "hash": "ialxmlnv93zvfn0r397k0l4bfdkknfm3",
+  "out_path": "/nix/store/ialxmlnv93zvfn0r397k0l4bfdkknfm3-pipeline_output",
+  "duration": 9.7582,
+  "nodes": [
+{
+  "node": "result",
+  "path": "/nix/store/ialxmlnv93zvfn0r397k0l4bfdkknfm3-pipeline_output/result/artifact",
+  "hash": "result",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2047
+}
+],
+  "pipeline": "p_fork1"
+}

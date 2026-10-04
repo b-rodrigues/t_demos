@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "smarket_raw",
+  "depends": []
+},
+{
+  "node_name": "data_node",
+  "depends": ["smarket_raw"]
+},
+{
+  "node_name": "r_model",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "py_model",
+  "depends": ["data_node"]
+}
+]

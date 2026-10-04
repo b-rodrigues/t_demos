@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>read_node.ml &mdash; Coverage report</title>
+    <meta name="description" content="22.49% coverage in src/packages/pipeline/read_node.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>read_node.ml
+        </a>
+      </h1>
+      <h2>22.49%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:1.41%"></span>
+      <span class="unvisited" style="top:2.06%"></span>
+      <span class="unvisited" style="top:2.19%"></span>
+      <span class="unvisited" style="top:2.31%"></span>
+      <span class="unvisited" style="top:3.08%"></span>
+      <span class="unvisited" style="top:3.47%"></span>
+      <span class="unvisited" style="top:3.73%"></span>
+      <span class="unvisited" style="top:3.86%"></span>
+      <span class="unvisited" style="top:4.11%"></span>
+      <span class="unvisited" style="top:4.24%"></span>
+      <span class="unvisited" style="top:4.50%"></span>
+      <span class="unvisited" style="top:5.01%"></span>
+      <span class="unvisited" style="top:5.14%"></span>
+      <span class="unvisited" style="top:6.17%"></span>
+      <span class="unvisited" style="top:6.30%"></span>
+      <span class="unvisited" style="top:6.43%"></span>
+      <span class="unvisited" style="top:7.71%"></span>
+      <span class="unvisited" style="top:10.03%"></span>
+      <span class="unvisited" style="top:10.15%"></span>
+      <span class="unvisited" style="top:10.28%"></span>
+      <span class="unvisited" style="top:10.41%"></span>
+      <span class="unvisited" style="top:10.54%"></span>
+      <span class="unvisited" style="top:15.94%"></span>
+      <span class="unvisited" style="top:16.32%"></span>
+      <span class="unvisited" style="top:16.45%"></span>
+      <span class="unvisited" style="top:16.84%"></span>
+      <span class="unvisited" style="top:17.10%"></span>
+      <span class="unvisited" style="top:17.48%"></span>
+      <span class="unvisited" style="top:17.61%"></span>
+      <span class="unvisited" style="top:17.74%"></span>
+      <span class="unvisited" style="top:17.87%"></span>
+      <span class="unvisited" style="top:17.99%"></span>
+      <span class="unvisited" style="top:18.12%"></span>
+      <span class="unvisited" style="top:18.25%"></span>
+      <span class="unvisited" style="top:18.51%"></span>
+      <span class="unvisited" style="top:18.64%"></span>
+      <span class="unvisited" style="top:18.77%"></span>
+      <span class="unvisited" style="top:19.02%"></span>
+      <span class="unvisited" style="top:19.15%"></span>
+      <span class="unvisited" style="top:19.54%"></span>
+      <span class="unvisited" style="top:19.67%"></span>
+      <span class="unvisited" style="top:19.92%"></span>
+      <span class="unvisited" style="top:20.05%"></span>
+      <span class="unvisited" style="top:20.18%"></span>
+      <span class="unvisited" style="top:20.44%"></span>
+      <span class="unvisited" style="top:20.57%"></span>
+      <span class="unvisited" style="top:20.69%"></span>
+      <span class="unvisited" style="top:20.82%"></span>
+      <span class="unvisited" style="top:21.08%"></span>
+      <span class="unvisited" style="top:21.21%"></span>
+      <span class="unvisited" style="top:21.34%"></span>
+      <span class="unvisited" style="top:21.72%"></span>
+      <span class="unvisited" style="top:21.85%"></span>
+      <span class="unvisited" style="top:21.98%"></span>
+      <span class="unvisited" style="top:22.24%"></span>
+      <span class="unvisited" style="top:22.49%"></span>
+      <span class="unvisited" style="top:22.75%"></span>
+      <span class="unvisited" style="top:22.88%"></span>
+      <span class="unvisited" style="top:24.04%"></span>
+      <span class="unvisited" style="top:24.16%"></span>
+      <span class="unvisited" style="top:24.29%"></span>
+      <span class="unvisited" style="top:24.55%"></span>
+      <span class="unvisited" style="top:24.68%"></span>
+      <span class="unvisited" style="top:24.81%"></span>
+      <span class="unvisited" style="top:25.32%"></span>
+      <span class="unvisited" style="top:29.31%"></span>
+      <span class="some-visited" style="top:29.56%"></span>
+      <span class="unvisited" style="top:29.95%"></span>
+      <span class="unvisited" style="top:30.46%"></span>
+      <span class="unvisited" style="top:30.59%"></span>
+      <span class="unvisited" style="top:30.72%"></span>
+      <span class="unvisited" style="top:30.85%"></span>
+      <span class="unvisited" style="top:30.98%"></span>
+      <span class="unvisited" style="top:31.36%"></span>
+      <span class="unvisited" style="top:31.49%"></span>
+      <span class="unvisited" style="top:31.62%"></span>
+      <span class="unvisited" style="top:31.75%"></span>
+      <span class="unvisited" style="top:32.52%"></span>
+      <span class="unvisited" style="top:32.65%"></span>
+      <span class="unvisited" style="top:32.90%"></span>
+      <span class="unvisited" style="top:33.03%"></span>
+      <span class="unvisited" style="top:33.16%"></span>
+      <span class="unvisited" style="top:33.42%"></span>
+      <span class="unvisited" style="top:33.55%"></span>
+      <span class="unvisited" style="top:33.68%"></span>
+      <span class="unvisited" style="top:33.93%"></span>
+      <span class="unvisited" style="top:34.83%"></span>
+      <span class="unvisited" style="top:35.09%"></span>
+      <span class="unvisited" style="top:35.22%"></span>
+      <span class="unvisited" style="top:35.35%"></span>
+      <span class="unvisited" style="top:35.48%"></span>
+      <span class="unvisited" style="top:35.60%"></span>
+      <span class="unvisited" style="top:36.50%"></span>
+      <span class="unvisited" style="top:36.76%"></span>
+      <span class="unvisited" style="top:36.89%"></span>
+      <span class="unvisited" style="top:37.02%"></span>
+      <span class="unvisited" style="top:37.28%"></span>
+      <span class="unvisited" style="top:37.53%"></span>
+      <span class="unvisited" style="top:37.92%"></span>
+      <span class="unvisited" style="top:38.05%"></span>
+      <span class="unvisited" style="top:38.17%"></span>
+      <span class="unvisited" style="top:38.30%"></span>
+      <span class="unvisited" style="top:38.56%"></span>
+      <span class="unvisited" style="top:38.69%"></span>
+      <span class="unvisited" style="top:38.95%"></span>
+      <span class="unvisited" style="top:39.20%"></span>
+      <span class="unvisited" style="top:39.46%"></span>
+      <span class="unvisited" style="top:39.59%"></span>
+      <span class="unvisited" style="top:39.85%"></span>
+      <span class="unvisited" style="top:40.23%"></span>
+      <span class="unvisited" style="top:40.49%"></span>
+      <span class="unvisited" style="top:40.62%"></span>
+      <span class="unvisited" style="top:40.75%"></span>
+      <span class="unvisited" style="top:40.87%"></span>
+      <span class="unvisited" style="top:41.39%"></span>
+      <span class="unvisited" style="top:41.52%"></span>
+      <span class="unvisited" style="top:41.65%"></span>
+      <span class="unvisited" style="top:41.77%"></span>
+      <span class="unvisited" style="top:41.90%"></span>
+      <span class="unvisited" style="top:42.03%"></span>
+      <span class="unvisited" style="top:42.29%"></span>
+      <span class="unvisited" style="top:42.67%"></span>
+      <span class="unvisited" style="top:42.93%"></span>
+      <span class="unvisited" style="top:43.06%"></span>
+      <span class="unvisited" style="top:43.19%"></span>
+      <span class="unvisited" style="top:43.44%"></span>
+      <span class="unvisited" style="top:43.57%"></span>
+      <span class="unvisited" style="top:43.70%"></span>
+      <span class="unvisited" style="top:43.96%"></span>
+      <span class="unvisited" style="top:44.09%"></span>
+      <span class="unvisited" style="top:44.47%"></span>
+      <span class="unvisited" style="top:44.60%"></span>
+      <span class="unvisited" style="top:44.73%"></span>
+      <span class="unvisited" style="top:44.86%"></span>
+      <span class="unvisited" style="top:44.99%"></span>
+      <span class="unvisited" style="top:45.12%"></span>
+      <span class="unvisited" style="top:45.24%"></span>
+      <span class="unvisited" style="top:45.37%"></span>
+      <span class="unvisited" style="top:45.63%"></span>
+      <span class="unvisited" style="top:45.76%"></span>
+      <span class="unvisited" style="top:46.66%"></span>
+      <span class="unvisited" style="top:46.79%"></span>
+      <span class="unvisited" style="top:46.92%"></span>
+      <span class="unvisited" style="top:47.17%"></span>
+      <span class="unvisited" style="top:47.30%"></span>
+      <span class="unvisited" style="top:47.56%"></span>
+      <span class="unvisited" style="top:47.69%"></span>
+      <span class="unvisited" style="top:47.81%"></span>
+      <span class="unvisited" style="top:48.07%"></span>
+      <span class="unvisited" style="top:48.20%"></span>
+      <span class="unvisited" style="top:48.33%"></span>
+      <span class="unvisited" style="top:48.59%"></span>
+      <span class="unvisited" style="top:48.71%"></span>
+      <span class="unvisited" style="top:49.10%"></span>
+      <span class="unvisited" style="top:49.23%"></span>
+      <span class="unvisited" style="top:49.36%"></span>
+      <span class="unvisited" style="top:49.49%"></span>
+      <span class="unvisited" style="top:49.87%"></span>
+      <span class="unvisited" style="bottom:49.87%"></span>
+      <span class="unvisited" style="bottom:49.74%"></span>
+      <span class="unvisited" style="bottom:49.49%"></span>
+      <span class="unvisited" style="bottom:49.36%"></span>
+      <span class="unvisited" style="bottom:49.23%"></span>
+      <span class="unvisited" style="bottom:48.97%"></span>
+      <span class="unvisited" style="bottom:48.84%"></span>
+      <span class="unvisited" style="bottom:48.71%"></span>
+      <span class="unvisited" style="bottom:48.59%"></span>
+      <span class="unvisited" style="bottom:48.46%"></span>
+      <span class="unvisited" style="bottom:48.20%"></span>
+      <span class="unvisited" style="bottom:48.07%"></span>
+      <span class="unvisited" style="bottom:47.69%"></span>
+      <span class="unvisited" style="bottom:47.56%"></span>
+      <span class="unvisited" style="bottom:47.30%"></span>
+      <span class="unvisited" style="bottom:47.17%"></span>
+      <span class="unvisited" style="bottom:46.92%"></span>
+      <span class="unvisited" style="bottom:46.79%"></span>
+      <span class="unvisited" style="bottom:46.27%"></span>
+      <span class="unvisited" style="bottom:46.14%"></span>
+      <span class="unvisited" style="bottom:46.02%"></span>
+      <span class="unvisited" style="bottom:45.89%"></span>
+      <span class="unvisited" style="bottom:45.63%"></span>
+      <span class="unvisited" style="bottom:45.24%"></span>
+      <span class="unvisited" style="bottom:45.12%"></span>
+      <span class="unvisited" style="bottom:44.99%"></span>
+      <span class="unvisited" style="bottom:44.47%"></span>
+      <span class="unvisited" style="bottom:44.22%"></span>
+      <span class="unvisited" style="bottom:44.09%"></span>
+      <span class="unvisited" style="bottom:43.83%"></span>
+      <span class="unvisited" style="bottom:43.70%"></span>
+      <span class="unvisited" style="bottom:43.57%"></span>
+      <span class="unvisited" style="bottom:43.44%"></span>
+      <span class="unvisited" style="bottom:43.32%"></span>
+      <span class="unvisited" style="bottom:43.19%"></span>
+      <span class="unvisited" style="bottom:40.62%"></span>
+      <span class="unvisited" style="bottom:40.49%"></span>
+      <span class="unvisited" style="bottom:40.23%"></span>
+      <span class="unvisited" style="bottom:39.97%"></span>
+      <span class="unvisited" style="bottom:39.85%"></span>
+      <span class="some-visited" style="bottom:37.53%"></span>
+      <span class="unvisited" style="bottom:37.40%"></span>
+      <span class="unvisited" style="bottom:36.76%"></span>
+      <span class="unvisited" style="bottom:36.63%"></span>
+      <span class="unvisited" style="bottom:36.50%"></span>
+      <span class="some-visited" style="bottom:36.25%"></span>
+      <span class="unvisited" style="bottom:35.73%"></span>
+      <span class="unvisited" style="bottom:35.60%"></span>
+      <span class="unvisited" style="bottom:35.48%"></span>
+      <span class="unvisited" style="bottom:35.09%"></span>
+      <span class="unvisited" style="bottom:34.96%"></span>
+      <span class="unvisited" style="bottom:34.83%"></span>
+      <span class="unvisited" style="bottom:34.70%"></span>
+      <span class="unvisited" style="bottom:34.32%"></span>
+      <span class="unvisited" style="bottom:34.19%"></span>
+      <span class="unvisited" style="bottom:34.06%"></span>
+      <span class="unvisited" style="bottom:33.80%"></span>
+      <span class="unvisited" style="bottom:33.68%"></span>
+      <span class="unvisited" style="bottom:31.49%"></span>
+      <span class="unvisited" style="bottom:31.36%"></span>
+      <span class="unvisited" style="bottom:30.59%"></span>
+      <span class="unvisited" style="bottom:29.95%"></span>
+      <span class="unvisited" style="bottom:29.82%"></span>
+      <span class="unvisited" style="bottom:29.69%"></span>
+      <span class="unvisited" style="bottom:29.56%"></span>
+      <span class="unvisited" style="bottom:29.43%"></span>
+      <span class="unvisited" style="bottom:29.31%"></span>
+      <span class="unvisited" style="bottom:28.92%"></span>
+      <span class="unvisited" style="bottom:28.41%"></span>
+      <span class="unvisited" style="bottom:28.28%"></span>
+      <span class="unvisited" style="bottom:24.29%"></span>
+      <span class="unvisited" style="bottom:22.62%"></span>
+      <span class="unvisited" style="bottom:22.37%"></span>
+      <span class="unvisited" style="bottom:22.24%"></span>
+      <span class="unvisited" style="bottom:18.77%"></span>
+      <span class="unvisited" style="bottom:16.84%"></span>
+      <span class="unvisited" style="bottom:16.45%"></span>
+      <span class="unvisited" style="bottom:16.32%"></span>
+      <span class="unvisited" style="bottom:15.94%"></span>
+      <span class="unvisited" style="bottom:15.81%"></span>
+      <span class="unvisited" style="bottom:15.68%"></span>
+      <span class="unvisited" style="bottom:15.42%"></span>
+      <span class="unvisited" style="bottom:15.17%"></span>
+      <span class="unvisited" style="bottom:15.04%"></span>
+      <span class="unvisited" style="bottom:14.91%"></span>
+      <span class="unvisited" style="bottom:14.78%"></span>
+      <span class="unvisited" style="bottom:14.40%"></span>
+      <span class="unvisited" style="bottom:14.27%"></span>
+      <span class="unvisited" style="bottom:14.14%"></span>
+      <span class="unvisited" style="bottom:14.01%"></span>
+      <span class="unvisited" style="bottom:13.88%"></span>
+      <span class="unvisited" style="bottom:13.75%"></span>
+      <span class="unvisited" style="bottom:10.41%"></span>
+      <span class="unvisited" style="bottom:10.28%"></span>
+      <span class="unvisited" style="bottom:10.15%"></span>
+      <span class="unvisited" style="bottom:9.90%"></span>
+      <span class="unvisited" style="bottom:9.77%"></span>
+      <span class="unvisited" style="bottom:7.71%"></span>
+      <span class="unvisited" style="bottom:7.20%"></span>
+      <span class="some-visited" style="bottom:6.56%"></span>
+      <span class="unvisited" style="bottom:6.17%"></span>
+      <span class="some-visited" style="bottom:6.04%"></span>
+      <span class="some-visited" style="bottom:5.40%"></span>
+      <span class="some-visited" style="bottom:4.76%"></span>
+      <span class="unvisited" style="bottom:1.93%"></span>
+      <span class="unvisited" style="bottom:1.80%"></span>
+      <span class="unvisited" style="bottom:1.54%"></span>
+      <span class="unvisited" style="bottom:1.29%"></span>
+      <span class="unvisited" style="bottom:1.16%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span class="unvisited"> </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span > </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span > </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span > </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span > </span>
+<a id="L136"></a><span class="unvisited"> </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span class="unvisited"> </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span class="unvisited"> </span>
+<a id="L141"></a><span class="unvisited"> </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span > </span>
+<a id="L144"></a><span class="unvisited"> </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span class="unvisited"> </span>
+<a id="L149"></a><span class="unvisited"> </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span > </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span class="unvisited"> </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span class="unvisited"> </span>
+<a id="L156"></a><span class="unvisited"> </span>
+<a id="L157"></a><span class="unvisited"> </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span class="unvisited"> </span>
+<a id="L160"></a><span class="unvisited"> </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span class="unvisited"> </span>
+<a id="L165"></a><span class="unvisited"> </span>
+<a id="L166"></a><span class="unvisited"> </span>
+<a id="L167"></a><span > </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span class="unvisited"> </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="unvisited"> </span>
+<a id="L176"></a><span > </span>
+<a id="L177"></a><span class="unvisited"> </span>
+<a id="L178"></a><span class="unvisited"> </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span > </span>
+<a id="L182"></a><span > </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span > </span>
+<a id="L185"></a><span > </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span class="unvisited"> </span>
+<a id="L189"></a><span class="unvisited"> </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span class="unvisited"> </span>
+<a id="L192"></a><span class="unvisited"> </span>
+<a id="L193"></a><span class="unvisited"> </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span > </span>
+<a id="L197"></a><span class="unvisited"> </span>
+<a id="L198"></a><span > </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span > </span>
+<a id="L204"></a><span > </span>
+<a id="L205"></a><span > </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span > </span>
+<a id="L211"></a><span > </span>
+<a id="L212"></a><span > </span>
+<a id="L213"></a><span > </span>
+<a id="L214"></a><span > </span>
+<a id="L215"></a><span > </span>
+<a id="L216"></a><span > </span>
+<a id="L217"></a><span > </span>
+<a id="L218"></a><span > </span>
+<a id="L219"></a><span > </span>
+<a id="L220"></a><span > </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span > </span>
+<a id="L223"></a><span > </span>
+<a id="L224"></a><span > </span>
+<a id="L225"></a><span > </span>
+<a id="L226"></a><span class="visited"> </span>
+<a id="L227"></a><span class="visited"> </span>
+<a id="L228"></a><span class="unvisited"> </span>
+<a id="L229"></a><span class="visited"> </span>
+<a id="L230"></a><span class="some-visited"> </span>
+<a id="L231"></a><span class="visited"> </span>
+<a id="L232"></a><span class="visited"> </span>
+<a id="L233"></a><span class="unvisited"> </span>
+<a id="L234"></a><span > </span>
+<a id="L235"></a><span > </span>
+<a id="L236"></a><span > </span>
+<a id="L237"></a><span class="unvisited"> </span>
+<a id="L238"></a><span class="unvisited"> </span>
+<a id="L239"></a><span class="unvisited"> </span>
+<a id="L240"></a><span class="unvisited"> </span>
+<a id="L241"></a><span class="unvisited"> </span>
+<a id="L242"></a><span > </span>
+<a id="L243"></a><span > </span>
+<a id="L244"></a><span class="unvisited"> </span>
+<a id="L245"></a><span class="unvisited"> </span>
+<a id="L246"></a><span class="unvisited"> </span>
+<a id="L247"></a><span class="unvisited"> </span>
+<a id="L248"></a><span > </span>
+<a id="L249"></a><span > </span>
+<a id="L250"></a><span > </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span > </span>
+<a id="L253"></a><span class="unvisited"> </span>
+<a id="L254"></a><span class="unvisited"> </span>
+<a id="L255"></a><span > </span>
+<a id="L256"></a><span class="unvisited"> </span>
+<a id="L257"></a><span class="unvisited"> </span>
+<a id="L258"></a><span class="unvisited"> </span>
+<a id="L259"></a><span > </span>
+<a id="L260"></a><span class="unvisited"> </span>
+<a id="L261"></a><span class="unvisited"> </span>
+<a id="L262"></a><span class="unvisited"> </span>
+<a id="L263"></a><span > </span>
+<a id="L264"></a><span class="unvisited"> </span>
+<a id="L265"></a><span > </span>
+<a id="L266"></a><span > </span>
+<a id="L267"></a><span > </span>
+<a id="L268"></a><span > </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span > </span>
+<a id="L271"></a><span class="unvisited"> </span>
+<a id="L272"></a><span > </span>
+<a id="L273"></a><span class="unvisited"> </span>
+<a id="L274"></a><span class="unvisited"> </span>
+<a id="L275"></a><span class="unvisited"> </span>
+<a id="L276"></a><span class="unvisited"> </span>
+<a id="L277"></a><span class="unvisited"> </span>
+<a id="L278"></a><span > </span>
+<a id="L279"></a><span > </span>
+<a id="L280"></a><span > </span>
+<a id="L281"></a><span > </span>
+<a id="L282"></a><span > </span>
+<a id="L283"></a><span > </span>
+<a id="L284"></a><span class="unvisited"> </span>
+<a id="L285"></a><span > </span>
+<a id="L286"></a><span class="unvisited"> </span>
+<a id="L287"></a><span class="unvisited"> </span>
+<a id="L288"></a><span class="unvisited"> </span>
+<a id="L289"></a><span > </span>
+<a id="L290"></a><span class="unvisited"> </span>
+<a id="L291"></a><span > </span>
+<a id="L292"></a><span class="unvisited"> </span>
+<a id="L293"></a><span > </span>
+<a id="L294"></a><span > </span>
+<a id="L295"></a><span class="unvisited"> </span>
+<a id="L296"></a><span class="unvisited"> </span>
+<a id="L297"></a><span class="unvisited"> </span>
+<a id="L298"></a><span class="unvisited"> </span>
+<a id="L299"></a><span > </span>
+<a id="L300"></a><span class="unvisited"> </span>
+<a id="L301"></a><span class="unvisited"> </span>
+<a id="L302"></a><span > </span>
+<a id="L303"></a><span class="unvisited"> </span>
+<a id="L304"></a><span > </span>
+<a id="L305"></a><span class="unvisited"> </span>
+<a id="L306"></a><span > </span>
+<a id="L307"></a><span class="unvisited"> </span>
+<a id="L308"></a><span class="unvisited"> </span>
+<a id="L309"></a><span > </span>
+<a id="L310"></a><span class="unvisited"> </span>
+<a id="L311"></a><span > </span>
+<a id="L312"></a><span > </span>
+<a id="L313"></a><span class="unvisited"> </span>
+<a id="L314"></a><span > </span>
+<a id="L315"></a><span class="unvisited"> </span>
+<a id="L316"></a><span class="unvisited"> </span>
+<a id="L317"></a><span class="unvisited"> </span>
+<a id="L318"></a><span class="unvisited"> </span>
+<a id="L319"></a><span > </span>
+<a id="L320"></a><span > </span>
+<a id="L321"></a><span > </span>
+<a id="L322"></a><span class="unvisited"> </span>
+<a id="L323"></a><span class="unvisited"> </span>
+<a id="L324"></a><span class="unvisited"> </span>
+<a id="L325"></a><span class="unvisited"> </span>
+<a id="L326"></a><span class="unvisited"> </span>
+<a id="L327"></a><span class="unvisited"> </span>
+<a id="L328"></a><span > </span>
+<a id="L329"></a><span class="unvisited"> </span>
+<a id="L330"></a><span > </span>
+<a id="L331"></a><span > </span>
+<a id="L332"></a><span class="unvisited"> </span>
+<a id="L333"></a><span > </span>
+<a id="L334"></a><span class="unvisited"> </span>
+<a id="L335"></a><span class="unvisited"> </span>
+<a id="L336"></a><span class="unvisited"> </span>
+<a id="L337"></a><span > </span>
+<a id="L338"></a><span class="unvisited"> </span>
+<a id="L339"></a><span class="unvisited"> </span>
+<a id="L340"></a><span class="unvisited"> </span>
+<a id="L341"></a><span > </span>
+<a id="L342"></a><span class="unvisited"> </span>
+<a id="L343"></a><span class="unvisited"> </span>
+<a id="L344"></a><span > </span>
+<a id="L345"></a><span > </span>
+<a id="L346"></a><span class="unvisited"> </span>
+<a id="L347"></a><span class="unvisited"> </span>
+<a id="L348"></a><span class="unvisited"> </span>
+<a id="L349"></a><span class="unvisited"> </span>
+<a id="L350"></a><span class="unvisited"> </span>
+<a id="L351"></a><span class="unvisited"> </span>
+<a id="L352"></a><span class="unvisited"> </span>
+<a id="L353"></a><span class="unvisited"> </span>
+<a id="L354"></a><span > </span>
+<a id="L355"></a><span class="unvisited"> </span>
+<a id="L356"></a><span class="unvisited"> </span>
+<a id="L357"></a><span > </span>
+<a id="L358"></a><span > </span>
+<a id="L359"></a><span > </span>
+<a id="L360"></a><span > </span>
+<a id="L361"></a><span > </span>
+<a id="L362"></a><span > </span>
+<a id="L363"></a><span class="unvisited"> </span>
+<a id="L364"></a><span class="unvisited"> </span>
+<a id="L365"></a><span class="unvisited"> </span>
+<a id="L366"></a><span > </span>
+<a id="L367"></a><span class="unvisited"> </span>
+<a id="L368"></a><span class="unvisited"> </span>
+<a id="L369"></a><span > </span>
+<a id="L370"></a><span class="unvisited"> </span>
+<a id="L371"></a><span class="unvisited"> </span>
+<a id="L372"></a><span class="unvisited"> </span>
+<a id="L373"></a><span > </span>
+<a id="L374"></a><span class="unvisited"> </span>
+<a id="L375"></a><span class="unvisited"> </span>
+<a id="L376"></a><span class="unvisited"> </span>
+<a id="L377"></a><span > </span>
+<a id="L378"></a><span class="unvisited"> </span>
+<a id="L379"></a><span class="unvisited"> </span>
+<a id="L380"></a><span > </span>
+<a id="L381"></a><span > </span>
+<a id="L382"></a><span class="unvisited"> </span>
+<a id="L383"></a><span class="unvisited"> </span>
+<a id="L384"></a><span class="unvisited"> </span>
+<a id="L385"></a><span class="unvisited"> </span>
+<a id="L386"></a><span > </span>
+<a id="L387"></a><span > </span>
+<a id="L388"></a><span class="unvisited"> </span>
+<a id="L389"></a><span > </span>
+<a id="L390"></a><span class="unvisited"> </span>
+<a id="L391"></a><span class="unvisited"> </span>
+<a id="L392"></a><span > </span>
+<a id="L393"></a><span class="unvisited"> </span>
+<a id="L394"></a><span class="unvisited"> </span>
+<a id="L395"></a><span class="unvisited"> </span>
+<a id="L396"></a><span > </span>
+<a id="L397"></a><span class="unvisited"> </span>
+<a id="L398"></a><span class="unvisited"> </span>
+<a id="L399"></a><span class="unvisited"> </span>
+<a id="L400"></a><span class="unvisited"> </span>
+<a id="L401"></a><span class="unvisited"> </span>
+<a id="L402"></a><span > </span>
+<a id="L403"></a><span class="unvisited"> </span>
+<a id="L404"></a><span class="unvisited"> </span>
+<a id="L405"></a><span > </span>
+<a id="L406"></a><span > </span>
+<a id="L407"></a><span class="unvisited"> </span>
+<a id="L408"></a><span class="unvisited"> </span>
+<a id="L409"></a><span > </span>
+<a id="L410"></a><span class="unvisited"> </span>
+<a id="L411"></a><span class="unvisited"> </span>
+<a id="L412"></a><span > </span>
+<a id="L413"></a><span class="unvisited"> </span>
+<a id="L414"></a><span class="unvisited"> </span>
+<a id="L415"></a><span > </span>
+<a id="L416"></a><span > </span>
+<a id="L417"></a><span > </span>
+<a id="L418"></a><span class="unvisited"> </span>
+<a id="L419"></a><span class="unvisited"> </span>
+<a id="L420"></a><span class="unvisited"> </span>
+<a id="L421"></a><span class="unvisited"> </span>
+<a id="L422"></a><span > </span>
+<a id="L423"></a><span class="unvisited"> </span>
+<a id="L424"></a><span > </span>
+<a id="L425"></a><span > </span>
+<a id="L426"></a><span class="unvisited"> </span>
+<a id="L427"></a><span class="unvisited"> </span>
+<a id="L428"></a><span class="unvisited"> </span>
+<a id="L429"></a><span > </span>
+<a id="L430"></a><span > </span>
+<a id="L431"></a><span > </span>
+<a id="L432"></a><span class="unvisited"> </span>
+<a id="L433"></a><span > </span>
+<a id="L434"></a><span class="unvisited"> </span>
+<a id="L435"></a><span class="unvisited"> </span>
+<a id="L436"></a><span > </span>
+<a id="L437"></a><span class="unvisited"> </span>
+<a id="L438"></a><span class="unvisited"> </span>
+<a id="L439"></a><span class="unvisited"> </span>
+<a id="L440"></a><span class="unvisited"> </span>
+<a id="L441"></a><span class="unvisited"> </span>
+<a id="L442"></a><span class="unvisited"> </span>
+<a id="L443"></a><span > </span>
+<a id="L444"></a><span > </span>
+<a id="L445"></a><span > </span>
+<a id="L446"></a><span > </span>
+<a id="L447"></a><span > </span>
+<a id="L448"></a><span > </span>
+<a id="L449"></a><span > </span>
+<a id="L450"></a><span > </span>
+<a id="L451"></a><span > </span>
+<a id="L452"></a><span > </span>
+<a id="L453"></a><span > </span>
+<a id="L454"></a><span > </span>
+<a id="L455"></a><span > </span>
+<a id="L456"></a><span > </span>
+<a id="L457"></a><span > </span>
+<a id="L458"></a><span > </span>
+<a id="L459"></a><span > </span>
+<a id="L460"></a><span > </span>
+<a id="L461"></a><span > </span>
+<a id="L462"></a><span class="unvisited"> </span>
+<a id="L463"></a><span class="unvisited"> </span>
+<a id="L464"></a><span > </span>
+<a id="L465"></a><span class="unvisited"> </span>
+<a id="L466"></a><span > </span>
+<a id="L467"></a><span class="unvisited"> </span>
+<a id="L468"></a><span class="unvisited"> </span>
+<a id="L469"></a><span > </span>
+<a id="L470"></a><span > </span>
+<a id="L471"></a><span > </span>
+<a id="L472"></a><span class="visited"> </span>
+<a id="L473"></a><span > </span>
+<a id="L474"></a><span > </span>
+<a id="L475"></a><span > </span>
+<a id="L476"></a><span > </span>
+<a id="L477"></a><span > </span>
+<a id="L478"></a><span > </span>
+<a id="L479"></a><span > </span>
+<a id="L480"></a><span class="visited"> </span>
+<a id="L481"></a><span class="visited"> </span>
+<a id="L482"></a><span > </span>
+<a id="L483"></a><span > </span>
+<a id="L484"></a><span class="visited"> </span>
+<a id="L485"></a><span class="visited"> </span>
+<a id="L486"></a><span class="some-visited"> </span>
+<a id="L487"></a><span class="unvisited"> </span>
+<a id="L488"></a><span > </span>
+<a id="L489"></a><span > </span>
+<a id="L490"></a><span class="visited"> </span>
+<a id="L491"></a><span class="visited"> </span>
+<a id="L492"></a><span class="unvisited"> </span>
+<a id="L493"></a><span class="unvisited"> </span>
+<a id="L494"></a><span class="unvisited"> </span>
+<a id="L495"></a><span > </span>
+<a id="L496"></a><span class="some-visited"> </span>
+<a id="L497"></a><span class="visited"> </span>
+<a id="L498"></a><span > </span>
+<a id="L499"></a><span class="visited"> </span>
+<a id="L500"></a><span class="unvisited"> </span>
+<a id="L501"></a><span class="unvisited"> </span>
+<a id="L502"></a><span class="unvisited"> </span>
+<a id="L503"></a><span > </span>
+<a id="L504"></a><span > </span>
+<a id="L505"></a><span class="unvisited"> </span>
+<a id="L506"></a><span class="unvisited"> </span>
+<a id="L507"></a><span class="unvisited"> </span>
+<a id="L508"></a><span class="unvisited"> </span>
+<a id="L509"></a><span > </span>
+<a id="L510"></a><span > </span>
+<a id="L511"></a><span class="unvisited"> </span>
+<a id="L512"></a><span class="unvisited"> </span>
+<a id="L513"></a><span class="unvisited"> </span>
+<a id="L514"></a><span > </span>
+<a id="L515"></a><span class="unvisited"> </span>
+<a id="L516"></a><span class="unvisited"> </span>
+<a id="L517"></a><span > </span>
+<a id="L518"></a><span > </span>
+<a id="L519"></a><span class="visited"> </span>
+<a id="L520"></a><span > </span>
+<a id="L521"></a><span class="visited"> </span>
+<a id="L522"></a><span class="visited"> </span>
+<a id="L523"></a><span > </span>
+<a id="L524"></a><span class="visited"> </span>
+<a id="L525"></a><span > </span>
+<a id="L526"></a><span > </span>
+<a id="L527"></a><span > </span>
+<a id="L528"></a><span > </span>
+<a id="L529"></a><span > </span>
+<a id="L530"></a><span class="visited"> </span>
+<a id="L531"></a><span > </span>
+<a id="L532"></a><span > </span>
+<a id="L533"></a><span class="unvisited"> </span>
+<a id="L534"></a><span class="unvisited"> </span>
+<a id="L535"></a><span class="visited"> </span>
+<a id="L536"></a><span > </span>
+<a id="L537"></a><span class="visited"> </span>
+<a id="L538"></a><span class="visited"> </span>
+<a id="L539"></a><span class="visited"> </span>
+<a id="L540"></a><span class="unvisited"> </span>
+<a id="L541"></a><span > </span>
+<a id="L542"></a><span > </span>
+<a id="L543"></a><span class="visited"> </span>
+<a id="L544"></a><span class="visited"> </span>
+<a id="L545"></a><span class="unvisited"> </span>
+<a id="L546"></a><span class="unvisited"> </span>
+<a id="L547"></a><span class="unvisited"> </span>
+<a id="L548"></a><span class="unvisited"> </span>
+<a id="L549"></a><span class="unvisited"> </span>
+<a id="L550"></a><span class="unvisited"> </span>
+<a id="L551"></a><span class="visited"> </span>
+<a id="L552"></a><span > </span>
+<a id="L553"></a><span class="unvisited"> </span>
+<a id="L554"></a><span class="visited"> </span>
+<a id="L555"></a><span > </span>
+<a id="L556"></a><span class="visited"> </span>
+<a id="L557"></a><span class="unvisited"> </span>
+<a id="L558"></a><span class="unvisited"> </span>
+<a id="L559"></a><span > </span>
+<a id="L560"></a><span > </span>
+<a id="L561"></a><span > </span>
+<a id="L562"></a><span > </span>
+<a id="L563"></a><span > </span>
+<a id="L564"></a><span > </span>
+<a id="L565"></a><span > </span>
+<a id="L566"></a><span > </span>
+<a id="L567"></a><span > </span>
+<a id="L568"></a><span > </span>
+<a id="L569"></a><span > </span>
+<a id="L570"></a><span > </span>
+<a id="L571"></a><span > </span>
+<a id="L572"></a><span > </span>
+<a id="L573"></a><span > </span>
+<a id="L574"></a><span > </span>
+<a id="L575"></a><span class="visited"> </span>
+<a id="L576"></a><span class="visited"> </span>
+<a id="L577"></a><span > </span>
+<a id="L578"></a><span > </span>
+<a id="L579"></a><span > </span>
+<a id="L580"></a><span class="visited"> </span>
+<a id="L581"></a><span > </span>
+<a id="L582"></a><span > </span>
+<a id="L583"></a><span class="visited"> </span>
+<a id="L584"></a><span > </span>
+<a id="L585"></a><span class="visited"> </span>
+<a id="L586"></a><span class="visited"> </span>
+<a id="L587"></a><span > </span>
+<a id="L588"></a><span class="visited"> </span>
+<a id="L589"></a><span class="unvisited"> </span>
+<a id="L590"></a><span > </span>
+<a id="L591"></a><span > </span>
+<a id="L592"></a><span > </span>
+<a id="L593"></a><span > </span>
+<a id="L594"></a><span class="visited"> </span>
+<a id="L595"></a><span > </span>
+<a id="L596"></a><span > </span>
+<a id="L597"></a><span > </span>
+<a id="L598"></a><span > </span>
+<a id="L599"></a><span > </span>
+<a id="L600"></a><span class="visited"> </span>
+<a id="L601"></a><span > </span>
+<a id="L602"></a><span class="unvisited"> </span>
+<a id="L603"></a><span > </span>
+<a id="L604"></a><span class="unvisited"> </span>
+<a id="L605"></a><span class="unvisited"> </span>
+<a id="L606"></a><span > </span>
+<a id="L607"></a><span > </span>
+<a id="L608"></a><span > </span>
+<a id="L609"></a><span > </span>
+<a id="L610"></a><span > </span>
+<a id="L611"></a><span > </span>
+<a id="L612"></a><span > </span>
+<a id="L613"></a><span > </span>
+<a id="L614"></a><span > </span>
+<a id="L615"></a><span > </span>
+<a id="L616"></a><span > </span>
+<a id="L617"></a><span > </span>
+<a id="L618"></a><span > </span>
+<a id="L619"></a><span > </span>
+<a id="L620"></a><span > </span>
+<a id="L621"></a><span > </span>
+<a id="L622"></a><span > </span>
+<a id="L623"></a><span > </span>
+<a id="L624"></a><span class="visited"> </span>
+<a id="L625"></a><span class="visited"> </span>
+<a id="L626"></a><span > </span>
+<a id="L627"></a><span class="visited"> </span>
+<a id="L628"></a><span class="visited"> </span>
+<a id="L629"></a><span class="visited"> </span>
+<a id="L630"></a><span class="visited"> </span>
+<a id="L631"></a><span > </span>
+<a id="L632"></a><span class="unvisited"> </span>
+<a id="L633"></a><span class="visited"> </span>
+<a id="L634"></a><span > </span>
+<a id="L635"></a><span > </span>
+<a id="L636"></a><span > </span>
+<a id="L637"></a><span > </span>
+<a id="L638"></a><span > </span>
+<a id="L639"></a><span > </span>
+<a id="L640"></a><span > </span>
+<a id="L641"></a><span > </span>
+<a id="L642"></a><span > </span>
+<a id="L643"></a><span > </span>
+<a id="L644"></a><span class="visited"> </span>
+<a id="L645"></a><span > </span>
+<a id="L646"></a><span > </span>
+<a id="L647"></a><span class="unvisited"> </span>
+<a id="L648"></a><span > </span>
+<a id="L649"></a><span > </span>
+<a id="L650"></a><span class="unvisited"> </span>
+<a id="L651"></a><span class="unvisited"> </span>
+<a id="L652"></a><span > </span>
+<a id="L653"></a><span > </span>
+<a id="L654"></a><span class="unvisited"> </span>
+<a id="L655"></a><span class="unvisited"> </span>
+<a id="L656"></a><span class="unvisited"> </span>
+<a id="L657"></a><span > </span>
+<a id="L658"></a><span class="unvisited"> </span>
+<a id="L659"></a><span > </span>
+<a id="L660"></a><span class="unvisited"> </span>
+<a id="L661"></a><span class="unvisited"> </span>
+<a id="L662"></a><span class="unvisited"> </span>
+<a id="L663"></a><span class="unvisited"> </span>
+<a id="L664"></a><span > </span>
+<a id="L665"></a><span > </span>
+<a id="L666"></a><span class="unvisited"> </span>
+<a id="L667"></a><span class="unvisited"> </span>
+<a id="L668"></a><span class="unvisited"> </span>
+<a id="L669"></a><span class="unvisited"> </span>
+<a id="L670"></a><span class="unvisited"> </span>
+<a id="L671"></a><span class="unvisited"> </span>
+<a id="L672"></a><span > </span>
+<a id="L673"></a><span > </span>
+<a id="L674"></a><span > </span>
+<a id="L675"></a><span > </span>
+<a id="L676"></a><span > </span>
+<a id="L677"></a><span > </span>
+<a id="L678"></a><span > </span>
+<a id="L679"></a><span > </span>
+<a id="L680"></a><span > </span>
+<a id="L681"></a><span > </span>
+<a id="L682"></a><span > </span>
+<a id="L683"></a><span > </span>
+<a id="L684"></a><span > </span>
+<a id="L685"></a><span > </span>
+<a id="L686"></a><span > </span>
+<a id="L687"></a><span > </span>
+<a id="L688"></a><span class="visited"> </span>
+<a id="L689"></a><span class="visited"> </span>
+<a id="L690"></a><span > </span>
+<a id="L691"></a><span class="visited"> </span>
+<a id="L692"></a><span class="visited"> </span>
+<a id="L693"></a><span class="visited"> </span>
+<a id="L694"></a><span > </span>
+<a id="L695"></a><span class="visited"> </span>
+<a id="L696"></a><span class="visited"> </span>
+<a id="L697"></a><span class="unvisited"> </span>
+<a id="L698"></a><span class="unvisited"> </span>
+<a id="L699"></a><span class="unvisited"> </span>
+<a id="L700"></a><span > </span>
+<a id="L701"></a><span class="unvisited"> </span>
+<a id="L702"></a><span class="unvisited"> </span>
+<a id="L703"></a><span > </span>
+<a id="L704"></a><span > </span>
+<a id="L705"></a><span > </span>
+<a id="L706"></a><span > </span>
+<a id="L707"></a><span class="visited"> </span>
+<a id="L708"></a><span class="visited"> </span>
+<a id="L709"></a><span class="visited"> </span>
+<a id="L710"></a><span > </span>
+<a id="L711"></a><span class="visited"> </span>
+<a id="L712"></a><span > </span>
+<a id="L713"></a><span class="visited"> </span>
+<a id="L714"></a><span > </span>
+<a id="L715"></a><span class="visited"> </span>
+<a id="L716"></a><span > </span>
+<a id="L717"></a><span class="visited"> </span>
+<a id="L718"></a><span class="unvisited"> </span>
+<a id="L719"></a><span class="visited"> </span>
+<a id="L720"></a><span class="visited"> </span>
+<a id="L721"></a><span class="visited"> </span>
+<a id="L722"></a><span class="unvisited"> </span>
+<a id="L723"></a><span > </span>
+<a id="L724"></a><span > </span>
+<a id="L725"></a><span class="visited"> </span>
+<a id="L726"></a><span > </span>
+<a id="L727"></a><span class="some-visited"> </span>
+<a id="L728"></a><span > </span>
+<a id="L729"></a><span > </span>
+<a id="L730"></a><span class="unvisited"> </span>
+<a id="L731"></a><span class="some-visited"> </span>
+<a id="L732"></a><span class="visited"> </span>
+<a id="L733"></a><span class="visited"> </span>
+<a id="L734"></a><span > </span>
+<a id="L735"></a><span > </span>
+<a id="L736"></a><span class="some-visited"> </span>
+<a id="L737"></a><span class="visited"> </span>
+<a id="L738"></a><span class="visited"> </span>
+<a id="L739"></a><span > </span>
+<a id="L740"></a><span > </span>
+<a id="L741"></a><span class="some-visited"> </span>
+<a id="L742"></a><span class="visited"> </span>
+<a id="L743"></a><span class="visited"> </span>
+<a id="L744"></a><span > </span>
+<a id="L745"></a><span > </span>
+<a id="L746"></a><span class="visited"> </span>
+<a id="L747"></a><span > </span>
+<a id="L748"></a><span > </span>
+<a id="L749"></a><span > </span>
+<a id="L750"></a><span > </span>
+<a id="L751"></a><span > </span>
+<a id="L752"></a><span > </span>
+<a id="L753"></a><span > </span>
+<a id="L754"></a><span > </span>
+<a id="L755"></a><span > </span>
+<a id="L756"></a><span > </span>
+<a id="L757"></a><span > </span>
+<a id="L758"></a><span > </span>
+<a id="L759"></a><span > </span>
+<a id="L760"></a><span > </span>
+<a id="L761"></a><span > </span>
+<a id="L762"></a><span > </span>
+<a id="L763"></a><span class="unvisited"> </span>
+<a id="L764"></a><span class="unvisited"> </span>
+<a id="L765"></a><span > </span>
+<a id="L766"></a><span class="unvisited"> </span>
+<a id="L767"></a><span > </span>
+<a id="L768"></a><span class="unvisited"> </span>
+<a id="L769"></a><span class="unvisited"> </span>
+<a id="L770"></a><span > </span>
+<a id="L771"></a><span > </span>
+<a id="L772"></a><span > </span>
+<a id="L773"></a><span class="visited"> </span>
+<a id="L774"></a><span class="visited"> </span>
+<a id="L775"></a><span class="visited"> </span>
+<a id="L776"></a><span class="visited"> </span>
+<a id="L777"></a><span class="visited"> </span>
+<a id="L778"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+<a href="#L308">308</a>
+<a href="#L309">309</a>
+<a href="#L310">310</a>
+<a href="#L311">311</a>
+<a href="#L312">312</a>
+<a href="#L313">313</a>
+<a href="#L314">314</a>
+<a href="#L315">315</a>
+<a href="#L316">316</a>
+<a href="#L317">317</a>
+<a href="#L318">318</a>
+<a href="#L319">319</a>
+<a href="#L320">320</a>
+<a href="#L321">321</a>
+<a href="#L322">322</a>
+<a href="#L323">323</a>
+<a href="#L324">324</a>
+<a href="#L325">325</a>
+<a href="#L326">326</a>
+<a href="#L327">327</a>
+<a href="#L328">328</a>
+<a href="#L329">329</a>
+<a href="#L330">330</a>
+<a href="#L331">331</a>
+<a href="#L332">332</a>
+<a href="#L333">333</a>
+<a href="#L334">334</a>
+<a href="#L335">335</a>
+<a href="#L336">336</a>
+<a href="#L337">337</a>
+<a href="#L338">338</a>
+<a href="#L339">339</a>
+<a href="#L340">340</a>
+<a href="#L341">341</a>
+<a href="#L342">342</a>
+<a href="#L343">343</a>
+<a href="#L344">344</a>
+<a href="#L345">345</a>
+<a href="#L346">346</a>
+<a href="#L347">347</a>
+<a href="#L348">348</a>
+<a href="#L349">349</a>
+<a href="#L350">350</a>
+<a href="#L351">351</a>
+<a href="#L352">352</a>
+<a href="#L353">353</a>
+<a href="#L354">354</a>
+<a href="#L355">355</a>
+<a href="#L356">356</a>
+<a href="#L357">357</a>
+<a href="#L358">358</a>
+<a href="#L359">359</a>
+<a href="#L360">360</a>
+<a href="#L361">361</a>
+<a href="#L362">362</a>
+<a href="#L363">363</a>
+<a href="#L364">364</a>
+<a href="#L365">365</a>
+<a href="#L366">366</a>
+<a href="#L367">367</a>
+<a href="#L368">368</a>
+<a href="#L369">369</a>
+<a href="#L370">370</a>
+<a href="#L371">371</a>
+<a href="#L372">372</a>
+<a href="#L373">373</a>
+<a href="#L374">374</a>
+<a href="#L375">375</a>
+<a href="#L376">376</a>
+<a href="#L377">377</a>
+<a href="#L378">378</a>
+<a href="#L379">379</a>
+<a href="#L380">380</a>
+<a href="#L381">381</a>
+<a href="#L382">382</a>
+<a href="#L383">383</a>
+<a href="#L384">384</a>
+<a href="#L385">385</a>
+<a href="#L386">386</a>
+<a href="#L387">387</a>
+<a href="#L388">388</a>
+<a href="#L389">389</a>
+<a href="#L390">390</a>
+<a href="#L391">391</a>
+<a href="#L392">392</a>
+<a href="#L393">393</a>
+<a href="#L394">394</a>
+<a href="#L395">395</a>
+<a href="#L396">396</a>
+<a href="#L397">397</a>
+<a href="#L398">398</a>
+<a href="#L399">399</a>
+<a href="#L400">400</a>
+<a href="#L401">401</a>
+<a href="#L402">402</a>
+<a href="#L403">403</a>
+<a href="#L404">404</a>
+<a href="#L405">405</a>
+<a href="#L406">406</a>
+<a href="#L407">407</a>
+<a href="#L408">408</a>
+<a href="#L409">409</a>
+<a href="#L410">410</a>
+<a href="#L411">411</a>
+<a href="#L412">412</a>
+<a href="#L413">413</a>
+<a href="#L414">414</a>
+<a href="#L415">415</a>
+<a href="#L416">416</a>
+<a href="#L417">417</a>
+<a href="#L418">418</a>
+<a href="#L419">419</a>
+<a href="#L420">420</a>
+<a href="#L421">421</a>
+<a href="#L422">422</a>
+<a href="#L423">423</a>
+<a href="#L424">424</a>
+<a href="#L425">425</a>
+<a href="#L426">426</a>
+<a href="#L427">427</a>
+<a href="#L428">428</a>
+<a href="#L429">429</a>
+<a href="#L430">430</a>
+<a href="#L431">431</a>
+<a href="#L432">432</a>
+<a href="#L433">433</a>
+<a href="#L434">434</a>
+<a href="#L435">435</a>
+<a href="#L436">436</a>
+<a href="#L437">437</a>
+<a href="#L438">438</a>
+<a href="#L439">439</a>
+<a href="#L440">440</a>
+<a href="#L441">441</a>
+<a href="#L442">442</a>
+<a href="#L443">443</a>
+<a href="#L444">444</a>
+<a href="#L445">445</a>
+<a href="#L446">446</a>
+<a href="#L447">447</a>
+<a href="#L448">448</a>
+<a href="#L449">449</a>
+<a href="#L450">450</a>
+<a href="#L451">451</a>
+<a href="#L452">452</a>
+<a href="#L453">453</a>
+<a href="#L454">454</a>
+<a href="#L455">455</a>
+<a href="#L456">456</a>
+<a href="#L457">457</a>
+<a href="#L458">458</a>
+<a href="#L459">459</a>
+<a href="#L460">460</a>
+<a href="#L461">461</a>
+<a href="#L462">462</a>
+<a href="#L463">463</a>
+<a href="#L464">464</a>
+<a href="#L465">465</a>
+<a href="#L466">466</a>
+<a href="#L467">467</a>
+<a href="#L468">468</a>
+<a href="#L469">469</a>
+<a href="#L470">470</a>
+<a href="#L471">471</a>
+<a href="#L472">472</a>
+<a href="#L473">473</a>
+<a href="#L474">474</a>
+<a href="#L475">475</a>
+<a href="#L476">476</a>
+<a href="#L477">477</a>
+<a href="#L478">478</a>
+<a href="#L479">479</a>
+<a href="#L480">480</a>
+<a href="#L481">481</a>
+<a href="#L482">482</a>
+<a href="#L483">483</a>
+<a href="#L484">484</a>
+<a href="#L485">485</a>
+<a href="#L486">486</a>
+<a href="#L487">487</a>
+<a href="#L488">488</a>
+<a href="#L489">489</a>
+<a href="#L490">490</a>
+<a href="#L491">491</a>
+<a href="#L492">492</a>
+<a href="#L493">493</a>
+<a href="#L494">494</a>
+<a href="#L495">495</a>
+<a href="#L496">496</a>
+<a href="#L497">497</a>
+<a href="#L498">498</a>
+<a href="#L499">499</a>
+<a href="#L500">500</a>
+<a href="#L501">501</a>
+<a href="#L502">502</a>
+<a href="#L503">503</a>
+<a href="#L504">504</a>
+<a href="#L505">505</a>
+<a href="#L506">506</a>
+<a href="#L507">507</a>
+<a href="#L508">508</a>
+<a href="#L509">509</a>
+<a href="#L510">510</a>
+<a href="#L511">511</a>
+<a href="#L512">512</a>
+<a href="#L513">513</a>
+<a href="#L514">514</a>
+<a href="#L515">515</a>
+<a href="#L516">516</a>
+<a href="#L517">517</a>
+<a href="#L518">518</a>
+<a href="#L519">519</a>
+<a href="#L520">520</a>
+<a href="#L521">521</a>
+<a href="#L522">522</a>
+<a href="#L523">523</a>
+<a href="#L524">524</a>
+<a href="#L525">525</a>
+<a href="#L526">526</a>
+<a href="#L527">527</a>
+<a href="#L528">528</a>
+<a href="#L529">529</a>
+<a href="#L530">530</a>
+<a href="#L531">531</a>
+<a href="#L532">532</a>
+<a href="#L533">533</a>
+<a href="#L534">534</a>
+<a href="#L535">535</a>
+<a href="#L536">536</a>
+<a href="#L537">537</a>
+<a href="#L538">538</a>
+<a href="#L539">539</a>
+<a href="#L540">540</a>
+<a href="#L541">541</a>
+<a href="#L542">542</a>
+<a href="#L543">543</a>
+<a href="#L544">544</a>
+<a href="#L545">545</a>
+<a href="#L546">546</a>
+<a href="#L547">547</a>
+<a href="#L548">548</a>
+<a href="#L549">549</a>
+<a href="#L550">550</a>
+<a href="#L551">551</a>
+<a href="#L552">552</a>
+<a href="#L553">553</a>
+<a href="#L554">554</a>
+<a href="#L555">555</a>
+<a href="#L556">556</a>
+<a href="#L557">557</a>
+<a href="#L558">558</a>
+<a href="#L559">559</a>
+<a href="#L560">560</a>
+<a href="#L561">561</a>
+<a href="#L562">562</a>
+<a href="#L563">563</a>
+<a href="#L564">564</a>
+<a href="#L565">565</a>
+<a href="#L566">566</a>
+<a href="#L567">567</a>
+<a href="#L568">568</a>
+<a href="#L569">569</a>
+<a href="#L570">570</a>
+<a href="#L571">571</a>
+<a href="#L572">572</a>
+<a href="#L573">573</a>
+<a href="#L574">574</a>
+<a href="#L575">575</a>
+<a href="#L576">576</a>
+<a href="#L577">577</a>
+<a href="#L578">578</a>
+<a href="#L579">579</a>
+<a href="#L580">580</a>
+<a href="#L581">581</a>
+<a href="#L582">582</a>
+<a href="#L583">583</a>
+<a href="#L584">584</a>
+<a href="#L585">585</a>
+<a href="#L586">586</a>
+<a href="#L587">587</a>
+<a href="#L588">588</a>
+<a href="#L589">589</a>
+<a href="#L590">590</a>
+<a href="#L591">591</a>
+<a href="#L592">592</a>
+<a href="#L593">593</a>
+<a href="#L594">594</a>
+<a href="#L595">595</a>
+<a href="#L596">596</a>
+<a href="#L597">597</a>
+<a href="#L598">598</a>
+<a href="#L599">599</a>
+<a href="#L600">600</a>
+<a href="#L601">601</a>
+<a href="#L602">602</a>
+<a href="#L603">603</a>
+<a href="#L604">604</a>
+<a href="#L605">605</a>
+<a href="#L606">606</a>
+<a href="#L607">607</a>
+<a href="#L608">608</a>
+<a href="#L609">609</a>
+<a href="#L610">610</a>
+<a href="#L611">611</a>
+<a href="#L612">612</a>
+<a href="#L613">613</a>
+<a href="#L614">614</a>
+<a href="#L615">615</a>
+<a href="#L616">616</a>
+<a href="#L617">617</a>
+<a href="#L618">618</a>
+<a href="#L619">619</a>
+<a href="#L620">620</a>
+<a href="#L621">621</a>
+<a href="#L622">622</a>
+<a href="#L623">623</a>
+<a href="#L624">624</a>
+<a href="#L625">625</a>
+<a href="#L626">626</a>
+<a href="#L627">627</a>
+<a href="#L628">628</a>
+<a href="#L629">629</a>
+<a href="#L630">630</a>
+<a href="#L631">631</a>
+<a href="#L632">632</a>
+<a href="#L633">633</a>
+<a href="#L634">634</a>
+<a href="#L635">635</a>
+<a href="#L636">636</a>
+<a href="#L637">637</a>
+<a href="#L638">638</a>
+<a href="#L639">639</a>
+<a href="#L640">640</a>
+<a href="#L641">641</a>
+<a href="#L642">642</a>
+<a href="#L643">643</a>
+<a href="#L644">644</a>
+<a href="#L645">645</a>
+<a href="#L646">646</a>
+<a href="#L647">647</a>
+<a href="#L648">648</a>
+<a href="#L649">649</a>
+<a href="#L650">650</a>
+<a href="#L651">651</a>
+<a href="#L652">652</a>
+<a href="#L653">653</a>
+<a href="#L654">654</a>
+<a href="#L655">655</a>
+<a href="#L656">656</a>
+<a href="#L657">657</a>
+<a href="#L658">658</a>
+<a href="#L659">659</a>
+<a href="#L660">660</a>
+<a href="#L661">661</a>
+<a href="#L662">662</a>
+<a href="#L663">663</a>
+<a href="#L664">664</a>
+<a href="#L665">665</a>
+<a href="#L666">666</a>
+<a href="#L667">667</a>
+<a href="#L668">668</a>
+<a href="#L669">669</a>
+<a href="#L670">670</a>
+<a href="#L671">671</a>
+<a href="#L672">672</a>
+<a href="#L673">673</a>
+<a href="#L674">674</a>
+<a href="#L675">675</a>
+<a href="#L676">676</a>
+<a href="#L677">677</a>
+<a href="#L678">678</a>
+<a href="#L679">679</a>
+<a href="#L680">680</a>
+<a href="#L681">681</a>
+<a href="#L682">682</a>
+<a href="#L683">683</a>
+<a href="#L684">684</a>
+<a href="#L685">685</a>
+<a href="#L686">686</a>
+<a href="#L687">687</a>
+<a href="#L688">688</a>
+<a href="#L689">689</a>
+<a href="#L690">690</a>
+<a href="#L691">691</a>
+<a href="#L692">692</a>
+<a href="#L693">693</a>
+<a href="#L694">694</a>
+<a href="#L695">695</a>
+<a href="#L696">696</a>
+<a href="#L697">697</a>
+<a href="#L698">698</a>
+<a href="#L699">699</a>
+<a href="#L700">700</a>
+<a href="#L701">701</a>
+<a href="#L702">702</a>
+<a href="#L703">703</a>
+<a href="#L704">704</a>
+<a href="#L705">705</a>
+<a href="#L706">706</a>
+<a href="#L707">707</a>
+<a href="#L708">708</a>
+<a href="#L709">709</a>
+<a href="#L710">710</a>
+<a href="#L711">711</a>
+<a href="#L712">712</a>
+<a href="#L713">713</a>
+<a href="#L714">714</a>
+<a href="#L715">715</a>
+<a href="#L716">716</a>
+<a href="#L717">717</a>
+<a href="#L718">718</a>
+<a href="#L719">719</a>
+<a href="#L720">720</a>
+<a href="#L721">721</a>
+<a href="#L722">722</a>
+<a href="#L723">723</a>
+<a href="#L724">724</a>
+<a href="#L725">725</a>
+<a href="#L726">726</a>
+<a href="#L727">727</a>
+<a href="#L728">728</a>
+<a href="#L729">729</a>
+<a href="#L730">730</a>
+<a href="#L731">731</a>
+<a href="#L732">732</a>
+<a href="#L733">733</a>
+<a href="#L734">734</a>
+<a href="#L735">735</a>
+<a href="#L736">736</a>
+<a href="#L737">737</a>
+<a href="#L738">738</a>
+<a href="#L739">739</a>
+<a href="#L740">740</a>
+<a href="#L741">741</a>
+<a href="#L742">742</a>
+<a href="#L743">743</a>
+<a href="#L744">744</a>
+<a href="#L745">745</a>
+<a href="#L746">746</a>
+<a href="#L747">747</a>
+<a href="#L748">748</a>
+<a href="#L749">749</a>
+<a href="#L750">750</a>
+<a href="#L751">751</a>
+<a href="#L752">752</a>
+<a href="#L753">753</a>
+<a href="#L754">754</a>
+<a href="#L755">755</a>
+<a href="#L756">756</a>
+<a href="#L757">757</a>
+<a href="#L758">758</a>
+<a href="#L759">759</a>
+<a href="#L760">760</a>
+<a href="#L761">761</a>
+<a href="#L762">762</a>
+<a href="#L763">763</a>
+<a href="#L764">764</a>
+<a href="#L765">765</a>
+<a href="#L766">766</a>
+<a href="#L767">767</a>
+<a href="#L768">768</a>
+<a href="#L769">769</a>
+<a href="#L770">770</a>
+<a href="#L771">771</a>
+<a href="#L772">772</a>
+<a href="#L773">773</a>
+<a href="#L774">774</a>
+<a href="#L775">775</a>
+<a href="#L776">776</a>
+<a href="#L777">777</a>
+<a href="#L778">778</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Pipeline_utils
+
+type python_debug_guards = {
+  root_dir : string;
+  bin_dir : string;
+  python_dir : string;
+}
+
+let debug_subshell_guard_message runtime command =
+  <span data-count="0">P</span>rintf.sprintf
+    "Don't use %s in this T %s debug subshell. Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`."
+    command runtime
+
+let write_text_file path content =
+  <span data-count="0">l</span>et ch = open_out path in
+  <span data-count="0">o</span>utput_string ch content;
+  <span data-count="0">c</span>lose_out ch
+
+let python_package_manager_shim_names =
+  [ "pip"; "pip3"; "uv"; "poetry"; "conda"; "mamba"; "micromamba"; "easy_install" ]
+
+let r_debug_startup_content () =
+  <span data-count="0">S</span>tring.concat "\n"
+    [
+      "options(prompt='r&gt; ', continue='r+ ')";
+      Printf.sprint<span data-count="0">f</span>
+        "install.packages &lt;- function(...) stop(%S, call. = FALSE)"
+        (debug_subshell_guard_messag<span data-count="0">e</span> "R" "install.packages()");
+      Printf.sprint<span data-count="0">f</span>
+        "update.packages &lt;- function(...) stop(%S, call. = FALSE)"
+        (debug_subshell_guard_messag<span data-count="0">e</span> "R" "update.packages()");
+      Printf.sprint<span data-count="0">f</span>
+        "remove.packages &lt;- function(...) stop(%S, call. = FALSE)"
+        (debug_subshell_guard_messag<span data-count="0">e</span> "R" "remove.packages()");
+    ]
+
+let julia_debug_startup_content julia_package_path =
+  <span data-count="0">l</span>et buf = Buffer.create 512 in
+  <span data-count="0">B</span>uffer.add_string buf
+    {|if !isdefined(Main, :_tlang_pkg_id)
+      const _tlang_pkg_id = Base.PkgId(Base.UUID("44cfe95a-1eb2-52ea-b672-e2afdf69b78f"), "Pkg")
+    end
+     if !isdefined(Main, :_tlang_real_pkg)
+       const _tlang_real_pkg = Base.require(_tlang_pkg_id)
+     end
+|};
+  <span data-count="0">(</span>match julia_package_path with
+   | <span data-count="0">S</span>ome path -&gt;
+       Printf.bprint<span data-count="0">f</span> buf
+         "const _tlang_project = %S\n\
+          try\n\
+          \  _tlang_real_pkg.activate(; temp=true, io=devnull)\n\
+          \  _tlang_real_pkg.develop(path=_tlang_project, io=devnull)\n\
+          \  _tlang_real_pkg.instantiate(io=devnull)\n\
+          catch err\n\
+          \  @warn \"Failed to prepare repo-local Julia tlang package for debug_node\" exception=(err, catch_backtrace())\n\
+          end\n"
+         path
+   | <span data-count="0">N</span>one -&gt; ());
+  Printf.bprintf buf
+    "module _TlangGuardPkg\n\
+     import Main: _tlang_real_pkg\n\
+     export add, rm, update, develop\n\
+     add(args...; kwargs...) = error(%S)\n\
+     rm(args...; kwargs...) = error(%S)\n\
+     update(args...; kwargs...) = error(%S)\n\
+     develop(args...; kwargs...) = error(%S)\n\
+     # Delegate read-only Pkg operations to the real Pkg module\n\
+     const _real = _tlang_real_pkg\n\
+     status(args...; kwargs...) = _real.status(args...; kwargs...)\n\
+     dependencies(args...; kwargs...) = _real.dependencies(args...; kwargs...)\n\
+     instantiate(args...; kwargs...) = _real.instantiate(args...; kwargs...)\n\
+     activate(args...; kwargs...) = _real.activate(args...; kwargs...)\n\
+     project(args...; kwargs...) = _real.project(args...; kwargs...)\n\
+     compat(args...; kwargs...) = _real.compat(args...; kwargs...)\n\
+     end\n"
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Julia" "Pkg.add()")
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Julia" "Pkg.rm()")
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Julia" "Pkg.update()")
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Julia" "Pkg.develop()");
+  <span data-count="0">B</span>uffer.add_string buf
+    {|if isinteractive()
+     if !isdefined(Main, :_tlang_repl_id)
+       const _tlang_repl_id = Base.PkgId(Base.UUID("3fa0cd96-eef1-5676-8a61-b3b8758bbffb"), "REPL")
+     end
+     try
+       _tlang_repl = Base.require(_tlang_repl_id)
+       function _tlang_install_packages_hook(pkgs::Vector{Symbol})
+         pkg_str = join(string.(pkgs), ", ")
+         println(" │ Packages [", pkg_str, "] not found, but packages named [", pkg_str, "] are available from")
+         println(" │ a registry.")
+         println(" │ Install packages?")
+         println(" │   (project) pkg&gt; add ", pkg_str)
+         print(" └ (y/n) [y]: ")
+         flush(stdout)
+         response = lowercase(strip(readline(stdin)))
+         if response == "" || response == "y" || response == "yes"
+           println("\nDon't use interactive package installation in this T Julia debug subshell.")
+           println("Declare packages in tproject.toml, run `t update`, and re-enter `nix develop`.\n")
+         else
+           println("Cancelled.")
+         end
+         return false
+       end
+       pushfirst!(_tlang_repl.install_packages_hooks, _tlang_install_packages_hook)
+       
+       # Replace Pkg in loaded_modules with the guard
+       Base.loaded_modules[_tlang_pkg_id] = _TlangGuardPkg
+     catch err
+       # Suppress any startup errors so Julia doesn't fail to launch
+     end
+     atreplinit() do repl
+       @async begin
+         sleep(0.1)
+         if isdefined(repl, :interface)
+           repl.interface.modes[1].prompt = "jl&gt; "
+         end
+       end
+     end
+     using Pkg
+     end # if isinteractive()
+|};
+  <span data-count="0">B</span>uffer.contents buf
+
+let python_guard_shim_script tool =
+  <span data-count="0">P</span>rintf.sprintf "#!/usr/bin/env sh\nprintf '%%s\\n' %S &gt;&amp;2\nexit 1\n"
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Python" (tool ^ " install"))
+
+let python_pip_guard_module_content () =
+  <span data-count="0">P</span>rintf.sprintf
+    "raise SystemExit(%S)\n"
+    (debug_subshell_guard_messag<span data-count="0">e</span> "Python" "python -m pip")
+
+let prepare_python_debug_guards base_dir =
+  <span data-count="0">l</span>et root_dir = Filename.concat base_dir ".t_debug_guard" in
+  <span data-count="0">l</span>et bin_dir = Filename.concat root_dir "bin" in
+  <span data-count="0">l</span>et python_dir = Filename.concat root_dir "python" in
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> root_dir) then <span data-count="0">U</span>nix.mkdi<span data-count="0">r</span> root_dir 0o755;
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> bin_dir) then <span data-count="0">U</span>nix.mkdi<span data-count="0">r</span> bin_dir 0o755;
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> python_dir) then <span data-count="0">U</span>nix.mkdi<span data-count="0">r</span> python_dir 0o755;
+  <span data-count="0">L</span>ist.iter
+    (fun tool -&gt;
+      <span data-count="0">l</span>et path = Filename.concat bin_dir tool in
+      <span data-count="0">w</span>rite_text_file path (python_guard_shim_scrip<span data-count="0">t</span> tool);
+      <span data-count="0">U</span>nix.chmod path 0o755)
+    python_package_manager_shim_names;
+  <span data-count="0">w</span>rite_text_file (Filename.conca<span data-count="0">t</span> python_dir "pip.py") (python_pip_guard_module_conten<span data-count="0">t</span> ());
+  <span data-count="0">{</span> root_dir; bin_dir; python_dir }
+
+let rec remove_path_recursively path =
+  <span data-count="0">i</span>f Sys.file_exists path then
+    <span data-count="0">i</span>f Sys.is_directory path then <span data-count="0">(</span>
+      Sys.readdir path
+      |&gt; <span data-count="0">A</span>rray.iter (fun entry -&gt; <span data-count="0">r</span>emove_path_recursively (Filename.conca<span data-count="0">t</span> path entry));
+      <span data-count="0">U</span>nix.rmdir path
+    ) else <span data-count="0">S</span>ys.remove path
+
+let make_subprocess_env ?(is_flake=<span data-count="0">f</span>alse) overrides =
+  <span data-count="0">l</span>et tbl = Hashtbl.create 32 in
+  <span data-count="0">i</span>f not is_flake then
+    <span data-count="0">A</span>rray.ite<span data-count="0">r</span>
+      (fun entry -&gt;
+        <span data-count="0">m</span>atch String.index_opt entry '=' with
+        | <span data-count="0">N</span>one -&gt; ()
+        | <span data-count="0">S</span>ome idx -&gt;
+            (* Split on the first '=' so values keep any additional '=' bytes. *)
+            let key = String.sub entry 0 idx in
+            <span data-count="0">l</span>et value = String.sub entry (idx + 1) (String.lengt<span data-count="0">h</span> entry - idx - 1) in
+            <span data-count="0">H</span>ashtbl.replace tbl key value)
+      (Unix.environmen<span data-count="0">t</span> ())
+  else (
+    <span data-count="0">L</span>ist.ite<span data-count="0">r</span>
+      (fun var -&gt;
+         <span data-count="0">t</span>ry
+           let value = Sys.getenv var in
+           <span data-count="0">H</span>ashtbl.replac<span data-count="0">e</span> tbl var value
+         with <span data-count="0">N</span>ot_found -&gt; ())
+      [ "HOME"; "USER"; "TERM"; "PATH"; "NIX_REMOTE"; "NIX_SSL_CERT_FILE";
+        "XDG_CACHE_HOME"; "XDG_CONFIG_HOME"; "XDG_DATA_HOME";
+        "NIX_USER_CONF_FILES"; "NIX_CONFIG";
+        "LC_ALL"; "LC_COLLATE"; "LC_CTYPE"; "LC_MESSAGES"; "LC_MONETARY";
+        "LC_NUMERIC"; "LC_TIME"; "LANG"; "HTTP_PROXY"; "HTTPS_PROXY";
+        "NO_PROXY"; "http_proxy"; "https_proxy"; "no_proxy"; "SSL_CERT_FILE";
+        "COLORTERM"; "SHELL"; "EDITOR"; "LD_LIBRARY_PATH"; "DYLD_LIBRARY_PATH" ]
+  );
+  List.iter (fun (key, value) -&gt; <span data-count="0">H</span>ashtbl.replace tbl key value) overrides;
+  <span data-count="0">H</span>ashtbl.fold (fun key value acc -&gt; <span data-count="0">(</span>key ^ "=" ^ value) :: acc) tbl []
+  |&gt; <span data-count="0">L</span>ist.sort String.compare |&gt; <span data-count="0">A</span>rray.of_list
+
+let run_shell_command_with_env ?(is_flake=<span data-count="0">f</span>alse) shell_cmd overrides =
+  <span data-count="0">l</span>et envp = make_subprocess_env ~is_flake overrides in
+  <span data-count="0">l</span>et pid =
+    Unix.create_process_env "/bin/sh" [| "/bin/sh"; "-c"; shell_cmd |] envp
+      Unix.stdin Unix.stdout Unix.stderr
+  in
+  <span data-count="0">s</span>nd (Unix.waitpi<span data-count="0">d</span> [] pid)
+
+(* 
+--# Read Pipeline Node Artifact
+--#
+--# Reads and returns the contents of a ComputedNode. For in-memory pipelines,
+--# returns the dynamically computed value directly from the registry. For built
+--# pipelines, reads the materialized artifact from the latest build log.
+--#
+--# Note: The `.warnings` field previously returned on the result has been
+--# removed. Use `warning_msg(node)` to inspect a node's own warnings and any
+--# upstream warnings inherited from ancestor nodes. Use `inspect_node(node)`
+--# for structured warning metadata.
+--#
+--# Use `read_past_node(p.node_name, which_log = "...")` to read a node from a
+--# specific historical build log without needing the pipeline in scope.
+--#
+--# @name read_node
+--# @param node :: ComputedNode The ComputedNode object to read (e.g. `p.node_name`).
+--# @return :: Any The deserialized artifact value, or the in-memory value.
+--# @family pipeline
+--# @seealso read_past_node, warning_msg, inspect_node, read_pipeline, build_pipeline, inspect_pipeline
+--# @export
+*)
+let register env =
+  (* Helper to extract an argument from a named/positional list.
+     @param name The name of the argument (for named calls).
+     @param pos The 1-indexed position of the argument (for positional calls).
+     @param default Fallback value if the argument is missing. *)
+  <span data-count="268">l</span>et extract_arg name pos default args =
+    <span data-count="305">m</span>atch List.assoc_opt (Some name) args with
+    | <span data-count="0">S</span>ome v -&gt; v
+    | <span data-count="305">N</span>one -&gt;
+        let positionals = List.filter_map (fun (k, v) -&gt; <span data-count="305">i</span>f k = None then <span data-count="305">S</span>ome v else <span data-count="0">N</span>one) args in
+        <span data-count="305">m</span>atch nth_safe (pos - 1) positionals with
+        | <span data-count="305">S</span>ome v -&gt; v
+        | <span data-count="0">N</span>one -&gt; default
+  in
+
+  let run_interactive_subshell ?env cn =
+    <span data-count="0">l</span>et cn = !Ast.computed_node_resolver cn in
+    <span data-count="0">l</span>et runtime = String.lowercase_ascii cn.cn_runtime in
+    <span data-count="0">i</span>f runtime &lt;&gt; "python" &amp;&amp; <span data-count="0">r</span>untime &lt;&gt; "r" &amp;&amp; <span data-count="0">r</span>untime &lt;&gt; "julia" then
+      <span data-count="0">E</span>rror.value_error (Printf.sprint<span data-count="0">f</span> "debug_node: only R, Python, and Julia nodes are supported for interactive debugging. Node '%s' has unsupported runtime '%s'." cn.cn_name cn.cn_runtime)
+    else <span data-count="0">(</span>
+      let dependencies =
+        if cn.cn_dependencies = [] then
+          <span data-count="0">(</span>match Builder.latest_logged_computed_node cn.cn_name with
+           | <span data-count="0">S</span>ome logged -&gt; logged.cn_dependencies
+           | <span data-count="0">N</span>one -&gt; [])
+        else <span data-count="0">c</span>n.cn_dependencies
+      in
+
+      (* Find custom node env vars in evaluated pipelines *)
+      let node_env_vars =
+        match env with
+        | <span data-count="0">N</span>one -&gt; []
+        | <span data-count="0">S</span>ome e -&gt;
+            let bindings = Ast.Env.bindings e in
+            <span data-count="0">l</span>et rec find_in_pipelines = function
+              | <span data-count="0">[</span>] -&gt; []
+              | <span data-count="0">(</span>_, Ast.VPipeline p) :: rest -&gt;
+                  (match List.assoc_opt cn.cn_name p.p_env_vars with
+                   | <span data-count="0">S</span>ome vars -&gt; vars
+                   | <span data-count="0">N</span>one -&gt; find_in_pipelines rest)
+              | <span data-count="0">_</span> :: rest -&gt; find_in_pipelines rest
+            in
+            find_in_pipeline<span data-count="0">s</span> bindings
+      in
+
+      (* Gather custom environment variables for the subshell *)
+      let printed_env_vars = ref [] in
+      let subshell_env_overrides = ref [] in
+      List.iter (fun (name, v) -&gt;
+        <span data-count="0">l</span>et v_str =
+          match v with
+          | <span data-count="0">A</span>st.VString s -&gt; s
+          | <span data-count="0">A</span>st.VInt n -&gt; string_of_in<span data-count="0">t</span> n
+          | <span data-count="0">A</span>st.VFloat f -&gt; string_of_floa<span data-count="0">t</span> f
+          | <span data-count="0">A</span>st.VBool b -&gt; string_of_boo<span data-count="0">l</span> b
+          | <span data-count="0">_</span> -&gt; Pretty_print.pretty_print_valu<span data-count="0">e</span> v
+        in
+        subshell_env_overrides := (name, v_str) :: !subshell_env_overrides;
+        printed_env_vars := (name, v_str) :: !printed_env_vars
+      ) node_env_vars;
+
+      (* Gather upstream dependency information but do NOT set env vars *)
+      <span data-count="0">l</span>et resolved_deps = ref [] in
+      List.iter (fun dep_name -&gt;
+        <span data-count="0">m</span>atch Builder.latest_logged_computed_node dep_name with
+        | <span data-count="0">S</span>ome dep_cn -&gt;
+            if dep_cn.cn_path &lt;&gt; "" &amp;&amp; <span data-count="0">d</span>ep_cn.cn_path &lt;&gt; Ast.unbuilt_path then <span data-count="0">(</span>
+              let store_dir = Filename.dirname dep_cn.cn_path in
+              <span data-count="0">r</span>esolved_deps := (dep_name, store_dir, dep_cn.cn_serializer) :: !resolved_deps
+            )
+        | <span data-count="0">N</span>one -&gt; ()
+      ) dependencies;
+
+      <span data-count="0">P</span>rintf.printf "==================================================\n%!";
+      <span data-count="0">P</span>rintf.printf "Debugging Node: %s (Runtime: %s)\n%!" cn.cn_name cn.cn_runtime;
+      <span data-count="0">P</span>rintf.printf "==================================================\n%!";
+      <span data-count="0">i</span>f !printed_env_vars &lt;&gt; [] then <span data-count="0">(</span>
+        Printf.printf "Environment variables set for custom node configuration:\n%!";
+        <span data-count="0">L</span>ist.iter (fun (name, value) -&gt;
+          <span data-count="0">P</span>rintf.printf "  - %s = %s\n%!" name value
+        ) !printed_env_vars;
+        <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "\n%!"
+      );
+      <span data-count="0">i</span>f !resolved_deps &lt;&gt; [] then <span data-count="0">(</span>
+        Printf.printf "Upstream dependencies:\n%!";
+        <span data-count="0">L</span>ist.iter (fun (name, path, _serializer) -&gt;
+          <span data-count="0">P</span>rintf.printf "  - %s (Path: %s)\n%!" name path
+        ) !resolved_deps;
+        <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "\n%!"
+      );
+
+      <span data-count="0">l</span>et julia_package_path =
+        match Diff.detect_repo_root () with
+        | <span data-count="0">S</span>ome root -&gt;
+            let path = Filename.concat (Filename.conca<span data-count="0">t</span> root "jl-package") "Project.toml" in
+            <span data-count="0">i</span>f Sys.file_exists path then <span data-count="0">S</span>ome (Filename.dirnam<span data-count="0">e</span> path) else <span data-count="0">N</span>one
+        | <span data-count="0">N</span>one -&gt; None
+      in
+      let cleanup_paths = ref [] in
+      let shell_cmd =
+        let clean_deps = List.map (fun (name, _, _) -&gt; <span data-count="0">n</span>ame) !resolved_deps in
+        <span data-count="0">l</span>et csv_deps = List.filter_map (fun (name, _, ser) -&gt;
+          <span data-count="0">i</span>f String.lowercase_asci<span data-count="0">i</span> ser = "csv" then <span data-count="0">S</span>ome name else <span data-count="0">N</span>one) !resolved_deps in
+        <span data-count="0">l</span>et wrap_with_flake attr cmd = <span data-count="0">m</span>atch cn.cn_flake with
+          | <span data-count="0">S</span>ome f -&gt;
+              let q = "'" ^ String.conca<span data-count="0">t</span> "'\\''" (String.split_on_cha<span data-count="0">r</span> '\'' f) ^ "'" in
+              Printf.sprintf "(nix shell --impure %s#%s -c %s) || (echo 'Warning: Per-node flake failed; falling back to project environment' &gt;&amp;2; %s)" q attr cmd cmd
+          | <span data-count="0">N</span>one -&gt; cmd
+        in
+        match String.lowercase_ascii cn.cn_runtime with
+        | <span data-count="0">"</span>python" -&gt;
+            Printf.printf "Starting interactive Python REPL...\n%!";
+            <span data-count="0">(</span>match cn.cn_flake with
+             | <span data-count="0">S</span>ome _ -&gt; Printf.print<span data-count="0">f</span> "  Using per-node flake Python environment.\n%!";
+             | <span data-count="0">N</span>one -&gt; ());
+            Printf.printf "Tip: Load upstream dependencies in Python using:\n%!";
+            <span data-count="0">P</span>rintf.printf "  import tlang\n%!";
+            <span data-count="0">L</span>ist.iter (fun dep -&gt;
+              <span data-count="0">P</span>rintf.printf "  %s = tlang.read_node(\"%s\")\n%!" dep dep
+            ) clean_deps;
+            <span data-count="0">i</span>f clean_deps = [] then
+              <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "  # No upstream dependencies. You can import tlang: import tlang\n%!";
+
+            (* Write temporary startup file to customize python prompt *)
+            <span data-count="0">l</span>et startup_path = Filename.concat (Sys.getcw<span data-count="0">d</span> ()) ".t_debug_startup.py" in
+            <span data-count="0">l</span>et guard_root = Filename.concat (Sys.getcw<span data-count="0">d</span> ()) ".t_debug_guard" in
+            <span data-count="0">(</span>try
+               let guards = prepare_python_debug_guards (Sys.getcw<span data-count="0">d</span> ()) in
+               <span data-count="0">w</span>rite_text_file startup_path "import sys\nsys.ps1 = 'py&gt; '\nsys.ps2 = 'py... '\n";
+               <span data-count="0">c</span>leanup_paths := startup_path :: guards.root_dir :: !cleanup_paths;
+               let existing_path = try Sys.geten<span data-count="0">v</span> "PATH" with <span data-count="0">N</span>ot_found -&gt; "" in
+               let existing_pythonpath = try Sys.geten<span data-count="0">v</span> "PYTHONPATH" with <span data-count="0">N</span>ot_found -&gt; "" in
+               let pythonpath =
+                 if existing_pythonpath = "" then <span data-count="0">g</span>uards.python_dir
+                 else <span data-count="0">g</span>uards.python_dir ^ ":" ^ existing_pythonpath
+               in
+               subshell_env_overrides :=
+                 ("PYTHONSTARTUP", startup_path)
+                 :: ("PATH", guards.bin_dir ^ ":" ^ existing_path)
+                 :: ("PYTHONPATH", pythonpath)
+                 :: !subshell_env_overrides
+             with <span data-count="0">_</span> -&gt;
+               (try remove_path_recursivel<span data-count="0">y</span> startup_path with <span data-count="0">_</span> -&gt; ());
+               (try remove_path_recursivel<span data-count="0">y</span> guard_root with <span data-count="0">_</span> -&gt; ()));
+
+            wrap_with_flak<span data-count="0">e</span> "py-env" "python -i"
+        | <span data-count="0">"</span>r" -&gt;
+            Printf.printf "Starting interactive R REPL...\n%!";
+            <span data-count="0">(</span>match cn.cn_flake with
+             | <span data-count="0">S</span>ome _ -&gt; Printf.print<span data-count="0">f</span> "  Using per-node flake R environment.\n%!";
+             | <span data-count="0">N</span>one -&gt; ());
+            Printf.printf "Tip: Load upstream dependencies in R using:\n%!";
+            <span data-count="0">P</span>rintf.printf "  library(tlang)\n%!";
+            <span data-count="0">L</span>ist.iter (fun dep -&gt;
+              <span data-count="0">P</span>rintf.printf "  %s &lt;- read_node(\"%s\")\n%!" dep dep
+            ) clean_deps;
+            <span data-count="0">i</span>f clean_deps = [] then
+              <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "  # No upstream dependencies. You can load tlang: library(tlang)\n%!";
+
+            (* Write temporary startup file to customize R prompt *)
+            <span data-count="0">(</span>try
+               let startup_path = Filename.concat (Sys.getcw<span data-count="0">d</span> ()) ".t_debug_startup.R" in
+               <span data-count="0">w</span>rite_text_file startup_path (r_debug_startup_conten<span data-count="0">t</span> ());
+               <span data-count="0">c</span>leanup_paths := startup_path :: !cleanup_paths;
+               subshell_env_overrides :=
+                 ("R_PROFILE_USER", startup_path) :: !subshell_env_overrides
+             with <span data-count="0">_</span> -&gt; ());
+
+            wrap_with_flak<span data-count="0">e</span> "r-env" "R --no-save --quiet"
+        | <span data-count="0">"</span>julia" -&gt;
+            Printf.printf "Starting interactive Julia REPL...\n%!";
+            <span data-count="0">(</span>match cn.cn_flake with
+             | <span data-count="0">S</span>ome _ -&gt; Printf.print<span data-count="0">f</span> "  Using per-node flake Julia environment.\n%!";
+             | <span data-count="0">N</span>one -&gt; ());
+            Printf.printf "Tip: Load upstream dependencies in Julia using:\n%!";
+            <span data-count="0">P</span>rintf.printf "  using tlang\n%!";
+            <span data-count="0">i</span>f csv_deps &lt;&gt; [] then
+              <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "  using CSV, DataFrames  # required for CSV nodes\n%!";
+            <span data-count="0">L</span>ist.iter (fun dep -&gt;
+              <span data-count="0">P</span>rintf.printf "  %s = read_node(\"%s\")\n%!" dep dep
+            ) clean_deps;
+            <span data-count="0">i</span>f clean_deps = [] then
+             <span data-count="0">P</span>rintf.print<span data-count="0">f</span> "  # No upstream dependencies. You can load tlang: using tlang\n%!";
+
+            (* Write temporary startup file to customize Julia prompt *)
+            <span data-count="0">l</span>et startup_path = Filename.concat (Sys.getcw<span data-count="0">d</span> ()) ".t_debug_startup.jl" in
+            <span data-count="0">l</span>et startup_ready =
+              try
+                 write_text_file startup_path (julia_debug_startup_conten<span data-count="0">t</span> julia_package_path);
+                 <span data-count="0">c</span>leanup_paths := startup_path :: !cleanup_paths;
+                 true
+              with <span data-count="0">_</span> -&gt;
+                (try remove_path_recursivel<span data-count="0">y</span> startup_path with <span data-count="0">_</span> -&gt; ());
+                false
+            in
+            let julia_cmd = if startup_ready then
+              <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> "julia -i -e %S" (Printf.sprint<span data-count="0">f</span> "include(%S)" startup_path)
+            else <span data-count="0">"</span>julia -i" in
+            wrap_with_flak<span data-count="0">e</span> "juliaPkg" julia_cmd
+        | <span data-count="0">_</span> -&gt;
+            Printf.printf "Starting interactive bash subshell...\n%!";
+            <span data-count="0">"</span>bash"
+      in
+      Printf.printf "Press Ctrl+D or exit to return to T REPL.\n";
+      <span data-count="0">P</span>rintf.printf "==================================================\n\n%!";
+      <span data-count="0">f</span>lush stdout;
+      <span data-count="0">l</span>et is_flake = cn.cn_flake &lt;&gt; None in
+      let status = run_shell_command_with_env ~is_flake shell_cmd !subshell_env_overrides in
+
+      (* Clean up temporary startup files *)
+      <span data-count="0">L</span>ist.iter (fun path -&gt; <span data-count="0">t</span>ry remove_path_recursivel<span data-count="0">y</span> path with <span data-count="0">_</span> -&gt; ()) !cleanup_paths;
+
+      <span data-count="0">P</span>rintf.printf "\n==================================================\n%!";
+      <span data-count="0">P</span>rintf.printf "Exited subshell (status: %s). Returning to T REPL.\n%!"
+        (match status with
+         | <span data-count="0">U</span>nix.WEXITED n -&gt; Printf.sprint<span data-count="0">f</span> "exit %d" n
+         | <span data-count="0">U</span>nix.WSIGNALED n -&gt; Printf.sprint<span data-count="0">f</span> "signaled %d" n
+         | <span data-count="0">U</span>nix.WSTOPPED n -&gt; Printf.sprint<span data-count="0">f</span> "stopped %d" n);
+      <span data-count="0">P</span>rintf.printf "==================================================\n%!";
+      <span data-count="0">f</span>lush stdout;
+      <span data-count="0">V</span>NA NAGeneric
+    )
+  in
+
+(*
+--# Interactively Debug a Pipeline Node
+--#
+--# Spawns an interactive debug subshell (Python, R, or Julia REPL) for the specified
+--# ComputedNode. The REPL is pre-configured with the node's environment variables and
+--# package environment, and displays instructions for loading upstream dependency artifacts.
+--#
+--# @name debug_node
+--# @param node :: ComputedNode The ComputedNode object to debug (e.g. `p.node_name`).
+--# @return :: NA (Generates an interactive console session).
+--# @example
+--#   debug_node(p.etl_clean)
+--# @family pipeline
+--# @export
+*)
+  let debug_fn named_args env =
+    <span data-count="0">m</span>atch extract_arg "node" 1 (VNA NAGeneric) named_args with
+    | <span data-count="0">V</span>ComputedNode cn -&gt;
+        run_interactive_subshell ~env cn
+    | <span data-count="0">o</span>ther -&gt;
+        Error.type_error
+          (Printf.sprint<span data-count="0">f</span> "debug_node: expected a ComputedNode, but got %s."
+             (Utils.type_nam<span data-count="0">e</span> other))
+  in
+
+let not_computed_node_msg type_name =
+  <span data-count="2">"</span>read_node: expected a ComputedNode for argument 'node', but got " ^ type_name ^ ".\n\
+  - If the pipeline hasn't been built yet, run build_pipeline(p) first.\n\
+  - If the pipeline is built, use dot access: read_node(p.node_name).\n\
+  - To read from a past build, use read_past_node(p.node_name, which_log = \"...\")."
+in
+
+let read_fn named_args _env =
+
+    <span data-count="298">m</span>atch extract_arg "node" 1 ((VNA NAGeneric)) named_args with
+    | <span data-count="294">V</span>ComputedNode cn -&gt;
+        begin
+          let resolved_cn = !Ast.computed_node_resolver cn in
+          <span data-count="294">l</span>et is_in_memory_placeholder v =
+            <span data-count="283">m</span>atch v with
+            | <span data-count="283">V</span>NodeResult { v = VComputedNode inner; _ } -&gt; inner.cn_path = "<span data-count="0">"</span> || inner.cn_path = Ast.unbuilt_pat<span data-count="283">h</span>
+            | <span data-count="0">_</span> -&gt; false
+          in
+          match Ast.get_in_memory_node_value_for_cn cn with
+          | <span data-count="283">S</span>ome (VNodeResult { v = VComputedNode inner; node_name = n; diagnostics = d })
+              when inner.cn_path &lt;&gt; "" &amp;&amp; <span data-count="283">i</span>nner.cn_path &lt;&gt; Ast.unbuilt_path -&gt;
+                <span data-count="0">l</span>et raw_val = Builder.logged_node_value inner.cn_name inner in
+                <span data-count="0">l</span>et build_diag = Builder.logged_node_diagnostics ~value:raw_val inner.cn_name inner in
+                <span data-count="0">l</span>et merged = { d with nd_error = build_diag.nd_error; nd_recovered = build_diag.nd_recovered } in
+                VNodeResult { v = raw_val; node_name = n; diagnostics = merged }
+          | <span data-count="283">S</span>ome v when not (is_in_memory_placeholde<span data-count="283">r</span> v) -&gt; <span data-count="0">v</span>
+          | <span data-count="294">_</span> -&gt;
+            (match resolved_cn with
+              | <span data-count="294">c</span>n when cn.cn_path = Ast.unbuilt_path -&gt;
+                  <span data-count="0">(</span>match Ast.get_in_memory_node_value_for_cn cn with
+                    | <span data-count="0">S</span>ome v when not (is_in_memory_placeholde<span data-count="0">r</span> v) -&gt; <span data-count="0">v</span>
+                    | <span data-count="0">_</span> -&gt;
+                        let branch_names =
+                          match cn.cn_p_exprs with
+                          | <span data-count="0">S</span>ome p_exprs when Hashtbl.me<span data-count="0">m</span> Ast.pipeline_build_logs p_exprs -&gt;
+                              <span data-count="0">B</span>uilder.branch_names_in_latest_lo<span data-count="0">g</span> cn.cn_name
+                          | <span data-count="0">N</span>one -&gt; Builder.branch_names_in_latest_lo<span data-count="0">g</span> cn.cn_name
+                          | <span data-count="0">_</span> -&gt; []
+                        in
+                        (match branch_names with
+                         | <span data-count="0">[</span>] -&gt;
+                             Error.make_error FileError (Printf.sprint<span data-count="0">f</span> "read_node: node `%s` has not been built yet. Build the pipeline first with build_pipeline(p), or use read_past_node(p.%s, which_log = ...) to read from a past build log." cn.cn_name cn.cn_name)
+                         | <span data-count="0">_</span> -&gt;
+                             let branches_str = String.concat ", " branch_names in
+                             <span data-count="0">E</span>rror.make_error ValueError
+                               (Printf.sprint<span data-count="0">f</span> "Node `%s` has a pattern and expands into %s.\n\
+                                 Use read_node(p.&lt;branch_name&gt;) to access individual branches directly."
+                                cn.cn_name branches_str)))
+             | <span data-count="294">c</span>n -&gt;
+                 let raw_val = Builder.logged_node_value cn.cn_name cn in
+                 <span data-count="294">m</span>atch Ast.get_in_memory_node_value_for_cn cn with
+                 | <span data-count="283">S</span>ome (VNodeResult { diagnostics = d; _ }) -&gt;
+                     let build_diag = Builder.logged_node_diagnostics ~value:raw_val cn.cn_name cn in
+                     <span data-count="283">l</span>et merged = {
+                       d with
+                       nd_error = build_diag.nd_error;
+                       nd_recovered = build_diag.nd_recovered;
+                     } in
+                     VNodeResult { v = raw_val; node_name = cn.cn_name; diagnostics = merged }
+                 | <span data-count="11">_</span> -&gt;
+                     Builder.wrap_with_diagnostics cn.cn_name cn raw_val)
+        end
+    | <span data-count="0">V</span>String _ -&gt;
+        Error.type_error (not_computed_node_ms<span data-count="0">g</span> "String")
+    | <span data-count="2">V</span>Symbol name -&gt;
+        let node_name =
+          if String.lengt<span data-count="2">h</span> name &gt; 6 &amp;&amp; <span data-count="2">S</span>tring.su<span data-count="2">b</span> name 0 6 = "&lt;noop:" then
+            <span data-count="2">l</span>et len = String.length name in
+            <span data-count="2">S</span>ome (String.su<span data-count="2">b</span> name 6 (len - 7))
+          else <span data-count="0">N</span>one
+        in
+        (match node_name with
+         | <span data-count="2">S</span>ome real_name -&gt;
+             Error.type_error (Printf.sprint<span data-count="2">f</span> "read_node: cannot read node `%s` because it was skipped (noop=true) or was a downstream dependency of a skipped node." real_name)
+         | <span data-count="0">N</span>one -&gt;
+             Error.type_error (not_computed_node_ms<span data-count="0">g</span> "Symbol" ^ "\n  - Did you mean read_node(p." ^ name ^ ")?"))
+    | <span data-count="0">V</span>Pipeline _ -&gt;
+        Error.type_error (not_computed_node_ms<span data-count="0">g</span> "Pipeline")
+    | <span data-count="0">V</span>NA _ -&gt;
+        Error.make_error ValueError (not_computed_node_ms<span data-count="0">g</span> "NA")
+    | <span data-count="2">V</span>Error err -&gt;
+        let hint = match List.assoc_opt "node_name" err.context with
+          | <span data-count="0">S</span>ome (VString n) -&gt; "\n  - Node `" ^ n ^ "` could not be resolved."
+          | <span data-count="2">_</span> -&gt; ""
+        in
+        Error.type_error (not_computed_node_ms<span data-count="2">g</span> "Error" ^ hint)
+    | <span data-count="0">o</span>ther -&gt;
+        Error.type_error (not_computed_node_ms<span data-count="0">g</span> (Utils.type_nam<span data-count="0">e</span> other))
+  in
+
+(*
+--# Read Pipeline Metadata
+--#
+--# Returns a dictionary describing a materialized in-memory pipeline,
+--# including per-node diagnostics and the aggregated diagnostics summary.
+--#
+--# @name read_pipeline
+--# @param p :: Pipeline The pipeline to inspect.
+--# @return :: Dict A dictionary with node metadata and diagnostics.
+--# @family pipeline
+--# @seealso read_node, explain
+--# @export
+*)
+  let read_pipeline_fn named_args _env =
+    <span data-count="4">m</span>atch extract_arg "p" 1 (VNA NAGeneric) named_args with
+    | <span data-count="4">V</span>Pipeline p -&gt;
+        let pipeline_nodes =
+          Builder.merge_pipeline_nodes_with_latest_log p
+        in
+        <span data-count="4">l</span>et pipeline_diagnostics =
+          Builder.merge_pipeline_node_diagnostics_with_latest_log p
+        in
+        <span data-count="4">l</span>et nodes =
+          VList
+            (List.ma<span data-count="4">p</span> (fun (name, value) -&gt;
+                <span data-count="13">l</span>et diagnostics =
+                  match List.assoc_opt name pipeline_diagnostics with
+                  | <span data-count="13">S</span>ome diagnostics -&gt; diagnostics
+                  | <span data-count="0">N</span>one -&gt; Ast.Utils.empty_node_diagnostics
+                in
+                (None, VDict [
+                  ("name", VString name);
+                  ("value", value);
+                  ("diagnostics", Ast.Utils.node_diagnostics_to_valu<span data-count="13">e</span> diagnostics);
+                ]))
+              pipeline_nodes)
+        in
+        VDict [
+          ("nodes", nodes);
+          ("diagnostics", Ast.Utils.pipeline_diagnostics_to_valu<span data-count="4">e</span> pipeline_diagnostics);
+        ]
+    | <span data-count="0">o</span>ther -&gt;
+        Error.type_error
+          (Printf.sprint<span data-count="0">f</span> "read_pipeline: expected a Pipeline, but got %s."
+             (Utils.type_nam<span data-count="0">e</span> other))
+  in
+
+(*
+--# Inspect Pipeline Node Metadata
+--#
+--# Returns a dictionary with metadata about a computed node, including its
+--# name, runtime, artifact path, serializer, class, dependencies, and warnings.
+--# The `warnings` key contains a structured list of warning records, each with
+--# `source` ("own" or the ancestor node name) and `message`.
+--#
+--# @name inspect_node
+--# @param node :: ComputedNode A computed node value (e.g. from a built pipeline).
+--# @return :: Dict A dictionary with keys = name, runtime, path, serializer, class, dependencies, warnings.
+--# @family pipeline
+--# @seealso read_node, rebuild_node, warning_msg
+--# @export
+*)
+  let inspect_fn named_args _env =
+    <span data-count="2">m</span>atch extract_arg "node" 1 (VNA NAGeneric) named_args with
+    | <span data-count="2">V</span>ComputedNode cn -&gt;
+        let cn = !Ast.computed_node_resolver cn in
+        <span data-count="2">l</span>et diag = Builder.logged_node_diagnostics cn.cn_name cn in
+        <span data-count="2">l</span>et warning_entries =
+          VList (List.ma<span data-count="2">p</span> (fun w -&gt;
+            <span data-count="2">(</span>None, VDict [
+              ("source", VString (match w.Ast.nw_source with
+                | <span data-count="0">A</span>st.WarningOwn -&gt; "own"
+                | <span data-count="2">A</span>st.WarningUpstream name -&gt; name));
+              ("message", VString w.Ast.nw_message);
+            ])
+          ) diag.Ast.nd_warnings)
+        in
+        VDict [
+          ("name", VString cn.cn_name);
+          ("runtime", VString cn.cn_runtime);
+          ("path", VString cn.cn_path);
+          ("serializer", VString cn.cn_serializer);
+          ("class", VString cn.cn_class);
+          ("dependencies", VList (List.ma<span data-count="2">p</span> (fun d -&gt; <span data-count="2">(</span>None, VString d)) cn.cn_dependencies));
+          ("warnings", warning_entries);
+        ]
+    | <span data-count="0">V</span>Error err -&gt;
+        let node_name =
+          match List.assoc_opt "node_name" err.context with
+          | <span data-count="0">S</span>ome (VString name) -&gt; Some name
+          | <span data-count="0">_</span> -&gt; None
+        in
+        (match node_name with
+         | <span data-count="0">S</span>ome name -&gt;
+             Error.type_error (Printf.sprint<span data-count="0">f</span> "inspect_node: expected a ComputedNode, but got an Error because node `%s` failed. To inspect its error, query its properties (e.g. `node.error_msg` or `node.error`) or use `read_node(p, \"%s\")`." name name)
+         | <span data-count="0">N</span>one -&gt;
+             Error.type_error "inspect_node: expected a ComputedNode, but got an Error value. If this is a failing pipeline node, use its error properties or read_node() to inspect it.")
+    | <span data-count="0">V</span>Symbol name as other -&gt;
+        let node_name =
+          if String.lengt<span data-count="0">h</span> name &gt; 6 &amp;&amp; <span data-count="0">S</span>tring.su<span data-count="0">b</span> name 0 6 = "&lt;noop:" then
+            <span data-count="0">l</span>et len = String.length name in
+            <span data-count="0">S</span>ome (String.su<span data-count="0">b</span> name 6 (len - 7))
+          else <span data-count="0">N</span>one
+        in
+        (match node_name with
+         | <span data-count="0">S</span>ome real_name -&gt;
+             Error.type_error (Printf.sprint<span data-count="0">f</span> "inspect_node: expected a ComputedNode, but node `%s` was skipped (noop=true) or was a downstream dependency of a skipped node, so no output was generated." real_name)
+         | <span data-count="0">N</span>one -&gt;
+             Error.type_error (Printf.sprint<span data-count="0">f</span> "inspect_node: expected a ComputedNode, but got %s." (Utils.type_nam<span data-count="0">e</span> other)))
+    | <span data-count="0">o</span>ther -&gt;
+        Error.type_error (Printf.sprint<span data-count="0">f</span> "inspect_node: expected a ComputedNode, but got %s." (Utils.type_nam<span data-count="0">e</span> other))
+  in
+
+(*
+--# Rebuild a Pipeline Node
+--#
+--# Rebuilds a single node from the pipeline Nix expression and returns an
+--# updated ComputedNode with the new artifact path.
+--#
+--# @name rebuild_node
+--# @param node :: ComputedNode A computed node value to rebuild.
+--# @return :: ComputedNode An updated ComputedNode pointing to the rebuilt artifact.
+--# @family pipeline
+--# @seealso read_node, inspect_node
+--# @export
+*)
+  let rebuild_fn named_args _env =
+    <span data-count="1">m</span>atch extract_arg "node" 1 (VNA NAGeneric) named_args with
+    | <span data-count="1">V</span>ComputedNode cn -&gt;
+        let quoted_name = Filename.quote cn.cn_name in
+        <span data-count="1">l</span>et cmd = Printf.sprintf "nix-build --impure _pipeline/pipeline.nix -A %s --no-out-link 2&gt;&amp;1" quoted_name in
+        <span data-count="1">(</span>match Builder_utils.run_command_capture cmd with
+         | <span data-count="1">O</span>k (Unix.WEXITED 0, output) -&gt;
+             let store_path = String.trim output in
+             <span data-count="1">l</span>et new_path = Filename.concat (Filename.conca<span data-count="1">t</span> store_path cn.cn_name) "artifact" in
+             <span data-count="1">V</span>ComputedNode { cn with cn_path = new_path }
+         | <span data-count="0">O</span>k (_, output) -&gt; Error.make_error GenericError (Printf.sprint<span data-count="0">f</span> "rebuild_node failed: %s" output)
+         | <span data-count="0">E</span>rror msg -&gt; Error.make_error GenericError (Printf.sprint<span data-count="0">f</span> "Failed to run nix-build: %s" msg))
+    | <span data-count="0">o</span>ther -&gt;
+        Error.type_error
+          (Printf.sprint<span data-count="0">f</span> "rebuild_node: expected a ComputedNode, but got %s."
+             (Utils.type_nam<span data-count="0">e</span> other))
+  in
+
+  let _ = 
+    Ast.node_resolver := (fun name -&gt;
+      <span data-count="2151">m</span>atch Builder.read_node name with
+      | <span data-count="2124">V</span>Error _ -&gt; None
+      | <span data-count="27">v</span> -&gt; Some v);
+    Ast.computed_node_resolver := (fun cn -&gt;
+      <span data-count="324">l</span>et logged_opt =
+        match cn.cn_p_exprs with
+        | <span data-count="324">S</span>ome p_exprs -&gt;
+            (match Hashtbl.find_opt Ast.pipeline_build_logs p_exprs with
+             | <span data-count="302">S</span>ome log_path -&gt;
+                 (match Builder_logs.read_log log_path with
+                  | <span data-count="302">O</span>k entries -&gt; List.assoc_op<span data-count="302">t</span> cn.cn_name entries
+                  | <span data-count="0">E</span>rror _ -&gt; None)
+             | <span data-count="22">N</span>one -&gt;
+                 if cn.cn_class = "&lt;lens_modified&gt;" then <span data-count="2">N</span>one
+                 else <span data-count="20">B</span>uilder.latest_logged_computed_nod<span data-count="20">e</span> cn.cn_name)
+        | <span data-count="0">N</span>one -&gt; Builder.latest_logged_computed_nod<span data-count="0">e</span> cn.cn_name
+      in
+      match logged_opt with
+      | <span data-count="322">S</span>ome logged_cn -&gt;
+          let cn_class =
+            if cn.cn_class = "Unknown<span data-count="34">"</span> || cn.cn_class = "<span data-count="0">"</span> then <span data-count="34">l</span>ogged_cn.cn_class else <span data-count="288">c</span>n.cn_class
+          in
+          let cn_path =
+            if logged_cn.cn_path = "" then <span data-count="0">"</span>"
+            else <span data-count="322">i</span>f cn.cn_path = Ast.unbuilt_pat<span data-count="34">h</span> || cn.cn_path = "<span data-count="0">"</span>
+            then <span data-count="34">l</span>ogged_cn.cn_path
+            else <span data-count="288">c</span>n.cn_path
+          in
+          let cn_runtime =
+            if cn.cn_runtime = "T<span data-count="215">"</span> || cn.cn_runtime = "<span data-count="0">"</span>
+            then <span data-count="215">l</span>ogged_cn.cn_runtime
+            else <span data-count="107">c</span>n.cn_runtime
+          in
+          let cn_serializer =
+            if cn.cn_serializer = "default<span data-count="199">"</span> || cn.cn_serializer = "<span data-count="0">"</span>
+            then <span data-count="199">l</span>ogged_cn.cn_serializer
+            else <span data-count="123">c</span>n.cn_serializer
+          in
+          { cn with cn_path; cn_class; cn_runtime; cn_serializer }
+      | <span data-count="2">N</span>one -&gt; cn)
+  in
+
+(*
+--# Suppress Diagnostics for a Node
+--#
+--# Silences all captured warnings for the current node in the console summary.
+--# Warnings remain accessible programmatically via `warning_msg()` or `read_pipeline()`.
+--# Use this to reduce noise from known warnings during data processing (e.g., NAs in filter).
+--#
+--# @name suppress_warnings
+--# @param value :: Any The value or expression to wrap. Usually call it at the end of a node definition.
+--# @return :: Any The original value, signaling the evaluator to suppress diagnostic output.
+--# @family pipeline
+--# @export
+*)
+  let suppress_warnings_fn args _env =
+    <span data-count="0">m</span>atch args with
+    | <span data-count="0">[</span>VNodeResult nr] -&gt;
+        VNodeResult { nr with diagnostics = { nr.diagnostics with nd_warnings_suppressed = true } }
+    | <span data-count="0">[</span>v] -&gt; 
+        Eval.request_warning_suppression ();
+        <span data-count="0">v</span>
+    | <span data-count="0">_</span> -&gt; Error.arity_error_named "suppress_warnings" 1 (List.lengt<span data-count="0">h</span> args)
+  in
+
+  env
+  |&gt; Env.add "read_node" (make_builtin_name<span data-count="268">d</span> ~name:"read_node" ~variadic:true 1 read_fn)
+  |&gt; <span data-count="268">E</span>nv.add "read_pipeline" (make_builtin_name<span data-count="268">d</span> ~name:"read_pipeline" ~variadic:true 1 read_pipeline_fn)
+  |&gt; <span data-count="268">E</span>nv.add "inspect_node" (make_builtin_name<span data-count="268">d</span> ~name:"inspect_node" ~unwrap:false ~variadic:true 1 inspect_fn)
+  |&gt; <span data-count="268">E</span>nv.add "rebuild_node" (make_builtin_name<span data-count="268">d</span> ~name:"rebuild_node" ~unwrap:false ~variadic:true 1 rebuild_fn)
+  |&gt; <span data-count="268">E</span>nv.add "suppress_warnings" (make_builti<span data-count="268">n</span> ~name:"suppress_warnings" ~unwrap:false 1 suppress_warnings_fn)
+  |&gt; <span data-count="268">E</span>nv.add "debug_node" (make_builtin_name<span data-count="268">d</span> ~name:"debug_node" ~unwrap:false ~variadic:true 1 debug_fn)
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

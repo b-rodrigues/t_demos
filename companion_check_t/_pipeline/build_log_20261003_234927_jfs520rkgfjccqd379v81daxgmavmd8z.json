@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261003_234927",
+  "hash": "jfs520rkgfjccqd379v81daxgmavmd8z",
+  "out_path": "/nix/store/jfs520rkgfjccqd379v81daxgmavmd8z-pipeline_output",
+  "duration": 153.9887,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/jfs520rkgfjccqd379v81daxgmavmd8z-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 82.1560
+},
+{
+  "node": "r_node",
+  "path": "/nix/store/jfs520rkgfjccqd379v81daxgmavmd8z-pipeline_output/r_node/artifact",
+  "hash": "r_node",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "character",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 82.1066
+},
+{
+  "node": "py_node",
+  "path": "/nix/store/jfs520rkgfjccqd379v81daxgmavmd8z-pipeline_output/py_node/artifact",
+  "hash": "py_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "str",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 84.8969
+},
+{
+  "node": "jl_node",
+  "path": "/nix/store/jfs520rkgfjccqd379v81daxgmavmd8z-pipeline_output/jl_node/artifact",
+  "hash": "jl_node",
+  "runtime": "Julia",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0765
+}
+],
+  "pipeline": "p"
+}

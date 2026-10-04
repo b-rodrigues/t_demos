@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_010929",
+  "hash": "3r6cqbg5b4750idk999q0xpsbm02pybd",
+  "out_path": "/nix/store/3r6cqbg5b4750idk999q0xpsbm02pybd-pipeline_output",
+  "duration": 30.4101,
+  "nodes": [
+{
+  "node": "df",
+  "path": "/nix/store/3r6cqbg5b4750idk999q0xpsbm02pybd-pipeline_output/df/artifact",
+  "hash": "df",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.3322
+},
+{
+  "node": "model_r",
+  "path": "/nix/store/3r6cqbg5b4750idk999q0xpsbm02pybd-pipeline_output/model_r/artifact",
+  "hash": "model_r",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["df"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.7185
+},
+{
+  "node": "model_py",
+  "path": "/nix/store/3r6cqbg5b4750idk999q0xpsbm02pybd-pipeline_output/model_py/artifact",
+  "hash": "model_py",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "PMMLPipeline",
+  "dependencies": ["df"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.7487
+},
+{
+  "node": "comparison",
+  "path": "/nix/store/3r6cqbg5b4750idk999q0xpsbm02pybd-pipeline_output/comparison/artifact",
+  "hash": "comparison",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["model_py", "model_r"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3315
+}
+],
+  "pipeline": "p"
+}

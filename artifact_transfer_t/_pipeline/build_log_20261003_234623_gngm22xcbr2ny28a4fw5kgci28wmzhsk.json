@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261003_234623",
+  "hash": "gngm22xcbr2ny28a4fw5kgci28wmzhsk",
+  "out_path": "/nix/store/gngm22xcbr2ny28a4fw5kgci28wmzhsk-pipeline_output",
+  "duration": 30.3125,
+  "nodes": [
+{
+  "node": "node1",
+  "path": "/nix/store/gngm22xcbr2ny28a4fw5kgci28wmzhsk-pipeline_output/node1/artifact",
+  "hash": "node1",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 21.3681
+},
+{
+  "node": "node2",
+  "path": "/nix/store/gngm22xcbr2ny28a4fw5kgci28wmzhsk-pipeline_output/node2/artifact",
+  "hash": "node2",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": ["node1"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2719
+},
+{
+  "node": "node3",
+  "path": "/nix/store/gngm22xcbr2ny28a4fw5kgci28wmzhsk-pipeline_output/node3/artifact",
+  "hash": "node3",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": ["node2"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.1750
+}
+],
+  "pipeline": "p"
+}

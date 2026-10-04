@@ -1,0 +1,7 @@
+{
+  "parity_check": "/nix/store/f9i261j350p7n7py946391vmbcyxdl4n-parity_check.drv",
+  "raw_data": "/nix/store/3kymjkpn55vida7cnzd9qm0nb0bip0m5-raw_data.drv",
+  "t_summary": "/nix/store/2i07mjw8hqlg3x4a9jckn040555m0w4l-t_summary.drv",
+  "r_across": "/nix/store/rarr05jzw0v23hz81q8lkxmlzrxqh1rj-r_across.drv",
+  "t_across_parity": "/nix/store/jfz2qpbcc7jznfmx8d2vi6pbhki5f5zy-t_across_parity.drv"
+}

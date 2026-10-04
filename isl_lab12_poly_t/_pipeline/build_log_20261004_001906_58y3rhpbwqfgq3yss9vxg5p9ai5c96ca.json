@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_001906",
+  "hash": "58y3rhpbwqfgq3yss9vxg5p9ai5c96ca",
+  "out_path": "/nix/store/58y3rhpbwqfgq3yss9vxg5p9ai5c96ca-pipeline_output",
+  "duration": 15.3776,
+  "nodes": [
+{
+  "node": "wage_raw",
+  "path": "/nix/store/58y3rhpbwqfgq3yss9vxg5p9ai5c96ca-pipeline_output/wage_raw/artifact",
+  "hash": "wage_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1592
+},
+{
+  "node": "t_data",
+  "path": "/nix/store/58y3rhpbwqfgq3yss9vxg5p9ai5c96ca-pipeline_output/t_data/artifact",
+  "hash": "t_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["wage_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.9687
+},
+{
+  "node": "t_model",
+  "path": "/nix/store/58y3rhpbwqfgq3yss9vxg5p9ai5c96ca-pipeline_output/t_model/artifact",
+  "hash": "t_model",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["t_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7002
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/58y3rhpbwqfgq3yss9vxg5p9ai5c96ca-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["wage_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7308
+}
+],
+  "pipeline": "p"
+}

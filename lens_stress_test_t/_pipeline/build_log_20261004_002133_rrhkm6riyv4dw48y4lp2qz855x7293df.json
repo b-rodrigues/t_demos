@@ -1,0 +1,87 @@
+{
+  "timestamp": "20261004_002133",
+  "hash": "rrhkm6riyv4dw48y4lp2qz855x7293df",
+  "out_path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output",
+  "duration": 8.7755,
+  "nodes": [
+{
+  "node": "alpha",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/alpha/artifact",
+  "hash": "alpha",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "beta",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/beta/artifact",
+  "hash": "beta",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "gamma",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/gamma/artifact",
+  "hash": "gamma",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "greeting",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/greeting/artifact",
+  "hash": "greeting",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "sum_node",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/sum_node/artifact",
+  "hash": "sum_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["alpha", "beta"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "delta",
+  "path": "/nix/store/rrhkm6riyv4dw48y4lp2qz855x7293df-pipeline_output/delta/artifact",
+  "hash": "delta",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2576
+}
+],
+  "pipeline": "p3"
+}

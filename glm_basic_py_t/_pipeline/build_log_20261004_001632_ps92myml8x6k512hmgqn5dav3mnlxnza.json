@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261004_001632",
+  "hash": "ps92myml8x6k512hmgqn5dav3mnlxnza",
+  "out_path": "/nix/store/ps92myml8x6k512hmgqn5dav3mnlxnza-pipeline_output",
+  "duration": 16.3780,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/ps92myml8x6k512hmgqn5dav3mnlxnza-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.0146
+},
+{
+  "node": "model_node",
+  "path": "/nix/store/ps92myml8x6k512hmgqn5dav3mnlxnza-pipeline_output/model_node/artifact",
+  "hash": "model_node",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 2.3761
+}
+],
+  "pipeline": "p"
+}

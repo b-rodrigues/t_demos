@@ -1,0 +1,5 @@
+{
+  "r_arima": "/nix/store/w3lbwjd6hv9vh0vxnszsz3pmkddjihxy-r_arima.drv",
+  "r_hw": "/nix/store/s6fs678layzlihfys7z3xwikhjkg401z-r_hw.drv",
+  "py_arima": "/nix/store/z62cr0zh46jg810pwmdqlbv92v9jd4m2-py_arima.drv"
+}

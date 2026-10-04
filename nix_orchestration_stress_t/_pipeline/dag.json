@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "node_a",
+  "depends": []
+},
+{
+  "node_name": "node_b",
+  "depends": ["node_a"]
+},
+{
+  "node_name": "node_c",
+  "depends": ["node_b"]
+}
+]

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_read_ipc.ml &mdash; Coverage report</title>
+    <meta name="description" content="23.08% coverage in src/packages/dataframe/t_read_ipc.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/dataframe/</span>t_read_ipc.ml
+        </a>
+      </h1>
+      <h2>23.08%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="bottom:34.21%"></span>
+      <span class="unvisited" style="bottom:31.58%"></span>
+      <span class="unvisited" style="bottom:26.32%"></span>
+      <span class="unvisited" style="bottom:23.68%"></span>
+      <span class="unvisited" style="bottom:21.05%"></span>
+      <span class="unvisited" style="bottom:15.79%"></span>
+      <span class="unvisited" style="bottom:13.16%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/to_dataframe/t_read_ipc.ml *)
+open Ast
+
+(*
+--# Read an Arrow IPC (Feather) file
+--#
+--# Loads a DataFrame from an Arrow IPC file (also known as Feather v2) on disk.
+--# Returns a FileError value when the file cannot be read.
+--#
+--# IPC is the fastest format to read and write (no compression), ideal for
+--# pipeline intermediates and cross-runtime exchange. For compressed,
+--# long-term storage of large datasets, use read_parquet instead.
+--#
+--# @name read_ipc
+--# @param path :: String The file path to the Arrow IPC file.
+--# @return :: DataFrame The loaded DataFrame.
+--# @example
+--#   df = read_ipc("data.arrow")
+--# @family to_dataframe
+--# @seealso write_ipc, read_csv
+--# @export
+*)
+let read_ipc_builtin =
+  make_builti<span data-count="267">n</span> ~name:"read_ipc" 1 (fun args _env -&gt;
+    <span data-count="0">m</span>atch args with
+    | <span data-count="0">[</span>VString path] -&gt;
+        (match Arrow_io.read_ipc path with
+        | <span data-count="0">O</span>k table -&gt; VDataFrame { arrow_table = table; group_keys = [] }
+        | <span data-count="0">E</span>rror msg -&gt; Error.make_error FileError (Printf.sprint<span data-count="0">f</span> "File Error: %s." msg))
+    | <span data-count="0">[</span>v] -&gt;
+        Error.type_error ~arg_index:1
+          (Printf.sprint<span data-count="0">f</span> "Function `read_ipc` expects a String path, got %s instead." (Utils.type_nam<span data-count="0">e</span> v))
+    | <span data-count="0">_</span> -&gt; Error.arity_error_named "read_ipc" 1 (List.lengt<span data-count="0">h</span> args)
+  )
+
+let register env =
+  <span data-count="268">S</span>erialization_registry.update_native "ipc" ~reader:read_ipc_builtin ();
+  <span data-count="268">E</span>nv.add "read_ipc" read_ipc_builtin env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

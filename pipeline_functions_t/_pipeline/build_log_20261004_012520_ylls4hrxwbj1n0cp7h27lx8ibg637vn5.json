@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261004_012520",
+  "hash": "ylls4hrxwbj1n0cp7h27lx8ibg637vn5",
+  "out_path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output",
+  "duration": 9.4469,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.8055
+},
+{
+  "node": "positive_rows",
+  "path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output/positive_rows/artifact",
+  "hash": "positive_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 0.6349
+},
+{
+  "node": "quiet_positive_rows",
+  "path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output/quiet_positive_rows/artifact",
+  "hash": "quiet_positive_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 0.6217
+},
+{
+  "node": "grouped_rows",
+  "path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output/grouped_rows/artifact",
+  "hash": "grouped_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["quiet_positive_rows"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4380
+},
+{
+  "node": "final_summary",
+  "path": "/nix/store/ylls4hrxwbj1n0cp7h27lx8ibg637vn5-pipeline_output/final_summary/artifact",
+  "hash": "final_summary",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["grouped_rows"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2667
+}
+],
+  "pipeline": "edited_p"
+}

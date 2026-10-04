@@ -1,0 +1,5 @@
+{
+  "node1": "/nix/store/q75gbq6ylczfz2zh86vw7634vfjcdl02-node1.drv",
+  "node2": "/nix/store/b9rsymxpnin0269smwim1phvng9rdjns-node2.drv",
+  "node3": "/nix/store/z6zh0h9c0zwcdhn8y60qrr8gz9xlq15n-node3.drv"
+}

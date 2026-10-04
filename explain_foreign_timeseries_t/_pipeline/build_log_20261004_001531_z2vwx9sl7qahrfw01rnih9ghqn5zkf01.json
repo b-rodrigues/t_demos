@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261004_001531",
+  "hash": "z2vwx9sl7qahrfw01rnih9ghqn5zkf01",
+  "out_path": "/nix/store/z2vwx9sl7qahrfw01rnih9ghqn5zkf01-pipeline_output",
+  "duration": 15.8289,
+  "nodes": [
+{
+  "node": "r_arima",
+  "path": "/nix/store/z2vwx9sl7qahrfw01rnih9ghqn5zkf01-pipeline_output/r_arima/artifact",
+  "hash": "r_arima",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "Arima",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.9500
+},
+{
+  "node": "py_arima",
+  "path": "/nix/store/z2vwx9sl7qahrfw01rnih9ghqn5zkf01-pipeline_output/py_arima/artifact",
+  "hash": "py_arima",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "ARIMAResultsWrapper",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 1.1231
+},
+{
+  "node": "r_hw",
+  "path": "/nix/store/z2vwx9sl7qahrfw01rnih9ghqn5zkf01-pipeline_output/r_hw/artifact",
+  "hash": "r_hw",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "HoltWinters",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.9277
+}
+],
+  "pipeline": "p"
+}

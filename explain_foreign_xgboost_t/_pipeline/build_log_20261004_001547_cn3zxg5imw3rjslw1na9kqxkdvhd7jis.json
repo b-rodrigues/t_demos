@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261004_001547",
+  "hash": "cn3zxg5imw3rjslw1na9kqxkdvhd7jis",
+  "out_path": "/nix/store/cn3zxg5imw3rjslw1na9kqxkdvhd7jis-pipeline_output",
+  "duration": 13.9590,
+  "nodes": [
+{
+  "node": "r_xgb",
+  "path": "/nix/store/cn3zxg5imw3rjslw1na9kqxkdvhd7jis-pipeline_output/r_xgb/artifact",
+  "hash": "r_xgb",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "xgb.Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.1170
+},
+{
+  "node": "py_xgb",
+  "path": "/nix/store/cn3zxg5imw3rjslw1na9kqxkdvhd7jis-pipeline_output/py_xgb/artifact",
+  "hash": "py_xgb",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6350
+}
+],
+  "pipeline": "p"
+}

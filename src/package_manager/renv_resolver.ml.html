@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>renv_resolver.ml &mdash; Coverage report</title>
+    <meta name="description" content="56.49% coverage in src/package_manager/renv_resolver.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/package_manager/</span>renv_resolver.ml
+        </a>
+      </h1>
+      <h2>56.49%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:7.37%"></span>
+      <span class="unvisited" style="top:13.16%"></span>
+      <span class="unvisited" style="top:13.68%"></span>
+      <span class="unvisited" style="top:14.21%"></span>
+      <span class="unvisited" style="top:14.74%"></span>
+      <span class="unvisited" style="top:17.89%"></span>
+      <span class="some-visited" style="top:23.16%"></span>
+      <span class="unvisited" style="top:26.84%"></span>
+      <span class="unvisited" style="top:30.53%"></span>
+      <span class="unvisited" style="top:31.05%"></span>
+      <span class="unvisited" style="top:41.58%"></span>
+      <span class="unvisited" style="top:42.63%"></span>
+      <span class="unvisited" style="top:43.16%"></span>
+      <span class="unvisited" style="top:43.68%"></span>
+      <span class="unvisited" style="top:44.21%"></span>
+      <span class="unvisited" style="top:45.79%"></span>
+      <span class="unvisited" style="top:46.32%"></span>
+      <span class="unvisited" style="top:48.42%"></span>
+      <span class="some-visited" style="bottom:46.32%"></span>
+      <span class="some-visited" style="bottom:45.26%"></span>
+      <span class="some-visited" style="bottom:43.68%"></span>
+      <span class="some-visited" style="bottom:42.63%"></span>
+      <span class="unvisited" style="bottom:40.53%"></span>
+      <span class="unvisited" style="bottom:37.89%"></span>
+      <span class="unvisited" style="bottom:37.37%"></span>
+      <span class="unvisited" style="bottom:36.84%"></span>
+      <span class="unvisited" style="bottom:36.32%"></span>
+      <span class="unvisited" style="bottom:35.26%"></span>
+      <span class="unvisited" style="bottom:34.74%"></span>
+      <span class="unvisited" style="bottom:32.11%"></span>
+      <span class="unvisited" style="bottom:31.58%"></span>
+      <span class="unvisited" style="bottom:30.00%"></span>
+      <span class="unvisited" style="bottom:25.26%"></span>
+      <span class="unvisited" style="bottom:24.74%"></span>
+      <span class="unvisited" style="bottom:24.21%"></span>
+      <span class="unvisited" style="bottom:23.16%"></span>
+      <span class="unvisited" style="bottom:22.11%"></span>
+      <span class="unvisited" style="bottom:21.58%"></span>
+      <span class="unvisited" style="bottom:7.37%"></span>
+      <span class="unvisited" style="bottom:4.21%"></span>
+      <span class="unvisited" style="bottom:3.68%"></span>
+      <span class="unvisited" style="bottom:3.16%"></span>
+      <span class="unvisited" style="bottom:1.58%"></span>
+      <span class="unvisited" style="bottom:1.05%"></span>
+      <span class="unvisited" style="bottom:0.53%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="visited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span class="visited"> </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span class="visited"> </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span class="visited"> </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span class="visited"> </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span class="some-visited"> </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span class="visited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span class="visited"> </span>
+<a id="L70"></a><span class="visited"> </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="visited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="visited"> </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span class="visited"> </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span class="visited"> </span>
+<a id="L102"></a><span class="some-visited"> </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span class="some-visited"> </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="visited"> </span>
+<a id="L107"></a><span class="some-visited"> </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span class="some-visited"> </span>
+<a id="L110"></a><span class="visited"> </span>
+<a id="L111"></a><span class="visited"> </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span > </span>
+<a id="L115"></a><span class="visited"> </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span class="visited"> </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="unvisited"> </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span > </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span class="visited"> </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span class="visited"> </span>
+<a id="L140"></a><span class="visited"> </span>
+<a id="L141"></a><span > </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span class="unvisited"> </span>
+<a id="L145"></a><span > </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span class="unvisited"> </span>
+<a id="L149"></a><span class="unvisited"> </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span > </span>
+<a id="L152"></a><span class="visited"> </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span class="visited"> </span>
+<a id="L155"></a><span > </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span class="visited"> </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span class="visited"> </span>
+<a id="L161"></a><span class="visited"> </span>
+<a id="L162"></a><span class="visited"> </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span class="visited"> </span>
+<a id="L165"></a><span > </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span > </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span > </span>
+<a id="L170"></a><span > </span>
+<a id="L171"></a><span > </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span > </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="visited"> </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span class="visited"> </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span class="visited"> </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span > </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span class="unvisited"> </span>
+<a id="L184"></a><span class="unvisited"> </span>
+<a id="L185"></a><span > </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span class="unvisited"> </span>
+<a id="L189"></a><span class="unvisited"> </span>
+<a id="L190"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+</pre>
+<pre><code class="ocaml">open Package_types
+
+let base_r_packages =
+  [ "R"; "methods"; "utils"; "stats"; "graphics"; "grDevices"
+  ; "datasets"; "grid"; "tools"; "parallel"; "compiler"; "splines"
+  ; "stats4"; "tcltk"; "Matrix" ]
+
+let is_base_r_package name =
+  <span data-count="210">L</span>ist.mem name base_r_packages
+
+let read_renv_lock ~project_root =
+  <span data-count="6">l</span>et path = Filename.concat project_root "renv.lock" in
+  <span data-count="6">i</span>f not (Sys.file_exist<span data-count="6">s</span> path) then
+    <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "renv.lock not found at %s" path)
+  else
+    <span data-count="6">t</span>ry
+      let ch = open_in path in
+      <span data-count="6">l</span>et content =
+        Fun.protect
+          ~finally:(fun () -&gt; <span data-count="6">c</span>lose_in_noerr ch)
+          (fun () -&gt; <span data-count="6">r</span>eally_input_string ch (in_channel_lengt<span data-count="6">h</span> ch))
+      in
+      <span data-count="6">t</span>ry
+        Ok (Yojson.Safe.from_strin<span data-count="6">g</span> content)
+      with <span data-count="0">Y</span>ojson.Json_error msg -&gt;
+        Error (Printf.sprint<span data-count="0">f</span> "Failed to parse renv.lock: %s" msg)
+    with <span data-count="0">e</span>xn -&gt;
+      Error (Printf.sprint<span data-count="0">f</span> "Failed to read renv.lock: %s" (Printexc.to_strin<span data-count="0">g</span> exn))
+
+let get_string member json =
+  <span data-count="546">m</span>atch json with
+  | <span data-count="546">`</span>Assoc pairs -&gt;
+    (try Some (List.asso<span data-count="168">c</span> member pairs) with <span data-count="378">N</span>ot_found -&gt; None)
+  | <span data-count="0">_</span> -&gt; None
+
+let get_string_value member json =
+  <span data-count="468">m</span>atch get_string member json with
+  | <span data-count="96">S</span>ome (`String s) -&gt; Some s
+  | <span data-count="372">_</span> -&gt; None
+
+let get_string_list member json =
+  <span data-count="66">m</span>atch get_string member json with
+  | <span data-count="60">S</span>ome (`List items) -&gt;
+    Some (List.filter_ma<span data-count="60">p</span> (fun item -&gt; <span data-count="192">m</span>atch item with <span data-count="192">`</span>String s -&gt; Some s | <span data-count="0">_</span> -&gt; None) items)
+  | <span data-count="6">_</span> -&gt; None
+
+let parse_renv_lock_json json =
+  <span data-count="6">l</span>et packages_json =
+    match get_string "Packages" json with
+    | <span data-count="6">S</span>ome (`Assoc pkgs) -&gt; pkgs
+    | <span data-count="0">_</span> -&gt; []
+  in
+  let r_version =
+    match get_string "R" json with
+    | <span data-count="6">S</span>ome r_json -&gt;
+      (match get_string_value "Version" r_json with
+       | <span data-count="6">S</span>ome v -&gt; v
+       | <span data-count="0">N</span>one -&gt; "unknown")
+    | <span data-count="0">N</span>one -&gt; "unknown"
+  in
+  let parse_package (name, pkg_json) =
+    <span data-count="66">l</span>et source = get_string_value "Source" pkg_json |&gt; <span data-count="66">O</span>ption.value ~default:"" in
+    <span data-count="66">l</span>et requirements =
+      let raw = get_string_list "Requirements" pkg_json in
+      <span data-count="66">m</span>atch raw with <span data-count="60">S</span>ome r -&gt; r | <span data-count="6">N</span>one -&gt; []
+    in
+    let remote_host = get_string_value "RemoteHost" pkg_json in
+    <span data-count="66">l</span>et remote_username = get_string_value "RemoteUsername" pkg_json in
+    <span data-count="66">l</span>et remote_repo = get_string_value "RemoteRepo" pkg_json in
+    <span data-count="66">l</span>et remote_sha = get_string_value "RemoteSha" pkg_json in
+    <span data-count="66">l</span>et remotes = get_string_value "Remotes" pkg_json in
+    <span data-count="66">l</span>et remote_subdir = get_string_value "RemoteSubdir" pkg_json in
+    <span data-count="66">(</span>name, source, requirements, remote_host, remote_username, remote_repo, remote_sha, remotes, remote_subdir)
+  in
+  let parsed_packages = List.map parse_package packages_json in
+  <span data-count="6">(</span>r_version, parsed_packages)
+
+let sanitize_remote_string s =
+  <span data-count="0">l</span>et s =
+    if String.starts_with ~prefix:"github::" s then
+      <span data-count="0">S</span>tring.su<span data-count="0">b</span> s 8 (String.lengt<span data-count="0">h</span> s - 8)
+    else <span data-count="0">i</span>f String.starts_with ~prefix:"gitlab::" s then
+      <span data-count="0">S</span>tring.su<span data-count="0">b</span> s 8 (String.lengt<span data-count="0">h</span> s - 8)
+    else <span data-count="0">s</span>
+  in
+  match String.split_on_char '@' s with
+  | <span data-count="0">n</span>ame_part :: _ -&gt; name_part
+  | <span data-count="0">[</span>] -&gt; s
+
+let split_packages ~project_root : (string list * r_git_dependency list, string) result =
+  <span data-count="6">m</span>atch read_renv_lock ~project_root with
+  | <span data-count="0">E</span>rror msg -&gt; Error msg
+  | <span data-count="6">O</span>k json -&gt;
+    let (_r_version, parsed_packages) = parse_renv_lock_json json in
+
+    <span data-count="6">l</span>et cran_pkgs = ref [] in
+    let git_pkgs = ref [] in
+    let unsupported = ref [] in
+
+    List.iter (fun (name, source, requirements, remote_host, remote_username, remote_repo, remote_sha, remotes, remote_subdir) -&gt;
+      <span data-count="66">m</span>atch source with
+      | <span data-count="60">"</span>Repository" | <span data-count="0">"</span>Bioconductor" -&gt;
+        cran_pkgs := name :: !cran_pkgs
+      | <span data-count="6">"</span>GitHub" | <span data-count="0">"</span>GitLab" as src -&gt;
+        (match remote_username, remote_repo, remote_sha with
+         | <span data-count="6">S</span>ome user, Some repo, Some sha -&gt;
+           let default_host = if src = "GitHub" then <span data-count="6">"</span>api.github.com" else <span data-count="0">"</span>gitlab.com" in
+           let host = Option.value remote_host ~default:default_host in
+           <span data-count="6">i</span>f host = "api.github.com<span data-count="6">"</span> || host = "gitlab.com<span data-count="0">"</span> then
+             <span data-count="6">l</span>et url = if host = "api.github.com" then
+               <span data-count="6">P</span>rintf.sprint<span data-count="6">f</span> "https://github.com/%s/%s" user repo
+             else
+               <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> "https://gitlab.com/%s/%s" user repo
+             in
+             let build_inputs = List.filter (fun p -&gt; <span data-count="30">n</span>ot (is_base_r_packag<span data-count="30">e</span> p)) requirements in
+             <span data-count="6">l</span>et remotes_list =
+               match remotes with
+               | <span data-count="0">S</span>ome r when r &lt;&gt; "" -&gt;
+                 <span data-count="0">l</span>et parts = String.split_on_char '\n' r in
+                 <span data-count="0">L</span>ist.concat_map (fun line -&gt;
+                   <span data-count="0">S</span>tring.split_on_char ',' line
+                 ) parts
+                 |&gt; <span data-count="0">L</span>ist.map String.trim
+                 |&gt; <span data-count="0">L</span>ist.filte<span data-count="0">r</span> (fun s -&gt; <span data-count="0">s</span> &lt;&gt; "")
+               | <span data-count="6">_</span> -&gt; []
+             in
+             git_pkgs := (name, url, sha, build_inputs, remotes_list, user, repo, remote_subdir) :: !git_pkgs
+           else
+             <span data-count="0">u</span>nsupported := name :: !unsupported
+         | <span data-count="0">_</span> -&gt;
+           unsupported := name :: !unsupported
+        )
+      | <span data-count="0">_</span> -&gt;
+        unsupported := name :: !unsupported
+    ) parsed_packages;
+
+    <span data-count="6">l</span>et git_pkgs_list = List.rev !git_pkgs in
+
+    <span data-count="6">l</span>et resolve_remotes (name, url, sha, build_inputs, remotes_list, _user, _repo, subdir) =
+      <span data-count="6">l</span>et resolved =
+        List.filter_map (fun remote -&gt;
+          <span data-count="0">l</span>et sanitized = sanitize_remote_string remote in
+          <span data-count="0">m</span>atch String.split_on_char '/' sanitized with
+          | <span data-count="0">[</span>remote_user; remote_repo_name] -&gt;
+            List.find_opt (fun (n, _, _, _, _, ru, rr, _) -&gt;
+              <span data-count="0">r</span>u = remote_user &amp;&amp; <span data-count="0">r</span>r = remote_repo_name &amp;&amp; <span data-count="0">n</span> &lt;&gt; name
+            ) git_pkgs_list
+            |&gt; <span data-count="0">O</span>ption.map (fun (n, _, _, _, _, _, _, _) -&gt; <span data-count="0">n</span>)
+          | <span data-count="0">_</span> -&gt; None
+        ) remotes_list
+      in
+      <span data-count="6">l</span>et all_inputs = build_inputs @ resolved in
+      let is_git_pkg_name pkg_name =
+        <span data-count="48">L</span>ist.exists (fun (n, _, _, _, _, _, _, _) -&gt; <span data-count="48">n</span> = pkg_name) git_pkgs_list
+      in
+      let git_inputs =
+        List.filter is_git_pkg_name all_inputs
+        |&gt; <span data-count="6">L</span>ist.sort_uniq String.compare
+      in
+      <span data-count="6">l</span>et cran_inputs =
+        List.filter (fun p -&gt; <span data-count="24">n</span>ot (is_git_pkg_nam<span data-count="24">e</span> p)) all_inputs
+        |&gt; <span data-count="6">L</span>ist.sort_uniq String.compare
+      in
+      <span data-count="6">{</span> rgd_name = name
+      ; rgd_git_url = url
+      ; rgd_rev = sha
+      ; rgd_cran_inputs = cran_inputs
+      ; rgd_git_inputs = git_inputs
+      ; rgd_subdir = subdir
+      }
+    in
+
+    let git_deps = List.map resolve_remotes git_pkgs_list in
+
+    <span data-count="6">L</span>ist.iter (fun name -&gt;
+      <span data-count="0">P</span>rintf.eprintf "Warning: renv.lock package %S has unsupported source and will be skipped\n%!" name
+    ) (List.re<span data-count="6">v</span> !unsupported);
+
+    <span data-count="6">O</span>k (List.re<span data-count="6">v</span> !cran_pkgs, git_deps)
+
+let read_and_split_cran_packages ~project_root : string list =
+  <span data-count="0">m</span>atch split_packages ~project_root with
+  | <span data-count="0">O</span>k (cran, _) -&gt; cran
+  | <span data-count="0">E</span>rror _ -&gt; []
+
+let read_and_split_git_packages ~project_root : r_git_dependency list =
+  <span data-count="0">m</span>atch split_packages ~project_root with
+  | <span data-count="0">O</span>k (_, git) -&gt; git
+  | <span data-count="0">E</span>rror _ -&gt; []
+
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

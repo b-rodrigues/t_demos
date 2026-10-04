@@ -1,0 +1,91 @@
+{
+  "timestamp": "20261003_234752",
+  "hash": "kwajnxh2aryp8zn5v5v44v7hq9d370ma",
+  "out_path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output",
+  "duration": 9.1751,
+  "nodes": [
+{
+  "node": "frozen",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/frozen/artifact",
+  "hash": "frozen",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6750
+},
+{
+  "node": "shadowed",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/shadowed/artifact",
+  "hash": "shadowed",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6605
+},
+{
+  "node": "via_quoted",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/via_quoted/artifact",
+  "hash": "via_quoted",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4481
+},
+{
+  "node": "via_lambda",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/via_lambda/artifact",
+  "hash": "via_lambda",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.6216,
+  "error_code": "NameError",
+  "error_message": "Name `inc` is not defined.\nDid you mean `inv`?"
+},
+{
+  "node": "sym_call",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/sym_call/artifact",
+  "hash": "sym_call",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.6433,
+  "error_code": "TypeError",
+  "error_message": "`default` is a symbol, not a function, and cannot be called."
+},
+{
+  "node": "report",
+  "path": "/nix/store/kwajnxh2aryp8zn5v5v44v7hq9d370ma-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["frozen", "shadowed", "sym_call", "via_lambda", "via_quoted"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2739
+}
+],
+  "pipeline": "p"
+}

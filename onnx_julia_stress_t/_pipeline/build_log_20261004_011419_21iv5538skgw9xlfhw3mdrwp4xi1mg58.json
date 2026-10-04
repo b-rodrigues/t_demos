@@ -1,0 +1,102 @@
+{
+  "timestamp": "20261004_011419",
+  "hash": "21iv5538skgw9xlfhw3mdrwp4xi1mg58",
+  "out_path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output",
+  "duration": 142.4371,
+  "nodes": [
+{
+  "node": "synthetic_data",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/synthetic_data/artifact",
+  "hash": "synthetic_data",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 105.7439
+},
+{
+  "node": "py_model_params",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/py_model_params/artifact",
+  "hash": "py_model_params",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": ["synthetic_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 104.1243
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPRegressor",
+  "dependencies": ["synthetic_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 104.1452
+},
+{
+  "node": "julia_model",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/julia_model/artifact",
+  "hash": "julia_model",
+  "runtime": "Julia",
+  "serializer": "onnx",
+  "class": "Tape{ONNX.ONNXCtx}",
+  "dependencies": ["py_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 7.5173
+},
+{
+  "node": "t_predict",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/t_predict/artifact",
+  "hash": "t_predict",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": ["julia_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4876
+},
+{
+  "node": "py_predict",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/py_predict/artifact",
+  "hash": "py_predict",
+  "runtime": "Python",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": ["py_model_params"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 102.2190
+},
+{
+  "node": "verify_node",
+  "path": "/nix/store/21iv5538skgw9xlfhw3mdrwp4xi1mg58-pipeline_output/verify_node/artifact",
+  "hash": "verify_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["py_predict", "t_predict"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.2816,
+  "error_code": "NameError",
+  "error_message": "Cannot overwrite t_diff: it's a reserved keyword!"
+}
+],
+  "pipeline": "p"
+}

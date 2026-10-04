@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261003_234657",
+  "hash": "nyqni3v2vkbrhja4s6qc79jdgnn0rpsm",
+  "out_path": "/nix/store/nyqni3v2vkbrhja4s6qc79jdgnn0rpsm-pipeline_output",
+  "duration": 24.1155,
+  "nodes": [
+{
+  "node": "mtcars",
+  "path": "/nix/store/nyqni3v2vkbrhja4s6qc79jdgnn0rpsm-pipeline_output/mtcars/artifact",
+  "hash": "mtcars",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.8471
+},
+{
+  "node": "filtered_mtcars",
+  "path": "/nix/store/nyqni3v2vkbrhja4s6qc79jdgnn0rpsm-pipeline_output/filtered_mtcars/artifact",
+  "hash": "filtered_mtcars",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["mtcars"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.6287
+},
+{
+  "node": "mtcars_mpg",
+  "path": "/nix/store/nyqni3v2vkbrhja4s6qc79jdgnn0rpsm-pipeline_output/mtcars_mpg/artifact",
+  "hash": "mtcars_mpg",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["filtered_mtcars"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.4103
+},
+{
+  "node": "report",
+  "path": "/nix/store/nyqni3v2vkbrhja4s6qc79jdgnn0rpsm-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "QuartoOutput",
+  "dependencies": ["filtered_mtcars", "mtcars", "mtcars_mpg"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.0446
+}
+],
+  "pipeline": "p"
+}

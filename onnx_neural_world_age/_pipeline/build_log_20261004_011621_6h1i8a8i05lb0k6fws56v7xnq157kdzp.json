@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261004_011621",
+  "hash": "6h1i8a8i05lb0k6fws56v7xnq157kdzp",
+  "out_path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output",
+  "duration": 19.0999,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.3492
+},
+{
+  "node": "model_skl",
+  "path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output/model_skl/artifact",
+  "hash": "model_skl",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0264
+},
+{
+  "node": "model_sgd",
+  "path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output/model_sgd/artifact",
+  "hash": "model_sgd",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0444
+},
+{
+  "node": "pred_skl_t",
+  "path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output/pred_skl_t/artifact",
+  "hash": "pred_skl_t",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["model_skl"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2814
+},
+{
+  "node": "pred_sgd_t",
+  "path": "/nix/store/6h1i8a8i05lb0k6fws56v7xnq157kdzp-pipeline_output/pred_sgd_t/artifact",
+  "hash": "pred_sgd_t",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["model_sgd"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3097
+}
+],
+  "pipeline": "p"
+}

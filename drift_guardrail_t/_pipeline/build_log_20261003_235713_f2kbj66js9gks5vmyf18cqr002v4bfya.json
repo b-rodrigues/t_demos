@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261003_235713",
+  "hash": "f2kbj66js9gks5vmyf18cqr002v4bfya",
+  "out_path": "/nix/store/f2kbj66js9gks5vmyf18cqr002v4bfya-pipeline_output",
+  "duration": 9.6795,
+  "nodes": [
+{
+  "node": "baseline_data",
+  "path": "/nix/store/f2kbj66js9gks5vmyf18cqr002v4bfya-pipeline_output/baseline_data/artifact",
+  "hash": "baseline_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6263
+},
+{
+  "node": "baseline_stats",
+  "path": "/nix/store/f2kbj66js9gks5vmyf18cqr002v4bfya-pipeline_output/baseline_stats/artifact",
+  "hash": "baseline_stats",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4530
+},
+{
+  "node": "live_data",
+  "path": "/nix/store/f2kbj66js9gks5vmyf18cqr002v4bfya-pipeline_output/live_data/artifact",
+  "hash": "live_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4394
+},
+{
+  "node": "drift_guardrail",
+  "path": "/nix/store/f2kbj66js9gks5vmyf18cqr002v4bfya-pipeline_output/drift_guardrail/artifact",
+  "hash": "drift_guardrail",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Bool",
+  "dependencies": ["baseline_stats", "live_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2609
+}
+],
+  "pipeline": "p"
+}

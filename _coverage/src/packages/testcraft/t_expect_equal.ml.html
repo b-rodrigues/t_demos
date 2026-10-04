@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_expect_equal.ml &mdash; Coverage report</title>
+    <meta name="description" content="24.21% coverage in src/packages/testcraft/t_expect_equal.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/testcraft/</span>t_expect_equal.ml
+        </a>
+      </h1>
+      <h2>24.21%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:4.90%"></span>
+      <span class="unvisited" style="top:5.31%"></span>
+      <span class="unvisited" style="top:5.71%"></span>
+      <span class="unvisited" style="top:6.12%"></span>
+      <span class="unvisited" style="top:9.39%"></span>
+      <span class="unvisited" style="top:9.80%"></span>
+      <span class="unvisited" style="top:10.20%"></span>
+      <span class="unvisited" style="top:10.61%"></span>
+      <span class="unvisited" style="top:11.02%"></span>
+      <span class="unvisited" style="top:11.84%"></span>
+      <span class="unvisited" style="top:14.29%"></span>
+      <span class="unvisited" style="top:14.69%"></span>
+      <span class="unvisited" style="top:15.10%"></span>
+      <span class="unvisited" style="top:15.51%"></span>
+      <span class="unvisited" style="top:16.73%"></span>
+      <span class="unvisited" style="top:17.14%"></span>
+      <span class="unvisited" style="top:17.55%"></span>
+      <span class="unvisited" style="top:18.78%"></span>
+      <span class="unvisited" style="top:19.18%"></span>
+      <span class="unvisited" style="top:19.59%"></span>
+      <span class="unvisited" style="top:20.00%"></span>
+      <span class="unvisited" style="top:20.41%"></span>
+      <span class="unvisited" style="top:20.82%"></span>
+      <span class="unvisited" style="top:21.22%"></span>
+      <span class="unvisited" style="top:21.63%"></span>
+      <span class="unvisited" style="top:22.04%"></span>
+      <span class="unvisited" style="top:22.45%"></span>
+      <span class="unvisited" style="top:22.86%"></span>
+      <span class="unvisited" style="top:23.27%"></span>
+      <span class="unvisited" style="top:24.08%"></span>
+      <span class="unvisited" style="top:25.71%"></span>
+      <span class="unvisited" style="top:26.53%"></span>
+      <span class="unvisited" style="top:26.94%"></span>
+      <span class="unvisited" style="top:27.35%"></span>
+      <span class="unvisited" style="top:28.16%"></span>
+      <span class="unvisited" style="top:28.57%"></span>
+      <span class="unvisited" style="top:28.98%"></span>
+      <span class="unvisited" style="top:30.61%"></span>
+      <span class="unvisited" style="top:32.24%"></span>
+      <span class="unvisited" style="top:33.06%"></span>
+      <span class="unvisited" style="top:33.47%"></span>
+      <span class="unvisited" style="top:34.29%"></span>
+      <span class="unvisited" style="top:34.69%"></span>
+      <span class="unvisited" style="top:35.51%"></span>
+      <span class="unvisited" style="top:35.92%"></span>
+      <span class="unvisited" style="top:36.33%"></span>
+      <span class="unvisited" style="top:36.73%"></span>
+      <span class="unvisited" style="top:37.14%"></span>
+      <span class="unvisited" style="top:37.55%"></span>
+      <span class="unvisited" style="top:40.82%"></span>
+      <span class="unvisited" style="top:41.22%"></span>
+      <span class="unvisited" style="top:44.08%"></span>
+      <span class="unvisited" style="top:46.12%"></span>
+      <span class="unvisited" style="top:46.53%"></span>
+      <span class="unvisited" style="top:46.94%"></span>
+      <span class="unvisited" style="top:47.35%"></span>
+      <span class="unvisited" style="top:48.16%"></span>
+      <span class="unvisited" style="bottom:49.39%"></span>
+      <span class="unvisited" style="bottom:48.98%"></span>
+      <span class="unvisited" style="bottom:48.57%"></span>
+      <span class="unvisited" style="bottom:48.16%"></span>
+      <span class="unvisited" style="bottom:47.76%"></span>
+      <span class="unvisited" style="bottom:46.94%"></span>
+      <span class="unvisited" style="bottom:46.12%"></span>
+      <span class="unvisited" style="bottom:45.71%"></span>
+      <span class="unvisited" style="bottom:45.31%"></span>
+      <span class="unvisited" style="bottom:44.90%"></span>
+      <span class="unvisited" style="bottom:44.08%"></span>
+      <span class="unvisited" style="bottom:43.27%"></span>
+      <span class="unvisited" style="bottom:42.86%"></span>
+      <span class="unvisited" style="bottom:42.45%"></span>
+      <span class="unvisited" style="bottom:42.04%"></span>
+      <span class="unvisited" style="bottom:41.63%"></span>
+      <span class="unvisited" style="bottom:41.22%"></span>
+      <span class="unvisited" style="bottom:40.82%"></span>
+      <span class="unvisited" style="bottom:40.41%"></span>
+      <span class="unvisited" style="bottom:38.37%"></span>
+      <span class="unvisited" style="bottom:37.55%"></span>
+      <span class="unvisited" style="bottom:36.73%"></span>
+      <span class="unvisited" style="bottom:36.33%"></span>
+      <span class="unvisited" style="bottom:35.92%"></span>
+      <span class="unvisited" style="bottom:35.51%"></span>
+      <span class="unvisited" style="bottom:35.10%"></span>
+      <span class="unvisited" style="bottom:34.29%"></span>
+      <span class="unvisited" style="bottom:33.88%"></span>
+      <span class="unvisited" style="bottom:33.47%"></span>
+      <span class="unvisited" style="bottom:33.06%"></span>
+      <span class="unvisited" style="bottom:32.65%"></span>
+      <span class="unvisited" style="bottom:31.84%"></span>
+      <span class="unvisited" style="bottom:31.43%"></span>
+      <span class="unvisited" style="bottom:31.02%"></span>
+      <span class="unvisited" style="bottom:30.61%"></span>
+      <span class="unvisited" style="bottom:30.20%"></span>
+      <span class="unvisited" style="bottom:29.39%"></span>
+      <span class="unvisited" style="bottom:28.57%"></span>
+      <span class="unvisited" style="bottom:28.16%"></span>
+      <span class="unvisited" style="bottom:27.76%"></span>
+      <span class="unvisited" style="bottom:27.35%"></span>
+      <span class="unvisited" style="bottom:26.94%"></span>
+      <span class="unvisited" style="bottom:26.12%"></span>
+      <span class="unvisited" style="bottom:25.71%"></span>
+      <span class="unvisited" style="bottom:24.90%"></span>
+      <span class="unvisited" style="bottom:23.67%"></span>
+      <span class="unvisited" style="bottom:10.61%"></span>
+      <span class="unvisited" style="bottom:8.98%"></span>
+      <span class="unvisited" style="bottom:8.16%"></span>
+      <span class="some-visited" style="bottom:6.53%"></span>
+      <span class="unvisited" style="bottom:6.12%"></span>
+      <span class="unvisited" style="bottom:5.71%"></span>
+      <span class="unvisited" style="bottom:4.90%"></span>
+      <span class="unvisited" style="bottom:2.86%"></span>
+      <span class="unvisited" style="bottom:0.82%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="visited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span class="unvisited"> </span>
+<a id="L13"></a><span class="unvisited"> </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span class="visited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="unvisited"> </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span class="unvisited"> </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span > </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span class="visited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span class="unvisited"> </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span class="visited"> </span>
+<a id="L104"></a><span class="visited"> </span>
+<a id="L105"></a><span class="visited"> </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="visited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span class="visited"> </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span > </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span class="unvisited"> </span>
+<a id="L126"></a><span class="unvisited"> </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span > </span>
+<a id="L132"></a><span class="unvisited"> </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span class="unvisited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span class="unvisited"> </span>
+<a id="L141"></a><span class="unvisited"> </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span class="unvisited"> </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span class="unvisited"> </span>
+<a id="L152"></a><span > </span>
+<a id="L153"></a><span class="unvisited"> </span>
+<a id="L154"></a><span > </span>
+<a id="L155"></a><span class="unvisited"> </span>
+<a id="L156"></a><span class="unvisited"> </span>
+<a id="L157"></a><span class="unvisited"> </span>
+<a id="L158"></a><span class="unvisited"> </span>
+<a id="L159"></a><span class="unvisited"> </span>
+<a id="L160"></a><span > </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span class="unvisited"> </span>
+<a id="L163"></a><span class="unvisited"> </span>
+<a id="L164"></a><span class="unvisited"> </span>
+<a id="L165"></a><span class="unvisited"> </span>
+<a id="L166"></a><span > </span>
+<a id="L167"></a><span class="unvisited"> </span>
+<a id="L168"></a><span class="unvisited"> </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span class="unvisited"> </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="unvisited"> </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span class="unvisited"> </span>
+<a id="L178"></a><span class="unvisited"> </span>
+<a id="L179"></a><span class="unvisited"> </span>
+<a id="L180"></a><span > </span>
+<a id="L181"></a><span class="unvisited"> </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span > </span>
+<a id="L184"></a><span class="unvisited"> </span>
+<a id="L185"></a><span > </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span > </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span > </span>
+<a id="L192"></a><span > </span>
+<a id="L193"></a><span > </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span > </span>
+<a id="L197"></a><span > </span>
+<a id="L198"></a><span > </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span > </span>
+<a id="L204"></a><span > </span>
+<a id="L205"></a><span > </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span > </span>
+<a id="L211"></a><span class="visited"> </span>
+<a id="L212"></a><span class="visited"> </span>
+<a id="L213"></a><span class="visited"> </span>
+<a id="L214"></a><span > </span>
+<a id="L215"></a><span > </span>
+<a id="L216"></a><span class="visited"> </span>
+<a id="L217"></a><span class="visited"> </span>
+<a id="L218"></a><span class="visited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span > </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span class="visited"> </span>
+<a id="L223"></a><span class="unvisited"> </span>
+<a id="L224"></a><span > </span>
+<a id="L225"></a><span class="unvisited"> </span>
+<a id="L226"></a><span class="visited"> </span>
+<a id="L227"></a><span class="visited"> </span>
+<a id="L228"></a><span class="visited"> </span>
+<a id="L229"></a><span class="some-visited"> </span>
+<a id="L230"></a><span class="unvisited"> </span>
+<a id="L231"></a><span class="unvisited"> </span>
+<a id="L232"></a><span > </span>
+<a id="L233"></a><span class="unvisited"> </span>
+<a id="L234"></a><span class="visited"> </span>
+<a id="L235"></a><span > </span>
+<a id="L236"></a><span > </span>
+<a id="L237"></a><span class="visited"> </span>
+<a id="L238"></a><span class="unvisited"> </span>
+<a id="L239"></a><span class="visited"> </span>
+<a id="L240"></a><span > </span>
+<a id="L241"></a><span > </span>
+<a id="L242"></a><span class="visited"> </span>
+<a id="L243"></a><span class="unvisited"> </span>
+<a id="L244"></a><span > </span>
+<a id="L245"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Testcraft_utils
+
+(* Default absolute tolerance used for Float comparisons when the caller
+   does not supply one explicitly. *)
+let default_tolerance = 1e-9
+
+let scalar_mismatch actual expected =
+  <span data-count="22">E</span>xpect_stop (Printf.sprint<span data-count="22">f</span> "%s != %s" (fm<span data-count="22">t</span> actual) (fm<span data-count="22">t</span> expected))
+
+let type_mismatch actual expected =
+  <span data-count="0">E</span>xpect_stop
+    (Printf.sprint<span data-count="0">f</span> "%s (%s) != %s (%s)"
+       (fm<span data-count="0">t</span> actual) (Utils.type_nam<span data-count="0">e</span> actual)
+       (fm<span data-count="0">t</span> expected) (Utils.type_nam<span data-count="0">e</span> expected))
+
+(* Recursively compare two T-Lang values, returning an [expect_kind]
+   describing the first point of difference (if any). Collections
+   (DataFrame, Vector, List) report the location of their first differing
+   element so failures are actionable without dumping the whole value. *)
+let rec compare_values ~tolerance (actual : value) (expected : value) : expect_kind =
+  <span data-count="49">m</span>atch actual, expected with
+  | <span data-count="0">V</span>Error err, _ -&gt;
+      Expect_stop (Printf.sprint<span data-count="0">f</span> "`actual` is an error: %s" err.message)
+  | <span data-count="0">_</span>, VError err -&gt;
+      Expect_stop (Printf.sprint<span data-count="0">f</span> "`expected` is an error: %s" err.message)
+  | <span data-count="0">V</span>NA _, _ -&gt;
+      Expect_hold "`actual` is NA, cannot compare `actual` != `expected`"
+  | <span data-count="0">_</span>, VNA _ -&gt;
+      Expect_hold "`expected` is NA, cannot compare `actual` != `expected`"
+  | <span data-count="41">V</span>Int a, VInt b -&gt;
+      if a = b then <span data-count="20">E</span>xpect_pass else <span data-count="21">s</span>calar_mismatch actual expected
+  | <span data-count="1">V</span>Float a, VFloat b -&gt;
+      if Float.ab<span data-count="1">s</span> (a -. b) &lt; tolerance then <span data-count="1">E</span>xpect_pass
+      else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Int a, VFloat b -&gt;
+      if Float.ab<span data-count="0">s</span> (float_of_in<span data-count="0">t</span> a -. b) &lt; tolerance then <span data-count="0">E</span>xpect_pass
+      else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="1">V</span>Float a, VInt b -&gt;
+      if Float.ab<span data-count="1">s</span> (a -. float_of_in<span data-count="1">t</span> b) &lt; tolerance then <span data-count="1">E</span>xpect_pass
+      else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Bool a, VBool b -&gt;
+      if a = b then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="5">V</span>String a, VString b -&gt;
+      if a = b then <span data-count="4">E</span>xpect_pass else <span data-count="1">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Date a, VDate b -&gt;
+      if a = b then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Datetime (a, tz_a), VDatetime (b, tz_b) -&gt;
+      if a = b &amp;&amp; <span data-count="0">t</span>z_a = tz_b then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Factor (idx, levels, _), VString s -&gt;
+      let level = match List.nth_opt levels idx with <span data-count="0">S</span>ome l -&gt; l | <span data-count="0">N</span>one -&gt; "NA" in
+      if level = s then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>Factor (idx_a, levels_a, _), VFactor (idx_b, levels_b, _) -&gt;
+      let level_a = match List.nth_opt levels_a idx_a with <span data-count="0">S</span>ome l -&gt; l | <span data-count="0">N</span>one -&gt; "NA" in
+      let level_b = match List.nth_opt levels_b idx_b with <span data-count="0">S</span>ome l -&gt; l | <span data-count="0">N</span>one -&gt; "NA" in
+      if level_a = level_b then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+  | <span data-count="0">V</span>DataFrame df_a, VDataFrame df_b -&gt;
+      compare_dataframes ~tolerance df_a df_b
+  | <span data-count="0">V</span>Vector arr_a, VVector arr_b -&gt;
+      compare_vectors ~tolerance arr_a arr_b
+  | <span data-count="1">V</span>List list_a, VList list_b -&gt;
+      compare_lists ~tolerance list_a list_b
+  | <span data-count="0">V</span>Dict dict_a, VDict dict_b -&gt;
+      compare_dicts ~tolerance dict_a dict_b
+  | <span data-count="0">V</span>Lambda _, _ | <span data-count="0">_</span>, VLambda _
+  | <span data-count="0">V</span>Builtin _, _ | <span data-count="0">_</span>, VBuiltin _
+  | <span data-count="0">V</span>Lens _, _ | <span data-count="0">_</span>, VLens _ -&gt;
+      Expect_stop "Cannot compare functional values (Lambdas, Builtins, or Lenses)"
+  | <span data-count="0">_</span> when Utils.type_nam<span data-count="0">e</span> actual &lt;&gt; Utils.type_nam<span data-count="0">e</span> expected -&gt;
+      <span data-count="0">t</span>ype_mismatch actual expected
+  | <span data-count="0">_</span> -&gt;
+      (* Other same-type constructors (VPeriod, VDuration, VInterval,
+         VSymbol, VRawCode, ...) contain only plain OCaml data, so
+         structural equality is safe here. *)
+      if actual = expected then <span data-count="0">E</span>xpect_pass else <span data-count="0">s</span>calar_mismatch actual expected
+
+
+and compare_vectors ~tolerance (arr_a : value array) (arr_b : value array) : expect_kind =
+  <span data-count="0">l</span>et len_a = Array.lengt<span data-count="0">h</span> arr_a and len_b = Array.lengt<span data-count="0">h</span> arr_b in
+  if len_a &lt;&gt; len_b then
+    <span data-count="0">E</span>xpect_stop
+      (Printf.sprint<span data-count="0">f</span> "Vector: length mismatch (%d != %d)" len_a len_b)
+  else
+    <span data-count="0">l</span>et rec scan i =
+      <span data-count="0">i</span>f i &gt;= len_a then <span data-count="0">E</span>xpect_pass
+      else
+        <span data-count="0">m</span>atch compare_values ~tolerance arr_a.(i) arr_b.(i) with
+        | <span data-count="0">E</span>xpect_pass -&gt; scan (i + 1)
+        | <span data-count="0">E</span>xpect_stop msg -&gt;
+            Expect_stop (Printf.sprint<span data-count="0">f</span> "Vector: element at index %d differs: %s" i msg)
+        | <span data-count="0">E</span>xpect_hold msg -&gt;
+            Expect_hold (Printf.sprint<span data-count="0">f</span> "Vector: element at index %d could not be compared: %s" i msg)
+    in
+    scan 0
+
+and compare_lists ~tolerance
+    (list_a : (string option * value) list) (list_b : (string option * value) list) : expect_kind =
+  <span data-count="1">l</span>et len_a = List.lengt<span data-count="1">h</span> list_a and len_b = List.lengt<span data-count="1">h</span> list_b in
+  if len_a &lt;&gt; len_b then
+    <span data-count="0">E</span>xpect_stop
+      (Printf.sprint<span data-count="0">f</span> "List: length mismatch (%d != %d)" len_a len_b)
+  else
+    <span data-count="1">l</span>et rec scan i la lb =
+      <span data-count="4">m</span>atch la, lb with
+      | <span data-count="3">(</span>label, va) :: rest_a, (_, vb) :: rest_b -&gt;
+          let location =
+            match label with
+            | <span data-count="0">S</span>ome name -&gt; Printf.sprint<span data-count="0">f</span> "`%s`" name
+            | <span data-count="3">N</span>one -&gt; Printf.sprint<span data-count="3">f</span> "at index %d" i
+          in
+          (match compare_values ~tolerance va vb with
+           | <span data-count="3">E</span>xpect_pass -&gt; scan (i + 1) rest_a rest_b
+           | <span data-count="0">E</span>xpect_stop msg -&gt;
+               Expect_stop (Printf.sprint<span data-count="0">f</span> "List: element %s differs: %s" location msg)
+           | <span data-count="0">E</span>xpect_hold msg -&gt;
+                Expect_hold (Printf.sprint<span data-count="0">f</span> "List: element %s could not be compared: %s" location msg))
+      | <span data-count="1">[</span>], [] -&gt; Expect_pass
+      | <span data-count="0">_</span> -&gt; Expect_pass (* unreachable: lengths already checked equal *)
+    in
+    scan 0 list_a list_b
+
+and compare_dicts ~tolerance
+    (dict_a : (string * value) list) (dict_b : (string * value) list) : expect_kind =
+  <span data-count="0">l</span>et len_a = List.length dict_a in
+  <span data-count="0">l</span>et len_b = List.length dict_b in
+  <span data-count="0">i</span>f len_a &lt;&gt; len_b then
+    <span data-count="0">E</span>xpect_stop
+      (Printf.sprint<span data-count="0">f</span> "Dict: size mismatch (%d != %d)" len_a len_b)
+  else
+    <span data-count="0">l</span>et cmp_key (k1, _) (k2, _) = <span data-count="0">S</span>tring.compare k1 k2 in
+    let da = List.sort cmp_key dict_a in
+    <span data-count="0">l</span>et db = List.sort cmp_key dict_b in
+    <span data-count="0">l</span>et rec scan la lb =
+      <span data-count="0">m</span>atch la, lb with
+      | <span data-count="0">(</span>k1, v1) :: rest_a, (k2, v2) :: rest_b -&gt;
+          if k1 &lt;&gt; k2 then
+            <span data-count="0">E</span>xpect_stop (Printf.sprint<span data-count="0">f</span> "Dict: keys differ: expected `%s`, got `%s`" k1 k2)
+          else
+            <span data-count="0">(</span>match compare_values ~tolerance v1 v2 with
+             | <span data-count="0">E</span>xpect_pass -&gt; scan rest_a rest_b
+             | <span data-count="0">E</span>xpect_stop msg -&gt;
+                 Expect_stop (Printf.sprint<span data-count="0">f</span> "Dict: key `%s` value differs: %s" k1 msg)
+           | <span data-count="0">E</span>xpect_hold msg -&gt;
+                Expect_hold (Printf.sprint<span data-count="0">f</span> "Dict: key `%s` value could not be compared: %s" k1 msg))
+      | <span data-count="0">[</span>], [] -&gt; Expect_pass
+      | <span data-count="0">_</span> -&gt; Expect_pass (* unreachable: lengths already checked equal *)
+    in
+    scan da db
+
+and compare_dataframes ~tolerance (df_a : dataframe) (df_b : dataframe) : expect_kind =
+  <span data-count="0">i</span>f Utils.dataframe_equal df_a df_b then <span data-count="0">E</span>xpect_pass
+  else
+    <span data-count="0">l</span>et table_a = df_a.arrow_table and table_b = df_b.arrow_table in
+    let cols_a = Arrow_table.column_names table_a in
+    <span data-count="0">l</span>et cols_b = Arrow_table.column_names table_b in
+    <span data-count="0">i</span>f cols_a &lt;&gt; cols_b then
+      <span data-count="0">E</span>xpect_stop
+        (Printf.sprint<span data-count="0">f</span> "DataFrame: column names differ: [%s] != [%s]"
+           (String.conca<span data-count="0">t</span> ", " cols_a) (String.conca<span data-count="0">t</span> ", " cols_b))
+    else
+      <span data-count="0">l</span>et nrows_a = Arrow_table.num_rows table_a in
+      <span data-count="0">l</span>et nrows_b = Arrow_table.num_rows table_b in
+      <span data-count="0">i</span>f nrows_a &lt;&gt; nrows_b then
+        <span data-count="0">E</span>xpect_stop
+          (Printf.sprint<span data-count="0">f</span> "DataFrame: row count differs: %d != %d" nrows_a nrows_b)
+      else
+        <span data-count="0">l</span>et rec scan_columns = function
+          | <span data-count="0">[</span>] -&gt; Expect_pass (* unreachable: dataframe_equal already returned false *)
+          | <span data-count="0">c</span>ol_name :: rest -&gt;
+              (match Arrow_table.get_colum<span data-count="0">n</span> table_a col_name, Arrow_table.get_colum<span data-count="0">n</span> table_b col_name with
+               | <span data-count="0">S</span>ome col_a, Some col_b -&gt;
+                   let rec scan_rows row =
+                     <span data-count="0">i</span>f row &gt;= nrows_a then <span data-count="0">s</span>can_columns rest
+                     else
+                       <span data-count="0">l</span>et va = Arrow_bridge.value_at col_a row in
+                       <span data-count="0">l</span>et vb = Arrow_bridge.value_at col_b row in
+                       <span data-count="0">m</span>atch compare_values ~tolerance va vb with
+                       | <span data-count="0">E</span>xpect_pass -&gt; scan_rows (row + 1)
+                       | <span data-count="0">E</span>xpect_stop msg -&gt;
+                           Expect_stop
+                             (Printf.sprint<span data-count="0">f</span> "DataFrame: column `%s` differs at row %d: %s" col_name row msg)
+                       | <span data-count="0">E</span>xpect_hold msg -&gt;
+                           Expect_hold
+                             (Printf.sprint<span data-count="0">f</span> "DataFrame: column `%s` at row %d could not be compared: %s" col_name row msg)
+                   in
+                   scan_rows 0
+               | <span data-count="0">_</span> -&gt; scan_columns rest)
+        in
+        scan_columns cols_a
+
+(*
+--# Compare two values for testing
+--#
+--# Compares `actual` against `expected` and returns a testcraft Expect
+--# value (`Expect_pass`, `Expect_stop`, or `Expect_hold`) describing the
+--# outcome. Designed to be used with `assert()`: `assert(expect_equal(a, b))`.
+--#
+--# @name expect_equal
+--# @param actual :: Any The computed value to check.
+--# @param expected :: Any The value `actual` is expected to equal.
+--# @param tolerance :: Float = 1e-9 Absolute tolerance used for Float comparisons.
+--# @return :: Expect A `VExpect` value: passing, stopping, or holding (on NA).
+--# @example
+--#   expect_equal(1, 1)
+--#   assert(expect_equal(0.1 + 0.2, 0.3, tolerance = 1e-9))
+--# @family testcraft
+--# @seealso expect_pass, expect_fail, expect_msg, assert
+--# @export
+*)
+let register env =
+  <span data-count="268">E</span>nv.add "expect_equal"
+    (make_builtin_name<span data-count="268">d</span> ~name:"expect_equal" ~variadic:true 2 (fun named_args _env -&gt;
+       <span data-count="14">l</span>et unknown_named =
+         List.filter
+           (fun (n, _) -&gt;
+             <span data-count="29">m</span>atch n with
+             | <span data-count="28">N</span>one -&gt; false
+             | <span data-count="1">S</span>ome "tolerance" -&gt; false
+             | <span data-count="0">S</span>ome _ -&gt; true)
+           named_args
+       in
+       <span data-count="14">m</span>atch unknown_named with
+       | <span data-count="0">(</span>Some arg_name, _) :: _ -&gt;
+           Error.type_error
+             (Printf.sprint<span data-count="0">f</span> "Function `expect_equal` received unknown named argument `%s`." arg_name)
+       | <span data-count="14">_</span> -&gt;
+           let tolerance_opt = List.find_opt (fun (n, _) -&gt; <span data-count="29">n</span> = Some "tolerance") named_args in
+           <span data-count="14">(</span>match tolerance_opt with
+            | <span data-count="1">S</span>ome (_, other) when (match other with <span data-count="1">V</span>Float _ | <span data-count="0">V</span>Int _ -&gt; false | <span data-count="0">_</span> -&gt; true) -&gt;
+                <span data-count="0">E</span>rror.type_error
+                  (Printf.sprint<span data-count="0">f</span>
+                     "Function `expect_equal` expects the `tolerance` argument to be numeric, got %s."
+                     (Utils.type_nam<span data-count="0">e</span> other))
+            | <span data-count="14">_</span> -&gt;
+                let tolerance =
+                  match tolerance_opt with
+                  | <span data-count="1">S</span>ome (_, VFloat f) -&gt; f
+                  | <span data-count="0">S</span>ome (_, VInt i) -&gt; float_of_in<span data-count="0">t</span> i
+                  | <span data-count="13">_</span> -&gt; default_tolerance
+                in
+                (match Math_common.positional_args_without [ "tolerance" ] named_args with
+                 | <span data-count="14">[</span> actual; expected ] -&gt; VExpect (compare_value<span data-count="14">s</span> ~tolerance actual expected)
+                 | <span data-count="0">a</span>rgs -&gt; Error.arity_error_named "expect_equal" 2 (List.lengt<span data-count="0">h</span> args)))))
+    env
+
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

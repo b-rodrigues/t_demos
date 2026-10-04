@@ -1,0 +1,62 @@
+[
+{
+  "node_name": "test_empty",
+  "depends": []
+},
+{
+  "node_name": "test_all_na",
+  "depends": []
+},
+{
+  "node_name": "test_single_cell",
+  "depends": []
+},
+{
+  "node_name": "test_dup_colnames",
+  "depends": []
+},
+{
+  "node_name": "test_long_colname",
+  "depends": []
+},
+{
+  "node_name": "test_na_filter",
+  "depends": []
+},
+{
+  "node_name": "test_na_arithmetic",
+  "depends": []
+},
+{
+  "node_name": "test_coerce_mutate",
+  "depends": []
+},
+{
+  "node_name": "test_coerce_bind",
+  "depends": []
+},
+{
+  "node_name": "test_pivot_dup_keys",
+  "depends": []
+},
+{
+  "node_name": "test_pivot_longer",
+  "depends": []
+},
+{
+  "node_name": "test_group_by_na",
+  "depends": []
+},
+{
+  "node_name": "test_empty_grouped",
+  "depends": []
+},
+{
+  "node_name": "test_zero_cols",
+  "depends": []
+},
+{
+  "node_name": "validation",
+  "depends": ["test_all_na", "test_coerce_bind", "test_coerce_mutate", "test_dup_colnames", "test_empty", "test_empty_grouped", "test_group_by_na", "test_long_colname", "test_na_arithmetic", "test_na_filter", "test_pivot_dup_keys", "test_pivot_longer", "test_single_cell", "test_zero_cols"]
+}
+]

@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_012631",
+  "hash": "sfd96acfz7v846642cgh298q74hr8rdn",
+  "out_path": "/nix/store/sfd96acfz7v846642cgh298q74hr8rdn-pipeline_output",
+  "duration": 23.2940,
+  "nodes": [
+{
+  "node": "raw",
+  "path": "/nix/store/sfd96acfz7v846642cgh298q74hr8rdn-pipeline_output/raw/artifact",
+  "hash": "raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.1902
+},
+{
+  "node": "heavy_r_node",
+  "path": "/nix/store/sfd96acfz7v846642cgh298q74hr8rdn-pipeline_output/heavy_r_node/artifact",
+  "hash": "heavy_r_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "Unknown",
+  "dependencies": ["raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.2192
+},
+{
+  "node": "summary_stats",
+  "path": "/nix/store/sfd96acfz7v846642cgh298q74hr8rdn-pipeline_output/summary_stats/artifact",
+  "hash": "summary_stats",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["heavy_r_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.1805
+},
+{
+  "node": "report",
+  "path": "/nix/store/sfd96acfz7v846642cgh298q74hr8rdn-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "QuartoOutput",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.2406
+}
+],
+  "pipeline": "p_site"
+}

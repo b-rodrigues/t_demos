@@ -1,0 +1,82 @@
+{
+  "timestamp": "20261003_235236",
+  "hash": "v750gybq3p60bs1dnh5yvdwh8fc7j2dl",
+  "out_path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output",
+  "duration": 15.4460,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.6491
+},
+{
+  "node": "validate_ranges",
+  "path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output/validate_ranges/artifact",
+  "hash": "validate_ranges",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "Error",
+  "dependencies": ["raw_data"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.5058,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: GUARDRAIL FAILURE: Negative age values detected in input data!."
+},
+{
+  "node": "validate_dates",
+  "path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output/validate_dates/artifact",
+  "hash": "validate_dates",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "Error",
+  "dependencies": ["raw_data"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.5359,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: GUARDRAIL FAILURE: 1 relational date violations detected (login before signup)!."
+},
+{
+  "node": "validate_nulls",
+  "path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output/validate_nulls/artifact",
+  "hash": "validate_nulls",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "Error",
+  "dependencies": ["raw_data"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.5226,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: GUARDRAIL FAILURE: Critical missing values detected in 'id' or 'email' columns!."
+},
+{
+  "node": "final_analytics",
+  "path": "/nix/store/v750gybq3p60bs1dnh5yvdwh8fc7j2dl-pipeline_output/final_analytics/artifact",
+  "hash": "final_analytics",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["validate_dates", "validate_nulls", "validate_ranges"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.2663,
+  "error_code": "GenericError",
+  "error_message": "Aborted due to upstream guardrail failures."
+}
+],
+  "pipeline": "p"
+}

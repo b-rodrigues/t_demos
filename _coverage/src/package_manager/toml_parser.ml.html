@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>toml_parser.ml &mdash; Coverage report</title>
+    <meta name="description" content="45.67% coverage in src/package_manager/toml_parser.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/package_manager/</span>toml_parser.ml
+        </a>
+      </h1>
+      <h2>45.67%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:8.31%"></span>
+      <span class="unvisited" style="top:9.14%"></span>
+      <span class="unvisited" style="top:13.30%"></span>
+      <span class="unvisited" style="top:13.57%"></span>
+      <span class="unvisited" style="top:13.85%"></span>
+      <span class="unvisited" style="top:15.51%"></span>
+      <span class="unvisited" style="top:15.79%"></span>
+      <span class="unvisited" style="top:16.07%"></span>
+      <span class="unvisited" style="top:16.34%"></span>
+      <span class="unvisited" style="top:16.62%"></span>
+      <span class="unvisited" style="top:16.90%"></span>
+      <span class="unvisited" style="top:17.45%"></span>
+      <span class="unvisited" style="top:19.11%"></span>
+      <span class="unvisited" style="top:19.39%"></span>
+      <span class="unvisited" style="top:19.67%"></span>
+      <span class="unvisited" style="top:22.16%"></span>
+      <span class="unvisited" style="top:26.04%"></span>
+      <span class="unvisited" style="top:26.32%"></span>
+      <span class="unvisited" style="top:26.59%"></span>
+      <span class="unvisited" style="top:26.87%"></span>
+      <span class="unvisited" style="top:27.42%"></span>
+      <span class="unvisited" style="top:27.98%"></span>
+      <span class="unvisited" style="top:28.25%"></span>
+      <span class="unvisited" style="top:28.53%"></span>
+      <span class="unvisited" style="top:28.81%"></span>
+      <span class="unvisited" style="top:29.92%"></span>
+      <span class="unvisited" style="top:30.47%"></span>
+      <span class="unvisited" style="top:31.58%"></span>
+      <span class="unvisited" style="top:32.13%"></span>
+      <span class="unvisited" style="top:33.24%"></span>
+      <span class="unvisited" style="top:34.35%"></span>
+      <span class="unvisited" style="top:35.46%"></span>
+      <span class="unvisited" style="top:36.01%"></span>
+      <span class="unvisited" style="top:36.29%"></span>
+      <span class="unvisited" style="top:36.84%"></span>
+      <span class="unvisited" style="top:37.12%"></span>
+      <span class="unvisited" style="top:37.40%"></span>
+      <span class="unvisited" style="top:38.23%"></span>
+      <span class="unvisited" style="top:38.50%"></span>
+      <span class="unvisited" style="top:38.78%"></span>
+      <span class="unvisited" style="top:39.06%"></span>
+      <span class="unvisited" style="top:39.34%"></span>
+      <span class="unvisited" style="top:39.61%"></span>
+      <span class="unvisited" style="top:40.17%"></span>
+      <span class="unvisited" style="top:40.44%"></span>
+      <span class="unvisited" style="top:40.72%"></span>
+      <span class="unvisited" style="top:41.55%"></span>
+      <span class="unvisited" style="top:41.83%"></span>
+      <span class="some-visited" style="top:45.98%"></span>
+      <span class="unvisited" style="top:47.09%"></span>
+      <span class="unvisited" style="top:49.86%"></span>
+      <span class="unvisited" style="bottom:49.58%"></span>
+      <span class="unvisited" style="bottom:49.31%"></span>
+      <span class="some-visited" style="bottom:46.54%"></span>
+      <span class="unvisited" style="bottom:45.15%"></span>
+      <span class="unvisited" style="bottom:44.60%"></span>
+      <span class="unvisited" style="bottom:39.89%"></span>
+      <span class="unvisited" style="bottom:39.61%"></span>
+      <span class="unvisited" style="bottom:39.34%"></span>
+      <span class="unvisited" style="bottom:38.23%"></span>
+      <span class="unvisited" style="bottom:36.84%"></span>
+      <span class="unvisited" style="bottom:36.57%"></span>
+      <span class="unvisited" style="bottom:36.01%"></span>
+      <span class="unvisited" style="bottom:35.73%"></span>
+      <span class="unvisited" style="bottom:35.18%"></span>
+      <span class="unvisited" style="bottom:34.90%"></span>
+      <span class="some-visited" style="bottom:34.07%"></span>
+      <span class="unvisited" style="bottom:33.80%"></span>
+      <span class="unvisited" style="bottom:32.96%"></span>
+      <span class="unvisited" style="bottom:26.32%"></span>
+      <span class="unvisited" style="bottom:26.04%"></span>
+      <span class="unvisited" style="bottom:25.76%"></span>
+      <span class="unvisited" style="bottom:24.65%"></span>
+      <span class="unvisited" style="bottom:24.38%"></span>
+      <span class="unvisited" style="bottom:24.10%"></span>
+      <span class="unvisited" style="bottom:23.82%"></span>
+      <span class="unvisited" style="bottom:23.55%"></span>
+      <span class="unvisited" style="bottom:23.27%"></span>
+      <span class="unvisited" style="bottom:22.99%"></span>
+      <span class="unvisited" style="bottom:22.71%"></span>
+      <span class="unvisited" style="bottom:22.44%"></span>
+      <span class="unvisited" style="bottom:22.16%"></span>
+      <span class="unvisited" style="bottom:21.88%"></span>
+      <span class="unvisited" style="bottom:21.61%"></span>
+      <span class="unvisited" style="bottom:21.33%"></span>
+      <span class="unvisited" style="bottom:21.05%"></span>
+      <span class="unvisited" style="bottom:20.22%"></span>
+      <span class="unvisited" style="bottom:19.94%"></span>
+      <span class="unvisited" style="bottom:19.67%"></span>
+      <span class="unvisited" style="bottom:19.39%"></span>
+      <span class="unvisited" style="bottom:19.11%"></span>
+      <span class="unvisited" style="bottom:18.84%"></span>
+      <span class="unvisited" style="bottom:18.56%"></span>
+      <span class="unvisited" style="bottom:18.28%"></span>
+      <span class="unvisited" style="bottom:18.01%"></span>
+      <span class="unvisited" style="bottom:17.73%"></span>
+      <span class="some-visited" style="bottom:15.24%"></span>
+      <span class="unvisited" style="bottom:14.13%"></span>
+      <span class="some-visited" style="bottom:12.74%"></span>
+      <span class="unvisited" style="bottom:12.47%"></span>
+      <span class="unvisited" style="bottom:11.91%"></span>
+      <span class="unvisited" style="bottom:11.63%"></span>
+      <span class="unvisited" style="bottom:11.36%"></span>
+      <span class="unvisited" style="bottom:10.25%"></span>
+      <span class="unvisited" style="bottom:9.97%"></span>
+      <span class="some-visited" style="bottom:7.48%"></span>
+      <span class="unvisited" style="bottom:6.93%"></span>
+      <span class="some-visited" style="bottom:4.71%"></span>
+      <span class="unvisited" style="bottom:4.16%"></span>
+      <span class="some-visited" style="bottom:1.11%"></span>
+      <span class="unvisited" style="bottom:0.55%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span class="visited"> </span>
+<a id="L9"></a><span class="visited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span class="visited"> </span>
+<a id="L14"></a><span class="visited"> </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span class="visited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="visited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span class="visited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span class="visited"> </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="visited"> </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span class="visited"> </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="visited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span class="visited"> </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="visited"> </span>
+<a id="L92"></a><span class="visited"> </span>
+<a id="L93"></a><span class="visited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span class="unvisited"> </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span class="unvisited"> </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span class="unvisited"> </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span class="unvisited"> </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span > </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span > </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span > </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span class="unvisited"> </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span > </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span class="unvisited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span > </span>
+<a id="L137"></a><span > </span>
+<a id="L138"></a><span class="unvisited"> </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span class="unvisited"> </span>
+<a id="L141"></a><span class="unvisited"> </span>
+<a id="L142"></a><span class="unvisited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span class="unvisited"> </span>
+<a id="L147"></a><span class="unvisited"> </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span > </span>
+<a id="L150"></a><span class="unvisited"> </span>
+<a id="L151"></a><span class="unvisited"> </span>
+<a id="L152"></a><span > </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span class="visited"> </span>
+<a id="L155"></a><span > </span>
+<a id="L156"></a><span class="visited"> </span>
+<a id="L157"></a><span class="visited"> </span>
+<a id="L158"></a><span class="visited"> </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span class="visited"> </span>
+<a id="L161"></a><span > </span>
+<a id="L162"></a><span class="visited"> </span>
+<a id="L163"></a><span > </span>
+<a id="L164"></a><span class="visited"> </span>
+<a id="L165"></a><span class="visited"> </span>
+<a id="L166"></a><span class="some-visited"> </span>
+<a id="L167"></a><span class="visited"> </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span > </span>
+<a id="L170"></a><span class="unvisited"> </span>
+<a id="L171"></a><span class="visited"> </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span > </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span > </span>
+<a id="L176"></a><span > </span>
+<a id="L177"></a><span > </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span class="unvisited"> </span>
+<a id="L181"></a><span > </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span class="unvisited"> </span>
+<a id="L184"></a><span > </span>
+<a id="L185"></a><span class="visited"> </span>
+<a id="L186"></a><span > </span>
+<a id="L187"></a><span > </span>
+<a id="L188"></a><span > </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span class="visited"> </span>
+<a id="L191"></a><span > </span>
+<a id="L192"></a><span class="visited"> </span>
+<a id="L193"></a><span class="some-visited"> </span>
+<a id="L194"></a><span > </span>
+<a id="L195"></a><span class="visited"> </span>
+<a id="L196"></a><span class="visited"> </span>
+<a id="L197"></a><span class="visited"> </span>
+<a id="L198"></a><span class="unvisited"> </span>
+<a id="L199"></a><span class="visited"> </span>
+<a id="L200"></a><span class="unvisited"> </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span class="visited"> </span>
+<a id="L203"></a><span class="visited"> </span>
+<a id="L204"></a><span class="visited"> </span>
+<a id="L205"></a><span > </span>
+<a id="L206"></a><span > </span>
+<a id="L207"></a><span class="visited"> </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span class="visited"> </span>
+<a id="L210"></a><span class="visited"> </span>
+<a id="L211"></a><span class="visited"> </span>
+<a id="L212"></a><span class="visited"> </span>
+<a id="L213"></a><span > </span>
+<a id="L214"></a><span class="visited"> </span>
+<a id="L215"></a><span > </span>
+<a id="L216"></a><span class="visited"> </span>
+<a id="L217"></a><span class="unvisited"> </span>
+<a id="L218"></a><span class="unvisited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span class="visited"> </span>
+<a id="L221"></a><span > </span>
+<a id="L222"></a><span > </span>
+<a id="L223"></a><span class="unvisited"> </span>
+<a id="L224"></a><span class="visited"> </span>
+<a id="L225"></a><span > </span>
+<a id="L226"></a><span > </span>
+<a id="L227"></a><span class="visited"> </span>
+<a id="L228"></a><span class="unvisited"> </span>
+<a id="L229"></a><span class="unvisited"> </span>
+<a id="L230"></a><span > </span>
+<a id="L231"></a><span class="unvisited"> </span>
+<a id="L232"></a><span class="unvisited"> </span>
+<a id="L233"></a><span > </span>
+<a id="L234"></a><span class="unvisited"> </span>
+<a id="L235"></a><span class="unvisited"> </span>
+<a id="L236"></a><span class="visited"> </span>
+<a id="L237"></a><span > </span>
+<a id="L238"></a><span class="some-visited"> </span>
+<a id="L239"></a><span class="unvisited"> </span>
+<a id="L240"></a><span > </span>
+<a id="L241"></a><span class="visited"> </span>
+<a id="L242"></a><span class="unvisited"> </span>
+<a id="L243"></a><span class="visited"> </span>
+<a id="L244"></a><span > </span>
+<a id="L245"></a><span > </span>
+<a id="L246"></a><span class="visited"> </span>
+<a id="L247"></a><span > </span>
+<a id="L248"></a><span class="visited"> </span>
+<a id="L249"></a><span class="visited"> </span>
+<a id="L250"></a><span > </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span > </span>
+<a id="L253"></a><span > </span>
+<a id="L254"></a><span > </span>
+<a id="L255"></a><span class="visited"> </span>
+<a id="L256"></a><span class="visited"> </span>
+<a id="L257"></a><span class="visited"> </span>
+<a id="L258"></a><span class="visited"> </span>
+<a id="L259"></a><span class="visited"> </span>
+<a id="L260"></a><span class="visited"> </span>
+<a id="L261"></a><span class="visited"> </span>
+<a id="L262"></a><span class="visited"> </span>
+<a id="L263"></a><span class="visited"> </span>
+<a id="L264"></a><span > </span>
+<a id="L265"></a><span > </span>
+<a id="L266"></a><span class="unvisited"> </span>
+<a id="L267"></a><span class="unvisited"> </span>
+<a id="L268"></a><span class="unvisited"> </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span > </span>
+<a id="L271"></a><span > </span>
+<a id="L272"></a><span class="unvisited"> </span>
+<a id="L273"></a><span class="unvisited"> </span>
+<a id="L274"></a><span class="unvisited"> </span>
+<a id="L275"></a><span class="unvisited"> </span>
+<a id="L276"></a><span class="unvisited"> </span>
+<a id="L277"></a><span class="unvisited"> </span>
+<a id="L278"></a><span class="unvisited"> </span>
+<a id="L279"></a><span class="unvisited"> </span>
+<a id="L280"></a><span class="unvisited"> </span>
+<a id="L281"></a><span class="unvisited"> </span>
+<a id="L282"></a><span class="unvisited"> </span>
+<a id="L283"></a><span class="unvisited"> </span>
+<a id="L284"></a><span class="unvisited"> </span>
+<a id="L285"></a><span class="unvisited"> </span>
+<a id="L286"></a><span > </span>
+<a id="L287"></a><span > </span>
+<a id="L288"></a><span class="unvisited"> </span>
+<a id="L289"></a><span class="unvisited"> </span>
+<a id="L290"></a><span class="unvisited"> </span>
+<a id="L291"></a><span class="unvisited"> </span>
+<a id="L292"></a><span class="unvisited"> </span>
+<a id="L293"></a><span class="unvisited"> </span>
+<a id="L294"></a><span class="unvisited"> </span>
+<a id="L295"></a><span class="unvisited"> </span>
+<a id="L296"></a><span class="unvisited"> </span>
+<a id="L297"></a><span class="unvisited"> </span>
+<a id="L298"></a><span > </span>
+<a id="L299"></a><span > </span>
+<a id="L300"></a><span > </span>
+<a id="L301"></a><span class="visited"> </span>
+<a id="L302"></a><span class="visited"> </span>
+<a id="L303"></a><span class="visited"> </span>
+<a id="L304"></a><span class="visited"> </span>
+<a id="L305"></a><span class="visited"> </span>
+<a id="L306"></a><span class="some-visited"> </span>
+<a id="L307"></a><span class="visited"> </span>
+<a id="L308"></a><span class="visited"> </span>
+<a id="L309"></a><span class="visited"> </span>
+<a id="L310"></a><span class="unvisited"> </span>
+<a id="L311"></a><span > </span>
+<a id="L312"></a><span > </span>
+<a id="L313"></a><span class="visited"> </span>
+<a id="L314"></a><span class="visited"> </span>
+<a id="L315"></a><span class="some-visited"> </span>
+<a id="L316"></a><span class="unvisited"> </span>
+<a id="L317"></a><span class="visited"> </span>
+<a id="L318"></a><span class="unvisited"> </span>
+<a id="L319"></a><span class="unvisited"> </span>
+<a id="L320"></a><span class="unvisited"> </span>
+<a id="L321"></a><span > </span>
+<a id="L322"></a><span > </span>
+<a id="L323"></a><span > </span>
+<a id="L324"></a><span class="unvisited"> </span>
+<a id="L325"></a><span class="unvisited"> </span>
+<a id="L326"></a><span > </span>
+<a id="L327"></a><span > </span>
+<a id="L328"></a><span > </span>
+<a id="L329"></a><span > </span>
+<a id="L330"></a><span class="visited"> </span>
+<a id="L331"></a><span class="visited"> </span>
+<a id="L332"></a><span class="visited"> </span>
+<a id="L333"></a><span class="visited"> </span>
+<a id="L334"></a><span class="some-visited"> </span>
+<a id="L335"></a><span > </span>
+<a id="L336"></a><span class="unvisited"> </span>
+<a id="L337"></a><span > </span>
+<a id="L338"></a><span class="visited"> </span>
+<a id="L339"></a><span class="visited"> </span>
+<a id="L340"></a><span > </span>
+<a id="L341"></a><span class="visited"> </span>
+<a id="L342"></a><span class="visited"> </span>
+<a id="L343"></a><span class="visited"> </span>
+<a id="L344"></a><span class="some-visited"> </span>
+<a id="L345"></a><span > </span>
+<a id="L346"></a><span class="unvisited"> </span>
+<a id="L347"></a><span > </span>
+<a id="L348"></a><span class="visited"> </span>
+<a id="L349"></a><span class="visited"> </span>
+<a id="L350"></a><span class="visited"> </span>
+<a id="L351"></a><span class="visited"> </span>
+<a id="L352"></a><span class="visited"> </span>
+<a id="L353"></a><span class="visited"> </span>
+<a id="L354"></a><span class="visited"> </span>
+<a id="L355"></a><span class="visited"> </span>
+<a id="L356"></a><span class="visited"> </span>
+<a id="L357"></a><span class="some-visited"> </span>
+<a id="L358"></a><span > </span>
+<a id="L359"></a><span class="unvisited"> </span>
+<a id="L360"></a><span > </span>
+<a id="L361"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+<a href="#L287">287</a>
+<a href="#L288">288</a>
+<a href="#L289">289</a>
+<a href="#L290">290</a>
+<a href="#L291">291</a>
+<a href="#L292">292</a>
+<a href="#L293">293</a>
+<a href="#L294">294</a>
+<a href="#L295">295</a>
+<a href="#L296">296</a>
+<a href="#L297">297</a>
+<a href="#L298">298</a>
+<a href="#L299">299</a>
+<a href="#L300">300</a>
+<a href="#L301">301</a>
+<a href="#L302">302</a>
+<a href="#L303">303</a>
+<a href="#L304">304</a>
+<a href="#L305">305</a>
+<a href="#L306">306</a>
+<a href="#L307">307</a>
+<a href="#L308">308</a>
+<a href="#L309">309</a>
+<a href="#L310">310</a>
+<a href="#L311">311</a>
+<a href="#L312">312</a>
+<a href="#L313">313</a>
+<a href="#L314">314</a>
+<a href="#L315">315</a>
+<a href="#L316">316</a>
+<a href="#L317">317</a>
+<a href="#L318">318</a>
+<a href="#L319">319</a>
+<a href="#L320">320</a>
+<a href="#L321">321</a>
+<a href="#L322">322</a>
+<a href="#L323">323</a>
+<a href="#L324">324</a>
+<a href="#L325">325</a>
+<a href="#L326">326</a>
+<a href="#L327">327</a>
+<a href="#L328">328</a>
+<a href="#L329">329</a>
+<a href="#L330">330</a>
+<a href="#L331">331</a>
+<a href="#L332">332</a>
+<a href="#L333">333</a>
+<a href="#L334">334</a>
+<a href="#L335">335</a>
+<a href="#L336">336</a>
+<a href="#L337">337</a>
+<a href="#L338">338</a>
+<a href="#L339">339</a>
+<a href="#L340">340</a>
+<a href="#L341">341</a>
+<a href="#L342">342</a>
+<a href="#L343">343</a>
+<a href="#L344">344</a>
+<a href="#L345">345</a>
+<a href="#L346">346</a>
+<a href="#L347">347</a>
+<a href="#L348">348</a>
+<a href="#L349">349</a>
+<a href="#L350">350</a>
+<a href="#L351">351</a>
+<a href="#L352">352</a>
+<a href="#L353">353</a>
+<a href="#L354">354</a>
+<a href="#L355">355</a>
+<a href="#L356">356</a>
+<a href="#L357">357</a>
+<a href="#L358">358</a>
+<a href="#L359">359</a>
+<a href="#L360">360</a>
+<a href="#L361">361</a>
+</pre>
+<pre><code class="ocaml">(* src/package_manager/toml_parser.ml *)
+(* TOML parsing for DESCRIPTION.toml and tproject.toml using otoml *)
+
+open Package_types
+
+(** Helper: get a string from a TOML table, with a default *)
+let get_string_opt toml path ~default =
+  <span data-count="5760">t</span>ry Otoml.fin<span data-count="2064">d</span> toml Otoml.get_string path
+  with <span data-count="3696">_</span> -&gt; default
+
+(** Helper: get a string list from a TOML table, with a default *)
+let get_string_list_opt toml path ~default =
+  <span data-count="3456">t</span>ry Otoml.fin<span data-count="1614">d</span> toml (Otoml.get_arra<span data-count="3456">y</span> Otoml.get_string) path
+  with <span data-count="1842">_</span> -&gt; default
+
+(** Read a pyproject.toml file and extract the requires-python field.
+    Returns None if the file doesn't exist or can't be parsed. *)
+let read_requires_python_from_workspace ~(root_dir : string) ~(workspace : string) : string option =
+  <span data-count="13">l</span>et pyproject_path = Filename.concat (Filename.conca<span data-count="13">t</span> root_dir workspace) "pyproject.toml" in
+  <span data-count="13">t</span>ry
+    let ch = open_in pyproject_path in
+    <span data-count="13">l</span>et content =
+      Fun.protect
+        ~finally:(fun () -&gt; <span data-count="13">c</span>lose_in_noerr ch)
+        (fun () -&gt; <span data-count="13">r</span>eally_input_string ch (in_channel_lengt<span data-count="13">h</span> ch))
+    in
+    <span data-count="13">l</span>et toml = Otoml.Parser.from_string content in
+    <span data-count="13">l</span>et requires_python =
+      try Some (Otoml.fin<span data-count="13">d</span> toml Otoml.get_string ["project"; "requires-python"])
+      with <span data-count="0">_</span> -&gt; None
+    in
+    requires_python
+  with <span data-count="0">_</span> -&gt; None
+
+(** Infer a Nixpkgs Python attribute name (e.g. "python312") from a PEP 440
+    requires-python specifier in pyproject.toml.
+
+    Handles these patterns:
+      ==X.Y, ==X.Y.*, ~=X.Y, &gt;=X.Y,&lt;X.(Y+1)  → pythonXY
+      &gt;=X.Y  (no upper bound)                  → Error (ambiguous)
+      &gt;=X.Y,&lt;X.Z where Z &gt; Y+1                → Error (spans multiple minors)
+      absent                                   → Error *)
+let infer_py_version_from_requires_python (requires_python : string) : (string, string) result =
+  <span data-count="13">l</span>et s = String.trim requires_python in
+  (* Open-ended &gt;= constraint with no upper bound — ambiguous *)
+  <span data-count="13">l</span>et open_ended = Str.regexp "^&gt;=\\([0-9]+\\)\\.\\([0-9]+\\)$" in
+  <span data-count="13">i</span>f Str.string_match open_ended s 0 then
+    <span data-count="0">l</span>et major = Str.matched_group 1 s in
+    <span data-count="0">l</span>et minor = Str.matched_group 2 s in
+    <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "'requires-python' %S is ambiguous (open-ended upper bound). Set [py-dependencies].version explicitly in tproject.toml, or use a bounded specifier like '==%s.%s.*'"
+      requires_python major minor)
+  else <span data-count="13">b</span>egin
+    (* Bounded &gt;=X.Y,&lt;X.Z constraint — must span exactly one minor *)
+    let bounded = Str.regexp "^&gt;=\\([0-9]+\\)\\.\\([0-9]+\\),&lt;\\([0-9]+\\)\\.\\([0-9]+\\)$" in
+    <span data-count="13">i</span>f Str.string_match bounded s 0 then
+      <span data-count="0">l</span>et major = int_of_string (Str.matched_grou<span data-count="0">p</span> 1 s) in
+      <span data-count="0">l</span>et minor = int_of_string (Str.matched_grou<span data-count="0">p</span> 2 s) in
+      <span data-count="0">l</span>et ub_major = int_of_string (Str.matched_grou<span data-count="0">p</span> 3 s) in
+      <span data-count="0">l</span>et ub_minor = int_of_string (Str.matched_grou<span data-count="0">p</span> 4 s) in
+      <span data-count="0">i</span>f major = ub_major &amp;&amp; <span data-count="0">u</span>b_minor = minor + 1 then
+        <span data-count="0">O</span>k (Printf.sprint<span data-count="0">f</span> "python%d%d" major minor)
+      else
+        <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "'requires-python' %S spans multiple minor versions; use a specifier that constrains to a single minor (e.g. '==%d.%d.*') or set [py-dependencies].version explicitly"
+          requires_python major minor)
+    else <span data-count="13">b</span>egin
+      (* Compatible release ~=X.Y *)
+      let compatible = Str.regexp "^~=\\([0-9]+\\)\\.\\([0-9]+\\)$" in
+      <span data-count="13">i</span>f Str.string_match compatible s 0 then
+        <span data-count="0">l</span>et major = int_of_string (Str.matched_grou<span data-count="0">p</span> 1 s) in
+        <span data-count="0">l</span>et minor = int_of_string (Str.matched_grou<span data-count="0">p</span> 2 s) in
+        <span data-count="0">O</span>k (Printf.sprint<span data-count="0">f</span> "python%d%d" major minor)
+      else <span data-count="13">b</span>egin
+        (* Exact match: X.Y, ==X.Y, ==X.Y.* *)
+        let exact = Str.regexp "^\\(==\\)?\\([0-9]+\\)\\.\\([0-9]+\\)\\(\\..*\\)?$" in
+        <span data-count="13">i</span>f Str.string_match exact s 0 then
+          <span data-count="13">l</span>et major = int_of_string (Str.matched_grou<span data-count="13">p</span> 2 s) in
+          <span data-count="13">l</span>et minor = int_of_string (Str.matched_grou<span data-count="13">p</span> 3 s) in
+          <span data-count="13">O</span>k (Printf.sprint<span data-count="13">f</span> "python%d%d" major minor)
+        else
+          <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Could not parse 'requires-python' %S; expected a PEP 440 specifier (e.g. '==3.12', '~=3.12', '&gt;=3.12,&lt;3.13')" requires_python)
+      end
+    end
+  end
+
+(** Parse dependencies from [dependencies] table.
+    Only { git, tag } inline tables are valid. Strings, arrays, bools,
+    numbers, and tables missing git/tag are hard errors. *)
+let parse_dependencies toml : (dependency list, string) result =
+  <span data-count="576">t</span>ry
+    let pairs =
+      try Otoml.fin<span data-count="426">d</span> toml Otoml.get_table ["dependencies"]
+      with <span data-count="150">_</span> -&gt; []  in
+    List.fold_lef<span data-count="576">t</span> (fun acc (name, value) -&gt;
+      <span data-count="0">m</span>atch acc with
+      | <span data-count="0">E</span>rror _ -&gt; acc
+      | <span data-count="0">O</span>k deps -&gt;
+        let is_table = try (ignore (Otoml.get_tabl<span data-count="0">e</span> value); true) with <span data-count="0">_</span> -&gt; false in
+        if is_table then
+          <span data-count="0">t</span>ry
+            let git_url = Otoml.find value Otoml.get_string ["git"] in
+            <span data-count="0">l</span>et tag = Otoml.find value Otoml.get_string ["tag"] in
+            <span data-count="0">O</span>k ({ dep_name = name; git_url; tag } :: deps)
+          with <span data-count="0">_</span> -&gt;
+            Error (Printf.sprint<span data-count="0">f</span>
+              "Invalid [dependencies] entry `%s`: expected `%s = { git = \"&lt;url&gt;\", tag = \"&lt;tag&gt;\" }`, but the inline table is missing `git` or `tag`."
+              name name)
+        else
+          <span data-count="0">l</span>et is_string = try (ignore (Otoml.get_strin<span data-count="0">g</span> value); true) with <span data-count="0">_</span> -&gt; false in
+          if is_string then
+            <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span>
+              "Invalid [dependencies] entry `%s`: a version-constraint string is not supported. Declare a T-package dependency as `%s = { git = \"&lt;url&gt;\", tag = \"&lt;tag&gt;\" }`. For minimum T version, use the `[t]` section: `min_version = \"...\"`."
+              name name)
+          else
+            <span data-count="0">l</span>et is_array = try (ignore (Otoml.get_arra<span data-count="0">y</span> (fun x -&gt; <span data-count="0">x</span>) value); true) with <span data-count="0">_</span> -&gt; false in
+            if is_array then
+              <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span>
+                "Invalid [dependencies] entry `%s`: expected `%s = { git = \"&lt;url&gt;\", tag = \"&lt;tag&gt;\" }` (a T package), but found an array. Declare runtime-language packages in their own sections: [py-dependencies].packages, [r-dependencies].packages, or [jl-dependencies].packages."
+                name name)
+            else
+              <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span>
+                "Invalid [dependencies] entry `%s`: expected `%s = { git = \"&lt;url&gt;\", tag = \"&lt;tag&gt;\" }` (a T package), but found an unsupported value type."
+                name name)
+    ) (Ok []) pairs
+  with <span data-count="0">_</span> -&gt; Ok []
+
+(** Parse a DESCRIPTION.toml string into package_config *)
+let parse_description_toml (content : string) : (package_config, string) result =
+  <span data-count="0">t</span>ry
+    let toml = Otoml.Parser.from_string content in
+    <span data-count="0">l</span>et name = get_string_opt toml ["package"; "name"] ~default:"" in
+    <span data-count="0">i</span>f name = "" then <span data-count="0">E</span>rror "Missing required field: package.name"
+    else
+      <span data-count="0">m</span>atch parse_dependencies toml with
+      | <span data-count="0">E</span>rror msg -&gt; Error msg
+      | <span data-count="0">O</span>k dependencies -&gt;
+        Ok {
+          name;
+          version = get_string_op<span data-count="0">t</span> toml ["package"; "version"] ~default:"0.1.0";
+          description = get_string_op<span data-count="0">t</span> toml ["package"; "description"] ~default:"";
+          authors = get_string_list_op<span data-count="0">t</span> toml ["package"; "authors"] ~default:[];
+          license = get_string_op<span data-count="0">t</span> toml ["package"; "license"] ~default:"EUPL-1.2";
+          homepage = get_string_op<span data-count="0">t</span> toml ["package"; "homepage"] ~default:"";
+          repository = get_string_op<span data-count="0">t</span> toml ["package"; "repository"] ~default:"";
+          dependencies;
+          min_t_version = get_string_op<span data-count="0">t</span> toml ["t"; "min_version"] ~default:Version.version;
+          additional_tools = get_string_list_op<span data-count="0">t</span> toml ["additional-tools"; "packages"] ~default:[];
+          latex_packages = get_string_list_op<span data-count="0">t</span> toml ["latex"; "packages"] ~default:[];
+        }
+  with
+  | <span data-count="0">O</span>toml.Parse_error (_, msg) -&gt; Error (Printf.sprint<span data-count="0">f</span> "TOML parse error: %s" msg)
+  | <span data-count="0">e</span>xn -&gt; Error (Printf.sprint<span data-count="0">f</span> "Failed to parse DESCRIPTION.toml: %s" (Printexc.to_strin<span data-count="0">g</span> exn))
+
+let parse_r_git_dependencies toml =
+  <span data-count="576">t</span>ry
+    match Otoml.find toml Otoml.get_table ["r-dependencies"] with
+    | <span data-count="467">p</span>airs -&gt;
+      List.filter_ma<span data-count="467">p</span> (fun (name, value) -&gt;
+        <span data-count="481">i</span>f name = "packages<span data-count="463">"</span> || name = "resolver<span data-count="8">"</span> then <span data-count="471">N</span>one
+        else
+          <span data-count="10">t</span>ry
+            let _ = Otoml.get_table value in
+            <span data-count="10">(</span>try
+               let git_url = Otoml.find value Otoml.get_string ["git"] in
+               <span data-count="10">l</span>et rev = Otoml.find value Otoml.get_string ["rev"] in
+               <span data-count="10">l</span>et cran_inputs =
+                 try Otoml.fin<span data-count="0">d</span> value (Otoml.get_arra<span data-count="10">y</span> Otoml.get_string) ["deps"]
+                 with <span data-count="10">_</span> -&gt; []
+               in
+               let subdir =
+                 try Some (Otoml.fin<span data-count="0">d</span> value Otoml.get_string ["subdir"])
+                 with <span data-count="10">_</span> -&gt; None
+               in
+               Some { rgd_name = name
+                    ; rgd_git_url = git_url
+                    ; rgd_rev = rev
+                    ; rgd_cran_inputs = cran_inputs
+                    ; rgd_git_inputs = []
+                    ; rgd_subdir = subdir
+                    }
+             with <span data-count="0">_</span> -&gt;
+               Printf.eprintf "Warning: [r-dependencies].%s is an inline table but is missing required 'git' or 'rev' string fields. Skipping.\n%!" name;
+               <span data-count="0">N</span>one)
+          with <span data-count="0">_</span> -&gt; None
+      ) pairs
+  with <span data-count="109">_</span> -&gt; []
+
+(** Parse a tproject.toml string into project_config.
+    @param root_dir Optional root directory for reading pyproject.toml (needed when resolver=uv and version is absent). *)
+let parse_tproject_toml ?(root_dir : string option) (content : string) : (project_config, string) result =
+  <span data-count="576">t</span>ry
+    let toml = Otoml.Parser.from_string content in
+    <span data-count="576">l</span>et name = get_string_opt toml ["project"; "name"] ~default:"" in
+    <span data-count="576">i</span>f name = "" then <span data-count="0">E</span>rror "Missing required field: project.name"
+    else
+      <span data-count="576">l</span>et py_resolver = get_string_opt toml ["py-dependencies"; "resolver"] ~default:"nixpkgs" in
+      <span data-count="576">l</span>et py_packages = get_string_list_opt toml ["py-dependencies"; "packages"] ~default:[] in
+      <span data-count="576">i</span>f py_resolver &lt;&gt; "nixpkgs" &amp;&amp; <span data-count="13">p</span>y_resolver &lt;&gt; "uv" then
+        <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Unsupported [py-dependencies].resolver %S; expected \"nixpkgs\" or \"uv\"" py_resolver)
+      else <span data-count="576">i</span>f py_resolver = "uv" &amp;&amp; <span data-count="13">p</span>y_packages &lt;&gt; [] then
+        <span data-count="0">E</span>rror "[py-dependencies].packages cannot be used when resolver = \"uv\"; declare Python dependencies in pyproject.toml and uv.lock instead"
+      else
+        <span data-count="576">l</span>et py_version_explicit =
+          try Some (Otoml.fin<span data-count="349">d</span> toml Otoml.get_string ["py-dependencies"; "version"])
+          with <span data-count="227">_</span> -&gt; None
+        in
+        let py_workspace = get_string_opt toml ["py-dependencies"; "workspace"] ~default:"python" in
+        <span data-count="576">l</span>et py_version_res =
+          match py_version_explicit with
+          | <span data-count="349">S</span>ome v -&gt; Ok v
+          | <span data-count="227">N</span>one when py_resolver = "uv" -&gt;
+            <span data-count="13">(</span>match root_dir with
+             | <span data-count="13">S</span>ome dir -&gt;
+               (match read_requires_python_from_workspace ~root_dir:dir ~workspace:py_workspace with
+                | <span data-count="13">S</span>ome rp -&gt;
+                  (match infer_py_version_from_requires_python rp with
+                   | <span data-count="13">O</span>k v -&gt; Ok v
+                   | <span data-count="0">E</span>rror msg -&gt; Error msg)
+                | <span data-count="0">N</span>one -&gt; Error (Printf.sprint<span data-count="0">f</span> "Cannot infer [py-dependencies].version: pyproject.toml not found or missing 'requires-python' in workspace %S. Set [py-dependencies].version explicitly in tproject.toml." py_workspace))
+             | <span data-count="0">N</span>one -&gt; Error "Cannot infer [py-dependencies].version from UV workspace without a project root directory. Set [py-dependencies].version explicitly in tproject.toml.")
+          | <span data-count="214">N</span>one -&gt; Ok "python314"
+        in
+        match py_version_res with
+        | <span data-count="0">E</span>rror msg -&gt; Error msg
+        | <span data-count="576">O</span>k py_version -&gt;
+            (* If version was explicitly set and we have a root_dir, warn if it conflicts with requires-python *)
+            (match py_version_explicit, root_dir with
+             | <span data-count="311">S</span>ome explicit_ver, Some dir when py_resolver = "uv" -&gt;
+               <span data-count="0">(</span>match read_requires_python_from_workspace ~root_dir:dir ~workspace:py_workspace with
+                | <span data-count="0">S</span>ome rp -&gt;
+                  (match infer_py_version_from_requires_python rp with
+                   | <span data-count="0">O</span>k inferred when inferred &lt;&gt; explicit_ver -&gt;
+                     <span data-count="0">P</span>rintf.eprint<span data-count="0">f</span> "Warning: tproject.toml sets [py-dependencies].version = %S but %S/pyproject.toml requires-python %S maps to %S. Using explicit version %S.\n%!"
+                       explicit_ver py_workspace rp inferred explicit_ver
+                   | <span data-count="0">_</span> -&gt; ())
+                | <span data-count="0">N</span>one -&gt; ())
+             | <span data-count="576">_</span> -&gt; ());
+              let r_resolver = get_string_opt toml ["r-dependencies"; "resolver"] ~default:"nixpkgs" in
+             <span data-count="576">i</span>f r_resolver &lt;&gt; "nixpkgs" &amp;&amp; <span data-count="8">r</span>_resolver &lt;&gt; "renv" &amp;&amp; <span data-count="0">r</span>_resolver &lt;&gt; "renv+toml" then
+               <span data-count="0">E</span>rror (Printf.sprint<span data-count="0">f</span> "Unsupported [r-dependencies].resolver %S; expected \"nixpkgs\", \"renv\" or \"renv+toml\"" r_resolver)
+            else
+              <span data-count="576">m</span>atch parse_dependencies toml with
+              | <span data-count="0">E</span>rror msg -&gt; Error msg
+              | <span data-count="576">O</span>k proj_dependencies -&gt;
+              Ok {
+                proj_name = name;
+                proj_description = get_string_op<span data-count="576">t</span> toml ["project"; "description"] ~default:"";
+                proj_dependencies;
+                proj_r_dependencies = get_string_list_op<span data-count="576">t</span> toml ["r-dependencies"; "packages"] ~default:[];
+              proj_r_git_dependencies = parse_r_git_dependencie<span data-count="576">s</span> toml;
+              proj_r_resolver = r_resolver;
+              proj_py_dependencies = py_packages;
+              proj_py_version = py_version;
+              proj_py_resolver = py_resolver;
+              proj_py_workspace = py_workspace;
+              proj_julia_dependencies = get_string_list_op<span data-count="576">t</span> toml ["jl-dependencies"; "packages"] ~default:[];
+              proj_julia_version = get_string_op<span data-count="576">t</span> toml ["jl-dependencies"; "version"] ~default:"lts";
+              proj_visualization_tool = get_string_op<span data-count="576">t</span> toml ["visualization-tool"; "command"] ~default:"";
+              proj_min_t_version = get_string_op<span data-count="576">t</span> toml ["t"; "min_version"] ~default:Version.version;
+              proj_nixpkgs_date = get_string_op<span data-count="576">t</span> toml ["nixpkgs"; "date"] ~default:"";
+              proj_additional_tools = get_string_list_op<span data-count="576">t</span> toml ["additional-tools"; "packages"] ~default:[];
+              proj_latex_packages = get_string_list_op<span data-count="576">t</span> toml ["latex"; "packages"] ~default:[];
+              proj_license = get_string_op<span data-count="576">t</span> toml ["license"; "name"] ~default:"";
+              proj_authors = get_string_list_op<span data-count="576">t</span> toml ["project"; "authors"] ~default:[];
+            }
+  with
+  | <span data-count="0">O</span>toml.Parse_error (_, msg) -&gt; Error (Printf.sprint<span data-count="0">f</span> "TOML parse error: %s" msg)
+  | <span data-count="0">F</span>ailure msg -&gt; Error msg
+  | <span data-count="0">e</span>xn -&gt; Error (Printf.sprint<span data-count="0">f</span> "Failed to parse tproject.toml: %s" (Printexc.to_strin<span data-count="0">g</span> exn))
+
+(** Generate a DESCRIPTION.toml string from package_config *)
+let serialize_description_toml (cfg : package_config) : string =
+  <span data-count="0">l</span>et buf = Buffer.create 512 in
+  <span data-count="0">B</span>uffer.add_string buf "[package]\n";
+  <span data-count="0">P</span>rintf.bprintf buf "name = %S\n" cfg.name;
+  <span data-count="0">P</span>rintf.bprintf buf "version = %S\n" cfg.version;
+  <span data-count="0">P</span>rintf.bprintf buf "description = %S\n" cfg.description;
+  <span data-count="0">P</span>rintf.bprintf buf "authors = [%s]\n"
+    (String.conca<span data-count="0">t</span> ", " (List.ma<span data-count="0">p</span> (fun a -&gt; <span data-count="0">P</span>rintf.sprintf "%S" a) cfg.authors));
+  <span data-count="0">P</span>rintf.bprintf buf "license = %S\n" cfg.license;
+  <span data-count="0">i</span>f cfg.homepage &lt;&gt; "" then <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "homepage = %S\n" cfg.homepage;
+  <span data-count="0">i</span>f cfg.repository &lt;&gt; "" then <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "repository = %S\n" cfg.repository;
+  <span data-count="0">B</span>uffer.add_char buf '\n';
+  <span data-count="0">B</span>uffer.add_string buf "[dependencies]\n";
+  <span data-count="0">L</span>ist.iter (fun dep -&gt;
+    <span data-count="0">P</span>rintf.bprintf buf "%s = { git = %S, tag = %S }\n"
+      dep.dep_name dep.git_url dep.tag
+  ) cfg.dependencies;
+  <span data-count="0">B</span>uffer.add_char buf '\n';
+  <span data-count="0">B</span>uffer.add_string buf "[t]\n";
+  <span data-count="0">P</span>rintf.bprintf buf "min_version = %S\n" cfg.min_t_version;
+  <span data-count="0">P</span>rintf.bprintf buf "\n[additional-tools]\n";
+  <span data-count="0">P</span>rintf.bprintf buf "packages = [%s]\n"
+    (String.conca<span data-count="0">t</span> ", " (List.ma<span data-count="0">p</span> (fun a -&gt; <span data-count="0">P</span>rintf.sprintf "%S" a) cfg.additional_tools));
+  <span data-count="0">P</span>rintf.bprintf buf "\n[latex]\n";
+  <span data-count="0">P</span>rintf.bprintf buf "packages = [%s]\n"
+    (String.conca<span data-count="0">t</span> ", " (List.ma<span data-count="0">p</span> (fun a -&gt; <span data-count="0">P</span>rintf.sprintf "%S" a) cfg.latex_packages));
+  <span data-count="0">B</span>uffer.contents buf
+
+(** Generate a tproject.toml string from project_config *)
+let serialize_tproject_toml (cfg : project_config) : string =
+  <span data-count="29">l</span>et buf = Buffer.create 512 in
+  <span data-count="29">B</span>uffer.add_string buf "[project]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "name = %S\n" cfg.proj_name;
+  <span data-count="29">P</span>rintf.bprintf buf "description = %S\n" cfg.proj_description;
+  <span data-count="29">P</span>rintf.bprintf buf "authors = [%s]\n"
+    (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="0">P</span>rintf.sprintf "%S" a) cfg.proj_authors));
+  <span data-count="29">B</span>uffer.add_char buf '\n';
+  <span data-count="29">B</span>uffer.add_string buf "[dependencies]\n";
+  <span data-count="29">L</span>ist.iter (fun dep -&gt;
+    <span data-count="0">P</span>rintf.bprintf buf "%s = { git = %S, tag = %S }\n"
+      dep.dep_name dep.git_url dep.tag
+  ) cfg.proj_dependencies;
+  <span data-count="29">B</span>uffer.add_char buf '\n';
+  <span data-count="29">B</span>uffer.add_string buf "[r-dependencies]\n";
+  <span data-count="29">i</span>f cfg.proj_r_resolver = "renv<span data-count="0">"</span> || cfg.proj_r_resolver = "renv+toml<span data-count="0">"</span> then
+    <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "resolver = %S\n" cfg.proj_r_resolver;
+  <span data-count="29">L</span>ist.iter (fun g -&gt;
+    <span data-count="0">l</span>et deps_str =
+      if g.rgd_cran_inputs = [] then <span data-count="0">"</span>"
+      else <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> ", deps = [%s]" (String.conca<span data-count="0">t</span> ", " (List.ma<span data-count="0">p</span> (fun d -&gt; <span data-count="0">P</span>rintf.sprintf "%S" d) g.rgd_cran_inputs))
+    in
+    let subdir_str =
+      match g.rgd_subdir with
+      | <span data-count="0">S</span>ome s -&gt; Printf.sprint<span data-count="0">f</span> ", subdir = %S" s
+      | <span data-count="0">N</span>one -&gt; ""
+    in
+    Printf.bprintf buf "%s = { git = %S, rev = %S%s%s }\n"
+      g.rgd_name g.rgd_git_url g.rgd_rev deps_str subdir_str
+  ) cfg.proj_r_git_dependencies;
+  <span data-count="29">P</span>rintf.bprintf buf "packages = [%s]\n\n"
+    (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="93">P</span>rintf.sprintf "%S" a) cfg.proj_r_dependencies));
+  <span data-count="29">B</span>uffer.add_string buf "[py-dependencies]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "version = %S\n" cfg.proj_py_version;
+  <span data-count="29">i</span>f cfg.proj_py_resolver = "uv" then <span data-count="0">b</span>egin
+    Printf.bprintf buf "resolver = %S\n" cfg.proj_py_resolver;
+    <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "workspace = %S\n\n" cfg.proj_py_workspace
+  end else
+    <span data-count="29">P</span>rintf.bprint<span data-count="29">f</span> buf "packages = [%s]\n\n"
+      (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="98">P</span>rintf.sprintf "%S" a) cfg.proj_py_dependencies));
+  Buffer.add_string buf "[jl-dependencies]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "version = %S\n" cfg.proj_julia_version;
+  <span data-count="29">P</span>rintf.bprintf buf "packages = [%s]\n\n"
+    (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="33">P</span>rintf.sprintf "%S" a) cfg.proj_julia_dependencies));
+  <span data-count="29">i</span>f cfg.proj_visualization_tool &lt;&gt; "" then <span data-count="0">b</span>egin
+    Buffer.add_string buf "[visualization-tool]\n";
+    <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "command = %S\n\n" cfg.proj_visualization_tool
+  end;
+  <span data-count="29">B</span>uffer.add_string buf "[additional-tools]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "packages = [%s]\n\n"
+    (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="31">P</span>rintf.sprintf "%S" a) cfg.proj_additional_tools));
+  <span data-count="29">B</span>uffer.add_string buf "[latex]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "packages = [%s]\n\n"
+    (String.conca<span data-count="29">t</span> ", " (List.ma<span data-count="29">p</span> (fun a -&gt; <span data-count="18">P</span>rintf.sprintf "%S" a) cfg.proj_latex_packages));
+  <span data-count="29">B</span>uffer.add_string buf "[t]\n";
+  <span data-count="29">P</span>rintf.bprintf buf "min_version = %S\n\n" cfg.proj_min_t_version;
+  <span data-count="29">P</span>rintf.bprintf buf "[nixpkgs]\ndate = %S\n\n" cfg.proj_nixpkgs_date;
+  <span data-count="29">i</span>f cfg.proj_license &lt;&gt; "" then <span data-count="0">b</span>egin
+    Buffer.add_string buf "[license]\n";
+    <span data-count="0">P</span>rintf.bprint<span data-count="0">f</span> buf "name = %S\n" cfg.proj_license
+  end;
+  <span data-count="29">B</span>uffer.contents buf
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261004_015929",
+  "hash": "m6fc2p90c5kp6k1b2f3cx1msv6y4lrhp",
+  "out_path": "/nix/store/m6fc2p90c5kp6k1b2f3cx1msv6y4lrhp-pipeline_output",
+  "duration": 14.5565,
+  "nodes": [
+{
+  "node": "r_strings",
+  "path": "/nix/store/m6fc2p90c5kp6k1b2f3cx1msv6y4lrhp-pipeline_output/r_strings/artifact",
+  "hash": "r_strings",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9302
+},
+{
+  "node": "comparison",
+  "path": "/nix/store/m6fc2p90c5kp6k1b2f3cx1msv6y4lrhp-pipeline_output/comparison/artifact",
+  "hash": "comparison",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["r_strings"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2639
+}
+],
+  "pipeline": "p"
+}

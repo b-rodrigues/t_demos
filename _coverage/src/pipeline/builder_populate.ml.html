@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>builder_populate.ml &mdash; Coverage report</title>
+    <meta name="description" content="68.70% coverage in src/pipeline/builder_populate.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/pipeline/</span>builder_populate.ml
+        </a>
+      </h1>
+      <h2>68.70%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:9.87%"></span>
+      <span class="unvisited" style="top:13.16%"></span>
+      <span class="unvisited" style="top:28.95%"></span>
+      <span class="unvisited" style="top:32.24%"></span>
+      <span class="unvisited" style="top:32.89%"></span>
+      <span class="unvisited" style="top:33.55%"></span>
+      <span class="unvisited" style="top:47.37%"></span>
+      <span class="unvisited" style="bottom:49.34%"></span>
+      <span class="unvisited" style="bottom:38.82%"></span>
+      <span class="some-visited" style="bottom:36.84%"></span>
+      <span class="unvisited" style="bottom:35.53%"></span>
+      <span class="some-visited" style="bottom:28.95%"></span>
+      <span class="unvisited" style="bottom:23.03%"></span>
+      <span class="unvisited" style="bottom:22.37%"></span>
+      <span class="unvisited" style="bottom:21.71%"></span>
+      <span class="unvisited" style="bottom:21.05%"></span>
+      <span class="unvisited" style="bottom:20.39%"></span>
+      <span class="some-visited" style="bottom:15.13%"></span>
+      <span class="unvisited" style="bottom:12.50%"></span>
+      <span class="unvisited" style="bottom:11.18%"></span>
+      <span class="unvisited" style="bottom:10.53%"></span>
+      <span class="unvisited" style="bottom:9.87%"></span>
+      <span class="some-visited" style="bottom:6.58%"></span>
+      <span class="unvisited" style="bottom:5.92%"></span>
+      <span class="unvisited" style="bottom:2.63%"></span>
+      <span class="unvisited" style="bottom:0.00%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span class="visited"> </span>
+<a id="L14"></a><span class="visited"> </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span class="visited"> </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="visited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="visited"> </span>
+<a id="L60"></a><span class="visited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span class="visited"> </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="visited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span class="visited"> </span>
+<a id="L81"></a><span class="visited"> </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span class="visited"> </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span class="visited"> </span>
+<a id="L92"></a><span class="visited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="visited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span class="some-visited"> </span>
+<a id="L97"></a><span class="visited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span class="visited"> </span>
+<a id="L100"></a><span class="visited"> </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="visited"> </span>
+<a id="L103"></a><span class="visited"> </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span class="visited"> </span>
+<a id="L107"></a><span class="visited"> </span>
+<a id="L108"></a><span class="some-visited"> </span>
+<a id="L109"></a><span class="visited"> </span>
+<a id="L110"></a><span > </span>
+<a id="L111"></a><span class="visited"> </span>
+<a id="L112"></a><span class="visited"> </span>
+<a id="L113"></a><span class="visited"> </span>
+<a id="L114"></a><span class="visited"> </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span class="visited"> </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="visited"> </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span > </span>
+<a id="L126"></a><span class="visited"> </span>
+<a id="L127"></a><span class="visited"> </span>
+<a id="L128"></a><span class="visited"> </span>
+<a id="L129"></a><span class="some-visited"> </span>
+<a id="L130"></a><span class="visited"> </span>
+<a id="L131"></a><span class="visited"> </span>
+<a id="L132"></a><span class="visited"> </span>
+<a id="L133"></a><span class="unvisited"> </span>
+<a id="L134"></a><span class="visited"> </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span class="unvisited"> </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span class="visited"> </span>
+<a id="L139"></a><span > </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span class="visited"> </span>
+<a id="L142"></a><span class="some-visited"> </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span > </span>
+<a id="L146"></a><span > </span>
+<a id="L147"></a><span > </span>
+<a id="L148"></a><span class="unvisited"> </span>
+<a id="L149"></a><span class="visited"> </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span > </span>
+<a id="L152"></a><span class="unvisited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+</pre>
+<pre><code class="ocaml">(* src/pipeline/builder_populate.ml *)
+open Builder_utils
+open Builder_write_dag
+open Builder_internal
+open Package_types
+
+let builtin_pipeline_strategies =
+  [ "pmml"; "ipc"; "parquet"; "json"; "csv"; "default"; "onnx"; "bin"; "text" ]
+
+let cold_start_warning_shown = ref false
+
+let generate_nix (p : Ast.pipeline_result) =
+  <span data-count="165">e</span>nsure_pipeline_dir ();
+  <span data-count="165">m</span>atch write_dag p with
+  | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to write dag.json: " ^ msg)
+  | <span data-count="165">O</span>k () -&gt;
+      let rel_root = 
+        match get_relative_path_to_root () with
+        | <span data-count="165">"</span>." -&gt; ".."
+        | <span data-count="0">r</span> -&gt; "../" ^ r
+      in
+      let project_root = Builder_utils.get_project_root () in
+      <span data-count="165">l</span>et r_renv_cran_pkgs, r_git_pkgs, py_version_opt, use_uv =
+        let tproject_path = Filename.concat project_root "tproject.toml" in
+        <span data-count="165">i</span>f Sys.file_exists tproject_path then
+          <span data-count="165">(</span>try
+             let ch = open_in tproject_path in
+             <span data-count="165">l</span>et content =
+               Fun.protect
+                 ~finally:(fun () -&gt; <span data-count="165">c</span>lose_in_noerr ch)
+                 (fun () -&gt; <span data-count="165">r</span>eally_input_string ch (in_channel_lengt<span data-count="165">h</span> ch))
+             in
+             <span data-count="165">m</span>atch Toml_parser.parse_tproject_toml ~root_dir:project_root content with
+             | <span data-count="165">O</span>k cfg -&gt;
+               let toml_git_pkgs =
+                 R_description_resolver.auto_detect_all
+                   ~cache_root:(Filename.conca<span data-count="165">t</span> project_root ".t_r_pkg_cache")
+                   ~deps:cfg.proj_r_git_dependencies
+               in
+                let cran_pkgs, git_pkgs =
+                  if Package_types.is_renv_family_resolver cfg.proj_r_resolver then
+                   <span data-count="2">m</span>atch Renv_resolver.split_packages ~project_root with
+                   | <span data-count="2">O</span>k (renv_cran, renv_git) -&gt; renv_cran, toml_git_pkgs @ renv_git
+                   | <span data-count="0">E</span>rror _ -&gt; [], toml_git_pkgs
+                 else
+                   <span data-count="163">[</span>], toml_git_pkgs
+               in
+               cran_pkgs, git_pkgs, Some cfg.proj_py_version, cfg.proj_py_resolver = "uv"
+             | <span data-count="0">E</span>rror _ -&gt; [], [], None, false
+           with <span data-count="0">_</span> -&gt; [], [], None, false)
+        else <span data-count="0">[</span>], [], None, false
+      in
+      let r_serializer_packages, py_serializer_packages =
+        Pipeline_dependency_requirements.required_serializer_packages p
+      in
+      (* Serializer packages are looked up via `rPackages.${p}` in Nix.
+         Git packages live in `rGitPkgsList` and `tlang` lives in `tlang-r`,
+         so exclude them here to avoid `attribute missing` eval errors. *)
+      <span data-count="165">l</span>et git_names =
+        List.map (fun (g : Package_types.r_git_dependency) -&gt; <span data-count="4">g</span>.Package_types.rgd_name) r_git_pkgs
+      in
+      <span data-count="165">l</span>et r_serializer_packages =
+        List.filter
+          (fun pkg -&gt; <span data-count="145">p</span>kg &lt;&gt; "tlang" &amp;&amp; <span data-count="145">n</span>ot (List.me<span data-count="145">m</span> pkg git_names))
+          r_serializer_packages
+      in
+      <span data-count="165">l</span>et nix_content =
+        Nix_emitter.emit_pipeline ~rel_root ~r_git_pkgs ~r_renv_cran_pkgs
+          ?py_version:py_version_opt ~r_serializer_packages ~py_serializer_packages p
+      in
+      <span data-count="165">m</span>atch write_file pipeline_nix_path nix_content with
+      | <span data-count="0">E</span>rror msg -&gt; Error ("Failed to write pipeline.nix: " ^ msg)
+      | <span data-count="165">O</span>k () -&gt; Ok (use_uv, pipeline_nix_path)
+
+let generate_and_maybe_build ?verbose ?pipeline_name ?nix_options ~build (p : Ast.pipeline_result) =
+  <span data-count="165">m</span>atch generate_nix p with
+  | <span data-count="0">E</span>rror msg -&gt; Error msg
+  | <span data-count="165">O</span>k (use_uv, _nix_path) -&gt;
+      if build then
+        <span data-count="156">l</span>et has_per_node_flakes = List.exists (fun (_, f) -&gt; <span data-count="685">f</span> &lt;&gt; None) p.p_flakes in
+        <span data-count="156">i</span>f (has_per_node_flake<span data-count="3">s</span> || use_u<span data-count="1">v</span>) &amp;&amp; <span data-count="4">n</span>ot !cold_start_warning_shown then <span data-count="4">(</span>
+          cold_start_warning_shown := true;
+          Printf.eprint<span data-count="4">f</span>
+            "\n\
+             This pipeline uses per-node flakes or UV Python workspaces.\n\
+             The first build will download and compile all dependencies.\n\
+             This is a one-time cold-start cost — subsequent runs will be\n\
+             significantly faster. Go grab a coffee ☕\n\
+             \n%!"
+        );
+        <span data-count="156">(</span>match build_pipeline_internal ?verbose ?pipeline_name ?nix_options ~json:!Ast.ndjson_mode p with
+         | <span data-count="156">O</span>k result -&gt; Ok result
+         | <span data-count="0">E</span>rror msg -&gt; Error msg)
+      else <span data-count="9">O</span>k (Ast.VString (Printf.sprint<span data-count="9">f</span> "Pipeline populated in `%s`" pipeline_dir))
+
+let populate_pipeline ?(build=<span data-count="0">f</span>alse) ?(skip_requirements=<span data-count="194">f</span>alse) ?verbose ?pipeline_name ?(nix_options : nix_opts option) (p : Ast.pipeline_result) =
+  <span data-count="194">m</span>atch Pipeline_validation.check_missing_files p with
+  | <span data-count="0">f</span>irst :: _ -&gt; Error first.Pipeline_validation.ve_message
+  | <span data-count="194">[</span>] -&gt;
+  if not skip_requirements then <span data-count="194">b</span>egin
+    match Pipeline_dependency_requirements.ensure_project_requirements p with
+    | <span data-count="29">E</span>rror msg -&gt; Error ("Pipeline dependency check failed: " ^ msg)
+    | <span data-count="165">O</span>k () -&gt;
+    let () =
+      let eval_string_list lst =
+        <span data-count="725">l</span>st
+        |&gt; List.map (Eval.eval_exp<span data-count="725">r</span> (ref (Ast.Env.empty)))
+        |&gt; <span data-count="725">L</span>ist.map (function <span data-count="10">A</span>st.VString s -&gt; s | <span data-count="0">_</span> -&gt; "")
+        |&gt; <span data-count="725">L</span>ist.filter (fun s -&gt; <span data-count="10">s</span> &lt;&gt; "")
+      in
+      List.ite<span data-count="165">r</span> (fun (name, _) -&gt;
+        <span data-count="726">l</span>et ser = match List.assoc_opt name p.p_serializers with <span data-count="725">S</span>ome s -&gt; s | <span data-count="1">N</span>one -&gt; Ast.mk_exp<span data-count="1">r</span> (Ast.Var "default") in
+        let des = match List.assoc_opt name p.p_deserializers with <span data-count="725">S</span>ome e -&gt; e | <span data-count="1">N</span>one -&gt; Ast.mk_exp<span data-count="1">r</span> (Ast.Var "default") in
+        let funcs = match List.assoc_opt name p.p_functions with <span data-count="725">S</span>ome f -&gt; eval_string_lis<span data-count="725">t</span> f | <span data-count="1">N</span>one -&gt; [] in
+        let rec check_serializer_type expr =
+          <span data-count="726">m</span>atch expr.Ast.node with
+          | <span data-count="0">A</span>st.Value (Ast.VString s) when List.me<span data-count="0">m</span> (String.lowercase_asci<span data-count="0">i</span> s) (builtin_pipeline_strategies @ ["serialize"]) -&gt;
+              <span data-count="0">P</span>rintf.eprintf "Warning: Node `%s` uses a string literal for a built-in serializer (\"%s\").\nPlease use a symbol instead, e.g.: serializer = ^%s\n%!" 
+                name s (if s = "serialize" then <span data-count="0">"</span>default" else <span data-count="0">s</span>)
+          | <span data-count="0">A</span>st.ListLit items -&gt; List.iter (fun (_, e) -&gt; <span data-count="0">c</span>heck_serializer_type e) items
+          | <span data-count="0">A</span>st.DictLit items -&gt; List.iter (fun (_, e) -&gt; <span data-count="0">c</span>heck_serializer_type e) items
+          | <span data-count="726">_</span> -&gt; ()
+        in
+        check_serializer_type ser;
+        
+        <span data-count="726">l</span>et rec requires_functions expr =
+          <span data-count="1452">m</span>atch expr.Ast.node with
+          | <span data-count="1">A</span>st.Value (Ast.VSymbol s) -&gt; 
+              let s = if String.starts_with ~prefix:"^" s then <span data-count="1">S</span>tring.su<span data-count="1">b</span> s 1 (String.lengt<span data-count="1">h</span> s - 1) else <span data-count="0">s</span> in
+              not (List.me<span data-count="1">m</span> s builtin_pipeline_strategies)
+          | <span data-count="463">A</span>st.Value (Ast.VSerializer s) -&gt;
+              not (List.me<span data-count="463">m</span> s.s_format builtin_pipeline_strategies)
+          | <span data-count="0">A</span>st.Value (Ast.VString _) -&gt; true
+          | <span data-count="936">A</span>st.Var _ -&gt; false
+          | <span data-count="0">A</span>st.DotAccess _ | <span data-count="0">A</span>st.RawCode _ -&gt; false
+          | <span data-count="0">A</span>st.ListLit items -&gt; List.exists (fun (_, e) -&gt; <span data-count="0">r</span>equires_functions e) items
+          | <span data-count="0">A</span>st.DictLit items -&gt; List.exists (fun (_, e) -&gt; <span data-count="0">r</span>equires_functions e) items
+          | <span data-count="52">_</span> -&gt; false
+        in
+        let is_custom_ser = requires_functions ser in
+        <span data-count="726">l</span>et is_custom_des = requires_functions des in
+        <span data-count="726">i</span>f (is_custom_se<span data-count="0">r</span> || is_custom_de<span data-count="0">s</span>) &amp;&amp; <span data-count="0">f</span>uncs = [] then
+          <span data-count="0">P</span>rintf.eprintf "Warning: Node `%s` uses an unknown strategy (not 'default', 'csv', 'json', 'ipc', 'parquet', 'pmml', 'onnx', etc.).\nIf this is a built-in strategy, check the spelling (e.g., ^ipc or ^parquet).\nFor a custom format, define a strategy dict [format: ^name, ...snippets] (see docs/serializers.md).\n%!" name
+      ) p.p_exprs
+    in
+
+    match Pipeline_validation.serializer_errors p with
+    | <span data-count="0">f</span>irst :: _ -&gt; Error first.Pipeline_validation.ve_message
+    | <span data-count="165">[</span>] -&gt;
+      generate_and_maybe_build ?verbose ?pipeline_name ?nix_options ~build p
+  end else
+    <span data-count="0">g</span>enerate_and_maybe_build ?verbose ?pipeline_name ?nix_options ~build p
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_make_mod.ml &mdash; Coverage report</title>
+    <meta name="description" content="0.68% coverage in src/packages/pipeline/t_make_mod.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>t_make_mod.ml
+        </a>
+      </h1>
+      <h2>0.68%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:2.10%"></span>
+      <span class="unvisited" style="top:3.15%"></span>
+      <span class="unvisited" style="top:4.55%"></span>
+      <span class="unvisited" style="top:5.94%"></span>
+      <span class="unvisited" style="top:7.69%"></span>
+      <span class="unvisited" style="top:20.98%"></span>
+      <span class="unvisited" style="top:23.43%"></span>
+      <span class="unvisited" style="top:24.48%"></span>
+      <span class="unvisited" style="top:24.83%"></span>
+      <span class="unvisited" style="top:25.52%"></span>
+      <span class="unvisited" style="top:25.87%"></span>
+      <span class="unvisited" style="top:26.22%"></span>
+      <span class="unvisited" style="top:26.57%"></span>
+      <span class="unvisited" style="top:27.27%"></span>
+      <span class="unvisited" style="top:27.62%"></span>
+      <span class="unvisited" style="top:27.97%"></span>
+      <span class="unvisited" style="top:28.67%"></span>
+      <span class="unvisited" style="top:29.72%"></span>
+      <span class="unvisited" style="top:30.07%"></span>
+      <span class="unvisited" style="top:30.77%"></span>
+      <span class="unvisited" style="top:31.47%"></span>
+      <span class="unvisited" style="top:32.17%"></span>
+      <span class="unvisited" style="top:32.52%"></span>
+      <span class="unvisited" style="top:33.22%"></span>
+      <span class="unvisited" style="top:33.92%"></span>
+      <span class="unvisited" style="top:34.27%"></span>
+      <span class="unvisited" style="top:34.97%"></span>
+      <span class="unvisited" style="top:35.66%"></span>
+      <span class="unvisited" style="top:36.01%"></span>
+      <span class="unvisited" style="top:36.71%"></span>
+      <span class="unvisited" style="top:37.41%"></span>
+      <span class="unvisited" style="top:37.76%"></span>
+      <span class="unvisited" style="top:38.46%"></span>
+      <span class="unvisited" style="top:39.16%"></span>
+      <span class="unvisited" style="top:39.86%"></span>
+      <span class="unvisited" style="top:40.56%"></span>
+      <span class="unvisited" style="top:41.26%"></span>
+      <span class="unvisited" style="top:41.96%"></span>
+      <span class="unvisited" style="top:42.31%"></span>
+      <span class="unvisited" style="top:42.66%"></span>
+      <span class="unvisited" style="top:43.71%"></span>
+      <span class="unvisited" style="top:44.06%"></span>
+      <span class="unvisited" style="top:44.41%"></span>
+      <span class="unvisited" style="top:45.10%"></span>
+      <span class="unvisited" style="top:45.45%"></span>
+      <span class="unvisited" style="top:45.80%"></span>
+      <span class="unvisited" style="top:46.15%"></span>
+      <span class="unvisited" style="top:47.20%"></span>
+      <span class="unvisited" style="top:47.55%"></span>
+      <span class="unvisited" style="top:47.90%"></span>
+      <span class="unvisited" style="top:48.60%"></span>
+      <span class="unvisited" style="top:49.30%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:49.30%"></span>
+      <span class="unvisited" style="bottom:48.60%"></span>
+      <span class="unvisited" style="bottom:47.90%"></span>
+      <span class="unvisited" style="bottom:47.20%"></span>
+      <span class="unvisited" style="bottom:46.85%"></span>
+      <span class="unvisited" style="bottom:46.15%"></span>
+      <span class="unvisited" style="bottom:45.80%"></span>
+      <span class="unvisited" style="bottom:44.06%"></span>
+      <span class="unvisited" style="bottom:43.71%"></span>
+      <span class="unvisited" style="bottom:43.01%"></span>
+      <span class="unvisited" style="bottom:42.31%"></span>
+      <span class="unvisited" style="bottom:41.96%"></span>
+      <span class="unvisited" style="bottom:41.61%"></span>
+      <span class="unvisited" style="bottom:40.91%"></span>
+      <span class="unvisited" style="bottom:40.21%"></span>
+      <span class="unvisited" style="bottom:39.51%"></span>
+      <span class="unvisited" style="bottom:38.81%"></span>
+      <span class="unvisited" style="bottom:38.46%"></span>
+      <span class="unvisited" style="bottom:38.11%"></span>
+      <span class="unvisited" style="bottom:37.06%"></span>
+      <span class="unvisited" style="bottom:36.71%"></span>
+      <span class="unvisited" style="bottom:36.36%"></span>
+      <span class="unvisited" style="bottom:36.01%"></span>
+      <span class="unvisited" style="bottom:35.66%"></span>
+      <span class="unvisited" style="bottom:35.31%"></span>
+      <span class="unvisited" style="bottom:34.97%"></span>
+      <span class="unvisited" style="bottom:34.62%"></span>
+      <span class="unvisited" style="bottom:33.22%"></span>
+      <span class="unvisited" style="bottom:32.87%"></span>
+      <span class="unvisited" style="bottom:32.17%"></span>
+      <span class="unvisited" style="bottom:31.47%"></span>
+      <span class="unvisited" style="bottom:30.77%"></span>
+      <span class="unvisited" style="bottom:29.02%"></span>
+      <span class="unvisited" style="bottom:27.97%"></span>
+      <span class="unvisited" style="bottom:26.22%"></span>
+      <span class="unvisited" style="bottom:25.87%"></span>
+      <span class="unvisited" style="bottom:25.52%"></span>
+      <span class="unvisited" style="bottom:24.48%"></span>
+      <span class="unvisited" style="bottom:23.78%"></span>
+      <span class="unvisited" style="bottom:23.43%"></span>
+      <span class="unvisited" style="bottom:23.08%"></span>
+      <span class="unvisited" style="bottom:22.73%"></span>
+      <span class="unvisited" style="bottom:22.38%"></span>
+      <span class="unvisited" style="bottom:22.03%"></span>
+      <span class="unvisited" style="bottom:20.28%"></span>
+      <span class="unvisited" style="bottom:19.58%"></span>
+      <span class="unvisited" style="bottom:19.23%"></span>
+      <span class="unvisited" style="bottom:18.88%"></span>
+      <span class="unvisited" style="bottom:18.18%"></span>
+      <span class="unvisited" style="bottom:17.48%"></span>
+      <span class="unvisited" style="bottom:17.13%"></span>
+      <span class="unvisited" style="bottom:16.43%"></span>
+      <span class="unvisited" style="bottom:16.08%"></span>
+      <span class="unvisited" style="bottom:15.73%"></span>
+      <span class="unvisited" style="bottom:15.38%"></span>
+      <span class="unvisited" style="bottom:15.03%"></span>
+      <span class="unvisited" style="bottom:13.64%"></span>
+      <span class="unvisited" style="bottom:12.59%"></span>
+      <span class="unvisited" style="bottom:11.89%"></span>
+      <span class="unvisited" style="bottom:9.09%"></span>
+      <span class="unvisited" style="bottom:8.74%"></span>
+      <span class="unvisited" style="bottom:7.34%"></span>
+      <span class="unvisited" style="bottom:6.99%"></span>
+      <span class="unvisited" style="bottom:6.29%"></span>
+      <span class="unvisited" style="bottom:5.59%"></span>
+      <span class="unvisited" style="bottom:5.24%"></span>
+      <span class="unvisited" style="bottom:4.55%"></span>
+      <span class="unvisited" style="bottom:4.20%"></span>
+      <span class="unvisited" style="bottom:3.50%"></span>
+      <span class="unvisited" style="bottom:3.15%"></span>
+      <span class="unvisited" style="bottom:2.45%"></span>
+      <span class="unvisited" style="bottom:2.10%"></span>
+      <span class="unvisited" style="bottom:1.75%"></span>
+      <span class="unvisited" style="bottom:1.05%"></span>
+      <span class="unvisited" style="bottom:0.70%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span class="unvisited"> </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span class="unvisited"> </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span > </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span > </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span class="unvisited"> </span>
+<a id="L71"></a><span class="unvisited"> </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span class="unvisited"> </span>
+<a id="L74"></a><span class="unvisited"> </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span class="unvisited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span class="unvisited"> </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span class="unvisited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span > </span>
+<a id="L95"></a><span class="unvisited"> </span>
+<a id="L96"></a><span > </span>
+<a id="L97"></a><span class="unvisited"> </span>
+<a id="L98"></a><span class="unvisited"> </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span class="unvisited"> </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span class="unvisited"> </span>
+<a id="L103"></a><span class="unvisited"> </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span class="unvisited"> </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span class="unvisited"> </span>
+<a id="L108"></a><span class="unvisited"> </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span class="unvisited"> </span>
+<a id="L111"></a><span > </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span > </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span > </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span > </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span > </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span class="unvisited"> </span>
+<a id="L123"></a><span > </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span class="unvisited"> </span>
+<a id="L126"></a><span class="unvisited"> </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span > </span>
+<a id="L129"></a><span class="unvisited"> </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span class="unvisited"> </span>
+<a id="L133"></a><span > </span>
+<a id="L134"></a><span > </span>
+<a id="L135"></a><span class="unvisited"> </span>
+<a id="L136"></a><span class="unvisited"> </span>
+<a id="L137"></a><span class="unvisited"> </span>
+<a id="L138"></a><span > </span>
+<a id="L139"></a><span class="unvisited"> </span>
+<a id="L140"></a><span > </span>
+<a id="L141"></a><span class="unvisited"> </span>
+<a id="L142"></a><span > </span>
+<a id="L143"></a><span class="unvisited"> </span>
+<a id="L144"></a><span > </span>
+<a id="L145"></a><span class="unvisited"> </span>
+<a id="L146"></a><span > </span>
+<a id="L147"></a><span class="unvisited"> </span>
+<a id="L148"></a><span > </span>
+<a id="L149"></a><span class="unvisited"> </span>
+<a id="L150"></a><span > </span>
+<a id="L151"></a><span class="unvisited"> </span>
+<a id="L152"></a><span class="unvisited"> </span>
+<a id="L153"></a><span > </span>
+<a id="L154"></a><span class="unvisited"> </span>
+<a id="L155"></a><span class="unvisited"> </span>
+<a id="L156"></a><span > </span>
+<a id="L157"></a><span > </span>
+<a id="L158"></a><span > </span>
+<a id="L159"></a><span > </span>
+<a id="L160"></a><span class="unvisited"> </span>
+<a id="L161"></a><span class="unvisited"> </span>
+<a id="L162"></a><span > </span>
+<a id="L163"></a><span class="unvisited"> </span>
+<a id="L164"></a><span > </span>
+<a id="L165"></a><span class="unvisited"> </span>
+<a id="L166"></a><span class="unvisited"> </span>
+<a id="L167"></a><span class="unvisited"> </span>
+<a id="L168"></a><span > </span>
+<a id="L169"></a><span class="unvisited"> </span>
+<a id="L170"></a><span > </span>
+<a id="L171"></a><span class="unvisited"> </span>
+<a id="L172"></a><span > </span>
+<a id="L173"></a><span class="unvisited"> </span>
+<a id="L174"></a><span > </span>
+<a id="L175"></a><span class="unvisited"> </span>
+<a id="L176"></a><span class="unvisited"> </span>
+<a id="L177"></a><span class="unvisited"> </span>
+<a id="L178"></a><span > </span>
+<a id="L179"></a><span > </span>
+<a id="L180"></a><span class="unvisited"> </span>
+<a id="L181"></a><span class="unvisited"> </span>
+<a id="L182"></a><span class="unvisited"> </span>
+<a id="L183"></a><span class="unvisited"> </span>
+<a id="L184"></a><span class="unvisited"> </span>
+<a id="L185"></a><span class="unvisited"> </span>
+<a id="L186"></a><span class="unvisited"> </span>
+<a id="L187"></a><span class="unvisited"> </span>
+<a id="L188"></a><span > </span>
+<a id="L189"></a><span > </span>
+<a id="L190"></a><span > </span>
+<a id="L191"></a><span class="unvisited"> </span>
+<a id="L192"></a><span class="unvisited"> </span>
+<a id="L193"></a><span > </span>
+<a id="L194"></a><span class="unvisited"> </span>
+<a id="L195"></a><span > </span>
+<a id="L196"></a><span class="unvisited"> </span>
+<a id="L197"></a><span > </span>
+<a id="L198"></a><span class="unvisited"> </span>
+<a id="L199"></a><span > </span>
+<a id="L200"></a><span > </span>
+<a id="L201"></a><span > </span>
+<a id="L202"></a><span > </span>
+<a id="L203"></a><span class="unvisited"> </span>
+<a id="L204"></a><span > </span>
+<a id="L205"></a><span > </span>
+<a id="L206"></a><span class="unvisited"> </span>
+<a id="L207"></a><span > </span>
+<a id="L208"></a><span > </span>
+<a id="L209"></a><span > </span>
+<a id="L210"></a><span > </span>
+<a id="L211"></a><span class="unvisited"> </span>
+<a id="L212"></a><span class="unvisited"> </span>
+<a id="L213"></a><span class="unvisited"> </span>
+<a id="L214"></a><span > </span>
+<a id="L215"></a><span > </span>
+<a id="L216"></a><span class="unvisited"> </span>
+<a id="L217"></a><span > </span>
+<a id="L218"></a><span class="unvisited"> </span>
+<a id="L219"></a><span class="unvisited"> </span>
+<a id="L220"></a><span class="unvisited"> </span>
+<a id="L221"></a><span class="unvisited"> </span>
+<a id="L222"></a><span class="unvisited"> </span>
+<a id="L223"></a><span class="unvisited"> </span>
+<a id="L224"></a><span > </span>
+<a id="L225"></a><span > </span>
+<a id="L226"></a><span > </span>
+<a id="L227"></a><span > </span>
+<a id="L228"></a><span class="unvisited"> </span>
+<a id="L229"></a><span > </span>
+<a id="L230"></a><span class="unvisited"> </span>
+<a id="L231"></a><span class="unvisited"> </span>
+<a id="L232"></a><span class="unvisited"> </span>
+<a id="L233"></a><span > </span>
+<a id="L234"></a><span class="unvisited"> </span>
+<a id="L235"></a><span > </span>
+<a id="L236"></a><span class="unvisited"> </span>
+<a id="L237"></a><span class="unvisited"> </span>
+<a id="L238"></a><span > </span>
+<a id="L239"></a><span class="unvisited"> </span>
+<a id="L240"></a><span class="unvisited"> </span>
+<a id="L241"></a><span class="unvisited"> </span>
+<a id="L242"></a><span class="unvisited"> </span>
+<a id="L243"></a><span class="unvisited"> </span>
+<a id="L244"></a><span > </span>
+<a id="L245"></a><span > </span>
+<a id="L246"></a><span > </span>
+<a id="L247"></a><span class="unvisited"> </span>
+<a id="L248"></a><span > </span>
+<a id="L249"></a><span > </span>
+<a id="L250"></a><span class="unvisited"> </span>
+<a id="L251"></a><span > </span>
+<a id="L252"></a><span class="unvisited"> </span>
+<a id="L253"></a><span > </span>
+<a id="L254"></a><span > </span>
+<a id="L255"></a><span > </span>
+<a id="L256"></a><span > </span>
+<a id="L257"></a><span > </span>
+<a id="L258"></a><span > </span>
+<a id="L259"></a><span > </span>
+<a id="L260"></a><span class="unvisited"> </span>
+<a id="L261"></a><span class="unvisited"> </span>
+<a id="L262"></a><span > </span>
+<a id="L263"></a><span > </span>
+<a id="L264"></a><span > </span>
+<a id="L265"></a><span class="unvisited"> </span>
+<a id="L266"></a><span class="unvisited"> </span>
+<a id="L267"></a><span > </span>
+<a id="L268"></a><span class="unvisited"> </span>
+<a id="L269"></a><span > </span>
+<a id="L270"></a><span class="unvisited"> </span>
+<a id="L271"></a><span class="unvisited"> </span>
+<a id="L272"></a><span > </span>
+<a id="L273"></a><span class="unvisited"> </span>
+<a id="L274"></a><span class="unvisited"> </span>
+<a id="L275"></a><span > </span>
+<a id="L276"></a><span class="unvisited"> </span>
+<a id="L277"></a><span class="unvisited"> </span>
+<a id="L278"></a><span > </span>
+<a id="L279"></a><span class="unvisited"> </span>
+<a id="L280"></a><span class="unvisited"> </span>
+<a id="L281"></a><span class="unvisited"> </span>
+<a id="L282"></a><span > </span>
+<a id="L283"></a><span class="unvisited"> </span>
+<a id="L284"></a><span class="unvisited"> </span>
+<a id="L285"></a><span > </span>
+<a id="L286"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+<a href="#L135">135</a>
+<a href="#L136">136</a>
+<a href="#L137">137</a>
+<a href="#L138">138</a>
+<a href="#L139">139</a>
+<a href="#L140">140</a>
+<a href="#L141">141</a>
+<a href="#L142">142</a>
+<a href="#L143">143</a>
+<a href="#L144">144</a>
+<a href="#L145">145</a>
+<a href="#L146">146</a>
+<a href="#L147">147</a>
+<a href="#L148">148</a>
+<a href="#L149">149</a>
+<a href="#L150">150</a>
+<a href="#L151">151</a>
+<a href="#L152">152</a>
+<a href="#L153">153</a>
+<a href="#L154">154</a>
+<a href="#L155">155</a>
+<a href="#L156">156</a>
+<a href="#L157">157</a>
+<a href="#L158">158</a>
+<a href="#L159">159</a>
+<a href="#L160">160</a>
+<a href="#L161">161</a>
+<a href="#L162">162</a>
+<a href="#L163">163</a>
+<a href="#L164">164</a>
+<a href="#L165">165</a>
+<a href="#L166">166</a>
+<a href="#L167">167</a>
+<a href="#L168">168</a>
+<a href="#L169">169</a>
+<a href="#L170">170</a>
+<a href="#L171">171</a>
+<a href="#L172">172</a>
+<a href="#L173">173</a>
+<a href="#L174">174</a>
+<a href="#L175">175</a>
+<a href="#L176">176</a>
+<a href="#L177">177</a>
+<a href="#L178">178</a>
+<a href="#L179">179</a>
+<a href="#L180">180</a>
+<a href="#L181">181</a>
+<a href="#L182">182</a>
+<a href="#L183">183</a>
+<a href="#L184">184</a>
+<a href="#L185">185</a>
+<a href="#L186">186</a>
+<a href="#L187">187</a>
+<a href="#L188">188</a>
+<a href="#L189">189</a>
+<a href="#L190">190</a>
+<a href="#L191">191</a>
+<a href="#L192">192</a>
+<a href="#L193">193</a>
+<a href="#L194">194</a>
+<a href="#L195">195</a>
+<a href="#L196">196</a>
+<a href="#L197">197</a>
+<a href="#L198">198</a>
+<a href="#L199">199</a>
+<a href="#L200">200</a>
+<a href="#L201">201</a>
+<a href="#L202">202</a>
+<a href="#L203">203</a>
+<a href="#L204">204</a>
+<a href="#L205">205</a>
+<a href="#L206">206</a>
+<a href="#L207">207</a>
+<a href="#L208">208</a>
+<a href="#L209">209</a>
+<a href="#L210">210</a>
+<a href="#L211">211</a>
+<a href="#L212">212</a>
+<a href="#L213">213</a>
+<a href="#L214">214</a>
+<a href="#L215">215</a>
+<a href="#L216">216</a>
+<a href="#L217">217</a>
+<a href="#L218">218</a>
+<a href="#L219">219</a>
+<a href="#L220">220</a>
+<a href="#L221">221</a>
+<a href="#L222">222</a>
+<a href="#L223">223</a>
+<a href="#L224">224</a>
+<a href="#L225">225</a>
+<a href="#L226">226</a>
+<a href="#L227">227</a>
+<a href="#L228">228</a>
+<a href="#L229">229</a>
+<a href="#L230">230</a>
+<a href="#L231">231</a>
+<a href="#L232">232</a>
+<a href="#L233">233</a>
+<a href="#L234">234</a>
+<a href="#L235">235</a>
+<a href="#L236">236</a>
+<a href="#L237">237</a>
+<a href="#L238">238</a>
+<a href="#L239">239</a>
+<a href="#L240">240</a>
+<a href="#L241">241</a>
+<a href="#L242">242</a>
+<a href="#L243">243</a>
+<a href="#L244">244</a>
+<a href="#L245">245</a>
+<a href="#L246">246</a>
+<a href="#L247">247</a>
+<a href="#L248">248</a>
+<a href="#L249">249</a>
+<a href="#L250">250</a>
+<a href="#L251">251</a>
+<a href="#L252">252</a>
+<a href="#L253">253</a>
+<a href="#L254">254</a>
+<a href="#L255">255</a>
+<a href="#L256">256</a>
+<a href="#L257">257</a>
+<a href="#L258">258</a>
+<a href="#L259">259</a>
+<a href="#L260">260</a>
+<a href="#L261">261</a>
+<a href="#L262">262</a>
+<a href="#L263">263</a>
+<a href="#L264">264</a>
+<a href="#L265">265</a>
+<a href="#L266">266</a>
+<a href="#L267">267</a>
+<a href="#L268">268</a>
+<a href="#L269">269</a>
+<a href="#L270">270</a>
+<a href="#L271">271</a>
+<a href="#L272">272</a>
+<a href="#L273">273</a>
+<a href="#L274">274</a>
+<a href="#L275">275</a>
+<a href="#L276">276</a>
+<a href="#L277">277</a>
+<a href="#L278">278</a>
+<a href="#L279">279</a>
+<a href="#L280">280</a>
+<a href="#L281">281</a>
+<a href="#L282">282</a>
+<a href="#L283">283</a>
+<a href="#L284">284</a>
+<a href="#L285">285</a>
+<a href="#L286">286</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(* --- Helpers moved from Rep/Eval to be self-contained or use Error module --- *)
+
+let source_location ?file pos : Ast.source_location =
+  <span data-count="0">{</span>
+    file;
+    line = pos.Lexing.pos_lnum;
+    column = ma<span data-count="0">x</span> 1 (pos.Lexing.pos_cnum - pos.Lexing.pos_bol + 1);
+  }
+
+let make_located_error ?file code message pos =
+  <span data-count="0">V</span>Error {
+    code;
+    message;
+    context = [];
+    location = Some (source_locatio<span data-count="0">n</span> ?file pos);
+    na_count = 0;
+  }
+
+let interrupt_error () =
+  <span data-count="0">V</span>Error {
+    code = RuntimeError;
+    message = "Interrupted.";
+    context = [];
+    location = None;
+    na_count = 0;
+  }
+
+(*
+--# Build and run a pipeline file
+--#
+--# Reads, parses, evaluates and builds a T pipeline file. This is a 
+--# high-level build orchestrator often used from the CLI (repl) to
+--# trigger a full project build. It supports a single dictionary argument 
+--# for Nix specific build options.
+--# `src/pipeline.t` must call `populate_pipeline(...)` or `build_pipeline(...)`.
+--# If it only calls `populate_pipeline(...)` without `build=true`, `t_make()`
+--# emits a warning and continues after populating the pipeline.
+--#
+--# @name t_make
+--# @param filename :: String The pipeline file path. Must be `src/pipeline.t`.
+--# @param nix_options :: Dict (Optional) A dictionary of Nix orchestration options:
+--#   - `max_jobs` :: Int The maximum number of jobs for Nix to run in parallel.
+--#   - `max_cores` :: Int The maximum number of cores per job for Nix to use.
+--#   - `cache` :: String Cachix cache name.
+--#   - `targets` :: List[String] Specific node names to build.
+--#   - `force` :: Bool Force rebuild.
+--#   - `dry_run` :: Bool Plan build.
+--# @param verbose :: Int The Nix build verbosity level. `0` is quiet; values &gt; 0 enable internal node failure logs.
+--# @param failfast :: Bool Whether to stop immediately on evaluation errors (defaults to false).
+--# @return :: Null
+--# @family pipeline
+--# @export
+*)
+let register env =
+  <span data-count="535">E</span>nv.add "t_make"
+    (VBuiltin { b_name = Some "t_make"; b_arity = 0; b_variadic = true;
+      b_func = (fun named_args env_ref -&gt;
+        <span data-count="0">l</span>et filename = ref "src/pipeline.t" in
+        let nix_args = ref [] in
+        let verbose = ref !Builder_internal.default_nix_build_verbose in
+        let failfast = ref false in
+        let arg_error_opt = ref None in
+        
+        let named_only, positional_only =
+          List.partition (fun (k_opt, _) -&gt; <span data-count="0">k</span>_opt &lt;&gt; None) named_args
+        in
+
+        <span data-count="0">l</span>et process_nix_options = function
+          | <span data-count="0">V</span>Dict pairs -&gt;
+              List.iter (fun (k, v) -&gt;
+                <span data-count="0">m</span>atch k, v with
+                | <span data-count="0">"</span>max_jobs", VInt i -&gt;
+                    nix_args := (string_of_in<span data-count="0">t</span> i) :: "--max-jobs" :: !nix_args
+                | <span data-count="0">"</span>max_jobs", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'max_jobs' in nix_options must be an Int")
+                | <span data-count="0">"</span>max_cores", VInt i -&gt;
+                    nix_args := (string_of_in<span data-count="0">t</span> i) :: "--cores" :: !nix_args
+                | <span data-count="0">"</span>max_cores", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'max_cores' in nix_options must be an Int")
+                | <span data-count="0">"</span>cache", VString s -&gt;
+                    nix_args := ("https://" ^ s ^ ".cachix.org") :: "extra-substituters" :: "--option" :: !nix_args;
+                    if s = "rstats-on-nix" then
+                      <span data-count="0">n</span>ix_args := "rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=" :: "extra-trusted-public-keys" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>cache", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'cache' in nix_options must be a String")
+                | <span data-count="0">"</span>targets", VString t -&gt;
+                    nix_args := t :: "-A" :: !nix_args
+                | <span data-count="0">"</span>targets", VList items -&gt;
+                    List.iter (function
+                      | <span data-count="0">(</span>_, VString t) -&gt; nix_args := t :: "-A" :: !nix_args
+                      | <span data-count="0">_</span> -&gt; arg_error_opt := Some (TypeError, "t_make: 'targets' in nix_options must contain only Strings")
+                    ) items
+                | <span data-count="0">"</span>targets", VVector arr -&gt;
+                    Array.iter (function
+                      | <span data-count="0">V</span>String t -&gt; nix_args := t :: "-A" :: !nix_args
+                      | <span data-count="0">_</span> -&gt; arg_error_opt := Some (TypeError, "t_make: 'targets' in nix_options must contain only Strings")
+                    ) arr
+                | <span data-count="0">"</span>dry_run", VBool true -&gt;
+                    nix_args := "--dry-run" :: !nix_args
+                | <span data-count="0">"</span>dry_run", VBool false -&gt; ()
+                | <span data-count="0">"</span>dry_run", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'dry_run' in nix_options must be a Bool")
+                | <span data-count="0">"</span>force", VBool true -&gt;
+                    nix_args := "--check" :: !nix_args
+                | <span data-count="0">"</span>force", VBool false -&gt; ()
+                | <span data-count="0">"</span>force", VString _ | <span data-count="0">"</span>force", VList _ | <span data-count="0">"</span>force", VVector _ -&gt;
+                    nix_args := "--check" :: !nix_args
+                | <span data-count="0">"</span>force", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'force' in nix_options must be a Bool, String, List, or Vector")
+                | <span data-count="0">"</span>builders", VString s -&gt;
+                    nix_args := s :: "--builders" :: !nix_args
+                | <span data-count="0">"</span>builders", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'builders' in nix_options must be a String")
+                | <span data-count="0">"</span>keep_env", VString s -&gt;
+                    nix_args := s :: "keep-env" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>keep_env", VList items -&gt;
+                    let rec extract_strings acc = function
+                      | <span data-count="0">[</span>] -&gt; Some (List.re<span data-count="0">v</span> acc)
+                      | <span data-count="0">(</span>_, VString s) :: tl -&gt; extract_strings (s :: acc) tl
+                      | <span data-count="0">_</span> -&gt; None
+                    in
+                    (match extract_strings [] items with
+                     | <span data-count="0">S</span>ome strs -&gt; nix_args := (String.conca<span data-count="0">t</span> " " strs) :: "keep-env" :: "--option" :: !nix_args
+                     | <span data-count="0">N</span>one -&gt; arg_error_opt := Some (TypeError, "t_make: 'keep_env' in nix_options must contain only Strings"))
+                | <span data-count="0">"</span>keep_env", VVector arr -&gt;
+                    let lst = Array.to_list arr in
+                    <span data-count="0">l</span>et rec extract_strings acc = function
+                      | <span data-count="0">[</span>] -&gt; Some (List.re<span data-count="0">v</span> acc)
+                      | <span data-count="0">V</span>String s :: tl -&gt; extract_strings (s :: acc) tl
+                      | <span data-count="0">_</span> -&gt; None
+                    in
+                    (match extract_strings [] lst with
+                     | <span data-count="0">S</span>ome strs -&gt; nix_args := (String.conca<span data-count="0">t</span> " " strs) :: "keep-env" :: "--option" :: !nix_args
+                     | <span data-count="0">N</span>one -&gt; arg_error_opt := Some (TypeError, "t_make: 'keep_env' in nix_options must contain only Strings"))
+                | <span data-count="0">"</span>keep_env", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'keep_env' in nix_options must be a String, List, or Vector of Strings")
+                | <span data-count="0">"</span>sandbox", VBool true -&gt;
+                    nix_args := "true" :: "sandbox" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>sandbox", VBool false -&gt;
+                    nix_args := "false" :: "sandbox" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>sandbox", VString "relaxed" -&gt;
+                    nix_args := "relaxed" :: "sandbox" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>sandbox", VString "strict" -&gt;
+                    nix_args := "true" :: "sandbox" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>sandbox", VString "none" -&gt;
+                    nix_args := "false" :: "sandbox" :: "--option" :: !nix_args
+                | <span data-count="0">"</span>sandbox", _ -&gt;
+                    arg_error_opt := Some (TypeError, "t_make: 'sandbox' in nix_options must be 'relaxed', 'strict', 'none', or a Bool")
+                | <span data-count="0">u</span>nknown, _ -&gt;
+                    arg_error_opt := Some (TypeError, Printf.sprint<span data-count="0">f</span> "t_make: unknown option '%s' in nix_options" unknown)
+              ) pairs
+          | <span data-count="0">V</span>NA _ -&gt; ()
+          | <span data-count="0">_</span> -&gt;
+              arg_error_opt := Some (TypeError, "t_make: 'nix_options' must be a Dictionary")
+        in
+        
+        List.iter (function
+          | <span data-count="0">(</span>Some "filename", VString s) -&gt; filename := s
+          | <span data-count="0">(</span>Some "filename", _) -&gt;
+              arg_error_opt := Some (TypeError, "t_make: 'filename' must be a String")
+          | <span data-count="0">(</span>Some "nix_options", dict_v) -&gt;
+              process_nix_options dict_v
+          | <span data-count="0">(</span>Some "verbose", VInt i) when i &gt;= 0 -&gt;
+              <span data-count="0">v</span>erbose := i
+          | <span data-count="0">(</span>Some "verbose", VInt _) -&gt;
+              arg_error_opt := Some (ValueError, "t_make: 'verbose' must be a non-negative Int")
+          | <span data-count="0">(</span>Some "verbose", _) -&gt;
+              arg_error_opt := Some (TypeError, "t_make: 'verbose' must be an Int")
+          | <span data-count="0">(</span>Some "failfast", VBool b) -&gt;
+              failfast := b
+          | <span data-count="0">(</span>Some "failfast", _) -&gt;
+              arg_error_opt := Some (TypeError, "t_make: 'failfast' must be a Bool")
+          | <span data-count="0">(</span>Some k, _) -&gt;
+              arg_error_opt := Some (TypeError, Printf.sprint<span data-count="0">f</span> "t_make: unknown argument '%s'" k)
+          | <span data-count="0">_</span> -&gt; ()
+        ) named_only;
+
+        <span data-count="0">l</span>et _ = List.fold_left (fun idx (_, v) -&gt;
+          <span data-count="0">(</span>match idx, v with
+           | <span data-count="0">0</span>, VString s -&gt; filename := s
+           | <span data-count="0">1</span>, dict_v -&gt; process_nix_option<span data-count="0">s</span> dict_v
+           | <span data-count="0">2</span>, VInt i when i &gt;= 0 -&gt; <span data-count="0">v</span>erbose := i
+           | <span data-count="0">2</span>, VInt _ -&gt; arg_error_opt := Some (ValueError, "t_make: 'verbose' must be a non-negative Int")
+           | <span data-count="0">3</span>, VBool b -&gt; failfast := b
+           | <span data-count="0">n</span>, _ -&gt; arg_error_opt := Some (TypeError, Printf.sprint<span data-count="0">f</span> "t_make: unexpected argument at position %d" n));
+          idx + 1
+        ) 0 positional_only in
+
+        <span data-count="0">m</span>atch !arg_error_opt with
+        | <span data-count="0">S</span>ome (code, msg) -&gt;
+            Error.make_error code msg
+        | <span data-count="0">N</span>one -&gt;
+            (match Pipeline_script.validate_t_make_filename !filename with
+            | <span data-count="0">E</span>rror msg -&gt;
+                Error.make_error ValueError msg
+            | <span data-count="0">O</span>k () -&gt;
+                let prev_nix_build_args = !Builder_internal.nix_build_args in
+                let prev_nix_build_verbose = !Builder_internal.default_nix_build_verbose in
+                Fun.protect
+                  ~finally:(fun () -&gt;
+                    <span data-count="0">B</span>uilder_internal.nix_build_args := prev_nix_build_args;
+                    Builder_internal.default_nix_build_verbose := prev_nix_build_verbose)
+                  (fun () -&gt;
+                    <span data-count="0">B</span>uilder_internal.nix_build_args := List.re<span data-count="0">v</span> !nix_args;
+                    Builder_internal.default_nix_build_verbose := !verbose;
+                    (try
+                      let content =
+                        let ch = open_in !filename in
+                        <span data-count="0">F</span>un.protec<span data-count="0">t</span>
+                          ~finally:(fun () -&gt; <span data-count="0">c</span>lose_in_noerr ch)
+                          (fun () -&gt; <span data-count="0">r</span>eally_input_string ch (in_channel_lengt<span data-count="0">h</span> ch))
+                      in
+                      let lexbuf = Lexing.from_string content in
+                      <span data-count="0">(</span>try
+                        let program = Parser.program Lexer.token lexbuf in
+                        <span data-count="0">(</span>match Pipeline_script.validate_t_make_program program with
+                        | <span data-count="0">E</span>rror msg -&gt;
+                            Error.make_erro<span data-count="0">r</span> ValueError msg
+                        | <span data-count="0">O</span>k warning_opt -&gt;
+                            Option.iter (Printf.eprint<span data-count="0">f</span> "%s%!") warning_opt;
+                            <span data-count="0">l</span>et eval_env =
+                              Pipeline_script.reload_env_for_pipeline_entry
+                                ~filename:!filename program !env_ref
+                            in
+                            (* Resolve project name from tproject.toml, fall back to filename *)
+                            <span data-count="0">l</span>et project_name =
+                              let root = Builder_utils.get_project_root () in
+                              <span data-count="0">l</span>et tproject_path = Filename.concat root "tproject.toml" in
+                              <span data-count="0">i</span>f Sys.file_exists tproject_path then
+                                <span data-count="0">t</span>ry
+                                  let ic = open_in tproject_path in
+                                  <span data-count="0">l</span>et content =
+                                    Fun.protect
+                                      ~finally:(fun () -&gt; <span data-count="0">c</span>lose_in_noerr ic)
+                                      (fun () -&gt; <span data-count="0">r</span>eally_input_string ic (in_channel_lengt<span data-count="0">h</span> ic))
+                                  in
+                                  <span data-count="0">m</span>atch Toml_parser.parse_tproject_toml content with
+                                  | <span data-count="0">O</span>k cfg -&gt; cfg.proj_name
+                                  | <span data-count="0">E</span>rror _ -&gt; !filename
+                                with <span data-count="0">_</span> -&gt; !filename
+                              else <span data-count="0">!</span>filename
+                            in
+                            Printf.eprintf "Starting build for project: %s\n%!" project_name;
+
+                            <span data-count="0">l</span>et prev_warn = !Eval.show_warnings in
+                            let (v, new_env) =
+                              Fun.protect
+                                ~finally:(fun () -&gt; <span data-count="0">E</span>val.show_warnings := prev_warn)
+                                (fun () -&gt;
+                                  <span data-count="0">E</span>val.show_warnings := false;
+                                  Eval.eval_program ~resilient:(not !failfast) program eval_env)
+                            in
+
+                            (* Always save the environment bindings, even on build error.
+                               This ensures that the pipeline variable (e.g. `p`) remains
+                               accessible in the REPL after a partial build failure, so the
+                               user can still call inspect_pipeline(p), collect_exceptions(p), etc. *)
+                            <span data-count="0">e</span>nv_ref :=
+                              Pipeline_script.remember_pipeline_entry_binding<span data-count="0">s</span>
+                                ~filename:!filename program new_env;
+
+                            match v with
+                            | <span data-count="0">V</span>Error _ -&gt; v
+                            | <span data-count="0">_</span> -&gt; (VNA NAGeneric))
+                      with
+                      | <span data-count="0">L</span>exer.SyntaxError msg -&gt;
+                          let pos = Lexing.lexeme_start_p lexbuf in
+                          <span data-count="0">m</span>ake_located_erro<span data-count="0">r</span> ~file:!filename SyntaxError ("Syntax error in '" ^ !filename ^ "': " ^ msg) pos
+                      | <span data-count="0">P</span>arser.Error -&gt;
+                          let pos = Lexing.lexeme_start_p lexbuf in
+                          <span data-count="0">m</span>ake_located_erro<span data-count="0">r</span> ~file:!filename SyntaxError (Printf.sprint<span data-count="0">f</span> "Parse error in '%s'" !filename) pos
+                      | <span data-count="0">A</span>st.Mixed_bracket_form -&gt;
+                          let pos = Lexing.lexeme_start_p lexbuf in
+                          <span data-count="0">m</span>ake_located_erro<span data-count="0">r</span> ~file:!filename SyntaxError "Mixed bracket literal (found both single elements and key-value pairs)" pos
+                      | <span data-count="0">A</span>st.Invalid_match_pattern msg -&gt;
+                          let pos = Lexing.lexeme_start_p lexbuf in
+                          <span data-count="0">m</span>ake_located_erro<span data-count="0">r</span> ~file:!filename SyntaxError msg pos
+                      | <span data-count="0">S</span>ys.Break -&gt;
+                          interrupt_erro<span data-count="0">r</span> ())
+                    with
+                    | <span data-count="0">S</span>ys_error msg -&gt;
+                        Error.make_error FileError (Printf.sprint<span data-count="0">f</span> "t_make failed: %s" msg))))
+      )})
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "py_preds": "/nix/store/0ry2c6yf7x3zbk50nngwksqr1c7nkj0n-py_preds.drv",
+  "r_preds": "/nix/store/bwqc7nlgr016322pz20q4cpwlrsc987b-r_preds.drv",
+  "smarket_raw": "/nix/store/3vj2a6sl8ygkmkmgmhzlmk8michj100f-smarket_raw.drv",
+  "data_node": "/nix/store/lbgkkybhv26pfh4j1j2il8nah3407kb2-data_node.drv"
+}

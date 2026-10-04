@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261004_014236",
+  "hash": "sls6bsa7g7wl4j6fnlipl3zfqwgy66w3",
+  "out_path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output",
+  "duration": 20.7733,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.4621
+},
+{
+  "node": "model_r_node",
+  "path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output/model_r_node/artifact",
+  "hash": "model_r_node",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.0165
+},
+{
+  "node": "rf_r_node",
+  "path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output/rf_r_node/artifact",
+  "hash": "rf_r_node",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "randomForest.formula",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.9849
+},
+{
+  "node": "model_py_node",
+  "path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output/model_py_node/artifact",
+  "hash": "model_py_node",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "LinearRegression",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.2620
+},
+{
+  "node": "verify_node",
+  "path": "/nix/store/sls6bsa7g7wl4j6fnlipl3zfqwgy66w3-pipeline_output/verify_node/artifact",
+  "hash": "verify_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["data_node", "model_py_node", "model_r_node", "rf_r_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.7545
+}
+],
+  "pipeline": "p"
+}

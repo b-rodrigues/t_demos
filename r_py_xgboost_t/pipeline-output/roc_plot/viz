@@ -1,0 +1,1 @@
+{"class":"ggplot","backend":"R","title":"ROC Curve","mapping":{"x":"1 - specificity","y":"sensitivity"},"labels":{"title":"ROC Curve","x":"1 - Specificity (FPR)","y":"Sensitivity (TPR)"},"layers":{"geom_path":"Path","geom_abline":"Abline"},"_display_keys":["class","backend","title","mapping","labels","layers"]}

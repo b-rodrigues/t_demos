@@ -1,0 +1,8 @@
+{
+  "frozen": "/nix/store/c6dz63scb4q3c1jmsw21741i803yqhy1-frozen.drv",
+  "via_quoted": "/nix/store/qr4qxhf74c8dmsrf9z0clqqks7rhlzx5-via_quoted.drv",
+  "report": "/nix/store/55i068j5rdppzgixcv07m0byrhl49sra-report.drv",
+  "shadowed": "/nix/store/bjq142s61q93s59fks0a4lm9rww5hfj9-shadowed.drv",
+  "sym_call": "/nix/store/4nsrzc2i28lfgvzbw8nvklk3gkkfgxv3-sym_call.drv",
+  "via_lambda": "/nix/store/nra8856cjkqsr27xi9mrrahfwawhcl16-via_lambda.drv"
+}

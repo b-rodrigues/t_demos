@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_fix.ml &mdash; Coverage report</title>
+    <meta name="description" content="2.86% coverage in src/packages/pipeline/t_fix.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>t_fix.ml
+        </a>
+      </h1>
+      <h2>2.86%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:25.53%"></span>
+      <span class="unvisited" style="top:26.60%"></span>
+      <span class="unvisited" style="top:28.72%"></span>
+      <span class="unvisited" style="top:29.79%"></span>
+      <span class="unvisited" style="top:30.85%"></span>
+      <span class="unvisited" style="top:32.98%"></span>
+      <span class="unvisited" style="top:35.11%"></span>
+      <span class="unvisited" style="top:36.17%"></span>
+      <span class="unvisited" style="top:37.23%"></span>
+      <span class="unvisited" style="top:38.30%"></span>
+      <span class="unvisited" style="top:39.36%"></span>
+      <span class="unvisited" style="top:40.43%"></span>
+      <span class="unvisited" style="top:41.49%"></span>
+      <span class="unvisited" style="top:42.55%"></span>
+      <span class="unvisited" style="top:43.62%"></span>
+      <span class="unvisited" style="top:44.68%"></span>
+      <span class="unvisited" style="top:45.74%"></span>
+      <span class="unvisited" style="top:46.81%"></span>
+      <span class="unvisited" style="top:48.94%"></span>
+      <span class="unvisited" style="top:50.00%"></span>
+      <span class="unvisited" style="bottom:48.94%"></span>
+      <span class="unvisited" style="bottom:45.74%"></span>
+      <span class="unvisited" style="bottom:44.68%"></span>
+      <span class="unvisited" style="bottom:42.55%"></span>
+      <span class="unvisited" style="bottom:37.23%"></span>
+      <span class="unvisited" style="bottom:36.17%"></span>
+      <span class="unvisited" style="bottom:35.11%"></span>
+      <span class="unvisited" style="bottom:34.04%"></span>
+      <span class="unvisited" style="bottom:32.98%"></span>
+      <span class="unvisited" style="bottom:31.91%"></span>
+      <span class="unvisited" style="bottom:30.85%"></span>
+      <span class="unvisited" style="bottom:29.79%"></span>
+      <span class="unvisited" style="bottom:28.72%"></span>
+      <span class="unvisited" style="bottom:26.60%"></span>
+      <span class="unvisited" style="bottom:23.40%"></span>
+      <span class="unvisited" style="bottom:21.28%"></span>
+      <span class="unvisited" style="bottom:20.21%"></span>
+      <span class="unvisited" style="bottom:17.02%"></span>
+      <span class="unvisited" style="bottom:13.83%"></span>
+      <span class="unvisited" style="bottom:12.77%"></span>
+      <span class="unvisited" style="bottom:11.70%"></span>
+      <span class="unvisited" style="bottom:9.57%"></span>
+      <span class="unvisited" style="bottom:8.51%"></span>
+      <span class="unvisited" style="bottom:6.38%"></span>
+      <span class="unvisited" style="bottom:5.32%"></span>
+      <span class="unvisited" style="bottom:4.26%"></span>
+      <span class="unvisited" style="bottom:2.13%"></span>
+      <span class="unvisited" style="bottom:1.06%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="unvisited"> </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span class="visited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span class="unvisited"> </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span class="unvisited"> </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span class="unvisited"> </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="unvisited"> </span>
+<a id="L75"></a><span class="unvisited"> </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span class="unvisited"> </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span class="unvisited"> </span>
+<a id="L86"></a><span class="unvisited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span class="unvisited"> </span>
+<a id="L89"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="unvisited"> </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span class="unvisited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+<a href="#L88">88</a>
+<a href="#L89">89</a>
+<a href="#L90">90</a>
+<a href="#L91">91</a>
+<a href="#L92">92</a>
+<a href="#L93">93</a>
+<a href="#L94">94</a>
+</pre>
+<pre><code class="ocaml">(* src/packages/pipeline/t_fix.ml *)
+(* REPL-callable version of `t fix` — mechanically applies suggested fixes
+   from check diagnostics (column renames, node argument additions). *)
+
+open Ast
+
+(*
+--# Mechanically Apply Suggested Fixes
+--#
+--# Runs `t check --schema` on a file, extracts diagnostics with suggested_fix,
+--# and applies them (e.g., renaming columns, renaming colliding node names,
+--# adding missing node arguments). Uses bottom-up line order to avoid
+--# line-number drift.
+--#
+--# @name t_fix
+--# @param file :: String The path to the .t file to fix.
+--# @param dry_run :: Bool = false Show what would be fixed without modifying the file.
+--# @return :: String Summary of fixes applied (or would be applied).
+--# @family pipeline
+--# @export
+*)
+
+let format_fix_result (result : Fix.fix_result) =
+  <span data-count="0">i</span>f result.Fix.applied = 0 &amp;&amp; <span data-count="0">r</span>esult.Fix.would_apply = 0 &amp;&amp; <span data-count="0">r</span>esult.Fix.skipped = 0 then
+    <span data-count="0">"</span>No fixes to apply.\n"
+  else
+    <span data-count="0">l</span>et buf = Buffer.create 256 in
+    <span data-count="0">i</span>f result.Fix.would_apply &gt; <span data-count="0">0</span> || result.Fix.dry_ru<span data-count="0">n</span> then
+      <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf (Printf.sprint<span data-count="0">f</span> "Would apply %d fix(es), skipped %d.\n" result.Fix.would_apply result.Fix.skipped)
+    else
+      <span data-count="0">B</span>uffer.add_strin<span data-count="0">g</span> buf (Printf.sprint<span data-count="0">f</span> "Applied %d fix(es), skipped %d.\n" result.Fix.applied result.Fix.skipped);
+    List.iter (fun (d : Diagnostics.diagnostic) -&gt;
+      <span data-count="0">l</span>et fix_desc = match d.diag_suggested_fix with
+        | <span data-count="0">D</span>iagnostics.Rename_column { old_name; new_name; _ } -&gt;
+            Printf.sprint<span data-count="0">f</span> "  Rename column '%s' to '%s'" old_name new_name
+        | <span data-count="0">D</span>iagnostics.Rename_node { old_name; new_name; _ } -&gt;
+            Printf.sprint<span data-count="0">f</span> "  Rename node '%s' to '%s'" old_name new_name
+        | <span data-count="0">D</span>iagnostics.Add_node_arg { node; arg; _ } -&gt;
+            Printf.sprint<span data-count="0">f</span> "  Add argument '%s' to node '%s'" arg node
+        | <span data-count="0">D</span>iagnostics.Suggest_identifier { name; suggestion; _ } -&gt;
+            Printf.sprint<span data-count="0">f</span> "  Did you mean '%s' instead of '%s'?" suggestion name
+        | <span data-count="0">D</span>iagnostics.Run_command { command; _ } -&gt;
+            Printf.sprint<span data-count="0">f</span> "  Run: %s" command
+        | <span data-count="0">D</span>iagnostics.NoFix -&gt; "  No fix"
+      in
+      Buffer.add_string buf (Printf.sprint<span data-count="0">f</span> "%s:%d: %s\n"
+        (Option.valu<span data-count="0">e</span> ~default:"&lt;unknown&gt;" d.diag_file)
+        (Option.valu<span data-count="0">e</span> ~default:0 d.diag_line)
+        fix_desc)
+    ) result.Fix.diagnostics;
+    <span data-count="0">L</span>ist.iter (fun note -&gt;
+      <span data-count="0">B</span>uffer.add_string buf (Printf.sprint<span data-count="0">f</span> "  - %s\n" note)
+    ) result.Fix.skip_notes;
+    <span data-count="0">B</span>uffer.contents buf
+
+let register env =
+  <span data-count="268">E</span>nv.add "t_fix"
+    (make_builtin_name<span data-count="268">d</span> ~name:"t_fix" ~variadic:true 1 (fun named_args env -&gt;
+      <span data-count="0">l</span>et named_keys = List.filter_map (fun (k, _) -&gt; <span data-count="0">k</span>) named_args in
+      <span data-count="0">l</span>et positional_count = List.length (List.filte<span data-count="0">r</span> (fun (k, _) -&gt; <span data-count="0">k</span> = None) named_args) in
+      <span data-count="0">m</span>atch List.find_opt (fun k -&gt; <span data-count="0">n</span>ot (List.me<span data-count="0">m</span> k ["file"; "dry_run"])) named_keys with
+      | <span data-count="0">S</span>ome k -&gt;
+          Error.type_error (Printf.sprint<span data-count="0">f</span> "t_fix: unknown argument '%s'" k)
+      | <span data-count="0">N</span>one when positional_count &gt; 1 -&gt;
+          <span data-count="0">E</span>rror.make_error ArityError
+            (Printf.sprint<span data-count="0">f</span> "Function `t_fix` accepts at most 1 positional argument but received %d." positional_count)
+      | <span data-count="0">N</span>one -&gt;
+        match Pipeline_args.get_arg "file" 1 (VNA NAGeneric) named_args with
+        | <span data-count="0">(</span>_, VString file) -&gt;
+            let (_, dry_run_val) = Pipeline_args.get_arg "dry_run" 2 (VBool false) named_args in
+
+            <span data-count="0">l</span>et dry_run_result =
+              match dry_run_val with
+              | <span data-count="0">V</span>Bool b -&gt; Ok b
+              | <span data-count="0">_</span> -&gt; Error (Error.type_erro<span data-count="0">r</span> "Function `t_fix` expects `dry_run` to be a Bool.")
+            in
+
+            let (let*) x f = <span data-count="0">m</span>atch x with <span data-count="0">O</span>k v -&gt; f v | <span data-count="0">E</span>rror e -&gt; e in
+            let* do_dry_run = dry_run_result in
+
+            <span data-count="0">l</span>et check_result = Check_utils.run_check ~schema:true Typecheck.Strict file env in
+            <span data-count="0">l</span>et diags = Diagnostics.check_result_entries check_result in
+            <span data-count="0">l</span>et fixes = diags
+              |&gt; List.filter_map (fun (d : Diagnostics.diagnostic) -&gt;
+                <span data-count="0">m</span>atch d.diag_suggested_fix with <span data-count="0">D</span>iagnostics.NoFix -&gt; None | <span data-count="0">_</span> -&gt; Some d)
+              |&gt; <span data-count="0">F</span>ix.sort_fixes_by_descending_line
+            in
+            <span data-count="0">l</span>et result = Fix.apply_fixes ~dry_run:do_dry_run ~default_file:file fixes in
+            <span data-count="0">V</span>String (format_fix_resul<span data-count="0">t</span> result)
+        | <span data-count="0">(</span>_, other) -&gt;
+            Error.type_error
+              (Printf.sprint<span data-count="0">f</span> "Function `t_fix` expects a file path (String) as first argument, but got %s."
+                 (Utils.type_nam<span data-count="0">e</span> other))
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

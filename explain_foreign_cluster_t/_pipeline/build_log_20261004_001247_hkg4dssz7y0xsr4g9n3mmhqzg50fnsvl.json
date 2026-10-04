@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_001247",
+  "hash": "hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl",
+  "out_path": "/nix/store/hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl-pipeline_output",
+  "duration": 17.8200,
+  "nodes": [
+{
+  "node": "r_km",
+  "path": "/nix/store/hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl-pipeline_output/r_km/artifact",
+  "hash": "r_km",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "kmeans",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.1283
+},
+{
+  "node": "r_hc",
+  "path": "/nix/store/hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl-pipeline_output/r_hc/artifact",
+  "hash": "r_hc",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "hclust",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.1508
+},
+{
+  "node": "py_km",
+  "path": "/nix/store/hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl-pipeline_output/py_km/artifact",
+  "hash": "py_km",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "KMeans",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2235
+},
+{
+  "node": "py_pca",
+  "path": "/nix/store/hkg4dssz7y0xsr4g9n3mmhqzg50fnsvl-pipeline_output/py_pca/artifact",
+  "hash": "py_pca",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "PCA",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2083
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pipeline_gc.ml &mdash; Coverage report</title>
+    <meta name="description" content="56.38% coverage in src/packages/pipeline/pipeline_gc.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>pipeline_gc.ml
+        </a>
+      </h1>
+      <h2>56.38%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:15.67%"></span>
+      <span class="unvisited" style="top:16.42%"></span>
+      <span class="unvisited" style="top:17.91%"></span>
+      <span class="unvisited" style="top:18.66%"></span>
+      <span class="unvisited" style="top:24.63%"></span>
+      <span class="unvisited" style="top:32.84%"></span>
+      <span class="some-visited" style="top:34.33%"></span>
+      <span class="unvisited" style="top:37.31%"></span>
+      <span class="some-visited" style="top:41.04%"></span>
+      <span class="unvisited" style="top:47.01%"></span>
+      <span class="unvisited" style="top:49.25%"></span>
+      <span class="some-visited" style="bottom:45.52%"></span>
+      <span class="unvisited" style="bottom:39.55%"></span>
+      <span class="unvisited" style="bottom:30.60%"></span>
+      <span class="unvisited" style="bottom:29.85%"></span>
+      <span class="unvisited" style="bottom:17.16%"></span>
+      <span class="unvisited" style="bottom:16.42%"></span>
+      <span class="unvisited" style="bottom:15.67%"></span>
+      <span class="unvisited" style="bottom:14.93%"></span>
+      <span class="unvisited" style="bottom:14.18%"></span>
+      <span class="unvisited" style="bottom:13.43%"></span>
+      <span class="unvisited" style="bottom:12.69%"></span>
+      <span class="unvisited" style="bottom:11.94%"></span>
+      <span class="unvisited" style="bottom:11.19%"></span>
+      <span class="unvisited" style="bottom:10.45%"></span>
+      <span class="unvisited" style="bottom:9.70%"></span>
+      <span class="unvisited" style="bottom:8.21%"></span>
+      <span class="unvisited" style="bottom:6.72%"></span>
+      <span class="unvisited" style="bottom:5.22%"></span>
+      <span class="unvisited" style="bottom:4.48%"></span>
+      <span class="unvisited" style="bottom:2.99%"></span>
+      <span class="unvisited" style="bottom:2.24%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="visited"> </span>
+<a id="L18"></a><span class="visited"> </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span class="unvisited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="visited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span class="visited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="visited"> </span>
+<a id="L31"></a><span class="visited"> </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="visited"> </span>
+<a id="L37"></a><span class="visited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="visited"> </span>
+<a id="L43"></a><span > </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span class="visited"> </span>
+<a id="L46"></a><span class="some-visited"> </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span > </span>
+<a id="L54"></a><span class="visited"> </span>
+<a id="L55"></a><span class="some-visited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="visited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span class="visited"> </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="visited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span class="visited"> </span>
+<a id="L70"></a><span class="visited"> </span>
+<a id="L71"></a><span class="visited"> </span>
+<a id="L72"></a><span class="visited"> </span>
+<a id="L73"></a><span class="some-visited"> </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span class="visited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="visited"> </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span class="visited"> </span>
+<a id="L85"></a><span class="visited"> </span>
+<a id="L86"></a><span class="visited"> </span>
+<a id="L87"></a><span > </span>
+<a id="L88"></a><span > </span>
+<a id="L89"></a><span > </span>
+<a id="L90"></a><span > </span>
+<a id="L91"></a><span > </span>
+<a id="L92"></a><span class="visited"> </span>
+<a id="L93"></a><span class="unvisited"> </span>
+<a id="L94"></a><span class="unvisited"> </span>
+<a id="L95"></a><span > </span>
+<a id="L96"></a><span class="visited"> </span>
+<a id="L97"></a><span > </span>
+<a id="L98"></a><span > </span>
+<a id="L99"></a><span > </span>
+<a id="L100"></a><span > </span>
+<a id="L101"></a><span > </span>
+<a id="L102"></a><span > </span>
+<a id="L103"></a><span > </span>
+<a id="L104"></a><span > </span>
+<a id="L105"></a><span > </span>
+<a id="L106"></a><span > </span>
+<a id="L107"></a><span > </span>
+<a id="L108"></a><span > </span>
+<a id="L109"></a><span > </span>
+<a id="L110"></a><span class="visited"> </span>
+<a id="L111"></a><span class="unvisited"> </span>
+<a id="L112"></a><span class="unvisited"> </span>
+<a id="L113"></a><span class="unvisited"> </span>
+<a id="L114"></a><span class="unvisited"> </span>
+<a id="L115"></a><span class="unvisited"> </span>
+<a id="L116"></a><span class="unvisited"> </span>
+<a id="L117"></a><span class="unvisited"> </span>
+<a id="L118"></a><span class="unvisited"> </span>
+<a id="L119"></a><span class="unvisited"> </span>
+<a id="L120"></a><span class="unvisited"> </span>
+<a id="L121"></a><span class="unvisited"> </span>
+<a id="L122"></a><span > </span>
+<a id="L123"></a><span class="unvisited"> </span>
+<a id="L124"></a><span > </span>
+<a id="L125"></a><span class="unvisited"> </span>
+<a id="L126"></a><span > </span>
+<a id="L127"></a><span class="unvisited"> </span>
+<a id="L128"></a><span class="unvisited"> </span>
+<a id="L129"></a><span > </span>
+<a id="L130"></a><span class="unvisited"> </span>
+<a id="L131"></a><span class="unvisited"> </span>
+<a id="L132"></a><span > </span>
+<a id="L133"></a><span > </span>
+<a id="L134"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">  1</a>
+<a href="#L2">  2</a>
+<a href="#L3">  3</a>
+<a href="#L4">  4</a>
+<a href="#L5">  5</a>
+<a href="#L6">  6</a>
+<a href="#L7">  7</a>
+<a href="#L8">  8</a>
+<a href="#L9">  9</a>
+<a href="#L10"> 10</a>
+<a href="#L11"> 11</a>
+<a href="#L12"> 12</a>
+<a href="#L13"> 13</a>
+<a href="#L14"> 14</a>
+<a href="#L15"> 15</a>
+<a href="#L16"> 16</a>
+<a href="#L17"> 17</a>
+<a href="#L18"> 18</a>
+<a href="#L19"> 19</a>
+<a href="#L20"> 20</a>
+<a href="#L21"> 21</a>
+<a href="#L22"> 22</a>
+<a href="#L23"> 23</a>
+<a href="#L24"> 24</a>
+<a href="#L25"> 25</a>
+<a href="#L26"> 26</a>
+<a href="#L27"> 27</a>
+<a href="#L28"> 28</a>
+<a href="#L29"> 29</a>
+<a href="#L30"> 30</a>
+<a href="#L31"> 31</a>
+<a href="#L32"> 32</a>
+<a href="#L33"> 33</a>
+<a href="#L34"> 34</a>
+<a href="#L35"> 35</a>
+<a href="#L36"> 36</a>
+<a href="#L37"> 37</a>
+<a href="#L38"> 38</a>
+<a href="#L39"> 39</a>
+<a href="#L40"> 40</a>
+<a href="#L41"> 41</a>
+<a href="#L42"> 42</a>
+<a href="#L43"> 43</a>
+<a href="#L44"> 44</a>
+<a href="#L45"> 45</a>
+<a href="#L46"> 46</a>
+<a href="#L47"> 47</a>
+<a href="#L48"> 48</a>
+<a href="#L49"> 49</a>
+<a href="#L50"> 50</a>
+<a href="#L51"> 51</a>
+<a href="#L52"> 52</a>
+<a href="#L53"> 53</a>
+<a href="#L54"> 54</a>
+<a href="#L55"> 55</a>
+<a href="#L56"> 56</a>
+<a href="#L57"> 57</a>
+<a href="#L58"> 58</a>
+<a href="#L59"> 59</a>
+<a href="#L60"> 60</a>
+<a href="#L61"> 61</a>
+<a href="#L62"> 62</a>
+<a href="#L63"> 63</a>
+<a href="#L64"> 64</a>
+<a href="#L65"> 65</a>
+<a href="#L66"> 66</a>
+<a href="#L67"> 67</a>
+<a href="#L68"> 68</a>
+<a href="#L69"> 69</a>
+<a href="#L70"> 70</a>
+<a href="#L71"> 71</a>
+<a href="#L72"> 72</a>
+<a href="#L73"> 73</a>
+<a href="#L74"> 74</a>
+<a href="#L75"> 75</a>
+<a href="#L76"> 76</a>
+<a href="#L77"> 77</a>
+<a href="#L78"> 78</a>
+<a href="#L79"> 79</a>
+<a href="#L80"> 80</a>
+<a href="#L81"> 81</a>
+<a href="#L82"> 82</a>
+<a href="#L83"> 83</a>
+<a href="#L84"> 84</a>
+<a href="#L85"> 85</a>
+<a href="#L86"> 86</a>
+<a href="#L87"> 87</a>
+<a href="#L88"> 88</a>
+<a href="#L89"> 89</a>
+<a href="#L90"> 90</a>
+<a href="#L91"> 91</a>
+<a href="#L92"> 92</a>
+<a href="#L93"> 93</a>
+<a href="#L94"> 94</a>
+<a href="#L95"> 95</a>
+<a href="#L96"> 96</a>
+<a href="#L97"> 97</a>
+<a href="#L98"> 98</a>
+<a href="#L99"> 99</a>
+<a href="#L100">100</a>
+<a href="#L101">101</a>
+<a href="#L102">102</a>
+<a href="#L103">103</a>
+<a href="#L104">104</a>
+<a href="#L105">105</a>
+<a href="#L106">106</a>
+<a href="#L107">107</a>
+<a href="#L108">108</a>
+<a href="#L109">109</a>
+<a href="#L110">110</a>
+<a href="#L111">111</a>
+<a href="#L112">112</a>
+<a href="#L113">113</a>
+<a href="#L114">114</a>
+<a href="#L115">115</a>
+<a href="#L116">116</a>
+<a href="#L117">117</a>
+<a href="#L118">118</a>
+<a href="#L119">119</a>
+<a href="#L120">120</a>
+<a href="#L121">121</a>
+<a href="#L122">122</a>
+<a href="#L123">123</a>
+<a href="#L124">124</a>
+<a href="#L125">125</a>
+<a href="#L126">126</a>
+<a href="#L127">127</a>
+<a href="#L128">128</a>
+<a href="#L129">129</a>
+<a href="#L130">130</a>
+<a href="#L131">131</a>
+<a href="#L132">132</a>
+<a href="#L133">133</a>
+<a href="#L134">134</a>
+</pre>
+<pre><code class="ocaml">open Ast
+(*
+--# Garbage Collect Pipeline Nodes
+--#
+--# Calls nix-store --delete on the store paths of a pipeline's nodes.
+--#
+--# @name pipeline_gc
+--# @param p :: Pipeline The pipeline to clean up.
+--# @param dry_run :: Bool (Optional) If `true`, only lists what would be deleted without executing the deletion. Defaults to `false`.
+--# @return :: DataFrame A DataFrame with columns `node` (String), `store_path` (String), and `deleted` (Bool).
+--# @example
+--#   pipeline_gc(p, dry_run=true)
+--# @family pipeline
+--# @export
+--*)
+let register env =
+  <span data-count="268">l</span>et gc_fn named_args _env =
+    <span data-count="3">l</span>et named_keys = List.filter_map (fun (k, _) -&gt; <span data-count="6">k</span>) named_args in
+    <span data-count="3">l</span>et positional_count = List.length (List.filte<span data-count="3">r</span> (fun (k, _) -&gt; <span data-count="6">k</span> = None) named_args) in
+    <span data-count="3">m</span>atch List.find_opt (fun k -&gt; <span data-count="3">n</span>ot (List.me<span data-count="3">m</span> k ["p"; "dry_run"])) named_keys with
+    | <span data-count="0">S</span>ome k -&gt;
+        Error.type_error (Printf.sprint<span data-count="0">f</span> "pipeline_gc: unknown argument '%s'" k)
+    | <span data-count="3">N</span>one when positional_count &gt; 2 -&gt;
+        <span data-count="0">E</span>rror.make_error ArityError
+          (Printf.sprint<span data-count="0">f</span> "Function `pipeline_gc` accepts at most 2 positional arguments but received %d." positional_count)
+    | <span data-count="3">N</span>one -&gt;
+      match Pipeline_args.get_arg "p" 1 (VNA NAGeneric) named_args with
+      | <span data-count="3">(</span>_, VPipeline p) -&gt;
+          let (_, dry_run_val) = Pipeline_args.get_arg "dry_run" 2 (VBool false) named_args in
+          <span data-count="3">(</span>match dry_run_val with
+           | <span data-count="3">V</span>Bool dry_run -&gt;
+               (match Builder.populate_pipeline ~build:false p with
+                | <span data-count="0">E</span>rror msg -&gt; Error.make_error StructuralError msg
+                | <span data-count="3">O</span>k _ -&gt;
+                    let node_names = List.map fst p.p_nodes in
+                    <span data-count="3">l</span>et nrows = List.length node_names in
+                    <span data-count="3">l</span>et arr_node = Array.of_list (List.ma<span data-count="3">p</span> (fun n -&gt; <span data-count="9">S</span>ome n) node_names) in
+
+                    <span data-count="3">l</span>et is_safe_to_delete store_path =
+                      <span data-count="9">i</span>f not (Sys.file_exist<span data-count="9">s</span> store_path) then <span data-count="4">f</span>alse
+                      else
+                        <span data-count="5">l</span>et roots_argv = [| "nix-store"; "--query"; "--roots"; store_path |] in
+                        match Builder_utils.run_command_argv_capture roots_argv with
+                        | <span data-count="0">E</span>rror _ -&gt; false
+                        | <span data-count="5">O</span>k roots_out -&gt;
+                            if String.tri<span data-count="5">m</span> roots_out &lt;&gt; "" then <span data-count="0">f</span>alse
+                            else
+                              <span data-count="5">l</span>et refs_argv = [| "nix-store"; "--query"; "--referrers"; store_path |] in
+                              match Builder_utils.run_command_argv_capture refs_argv with
+                              | <span data-count="0">E</span>rror _ -&gt; false
+                              | <span data-count="5">O</span>k refs_out -&gt;
+                                  let lines =
+                                    String.split_on_char '\n' refs_out
+                                    |&gt; <span data-count="5">L</span>ist.map String.trim
+                                    |&gt; <span data-count="5">L</span>ist.filter (fun s -&gt; <span data-count="5">s</span> &lt;&gt; "" &amp;&amp; <span data-count="0">s</span> &lt;&gt; store_path)
+                                  in
+                                  <span data-count="5">L</span>ist.lengt<span data-count="5">h</span> lines = 0
+                    in
+
+                    let entries_result =
+                      List.fold_left (fun acc name -&gt;
+                        <span data-count="9">m</span>atch acc with
+                        | <span data-count="0">E</span>rror _ -&gt; acc
+                        | <span data-count="9">O</span>k entries -&gt;
+                            match Builder_utils.eval_node_store_path name with
+                            | <span data-count="0">E</span>rror err -&gt; Error err
+                            | <span data-count="9">O</span>k store_path -&gt;
+                                let safe = is_safe_to_delete store_path in
+                                <span data-count="9">l</span>et deleted =
+                                  if dry_run then <span data-count="2">s</span>afe
+                                  else <span data-count="7">i</span>f safe then
+                                    <span data-count="5">m</span>atch Builder_utils.run_command_argv_exit [| "nix-store"; "--delete"; store_path |] with
+                                    | <span data-count="5">O</span>k 0 -&gt; true | <span data-count="0">_</span> -&gt; false
+                                  else <span data-count="2">f</span>alse
+                                in
+                                Ok ((Some store_path, Some deleted) :: entries)
+                      ) (Ok []) node_names
+                    in
+
+                    <span data-count="3">m</span>atch entries_result with
+                    | <span data-count="0">E</span>rror err -&gt; err
+                    | <span data-count="3">O</span>k entries -&gt;
+                        let entries = List.rev entries in
+                        <span data-count="3">l</span>et arr_store_path = Array.of_list (List.ma<span data-count="3">p</span> fst entries) in
+                        <span data-count="3">l</span>et arr_deleted = Array.of_list (List.ma<span data-count="3">p</span> snd entries) in
+                        <span data-count="3">l</span>et columns = [
+                          ("node",       Arrow_table.StringColumn arr_node);
+                          ("store_path", Arrow_table.StringColumn arr_store_path);
+                          ("deleted",    Arrow_table.BoolColumn arr_deleted);
+                        ] in
+                        let arrow_table = Arrow_table.create columns nrows in
+                        <span data-count="3">V</span>DataFrame { arrow_table; group_keys = [] })
+           | <span data-count="0">o</span>ther -&gt; Error.type_error (Printf.sprint<span data-count="0">f</span> "Function `pipeline_gc` expects `dry_run` to be a Bool, but got %s." (Utils.type_nam<span data-count="0">e</span> other)))
+      | <span data-count="0">(</span>_, other) -&gt; Error.type_error (Printf.sprint<span data-count="0">f</span> "Function `pipeline_gc` expects a Pipeline, but got %s." (Utils.type_nam<span data-count="0">e</span> other))
+  in
+  let env = Env.add "pipeline_gc" (make_builtin_name<span data-count="268">d</span> ~name:"pipeline_gc" ~variadic:true 1 gc_fn) env in
+(*
+--# Run System Garbage Collection
+--#
+--# Runs the global Nix garbage collector (nix-store --gc) to delete any unreferenced,
+--# stale, or unused paths from the local Nix store.
+--#
+--# @name t_gc
+--# @return :: String A status message summarizing the deleted store paths.
+--# @example
+--#   t_gc()
+--# @family pipeline
+--# @export
+*)
+  <span data-count="268">l</span>et t_gc_fn named_args _env =
+    <span data-count="0">l</span>et named_keys = List.filter_map (fun (k, _) -&gt; <span data-count="0">k</span>) named_args in
+    <span data-count="0">l</span>et positional_count = List.length (List.filte<span data-count="0">r</span> (fun (k, _) -&gt; <span data-count="0">k</span> = None) named_args) in
+    <span data-count="0">m</span>atch List.find_opt (fun k -&gt; <span data-count="0">n</span>ot (List.me<span data-count="0">m</span> k [])) named_keys with
+    | <span data-count="0">S</span>ome k -&gt;
+        Error.type_error (Printf.sprint<span data-count="0">f</span> "t_gc: unknown argument '%s'" k)
+    | <span data-count="0">N</span>one when positional_count &gt; 0 -&gt;
+        <span data-count="0">E</span>rror.make_error ArityError
+          (Printf.sprint<span data-count="0">f</span> "Function `t_gc` accepts at most 0 positional arguments but received %d." positional_count)
+    | <span data-count="0">N</span>one -&gt;
+        if not (Builder_utils.command_exist<span data-count="0">s</span> "nix-store") then
+          <span data-count="0">E</span>rror.make_error ShellError "Nix store commands are not available on this system."
+        else
+          <span data-count="0">l</span>et argv = [| "nix-store"; "--gc" |] in
+          match Builder_utils.run_command_argv_capture argv with
+          | <span data-count="0">O</span>k output -&gt;
+              let trimmed = String.trim output in
+              <span data-count="0">i</span>f trimmed = "" then
+                <span data-count="0">V</span>String "Garbage collection completed. No unused store paths were deleted."
+              else
+                <span data-count="0">V</span>String ("Garbage collection completed:\n" ^ trimmed)
+          | <span data-count="0">E</span>rror msg -&gt;
+              Error.make_error ShellError ("Failed to run nix-store --gc: " ^ msg)
+  in
+  Env.add "t_gc" (make_builtin_name<span data-count="268">d</span> ~name:"t_gc" ~variadic:true 0 t_gc_fn) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261004_001515",
+  "hash": "cfdq8gcprsywn0mjk0dy5k0gd8cpvznv",
+  "out_path": "/nix/store/cfdq8gcprsywn0mjk0dy5k0gd8cpvznv-pipeline_output",
+  "duration": 15.2196,
+  "nodes": [
+{
+  "node": "r_fit",
+  "path": "/nix/store/cfdq8gcprsywn0mjk0dy5k0gd8cpvznv-pipeline_output/r_fit/artifact",
+  "hash": "r_fit",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lm",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9838
+},
+{
+  "node": "py_fit",
+  "path": "/nix/store/cfdq8gcprsywn0mjk0dy5k0gd8cpvznv-pipeline_output/py_fit/artifact",
+  "hash": "py_fit",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "LinearRegression",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.0061
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,39 @@
+{
+  "timestamp": "20261004_011853",
+  "hash": "w87ymmvglv7h05s8a10m821ss79gl79q",
+  "out_path": "/nix/store/w87ymmvglv7h05s8a10m821ss79gl79q-pipeline_output",
+  "duration": 8.9394,
+  "nodes": [
+{
+  "node": "package_checks",
+  "path": "/nix/store/w87ymmvglv7h05s8a10m821ss79gl79q-pipeline_output/package_checks/artifact",
+  "hash": "package_checks",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.2647,
+  "error_code": "ShellError",
+  "error_message": "Command failed (exit 1): mkdir: cannot create directory '/home': Permission denied"
+},
+{
+  "node": "project_checks",
+  "path": "/nix/store/w87ymmvglv7h05s8a10m821ss79gl79q-pipeline_output/project_checks/artifact",
+  "hash": "project_checks",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.2522,
+  "error_code": "ShellError",
+  "error_message": "Command failed (exit 1): mkdir: cannot create directory '/home': Permission denied"
+}
+],
+  "pipeline": "p"
+}

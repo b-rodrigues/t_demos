@@ -1,0 +1,100 @@
+{
+  "timestamp": "20261004_012923",
+  "hash": "gbad5vlzjra2lvj5bn9jkn59a1ycc3gq",
+  "out_path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output",
+  "duration": 757.5694,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 740.0475
+},
+{
+  "node": "ggplot_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/ggplot_node/artifact",
+  "hash": "ggplot_node",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "ggplot",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 739.6228
+},
+{
+  "node": "matplotlib_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/matplotlib_node/artifact",
+  "hash": "matplotlib_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "matplotlib",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.2201
+},
+{
+  "node": "seaborn_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/seaborn_node/artifact",
+  "hash": "seaborn_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "matplotlib",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0686
+},
+{
+  "node": "plotly_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/plotly_node/artifact",
+  "hash": "plotly_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "plotly",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.1917
+},
+{
+  "node": "altair_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/altair_node/artifact",
+  "hash": "altair_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "altair",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.2421
+},
+{
+  "node": "plotnine_node",
+  "path": "/nix/store/gbad5vlzjra2lvj5bn9jkn59a1ycc3gq-pipeline_output/plotnine_node/artifact",
+  "hash": "plotnine_node",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "plotnine",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.1615
+}
+],
+  "pipeline": "p"
+}

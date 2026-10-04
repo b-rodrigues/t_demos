@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261003_235639",
+  "hash": "s4vsgxylglgyshmmlin0fz6g9a4hs4c0",
+  "out_path": "/nix/store/s4vsgxylglgyshmmlin0fz6g9a4hs4c0-pipeline_output",
+  "duration": 8.7311,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/s4vsgxylglgyshmmlin0fz6g9a4hs4c0-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3113
+},
+{
+  "node": "scalar",
+  "path": "/nix/store/s4vsgxylglgyshmmlin0fz6g9a4hs4c0-pipeline_output/scalar/artifact",
+  "hash": "scalar",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2975
+},
+{
+  "node": "text_node",
+  "path": "/nix/store/s4vsgxylglgyshmmlin0fz6g9a4hs4c0-pipeline_output/text_node/artifact",
+  "hash": "text_node",
+  "runtime": "T",
+  "serializer": "text",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2817
+}
+],
+  "pipeline": "p2"
+}

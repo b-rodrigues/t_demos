@@ -1,0 +1,5 @@
+{
+  "etl.raw": "/nix/store/mgcjp6wnhs8cknidm8cvlmpnwvgn8cb1-etl.raw.drv",
+  "etl.clean": "/nix/store/1z77rv8kzcii4fks1qx0cl3xihjw1qqd-etl.clean.drv",
+  "stats.total": "/nix/store/27smxkrqagmyw6843i482mlgkk6hfbn0-stats.total.drv"
+}

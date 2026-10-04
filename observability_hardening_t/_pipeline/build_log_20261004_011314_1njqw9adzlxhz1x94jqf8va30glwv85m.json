@@ -1,0 +1,63 @@
+{
+  "timestamp": "20261004_011314",
+  "hash": "1njqw9adzlxhz1x94jqf8va30glwv85m",
+  "out_path": "/nix/store/1njqw9adzlxhz1x94jqf8va30glwv85m-pipeline_output",
+  "duration": 10.2876,
+  "nodes": [
+{
+  "node": "dep_node",
+  "path": "/nix/store/1njqw9adzlxhz1x94jqf8va30glwv85m-pipeline_output/dep_node/artifact",
+  "hash": "dep_node",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3996
+},
+{
+  "node": "sh_node",
+  "path": "/nix/store/1njqw9adzlxhz1x94jqf8va30glwv85m-pipeline_output/sh_node/artifact",
+  "hash": "sh_node",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": ["dep_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2137
+},
+{
+  "node": "failing_node",
+  "path": "/nix/store/1njqw9adzlxhz1x94jqf8va30glwv85m-pipeline_output/failing_node/artifact",
+  "hash": "failing_node",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.3850,
+  "error_code": "GenericError",
+  "error_message": "This is an expected intentional failure to test error collection."
+},
+{
+  "node": "recovery_node",
+  "path": "/nix/store/1njqw9adzlxhz1x94jqf8va30glwv85m-pipeline_output/recovery_node/artifact",
+  "hash": "recovery_node",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "String",
+  "dependencies": ["failing_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2278
+}
+],
+  "pipeline": "p"
+}

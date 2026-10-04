@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "datathin",
+  "depends": []
+},
+{
+  "node_name": "modecomp",
+  "depends": []
+},
+{
+  "node_name": "py_mean",
+  "depends": []
+},
+{
+  "node_name": "jl_custom",
+  "depends": []
+}
+]

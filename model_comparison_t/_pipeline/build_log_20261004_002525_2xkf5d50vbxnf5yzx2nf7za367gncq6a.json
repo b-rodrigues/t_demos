@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_002525",
+  "hash": "2xkf5d50vbxnf5yzx2nf7za367gncq6a",
+  "out_path": "/nix/store/2xkf5d50vbxnf5yzx2nf7za367gncq6a-pipeline_output",
+  "duration": 2641.1231,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/2xkf5d50vbxnf5yzx2nf7za367gncq6a-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2622.9223
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/2xkf5d50vbxnf5yzx2nf7za367gncq6a-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2621.9096
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/2xkf5d50vbxnf5yzx2nf7za367gncq6a-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.6841
+},
+{
+  "node": "comparison_result",
+  "path": "/nix/store/2xkf5d50vbxnf5yzx2nf7za367gncq6a-pipeline_output/comparison_result/artifact",
+  "hash": "comparison_result",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["py_model", "r_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3632
+}
+],
+  "pipeline": "p_final"
+}

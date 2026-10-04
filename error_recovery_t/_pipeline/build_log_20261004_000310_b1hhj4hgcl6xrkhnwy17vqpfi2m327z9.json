@@ -1,0 +1,63 @@
+{
+  "timestamp": "20261004_000310",
+  "hash": "b1hhj4hgcl6xrkhnwy17vqpfi2m327z9",
+  "out_path": "/nix/store/b1hhj4hgcl6xrkhnwy17vqpfi2m327z9-pipeline_output",
+  "duration": 9.2191,
+  "nodes": [
+{
+  "node": "risky_node",
+  "path": "/nix/store/b1hhj4hgcl6xrkhnwy17vqpfi2m327z9-pipeline_output/risky_node/artifact",
+  "hash": "risky_node",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.4331,
+  "error_code": "GenericError",
+  "error_message": "Expected dataset 'raw_data.csv' was not found."
+},
+{
+  "node": "local_recovery",
+  "path": "/nix/store/b1hhj4hgcl6xrkhnwy17vqpfi2m327z9-pipeline_output/local_recovery/artifact",
+  "hash": "local_recovery",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4462
+},
+{
+  "node": "handled_node",
+  "path": "/nix/store/b1hhj4hgcl6xrkhnwy17vqpfi2m327z9-pipeline_output/handled_node/artifact",
+  "hash": "handled_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["risky_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2515
+},
+{
+  "node": "error_info",
+  "path": "/nix/store/b1hhj4hgcl6xrkhnwy17vqpfi2m327z9-pipeline_output/error_info/artifact",
+  "hash": "error_info",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["risky_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2645
+}
+],
+  "pipeline": "p"
+}

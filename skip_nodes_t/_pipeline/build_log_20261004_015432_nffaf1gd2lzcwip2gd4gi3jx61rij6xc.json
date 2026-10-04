@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_015432",
+  "hash": "nffaf1gd2lzcwip2gd4gi3jx61rij6xc",
+  "out_path": "/nix/store/nffaf1gd2lzcwip2gd4gi3jx61rij6xc-pipeline_output",
+  "duration": 13.6849,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/nffaf1gd2lzcwip2gd4gi3jx61rij6xc-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3132
+},
+{
+  "node": "expensive_node",
+  "path": "/nix/store/nffaf1gd2lzcwip2gd4gi3jx61rij6xc-pipeline_output/expensive_node/artifact",
+  "hash": "expensive_node",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "Unknown",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3045
+},
+{
+  "node": "summary_stats",
+  "path": "/nix/store/nffaf1gd2lzcwip2gd4gi3jx61rij6xc-pipeline_output/summary_stats/artifact",
+  "hash": "summary_stats",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["expensive_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "report",
+  "path": "/nix/store/nffaf1gd2lzcwip2gd4gi3jx61rij6xc-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["data", "expensive_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2929
+}
+],
+  "pipeline": "p"
+}

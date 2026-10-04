@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261003_235616",
+  "hash": "hh9sgfsgql3xjqar3p1mi2abrrjnh87z",
+  "out_path": "/nix/store/hh9sgfsgql3xjqar3p1mi2abrrjnh87z-pipeline_output",
+  "duration": 13.9756,
+  "nodes": [
+{
+  "node": "base_data",
+  "path": "/nix/store/hh9sgfsgql3xjqar3p1mi2abrrjnh87z-pipeline_output/base_data/artifact",
+  "hash": "base_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7431
+},
+{
+  "node": "updated_version",
+  "path": "/nix/store/hh9sgfsgql3xjqar3p1mi2abrrjnh87z-pipeline_output/updated_version/artifact",
+  "hash": "updated_version",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5097
+},
+{
+  "node": "updated_retry",
+  "path": "/nix/store/hh9sgfsgql3xjqar3p1mi2abrrjnh87z-pipeline_output/updated_retry/artifact",
+  "hash": "updated_retry",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["updated_version"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3023
+},
+{
+  "node": "both_updated",
+  "path": "/nix/store/hh9sgfsgql3xjqar3p1mi2abrrjnh87z-pipeline_output/both_updated/artifact",
+  "hash": "both_updated",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5383
+}
+],
+  "pipeline": "p"
+}

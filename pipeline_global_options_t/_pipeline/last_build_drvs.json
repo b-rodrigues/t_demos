@@ -1,0 +1,7 @@
+{
+  "heavy_py": "/nix/store/8mqvv1whc9idqsmhc4gvv46ck95hmda0-heavy_py.drv",
+  "heavy_r": "/nix/store/nzhqxkmipqj5da1w0v2s6ifpy521d6qn-heavy_r.drv",
+  "say_hi": "/nix/store/1bdv4y9pk7sg9q7xr4p1w60mj4macspx-say_hi.drv",
+  "report": "/nix/store/bzbbnvxribq1nxn4zxkikfvvbjm4hivy-report.drv",
+  "raw": "/nix/store/r45mym30p69p3ayhbinr269iqi84cd17-raw.drv"
+}

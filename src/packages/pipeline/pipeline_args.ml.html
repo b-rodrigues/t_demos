@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pipeline_args.ml &mdash; Coverage report</title>
+    <meta name="description" content="100.00% coverage in src/packages/pipeline/pipeline_args.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>pipeline_args.ml
+        </a>
+      </h1>
+      <h2>100.00%</h2>
+    </div>
+    <div id="navbar">
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span class="visited"> </span>
+<a id="L3"></a><span class="visited"> </span>
+<a id="L4"></a><span class="visited"> </span>
+<a id="L5"></a><span class="visited"> </span>
+<a id="L6"></a><span class="visited"> </span>
+<a id="L7"></a><span class="visited"> </span>
+<a id="L8"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1">1</a>
+<a href="#L2">2</a>
+<a href="#L3">3</a>
+<a href="#L4">4</a>
+<a href="#L5">5</a>
+<a href="#L6">6</a>
+<a href="#L7">7</a>
+<a href="#L8">8</a>
+</pre>
+<pre><code class="ocaml">let get_arg name pos default named_args =
+  <span data-count="1108">m</span>atch List.assoc_opt name (List.filter_ma<span data-count="1108">p</span> (fun (k, v) -&gt; <span data-count="2256">m</span>atch k with <span data-count="1179">S</span>ome s -&gt; Some (s, v) | <span data-count="1077">N</span>one -&gt; None) named_args) with
+  | <span data-count="217">S</span>ome v -&gt; (true, v)
+  | <span data-count="891">N</span>one -&gt;
+      let positionals = List.filter_map (fun (k, v) -&gt; <span data-count="1710">m</span>atch k with <span data-count="860">N</span>one -&gt; Some v | <span data-count="850">S</span>ome _ -&gt; None) named_args in
+      <span data-count="891">m</span>atch Pipeline_utils.nth_safe (pos - 1) positionals with
+      | <span data-count="211">S</span>ome v -&gt; (true, v)
+      | <span data-count="680">N</span>one -&gt; (false, default)
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

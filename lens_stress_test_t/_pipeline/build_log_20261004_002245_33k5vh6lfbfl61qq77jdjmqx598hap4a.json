@@ -1,0 +1,22 @@
+{
+  "timestamp": "20261004_002245",
+  "hash": "33k5vh6lfbfl61qq77jdjmqx598hap4a",
+  "out_path": "/nix/store/33k5vh6lfbfl61qq77jdjmqx598hap4a-pipeline_output",
+  "duration": 9.1968,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/33k5vh6lfbfl61qq77jdjmqx598hap4a-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2409
+}
+],
+  "pipeline": "p_rebind2"
+}

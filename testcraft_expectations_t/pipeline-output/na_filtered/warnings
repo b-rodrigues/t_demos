@@ -1,0 +1,1 @@
+[{"kind":"NAExcluded","fn":"filter","na_count":2,"na_indices":[2,4],"message":"filter() excluded 2 rows because the predicate evaluated to NA","source":{"kind":"Own"}}]

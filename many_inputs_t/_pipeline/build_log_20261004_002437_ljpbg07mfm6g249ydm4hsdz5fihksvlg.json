@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261004_002437",
+  "hash": "ljpbg07mfm6g249ydm4hsdz5fihksvlg",
+  "out_path": "/nix/store/ljpbg07mfm6g249ydm4hsdz5fihksvlg-pipeline_output",
+  "duration": 22.4428,
+  "nodes": [
+{
+  "node": "mtcars_r",
+  "path": "/nix/store/ljpbg07mfm6g249ydm4hsdz5fihksvlg-pipeline_output/mtcars_r/artifact",
+  "hash": "mtcars_r",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "spec_tbl_df",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.7874
+},
+{
+  "node": "mtcars_py",
+  "path": "/nix/store/ljpbg07mfm6g249ydm4hsdz5fihksvlg-pipeline_output/mtcars_py/artifact",
+  "hash": "mtcars_py",
+  "runtime": "Python",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.8383
+},
+{
+  "node": "head_mtcars",
+  "path": "/nix/store/ljpbg07mfm6g249ydm4hsdz5fihksvlg-pipeline_output/head_mtcars/artifact",
+  "hash": "head_mtcars",
+  "runtime": "Python",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["mtcars_py"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.1870
+},
+{
+  "node": "report",
+  "path": "/nix/store/ljpbg07mfm6g249ydm4hsdz5fihksvlg-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "QuartoOutput",
+  "dependencies": ["mtcars_r"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.8056
+}
+],
+  "pipeline": "p"
+}
