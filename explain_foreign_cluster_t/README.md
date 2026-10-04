@@ -1,7 +1,7 @@
 # explain foreign_meta — Cluster Facts Demo
 
 End-to-end validation of `explain(p.node).foreign_meta` clustering and
-PCA facts after a real pipeline build. The pipeline builds seven
+PCA facts after a real pipeline build. The pipeline builds eight
 independent nodes:
 
 - **`r_km`** (R) — `kmeans(mtcars, 3)`, seeded.
@@ -11,6 +11,7 @@ independent nodes:
 - **`jl_km`** (Julia) — `Clustering.kmeans`, 2 clusters.
 - **`jl_hc`** (Julia) — `Clustering.hclust`, complete linkage.
 - **`jl_pca`** (Julia) — `MultivariateStats.fit(PCA)`, 2 components max.
+- **`py_dbscan`** (Python) — `DBSCAN`, noise-excluding cluster count.
 
 After the build, a verify step loads the pipeline fresh via `t_make()` and
 checks `task`, `n_clusters`, `method`, `n_components`, and variance
@@ -27,6 +28,7 @@ metrics through `check()`.
 | `jl_km` | `task == "clustering"`, `n_clusters == 2`, `totalcost` present |
 | `jl_hc` | `method == "complete"`, `n_obs == 3` |
 | `jl_pca` | `task == "dim_reduction"`, `var_first` present |
+| `py_dbscan` | `task == "clustering"`, `n_clusters == 2` |
 
 ## Why a demo instead of a unit test
 

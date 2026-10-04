@@ -69,6 +69,15 @@ p = pipeline {
         }>,
         runtime = Julia
     )
+
+    -- scikit-learn DBSCAN (noise-excluding cluster count)
+    py_dbscan = node(
+        command = <{
+            from sklearn.cluster import DBSCAN
+            DBSCAN(eps = 0.5, min_samples = 2).fit([[1.0], [1.1], [8.0], [8.1]])
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

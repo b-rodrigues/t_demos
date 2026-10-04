@@ -83,6 +83,8 @@ jobs:
           check(explain(p.jl_df).foreign_meta.kind == "dataframe")
           check(get(explain(p.jl_df).foreign_meta.dimensions, 0) == 5)
           check(get(explain(p.jl_df).foreign_meta.dimensions, 1) == 2)
+          check(explain(p.r_factor).foreign_meta.kind == "factor")
+          check(explain(p.r_factor).foreign_meta.n_levels == 2)
           print("+ foreign frame metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_frames.t

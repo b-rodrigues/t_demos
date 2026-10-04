@@ -53,6 +53,16 @@ p = pipeline {
         runtime = Python
     )
 
+    -- Arrow table (2 rows x 2 cols)
+    py_arrow = node(
+        command = <{
+            import pandas as pd
+            import pyarrow as pa
+            pa.Table.from_pandas(pd.DataFrame({"a": [1, 2], "b": [3.0, 4.0]}))
+        }>,
+        runtime = Python
+    )
+
     -- Julia matrix (2 x 2) and vector (length 3)
     jl_mat = node(
         command = <{ [1 2; 3 4] }>,

@@ -1,13 +1,14 @@
 # explain foreign_meta — Frame Shapes Demo
 
 End-to-end validation of `explain(p.node).foreign_meta` shape facts on
-DataFrame nodes after a real pipeline build. The pipeline builds four
+DataFrame nodes after a real pipeline build. The pipeline builds five
 independent frame nodes:
 
 - **`r_df`** (R) — `mtcars` data.frame (32 rows x 11 cols).
 - **`py_df`** (Python) — pandas DataFrame (3 rows x 2 cols).
 - **`py_pl`** (Python) — polars DataFrame (4 rows x 2 cols).
 - **`jl_df`** (Julia) — DataFrames.jl DataFrame (5 rows x 2 cols).
+- **`r_factor`** (R) — factor with 2 levels.
 
 After the build, a verify step loads the pipeline fresh via `t_make()` and
 checks `kind`, `dimensions`, and the full `features` list through `check()`.
@@ -20,6 +21,7 @@ checks `kind`, `dimensions`, and the full `features` list through `check()`.
 | `py_df` | `dimensions == [3, 2]` |
 | `py_pl` | `dimensions == [4, 2]` |
 | `jl_df` | `dimensions == [5, 2]` |
+| `r_factor` | `kind == "factor"`, `n_levels == 2` |
 
 ## Why a demo instead of a unit test
 

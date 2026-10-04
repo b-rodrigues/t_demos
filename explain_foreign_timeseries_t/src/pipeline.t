@@ -31,6 +31,12 @@ p = pipeline {
         runtime = R
     )
 
+    -- R time series object (AirPassengers, monthly)
+    r_ts = node(
+        command = <{ AirPassengers }>,
+        runtime = R
+    )
+
     -- StateSpaceModels.jl seasonal ARIMA
     jl_sarima = node(
         command = <{

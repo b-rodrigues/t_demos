@@ -89,6 +89,8 @@ jobs:
           check(explain(p.jl_hc).foreign_meta.n_obs == 3)
           check(explain(p.jl_pca).foreign_meta.task == "dim_reduction")
           check(type(explain(p.jl_pca).foreign_meta.metrics.var_first) == "Float")
+          check(explain(p.py_dbscan).foreign_meta.task == "clustering")
+          check(explain(p.py_dbscan).foreign_meta.n_clusters == 2)
           print("+ foreign cluster metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_cluster.t

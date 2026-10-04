@@ -92,6 +92,9 @@ jobs:
           check(explain(p.jl_mat).foreign_meta.dtype == "Int64")
           check(explain(p.jl_vec).foreign_meta.kind == "vector")
           check(get(explain(p.jl_vec).foreign_meta.dimensions, 0) == 3)
+          check(explain(p.py_arrow).foreign_meta.kind == "dataframe")
+          check(get(explain(p.py_arrow).foreign_meta.dimensions, 0) == 2)
+          check(get(explain(p.py_arrow).foreign_meta.dimensions, 1) == 2)
           print("+ foreign matrix metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_matrix.t

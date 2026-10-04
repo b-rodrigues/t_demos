@@ -38,6 +38,12 @@ p = pipeline {
         }>,
         runtime = Julia
     )
+
+    -- R factor (2 levels)
+    r_factor = node(
+        command = <{ factor(c("a", "b", "a")) }>,
+        runtime = R
+    )
 }
 
 print("===============================================")

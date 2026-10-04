@@ -89,6 +89,8 @@ jobs:
           check(explain(p.jl_sarima).foreign_meta.task == "time_series")
           check(get(explain(p.jl_sarima).foreign_meta.order, 0) == 1)
           check(type(explain(p.jl_sarima).foreign_meta.metrics.loglik) == "Float")
+          check(explain(p.r_ts).foreign_meta.kind == "series")
+          check(explain(p.r_ts).foreign_meta.n_obs == 144)
           print("+ foreign time-series metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_timeseries.t
