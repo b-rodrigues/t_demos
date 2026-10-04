@@ -10,5 +10,8 @@ packages = ["jsonlite"]
 [py-dependencies]
 packages = ["scikit-learn"]
 
+[jl-dependencies]
+packages = ["Clustering"]
+
 [t]
 min_version = "0.55.0"

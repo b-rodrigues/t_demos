@@ -42,6 +42,24 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- Clustering.jl kmeans (2 clusters)
+    jl_km = node(
+        command = <{
+            using Clustering
+            kmeans([1.0 2.0 3.0 8.0; 2.0 3.0 4.0 9.0], 2)
+        }>,
+        runtime = Julia
+    )
+
+    -- Clustering.jl hierarchical clustering
+    jl_hc = node(
+        command = <{
+            using Clustering
+            hclust([0.0 1.0 2.0; 1.0 0.0 1.0; 2.0 1.0 0.0], linkage = :complete)
+        }>,
+        runtime = Julia
+    )
 }
 
 print("===============================================")
