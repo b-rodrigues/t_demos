@@ -95,6 +95,8 @@ jobs:
           check(explain(p.py_arrow).foreign_meta.kind == "dataframe")
           check(get(explain(p.py_arrow).foreign_meta.dimensions, 0) == 2)
           check(get(explain(p.py_arrow).foreign_meta.dimensions, 1) == 2)
+          check(explain(p.r_table).foreign_meta.kind == "table")
+          check(get(explain(p.r_table).foreign_meta.dimensions, 0) == 3)
           print("+ foreign matrix metadata: ok")
           EOF
           nix develop --command t run --failfast --unsafe verify_matrix.t

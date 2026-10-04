@@ -1,7 +1,7 @@
 # explain foreign_meta — Matrix Facts Demo
 
 End-to-end validation of `explain(p.node).foreign_meta` matrix, array,
-and vector facts after a real pipeline build. The pipeline builds nine
+and vector facts after a real pipeline build. The pipeline builds ten
 independent nodes:
 
 - **`r_mat`** (R) — integer matrix, 4 rows x 3 cols.
@@ -13,6 +13,7 @@ independent nodes:
 - **`jl_mat`** (Julia) — matrix, 2 x 2.
 - **`jl_vec`** (Julia) — vector, length 3.
 - **`py_arrow`** (Python) — Arrow table, 2 rows x 2 cols.
+- **`r_table`** (R) — contingency table, 3 x 3.
 
 After the build, a verify step loads the pipeline fresh via `t_make()` and
 checks `kind`, `dimensions`, and `dtype` through `check()`.
@@ -30,6 +31,7 @@ checks `kind`, `dimensions`, and `dtype` through `check()`.
 | `jl_mat` | `kind == "matrix"`, `dimensions == [2, 2]`, `dtype == "Int64"` |
 | `jl_vec` | `kind == "vector"`, `dimensions == [3]` |
 | `py_arrow` | `kind == "dataframe"`, `dimensions == [2, 2]` |
+| `r_table` | `kind == "table"`, `dimensions == [3, 3]` |
 
 ## Why a demo instead of a unit test
 

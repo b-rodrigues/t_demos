@@ -5,7 +5,7 @@ description = "End-to-end test for explain(p.node).foreign_meta clustering and P
 [dependencies]
 
 [r-dependencies]
-packages = ["jsonlite"]
+packages = ["jsonlite", "cluster"]
 
 [py-dependencies]
 packages = ["scikit-learn"]

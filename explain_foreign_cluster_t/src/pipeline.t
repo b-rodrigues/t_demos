@@ -78,6 +78,15 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- R pam partitioning (4 clusters)
+    r_pam = node(
+        command = <{
+            library(cluster)
+            pam(ruspini, 4)
+        }>,
+        runtime = R
+    )
 }
 
 print("===============================================")

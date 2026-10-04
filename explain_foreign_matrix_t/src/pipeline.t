@@ -63,6 +63,12 @@ p = pipeline {
         runtime = Python
     )
 
+    -- R contingency table (3 x 3)
+    r_table = node(
+        command = <{ table(mtcars$cyl, mtcars$gear) }>,
+        runtime = R
+    )
+
     -- Julia matrix (2 x 2) and vector (length 3)
     jl_mat = node(
         command = <{ [1 2; 3 4] }>,
