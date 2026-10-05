@@ -17,18 +17,22 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - `basic_t`, `check_nodes_pipeline_t`, `companion_check_t`, `dynamic_pipeline_operator_t`, `nix_options_t`, `nix_orchestration_stress_t`, `package_manager_functions_t`, `pipeline_functions_t`, `pipeline_ops_t`, `pipeline_global_options_t`, `pipeline_lens_orchestration_t`, `remote_builders_t`
 - `dynamic_features_t`, `secrets_t`, `skip_nodes_t`, `many_inputs_t`, `many_unserialize_t`, `get_sym_demo_t`
 - `lens_demo_t`, `deep_data_lenses_t`, `shn_t`, `polyglot_shell_t`, `multi_lang_pipeline_t`, `julia_interop_t`
+- `pipeline_lambda_t`, `pipeline_param_t`, `meta_pipeline_t`, `pipeline_equality_t`, `variable_vice_t`, `capture_transparency_t`, `phantom_deps_t`
 
 ### Interchange, serialization, and model portability demos
 - `ipc_interop_t`, `ipc_source_coverage_t`, `ipc_edge_cases_t`, `custom_polyglot_serializer_t`, `json_interchange_t`, `multi_deserializer_t`, `r_py_json_t`
 - `factor_roundtrip_t`, `pmml_interchange_t`, `pmml_julia_r_interop_t`, `pmml_julia_rf_stress_t`, `onnx_exchange_t`, `onnx_classification_t`, `onnx_julia_stress_t`, `onnx_neural_world_age`, `onnx_neuralnet_t`
 - `onnx-exchange-deps-inject-test`, `r_py_xgboost_t`, `serializer_stress_test_t`
+- `artifact_transfer_t`
 
 ### Diagnostics, guardrails, and resilience demos
 - `data_guardrail_t`, `diff_history_t`, `drift_guardrail_t`, `diagnostics_demo_t`, `env_var_orchestration_t`, `observability_hardening_t`
 - `error_propagation_circuit_t`, `error_recovery_t`
+- `check_fix_diff_t`, `pipeline_diagnostics_test_t`
 
 ### Data wrangling, package comparison, and visualization demos
 - `chrono_vs_lubridate_t`, `dplyr_advanced_t`, `stringr_vs_strcraft_t`, `polars_vs_t_t`, `plotting_pipeline_t`, `julia_plotting_t`
+- `csv_carnage_t`, `dataframe_abyss_t`
 
 ### Modeling and comparison demos
 - `model_capabilities_demo_t`, `model_comparison_t`, `model_comparison_with_glance_t`, `stats_functions_t`
@@ -37,6 +41,17 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 ### Foreign metadata (`explain`) demos
 - `explain_foreign_classic_t`, `explain_foreign_cluster_t`, `explain_foreign_discriminant_t`, `explain_foreign_forests_t`, `explain_foreign_frames_t`, `explain_foreign_lightgbm_t`
 - `explain_foreign_logistic_t`, `explain_foreign_matrix_t`, `explain_foreign_mixed_t`, `explain_foreign_models_t`, `explain_foreign_timeseries_t`, `explain_foreign_xgboost_t`, `explain_node_test_t`
+
+### Dynamic branching and patterns demos
+- `dynamic_branching_t`, `dynamic_branching_composition_t`, `dynamic_branching_selectors_t`, `dynamic_branching_substitution_t`, `nested_patterns_t`
+- `static_conditionals_t`, `branch_failure_t`
+
+### Package resolvers and remote inputs demos
+- `py_uv_workspace_t`, `py_uv_per_flake_t`, `r_renv_t`, `r_git_pkgs_t`, `fetchurl_t`, `per_node_flake_t`, `everything_t`
+
+### Testing, lenses, and reporting demos
+- `test_runner_features_t`, `testcraft_expectations_t`, `lens_stress_test_t`, `pipeline_lens_cache_t`, `pipeline_rename_cache_t`
+- `pipeline_report_demo_t`, `pipeline_to_ga_demo_t`, `pipeline_visualization_t`
 
 ### Case studies and end-to-end examples
 - `quarto_latex_demo_t`, `quarto_test_t`, `yanai_lercher_2020_t`
