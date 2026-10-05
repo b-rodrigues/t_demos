@@ -1,0 +1,63 @@
+{
+  "timestamp": "20261005_145237",
+  "hash": "ha2bsps6j0fb1qxlpyf2nyqi49l222xa",
+  "out_path": "/nix/store/ha2bsps6j0fb1qxlpyf2nyqi49l222xa-pipeline_output",
+  "duration": 24.1202,
+  "nodes": [
+{
+  "node": "train_classifier",
+  "path": "/nix/store/ha2bsps6j0fb1qxlpyf2nyqi49l222xa-pipeline_output/train_classifier/artifact",
+  "hash": "train_classifier",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "RandomForestClassifier",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.7944
+},
+{
+  "node": "python_predictions",
+  "path": "/nix/store/ha2bsps6j0fb1qxlpyf2nyqi49l222xa-pipeline_output/python_predictions/artifact",
+  "hash": "python_predictions",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 2.8153
+},
+{
+  "node": "t_predictions",
+  "path": "/nix/store/ha2bsps6j0fb1qxlpyf2nyqi49l222xa-pipeline_output/t_predictions/artifact",
+  "hash": "t_predictions",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["train_classifier"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6116
+},
+{
+  "node": "validate_parity",
+  "path": "/nix/store/ha2bsps6j0fb1qxlpyf2nyqi49l222xa-pipeline_output/validate_parity/artifact",
+  "hash": "validate_parity",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": ["python_predictions", "t_predictions"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.3185,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: T-Lang ONNX scoring does not match Python Scikit-Learn scoring!."
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261005_154948",
+  "hash": "biw79vq2wl9ibsh4mh2bv8rk1gx3nixy",
+  "out_path": "/nix/store/biw79vq2wl9ibsh4mh2bv8rk1gx3nixy-pipeline_output",
+  "duration": 11.7981,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/biw79vq2wl9ibsh4mh2bv8rk1gx3nixy-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "total",
+  "path": "/nix/store/biw79vq2wl9ibsh4mh2bv8rk1gx3nixy-pipeline_output/total/artifact",
+  "hash": "total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+}
+],
+  "pipeline": "p_py2"
+}

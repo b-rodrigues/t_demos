@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "raw",
+  "depends": []
+},
+{
+  "node_name": "heavy_r_node",
+  "depends": ["raw"]
+},
+{
+  "node_name": "summary_stats",
+  "depends": ["heavy_r_node"]
+},
+{
+  "node_name": "report",
+  "depends": []
+}
+]

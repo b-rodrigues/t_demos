@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261005_133908",
+  "hash": "684kz5a8vxss1cljqiy8qcylp29cg1l3",
+  "out_path": "/nix/store/684kz5a8vxss1cljqiy8qcylp29cg1l3-pipeline_output",
+  "duration": 24.1815,
+  "nodes": [
+{
+  "node": "smarket_raw",
+  "path": "/nix/store/684kz5a8vxss1cljqiy8qcylp29cg1l3-pipeline_output/smarket_raw/artifact",
+  "hash": "smarket_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.4141
+},
+{
+  "node": "data_node",
+  "path": "/nix/store/684kz5a8vxss1cljqiy8qcylp29cg1l3-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["smarket_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1755
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/684kz5a8vxss1cljqiy8qcylp29cg1l3-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "glm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.4172
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/684kz5a8vxss1cljqiy8qcylp29cg1l3-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.4472
+}
+],
+  "pipeline": "p"
+}

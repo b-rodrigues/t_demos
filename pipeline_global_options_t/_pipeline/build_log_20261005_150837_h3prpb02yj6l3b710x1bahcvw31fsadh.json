@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261005_150837",
+  "hash": "h3prpb02yj6l3b710x1bahcvw31fsadh",
+  "out_path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output",
+  "duration": 13.1206,
+  "nodes": [
+{
+  "node": "raw",
+  "path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output/raw/artifact",
+  "hash": "raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "heavy_r",
+  "path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output/heavy_r/artifact",
+  "hash": "heavy_r",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "Unknown",
+  "dependencies": ["raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "heavy_py",
+  "path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output/heavy_py/artifact",
+  "hash": "heavy_py",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "say_hi",
+  "path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output/say_hi/artifact",
+  "hash": "say_hi",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+},
+{
+  "node": "report",
+  "path": "/nix/store/h3prpb02yj6l3b710x1bahcvw31fsadh-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000
+}
+],
+  "pipeline": "p"
+}

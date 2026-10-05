@@ -1,0 +1,6 @@
+{
+  "short_circuit_then_recover": "/nix/store/zqvgq99586gcljfx6h6gv867c9wp4v5f-short_circuit_then_recover.drv",
+  "recovered_with_match": "/nix/store/rgkn65kw72112lc5mvy9qcxayp33n470-recovered_with_match.drv",
+  "good_val": "/nix/store/p4kgcd23r2bqzghn1qyjbzqdsr59qsy6-good_val.drv",
+  "recovered_with_maybe_pipe": "/nix/store/dn9kdz1x1fi4lnwsxdf07w9iqbs4rwbi-recovered_with_maybe_pipe.drv"
+}

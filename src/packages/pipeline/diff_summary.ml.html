@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>diff_summary.ml &mdash; Coverage report</title>
+    <meta name="description" content="11.36% coverage in src/packages/pipeline/diff_summary.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/pipeline/</span>diff_summary.ml
+        </a>
+      </h1>
+      <h2>11.36%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:32.53%"></span>
+      <span class="unvisited" style="top:34.94%"></span>
+      <span class="unvisited" style="top:37.35%"></span>
+      <span class="unvisited" style="top:38.55%"></span>
+      <span class="unvisited" style="top:42.17%"></span>
+      <span class="unvisited" style="top:43.37%"></span>
+      <span class="unvisited" style="top:44.58%"></span>
+      <span class="unvisited" style="top:45.78%"></span>
+      <span class="unvisited" style="top:46.99%"></span>
+      <span class="unvisited" style="top:48.19%"></span>
+      <span class="unvisited" style="top:49.40%"></span>
+      <span class="unvisited" style="bottom:49.40%"></span>
+      <span class="unvisited" style="bottom:48.19%"></span>
+      <span class="unvisited" style="bottom:46.99%"></span>
+      <span class="unvisited" style="bottom:43.37%"></span>
+      <span class="unvisited" style="bottom:42.17%"></span>
+      <span class="unvisited" style="bottom:40.96%"></span>
+      <span class="unvisited" style="bottom:39.76%"></span>
+      <span class="unvisited" style="bottom:38.55%"></span>
+      <span class="unvisited" style="bottom:37.35%"></span>
+      <span class="unvisited" style="bottom:36.14%"></span>
+      <span class="unvisited" style="bottom:34.94%"></span>
+      <span class="unvisited" style="bottom:32.53%"></span>
+      <span class="unvisited" style="bottom:31.33%"></span>
+      <span class="unvisited" style="bottom:28.92%"></span>
+      <span class="unvisited" style="bottom:27.71%"></span>
+      <span class="unvisited" style="bottom:25.30%"></span>
+      <span class="unvisited" style="bottom:22.89%"></span>
+      <span class="unvisited" style="bottom:20.48%"></span>
+      <span class="unvisited" style="bottom:7.23%"></span>
+      <span class="unvisited" style="bottom:6.02%"></span>
+      <span class="unvisited" style="bottom:3.61%"></span>
+      <span class="unvisited" style="bottom:2.41%"></span>
+      <span class="unvisited" style="bottom:1.20%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span class="unvisited"> </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span class="unvisited"> </span>
+<a id="L48"></a><span class="unvisited"> </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span class="unvisited"> </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span class="unvisited"> </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span class="unvisited"> </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span class="unvisited"> </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span class="unvisited"> </span>
+<a id="L78"></a><span class="unvisited"> </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span class="unvisited"> </span>
+<a id="L81"></a><span class="unvisited"> </span>
+<a id="L82"></a><span class="unvisited"> </span>
+<a id="L83"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Summarize Output Changes Across Builds
+--#
+--# Compares the two most recent builds of a pipeline and returns a DataFrame
+--# summarizing which nodes changed, were added, or were removed.
+--#
+--# Uses per-node Nix content hashes stored in build logs to detect changes
+--# without loading artifacts. Only loads artifacts for nodes that actually changed.
+--#
+--# @name diff_summary
+--# @param p :: Pipeline The pipeline to compare builds for.
+--# @return :: DataFrame A summary with columns: name, status, hash_a, hash_b, reasons, affected.
+--# @family pipeline
+--# @export
+*)
+let register env =
+  <span data-count="276">E</span>nv.add "diff_summary"
+    (make_builti<span data-count="276">n</span> ~name:"diff_summary" 1 (fun args _env -&gt;
+       <span data-count="1">m</span>atch args with
+       | <span data-count="1">[</span>VPipeline p] -&gt;
+           (match Builder.find_two_matching_logs p with
+            | <span data-count="1">N</span>one -&gt;
+                Error.make_error FileError
+                  "diff_summary: fewer than 2 matching build logs found. Run build_pipeline(p) at least twice."
+            | <span data-count="0">S</span>ome (log_a_path, log_b_path) -&gt;
+                (match Builder.compute_diff log_a_path log_b_path with
+                 | <span data-count="0">E</span>rror msg -&gt;
+                     Error.make_error RuntimeError
+                       (Printf.sprint<span data-count="0">f</span> "diff_summary: failed to compute diff: %s" msg)
+                 | <span data-count="0">O</span>k diff_result -&gt;
+                     let nrows = diff_result.dr_total in
+                     let arr_name = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_status = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_hash_a = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_hash_b = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_class_a = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_class_b = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_reasons = Array.make nrows None in
+                     <span data-count="0">l</span>et arr_affected = Array.make nrows None in
+                     <span data-count="0">l</span>et opt_join = function
+                       | <span data-count="0">[</span>] -&gt; None
+                       | <span data-count="0">x</span>s -&gt; Some (String.conca<span data-count="0">t</span> ", " xs)
+                     in
+                     List.iteri (fun i e -&gt;
+                       <span data-count="0">a</span>rr_name.(i) &lt;- Some e.Builder_diff.nde_name;
+                       <span data-count="0">a</span>rr_status.(i) &lt;- Some (Builder_diff.node_status_to_strin<span data-count="0">g</span> e.nde_status);
+                       <span data-count="0">a</span>rr_class_a.(i) &lt;- Some e.nde_class_a;
+                       <span data-count="0">a</span>rr_class_b.(i) &lt;- Some e.nde_class_b;
+                       <span data-count="0">a</span>rr_reasons.(i) &lt;- opt_joi<span data-count="0">n</span> e.nde_reasons;
+                       <span data-count="0">a</span>rr_affected.(i) &lt;- opt_joi<span data-count="0">n</span> e.nde_affected;
+                      <span data-count="0">(</span>match e.nde_status with
+                       | <span data-count="0">B</span>uilder_diff.Unchanged { hash } -&gt;
+                           arr_hash_a.(i) &lt;- Some hash;
+                           <span data-count="0">a</span>rr_hash_b.(i) &lt;- Some hash
+                       | <span data-count="0">B</span>uilder_diff.Changed { hash_a; hash_b } -&gt;
+                           arr_hash_a.(i) &lt;- Some hash_a;
+                           <span data-count="0">a</span>rr_hash_b.(i) &lt;- Some hash_b
+                       | <span data-count="0">B</span>uilder_diff.Added { hash } -&gt;
+                           arr_hash_b.(i) &lt;- Some hash
+                       | <span data-count="0">B</span>uilder_diff.Removed { hash } -&gt;
+                           arr_hash_a.(i) &lt;- Some hash
+                       | <span data-count="0">B</span>uilder_diff.Errored _ -&gt; ())
+                    ) diff_result.dr_nodes;
+                     <span data-count="0">l</span>et columns = [
+                       ("name", Arrow_table.StringColumn arr_name);
+                       ("status", Arrow_table.StringColumn arr_status);
+                       ("hash_a", Arrow_table.StringColumn arr_hash_a);
+                       ("hash_b", Arrow_table.StringColumn arr_hash_b);
+                       ("class_a", Arrow_table.StringColumn arr_class_a);
+                       ("class_b", Arrow_table.StringColumn arr_class_b);
+                       ("reasons", Arrow_table.StringColumn arr_reasons);
+                       ("affected", Arrow_table.StringColumn arr_affected);
+                     ] in
+                    let arrow_table = Arrow_table.create columns nrows in
+                    <span data-count="0">V</span>DataFrame { arrow_table; group_keys = [] }))
+      | <span data-count="0">[</span>other] -&gt;
+          Error.type_error
+            (Printf.sprint<span data-count="0">f</span> "Function `diff_summary` expects a Pipeline, but got %s."
+               (Utils.type_nam<span data-count="0">e</span> other))
+      | <span data-count="0">_</span> -&gt; Error.arity_error_named "diff_summary" 1 (List.lengt<span data-count="0">h</span> args)
+    )) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

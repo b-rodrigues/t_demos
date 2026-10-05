@@ -1,0 +1,63 @@
+{
+  "timestamp": "20261005_131550",
+  "hash": "g14pm1hfvg1ds67jd33wmp7dfr5m5qsm",
+  "out_path": "/nix/store/g14pm1hfvg1ds67jd33wmp7dfr5m5qsm-pipeline_output",
+  "duration": 21.8824,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/g14pm1hfvg1ds67jd33wmp7dfr5m5qsm-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1520
+},
+{
+  "node": "features_t",
+  "path": "/nix/store/g14pm1hfvg1ds67jd33wmp7dfr5m5qsm-pipeline_output/features_t/artifact",
+  "hash": "features_t",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2592
+},
+{
+  "node": "features_r",
+  "path": "/nix/store/g14pm1hfvg1ds67jd33wmp7dfr5m5qsm-pipeline_output/features_r/artifact",
+  "hash": "features_r",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2772
+},
+{
+  "node": "validation",
+  "path": "/nix/store/g14pm1hfvg1ds67jd33wmp7dfr5m5qsm-pipeline_output/validation/artifact",
+  "hash": "validation",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["features_r", "features_t"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.3338,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: Column names mismatch."
+}
+],
+  "pipeline": "p"
+}

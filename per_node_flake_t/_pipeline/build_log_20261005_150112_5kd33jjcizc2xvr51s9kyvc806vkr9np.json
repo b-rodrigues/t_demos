@@ -1,0 +1,100 @@
+{
+  "timestamp": "20261005_150112",
+  "hash": "5kd33jjcizc2xvr51s9kyvc806vkr9np",
+  "out_path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output",
+  "duration": 210.2631,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 117.4039
+},
+{
+  "node": "b",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/b/artifact",
+  "hash": "b",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 117.3858
+},
+{
+  "node": "c",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/c/artifact",
+  "hash": "c",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7414
+},
+{
+  "node": "d",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/d/artifact",
+  "hash": "d",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 38.9543
+},
+{
+  "node": "e",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/e/artifact",
+  "hash": "e",
+  "runtime": "Julia",
+  "serializer": "json",
+  "class": "Float64",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 117.3477
+},
+{
+  "node": "f",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/f/artifact",
+  "hash": "f",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "character",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7052
+},
+{
+  "node": "g",
+  "path": "/nix/store/5kd33jjcizc2xvr51s9kyvc806vkr9np-pipeline_output/g/artifact",
+  "hash": "g",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "character",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 31.7293
+}
+],
+  "pipeline": "p"
+}

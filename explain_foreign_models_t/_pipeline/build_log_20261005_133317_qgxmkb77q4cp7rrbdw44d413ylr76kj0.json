@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261005_133317",
+  "hash": "qgxmkb77q4cp7rrbdw44d413ylr76kj0",
+  "out_path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output",
+  "duration": 22.4897,
+  "nodes": [
+{
+  "node": "r_fit",
+  "path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output/r_fit/artifact",
+  "hash": "r_fit",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lm",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7606
+},
+{
+  "node": "py_fit",
+  "path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output/py_fit/artifact",
+  "hash": "py_fit",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "LinearRegression",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.2906
+},
+{
+  "node": "r_coxph",
+  "path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output/r_coxph/artifact",
+  "hash": "r_coxph",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "coxph",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.8055
+},
+{
+  "node": "r_rpart",
+  "path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output/r_rpart/artifact",
+  "hash": "r_rpart",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "rpart",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7135
+},
+{
+  "node": "r_survfit",
+  "path": "/nix/store/qgxmkb77q4cp7rrbdw44d413ylr76kj0-pipeline_output/r_survfit/artifact",
+  "hash": "r_survfit",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "survfit",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2884
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "20261005_155122",
+  "hash": "vnb0fws781pggn6g9g2xnapsgyqai415",
+  "out_path": "/nix/store/vnb0fws781pggn6g9g2xnapsgyqai415-pipeline_output",
+  "duration": 12.6658,
+  "nodes": [
+{
+  "node": "cfg",
+  "path": "/nix/store/vnb0fws781pggn6g9g2xnapsgyqai415-pipeline_output/cfg/artifact",
+  "hash": "cfg",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2985
+}
+],
+  "pipeline": "p4"
+}

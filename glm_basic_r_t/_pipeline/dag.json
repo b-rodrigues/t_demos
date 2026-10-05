@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "data_node",
+  "depends": []
+},
+{
+  "node_name": "model_node",
+  "depends": ["data_node"]
+}
+]

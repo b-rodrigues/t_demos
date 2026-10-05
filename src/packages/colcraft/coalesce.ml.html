@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>coalesce.ml &mdash; Coverage report</title>
+    <meta name="description" content="72.73% coverage in src/packages/colcraft/coalesce.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>coalesce.ml
+        </a>
+      </h1>
+      <h2>72.73%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:30.00%"></span>
+      <span class="unvisited" style="top:33.33%"></span>
+      <span class="unvisited" style="top:40.00%"></span>
+      <span class="unvisited" style="top:46.67%"></span>
+      <span class="unvisited" style="bottom:45.00%"></span>
+      <span class="unvisited" style="bottom:38.33%"></span>
+      <span class="unvisited" style="bottom:8.33%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span class="unvisited"> </span>
+<a id="L19"></a><span class="visited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="visited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span class="visited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="visited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="visited"> </span>
+<a id="L37"></a><span class="unvisited"> </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="visited"> </span>
+<a id="L40"></a><span class="visited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span class="visited"> </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span class="visited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span > </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Coalesce missing values
+--#
+--# Returns the first non-NA value at each position across inputs.
+--# All inputs must be Vectors or Lists of equal length.
+--#
+--# @name coalesce
+--# @param ... :: Vector | List Vectors to coalesce in priority order.
+--# @return :: Vector The first non-NA value per position.
+--# @example
+--#   coalesce([1, NA, 3], [10, 20, 30])
+--# @family colcraft
+--# @export
+*)
+let to_array = function
+  | <span data-count="0">V</span>Vector arr -&gt; Some arr
+  | <span data-count="2">V</span>List items -&gt; Some (Array.of_lis<span data-count="2">t</span> (List.ma<span data-count="2">p</span> snd items))
+  | <span data-count="0">_</span> -&gt; None
+
+let coalesce_impl args _env =
+  <span data-count="1">m</span>atch args with
+  | <span data-count="0">[</span>] -&gt; Error.arity_error_named "coalesce" 1 0
+  | <span data-count="1">_</span> -&gt;
+      let arrays = List.map to_array args in
+      <span data-count="1">i</span>f List.exists Option.is_none arrays then
+        <span data-count="0">E</span>rror.type_error "Function `coalesce` expects only Vector or List arguments."
+      else
+        (* args is non-empty here and every element converted, so arrs is
+           non-empty; match on it directly instead of List.hd. *)
+        <span data-count="1">(</span>match List.filter_map Fun.id arrays with
+        | <span data-count="0">[</span>] -&gt; Error.arity_error_named "coalesce" 1 0
+        | <span data-count="1">f</span>irst :: _ as arrs -&gt;
+        let n = Array.length first in
+        <span data-count="1">i</span>f List.exists (fun arr -&gt; <span data-count="2">A</span>rray.lengt<span data-count="2">h</span> arr &lt;&gt; n) arrs then
+          <span data-count="0">E</span>rror.value_error "Function `coalesce` requires all inputs to have equal length."
+        else
+          <span data-count="1">l</span>et out = Array.make n (VNA NAGeneric) in
+          <span data-count="1">f</span>or i = 0 to n - 1 do
+            (* Accumulates the first non-NA value; a ref loop is the
+               straightforward traversal here. *)
+            <span data-count="3">l</span>et found = ref None in
+            let first_na = ref None in
+            List.iter (fun arr -&gt;
+              <span data-count="6">m</span>atch !found with
+              | <span data-count="2">S</span>ome _ -&gt; ()
+              | <span data-count="4">N</span>one -&gt;
+                  (match arr.(i) with
+                   | <span data-count="1">V</span>NA _ as na -&gt; if !first_na = None then <span data-count="1">f</span>irst_na := Some na
+                   | <span data-count="3">v</span> -&gt; found := Some v)
+            ) arrs;
+            <span data-count="3">o</span>ut.(i) &lt;- (match !found with
+              | <span data-count="3">S</span>ome v -&gt; v
+              | <span data-count="0">N</span>one -&gt; (match !first_na with <span data-count="0">S</span>ome na -&gt; na | <span data-count="0">N</span>one -&gt; VNA NAGeneric))
+          done;
+          VVector out)
+
+let register env =
+  <span data-count="276">E</span>nv.add "coalesce" (make_builti<span data-count="276">n</span> ~name:"coalesce" ~variadic:true 1 coalesce_impl) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

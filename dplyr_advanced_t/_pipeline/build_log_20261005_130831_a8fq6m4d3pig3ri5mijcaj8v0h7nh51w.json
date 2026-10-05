@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261005_130831",
+  "hash": "a8fq6m4d3pig3ri5mijcaj8v0h7nh51w",
+  "out_path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output",
+  "duration": 21.2345,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.9560
+},
+{
+  "node": "r_across",
+  "path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output/r_across/artifact",
+  "hash": "r_across",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2992
+},
+{
+  "node": "t_across_parity",
+  "path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output/t_across_parity/artifact",
+  "hash": "t_across_parity",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2810
+},
+{
+  "node": "parity_check",
+  "path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output/parity_check/artifact",
+  "hash": "parity_check",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["r_across", "t_across_parity"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3220
+},
+{
+  "node": "t_summary",
+  "path": "/nix/store/a8fq6m4d3pig3ri5mijcaj8v0h7nh51w-pipeline_output/t_summary/artifact",
+  "hash": "t_summary",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.2605
+}
+],
+  "pipeline": "p"
+}

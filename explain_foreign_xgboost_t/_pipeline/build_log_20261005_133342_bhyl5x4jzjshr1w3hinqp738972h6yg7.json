@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261005_133342",
+  "hash": "bhyl5x4jzjshr1w3hinqp738972h6yg7",
+  "out_path": "/nix/store/bhyl5x4jzjshr1w3hinqp738972h6yg7-pipeline_output",
+  "duration": 23.6890,
+  "nodes": [
+{
+  "node": "r_xgb",
+  "path": "/nix/store/bhyl5x4jzjshr1w3hinqp738972h6yg7-pipeline_output/r_xgb/artifact",
+  "hash": "r_xgb",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "xgb.Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.6919
+},
+{
+  "node": "py_xgb",
+  "path": "/nix/store/bhyl5x4jzjshr1w3hinqp738972h6yg7-pipeline_output/py_xgb/artifact",
+  "hash": "py_xgb",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1649
+},
+{
+  "node": "py_ranker",
+  "path": "/nix/store/bhyl5x4jzjshr1w3hinqp738972h6yg7-pipeline_output/py_ranker/artifact",
+  "hash": "py_ranker",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "XGBRanker",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1928
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,82 @@
+[
+{
+  "node_name": "fixed_radii",
+  "depends": []
+},
+{
+  "node_name": "cycling_radii",
+  "depends": []
+},
+{
+  "node_name": "points_branch_1",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_2",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_3",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_4",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_5",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_6",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_7",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_8",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "points_branch_9",
+  "depends": ["cycling_radii", "fixed_radii"]
+},
+{
+  "node_name": "single_plot_branch_1",
+  "depends": ["points_branch_1"]
+},
+{
+  "node_name": "single_plot_branch_2",
+  "depends": ["points_branch_2"]
+},
+{
+  "node_name": "single_plot_branch_3",
+  "depends": ["points_branch_3"]
+},
+{
+  "node_name": "single_plot_branch_4",
+  "depends": ["points_branch_4"]
+},
+{
+  "node_name": "single_plot_branch_5",
+  "depends": ["points_branch_5"]
+},
+{
+  "node_name": "single_plot_branch_6",
+  "depends": ["points_branch_6"]
+},
+{
+  "node_name": "single_plot_branch_7",
+  "depends": ["points_branch_7"]
+},
+{
+  "node_name": "single_plot_branch_8",
+  "depends": ["points_branch_8"]
+},
+{
+  "node_name": "single_plot_branch_9",
+  "depends": ["points_branch_9"]
+}
+]

@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "good_val",
+  "depends": []
+},
+{
+  "node_name": "recovered_with_match",
+  "depends": []
+},
+{
+  "node_name": "recovered_with_maybe_pipe",
+  "depends": []
+},
+{
+  "node_name": "short_circuit_then_recover",
+  "depends": []
+}
+]

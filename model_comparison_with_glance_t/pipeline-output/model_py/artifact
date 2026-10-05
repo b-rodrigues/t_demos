@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="SkLearn2PMML package" version="0.132.0"/>
+		<Timestamp>2026-10-05T14:47:29Z</Timestamp>
+	</Header>
+	<DataDictionary>
+		<DataField name="mpg" optype="continuous" dataType="double"/>
+		<DataField name="hp" optype="continuous" dataType="double"/>
+		<DataField name="wt" optype="continuous" dataType="double"/>
+		<DataField name="qsec" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<RegressionModel functionName="regression" algorithmName="sklearn.linear_model._base.LinearRegression">
+		<MiningSchema>
+			<MiningField name="mpg" usageType="target"/>
+			<MiningField name="hp"/>
+			<MiningField name="wt"/>
+			<MiningField name="qsec"/>
+		</MiningSchema>
+		<RegressionTable intercept="27.610526858205027">
+			<NumericPredictor name="hp" coefficient="-0.017822271605542617"/>
+			<NumericPredictor name="wt" coefficient="-4.358797200162682"/>
+			<NumericPredictor name="qsec" coefficient="0.5108336942450533"/>
+		</RegressionTable>
+	</RegressionModel>
+</PMML>

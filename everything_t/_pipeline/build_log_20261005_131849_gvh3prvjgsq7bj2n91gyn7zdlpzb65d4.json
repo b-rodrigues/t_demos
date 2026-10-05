@@ -1,0 +1,61 @@
+{
+  "timestamp": "20261005_131849",
+  "hash": "gvh3prvjgsq7bj2n91gyn7zdlpzb65d4",
+  "out_path": "/nix/store/gvh3prvjgsq7bj2n91gyn7zdlpzb65d4-pipeline_output",
+  "duration": 721.9412,
+  "nodes": [
+{
+  "node": "datathin",
+  "path": "/nix/store/gvh3prvjgsq7bj2n91gyn7zdlpzb65d4-pipeline_output/datathin/artifact",
+  "hash": "datathin",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "integer",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 405.0952
+},
+{
+  "node": "modecomp",
+  "path": "/nix/store/gvh3prvjgsq7bj2n91gyn7zdlpzb65d4-pipeline_output/modecomp/artifact",
+  "hash": "modecomp",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 405.0427
+},
+{
+  "node": "py_mean",
+  "path": "/nix/store/gvh3prvjgsq7bj2n91gyn7zdlpzb65d4-pipeline_output/py_mean/artifact",
+  "hash": "py_mean",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6396
+},
+{
+  "node": "jl_custom",
+  "path": "/nix/store/gvh3prvjgsq7bj2n91gyn7zdlpzb65d4-pipeline_output/jl_custom/artifact",
+  "hash": "jl_custom",
+  "runtime": "Julia",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 381.1297
+}
+],
+  "pipeline": "p"
+}

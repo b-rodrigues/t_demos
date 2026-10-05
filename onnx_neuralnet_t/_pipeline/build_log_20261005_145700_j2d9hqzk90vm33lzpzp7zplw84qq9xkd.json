@@ -1,0 +1,113 @@
+{
+  "timestamp": "20261005_145700",
+  "hash": "j2d9hqzk90vm33lzpzp7zplw84qq9xkd",
+  "out_path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output",
+  "duration": 155.7947,
+  "nodes": [
+{
+  "node": "demo_data",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/demo_data/artifact",
+  "hash": "demo_data",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 119.9077
+},
+{
+  "node": "python_model",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/python_model/artifact",
+  "hash": "python_model",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["demo_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 118.3918
+},
+{
+  "node": "python_model_state",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/python_model_state/artifact",
+  "hash": "python_model_state",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": ["demo_data", "python_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 115.9337
+},
+{
+  "node": "julia_flux_model",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/julia_flux_model/artifact",
+  "hash": "julia_flux_model",
+  "runtime": "Julia",
+  "serializer": "json",
+  "class": "Dict{String, Vector}",
+  "dependencies": ["demo_data", "python_model_state"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 15.0277
+},
+{
+  "node": "python_predictions",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/python_predictions/artifact",
+  "hash": "python_predictions",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": ["demo_data", "python_model_state"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 115.0898
+},
+{
+  "node": "julia_flux_predictions",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/julia_flux_predictions/artifact",
+  "hash": "julia_flux_predictions",
+  "runtime": "Julia",
+  "serializer": "json",
+  "class": "Dict{String, Vector{Float64}}",
+  "dependencies": ["demo_data", "julia_flux_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 5.6684
+},
+{
+  "node": "t_predictions",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/t_predictions/artifact",
+  "hash": "t_predictions",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["demo_data", "python_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 115.9072
+},
+{
+  "node": "validate_parity",
+  "path": "/nix/store/j2d9hqzk90vm33lzpzp7zplw84qq9xkd-pipeline_output/validate_parity/artifact",
+  "hash": "validate_parity",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["julia_flux_predictions", "python_predictions", "t_predictions"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3400
+}
+],
+  "pipeline": "p"
+}

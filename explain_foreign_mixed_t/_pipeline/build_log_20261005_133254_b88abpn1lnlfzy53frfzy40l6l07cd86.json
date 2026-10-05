@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261005_133254",
+  "hash": "b88abpn1lnlfzy53frfzy40l6l07cd86",
+  "out_path": "/nix/store/b88abpn1lnlfzy53frfzy40l6l07cd86-pipeline_output",
+  "duration": 20.4128,
+  "nodes": [
+{
+  "node": "r_lmer",
+  "path": "/nix/store/b88abpn1lnlfzy53frfzy40l6l07cd86-pipeline_output/r_lmer/artifact",
+  "hash": "r_lmer",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lmerMod",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.9344
+},
+{
+  "node": "py_mixed",
+  "path": "/nix/store/b88abpn1lnlfzy53frfzy40l6l07cd86-pipeline_output/py_mixed/artifact",
+  "hash": "py_mixed",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "MixedLMResultsWrapper",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.5752
+}
+],
+  "pipeline": "p"
+}

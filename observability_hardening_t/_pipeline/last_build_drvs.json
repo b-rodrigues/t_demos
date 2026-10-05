@@ -1,0 +1,6 @@
+{
+  "dep_node": "/nix/store/zspccrlhxpdcgcj51j9pxr1kmy6xxf4l-dep_node.drv",
+  "sh_node": "/nix/store/rb5j0r4kzadwqf1vv5pnbasddxsg8qa6-sh_node.drv",
+  "failing_node": "/nix/store/hiysicba0ah67mj8v46irrr7vakc9y81-failing_node.drv",
+  "recovery_node": "/nix/store/dbij4mr1n60nfx8qr5idbi3himic31xc-recovery_node.drv"
+}

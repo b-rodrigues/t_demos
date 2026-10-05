@@ -1,0 +1,63 @@
+{
+  "timestamp": "20261005_125557",
+  "hash": "0h5yhrgm1qfrj1g7f0s1jshkilvw7daa",
+  "out_path": "/nix/store/0h5yhrgm1qfrj1g7f0s1jshkilvw7daa-pipeline_output",
+  "duration": 17.6841,
+  "nodes": [
+{
+  "node": "nums",
+  "path": "/nix/store/0h5yhrgm1qfrj1g7f0s1jshkilvw7daa-pipeline_output/nums/artifact",
+  "hash": "nums",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.0113
+},
+{
+  "node": "results_branch_1",
+  "path": "/nix/store/0h5yhrgm1qfrj1g7f0s1jshkilvw7daa-pipeline_output/results_branch_1/artifact",
+  "hash": "results_branch_1",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["nums"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5166
+},
+{
+  "node": "results_branch_2",
+  "path": "/nix/store/0h5yhrgm1qfrj1g7f0s1jshkilvw7daa-pipeline_output/results_branch_2/artifact",
+  "hash": "results_branch_2",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "VError",
+  "dependencies": ["nums"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.4871,
+  "error_code": "RuntimeError",
+  "error_message": "Error in doTryCatch(return(expr), name, parentenv, handler): intentional branch failure\n"
+},
+{
+  "node": "results_branch_3",
+  "path": "/nix/store/0h5yhrgm1qfrj1g7f0s1jshkilvw7daa-pipeline_output/results_branch_3/artifact",
+  "hash": "results_branch_3",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["nums"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4521
+}
+],
+  "pipeline": "p_expanded"
+}

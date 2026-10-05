@@ -1,0 +1,22 @@
+{
+  "timestamp": "20261005_154624",
+  "hash": "ika8jpgbljwi3ymzd4yrnsfaqp22y0zn",
+  "out_path": "/nix/store/ika8jpgbljwi3ymzd4yrnsfaqp22y0zn-pipeline_output",
+  "duration": 16.4242,
+  "nodes": [
+{
+  "node": "remote_summary",
+  "path": "/nix/store/ika8jpgbljwi3ymzd4yrnsfaqp22y0zn-pipeline_output/remote_summary/artifact",
+  "hash": "remote_summary",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3817
+}
+],
+  "pipeline": "p"
+}

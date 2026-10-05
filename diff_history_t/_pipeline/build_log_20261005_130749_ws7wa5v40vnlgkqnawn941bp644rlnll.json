@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261005_130749",
+  "hash": "ws7wa5v40vnlgkqnawn941bp644rlnll",
+  "out_path": "/nix/store/ws7wa5v40vnlgkqnawn941bp644rlnll-pipeline_output",
+  "duration": 12.5917,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/ws7wa5v40vnlgkqnawn941bp644rlnll-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3831
+},
+{
+  "node": "scalar",
+  "path": "/nix/store/ws7wa5v40vnlgkqnawn941bp644rlnll-pipeline_output/scalar/artifact",
+  "hash": "scalar",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3663
+},
+{
+  "node": "text_node",
+  "path": "/nix/store/ws7wa5v40vnlgkqnawn941bp644rlnll-pipeline_output/text_node/artifact",
+  "hash": "text_node",
+  "runtime": "T",
+  "serializer": "text",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3448
+}
+],
+  "pipeline": "p1"
+}

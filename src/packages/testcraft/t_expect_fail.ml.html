@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>t_expect_fail.ml &mdash; Coverage report</title>
+    <meta name="description" content="50.00% coverage in src/packages/testcraft/t_expect_fail.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/testcraft/</span>t_expect_fail.ml
+        </a>
+      </h1>
+      <h2>50.00%</h2>
+    </div>
+    <div id="navbar">
+      <span class="some-visited" style="bottom:25.81%"></span>
+      <span class="unvisited" style="bottom:19.35%"></span>
+      <span class="unvisited" style="bottom:12.90%"></span>
+      <span class="unvisited" style="bottom:6.45%"></span>
+      <span class="unvisited" style="bottom:3.23%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span > </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span class="visited"> </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="some-visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+</pre>
+<pre><code class="ocaml">open Ast
+
+(*
+--# Check whether an Expect value failed
+--#
+--# Returns `true` if `x` is a `VExpect Expect_stop` or `VExpect Expect_hold`
+--# value (i.e. an `expect_*` comparison that did not pass). Useful for
+--# explicit checks alongside `assert()`.
+--#
+--# @name expect_fail
+--# @param x :: Expect The Expect value to inspect.
+--# @return :: Bool True if `x` is a stopping or holding Expect value.
+--# @example
+--#   assert(expect_fail(expect_equal(1, 2)))
+--# @family testcraft
+--# @seealso expect_equal, expect_pass, expect_msg
+--# @export
+*)
+let register env =
+  <span data-count="276">E</span>nv.add "expect_fail"
+    (make_builti<span data-count="276">n</span> ~name:"expect_fail" 1 (fun args _env -&gt;
+       <span data-count="2">m</span>atch args with
+       | <span data-count="1">[</span> VExpect (<span data-count="1">E</span>xpect_stop _ | <span data-count="0">E</span>xpect_hold _) ] -&gt; VBool true
+       | <span data-count="1">[</span> VExpect Expect_pass ] -&gt; VBool false
+       | <span data-count="0">[</span> other ] -&gt;
+           Error.type_error
+             (Printf.sprint<span data-count="0">f</span>
+                "Function `expect_fail` expects an Expect value, got %s."
+                (Utils.type_nam<span data-count="0">e</span> other))
+       | <span data-count="0">a</span>rgs -&gt; Error.arity_error_named "expect_fail" 1 (List.lengt<span data-count="0">h</span> args)))
+    env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

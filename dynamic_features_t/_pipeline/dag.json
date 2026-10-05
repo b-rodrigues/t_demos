@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "features_t",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "features_r",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "validation",
+  "depends": ["features_r", "features_t"]
+}
+]

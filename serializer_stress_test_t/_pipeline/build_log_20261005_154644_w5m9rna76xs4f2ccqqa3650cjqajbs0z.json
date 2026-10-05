@@ -1,0 +1,35 @@
+{
+  "timestamp": "20261005_154644",
+  "hash": "w5m9rna76xs4f2ccqqa3650cjqajbs0z",
+  "out_path": "/nix/store/w5m9rna76xs4f2ccqqa3650cjqajbs0z-pipeline_output",
+  "duration": 26.8980,
+  "nodes": [
+{
+  "node": "large_data",
+  "path": "/nix/store/w5m9rna76xs4f2ccqqa3650cjqajbs0z-pipeline_output/large_data/artifact",
+  "hash": "large_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.5912
+},
+{
+  "node": "summarized",
+  "path": "/nix/store/w5m9rna76xs4f2ccqqa3650cjqajbs0z-pipeline_output/summarized/artifact",
+  "hash": "summarized",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["large_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.7481
+}
+],
+  "pipeline": "p"
+}

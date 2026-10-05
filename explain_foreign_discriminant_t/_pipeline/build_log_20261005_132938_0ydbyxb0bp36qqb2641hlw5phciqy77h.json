@@ -1,0 +1,74 @@
+{
+  "timestamp": "20261005_132938",
+  "hash": "0ydbyxb0bp36qqb2641hlw5phciqy77h",
+  "out_path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output",
+  "duration": 22.3946,
+  "nodes": [
+{
+  "node": "r_lda",
+  "path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output/r_lda/artifact",
+  "hash": "r_lda",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lda",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1793
+},
+{
+  "node": "r_polr",
+  "path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output/r_polr/artifact",
+  "hash": "r_polr",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "polr",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0933
+},
+{
+  "node": "r_multinom",
+  "path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output/r_multinom/artifact",
+  "hash": "r_multinom",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "multinom",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1401
+},
+{
+  "node": "py_gmm",
+  "path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output/py_gmm/artifact",
+  "hash": "py_gmm",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "GaussianMixture",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.3836
+},
+{
+  "node": "py_grid",
+  "path": "/nix/store/0ydbyxb0bp36qqb2641hlw5phciqy77h-pipeline_output/py_grid/artifact",
+  "hash": "py_grid",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "GridSearchCV",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.3651
+}
+],
+  "pipeline": "p"
+}

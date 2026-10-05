@@ -1,0 +1,150 @@
+[
+{
+  "node_name": "stats_data",
+  "depends": []
+},
+{
+  "node_name": "counts_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "counts_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "descriptive_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "descriptive_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "basis_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "basis_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_summary_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_summary_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_coef_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_coef_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_conf_int_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_conf_int_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_predict_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_predict_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_residuals_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_residuals_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_augment_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_augment_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_diagnostics_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_diagnostics_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_fit_stats_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_fit_stats_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_compare_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_compare_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_score_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_score_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_anova_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_anova_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_wald_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_wald_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_scalars_t",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_scalars_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "glm_model_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "model_dispersion_t",
+  "depends": ["glm_model_r"]
+},
+{
+  "node_name": "model_dispersion_r",
+  "depends": ["stats_data"]
+},
+{
+  "node_name": "validation",
+  "depends": ["basis_r", "basis_t", "counts_r", "counts_t", "descriptive_r", "descriptive_t", "model_anova_r", "model_anova_t", "model_augment_r", "model_augment_t", "model_coef_r", "model_coef_t", "model_compare_r", "model_compare_t", "model_conf_int_r", "model_conf_int_t", "model_diagnostics_r", "model_diagnostics_t", "model_dispersion_r", "model_dispersion_t", "model_fit_stats_r", "model_fit_stats_t", "model_predict_r", "model_predict_t", "model_residuals_r", "model_residuals_t", "model_scalars_r", "model_scalars_t", "model_score_r", "model_score_t", "model_summary_r", "model_summary_t", "model_wald_r", "model_wald_t", "stats_data"]
+}
+]

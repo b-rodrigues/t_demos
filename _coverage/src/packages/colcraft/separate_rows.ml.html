@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>separate_rows.ml &mdash; Coverage report</title>
+    <meta name="description" content="4.00% coverage in src/packages/colcraft/separate_rows.ml">
+    <link rel="stylesheet" href="../../../coverage.css"/>
+    <script src="../../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../../index.html">
+          <span class="dirname">src/packages/colcraft/</span>separate_rows.ml
+        </a>
+      </h1>
+      <h2>4.00%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:5.75%"></span>
+      <span class="unvisited" style="top:6.90%"></span>
+      <span class="unvisited" style="top:8.05%"></span>
+      <span class="unvisited" style="top:9.20%"></span>
+      <span class="unvisited" style="top:10.34%"></span>
+      <span class="unvisited" style="top:12.64%"></span>
+      <span class="unvisited" style="top:16.09%"></span>
+      <span class="unvisited" style="top:17.24%"></span>
+      <span class="unvisited" style="top:19.54%"></span>
+      <span class="unvisited" style="top:21.84%"></span>
+      <span class="unvisited" style="top:22.99%"></span>
+      <span class="unvisited" style="top:24.14%"></span>
+      <span class="unvisited" style="top:27.59%"></span>
+      <span class="unvisited" style="top:28.74%"></span>
+      <span class="unvisited" style="top:29.89%"></span>
+      <span class="unvisited" style="top:33.33%"></span>
+      <span class="unvisited" style="top:34.48%"></span>
+      <span class="unvisited" style="top:37.93%"></span>
+      <span class="unvisited" style="top:39.08%"></span>
+      <span class="unvisited" style="top:41.38%"></span>
+      <span class="unvisited" style="top:43.68%"></span>
+      <span class="unvisited" style="top:44.83%"></span>
+      <span class="unvisited" style="top:45.98%"></span>
+      <span class="unvisited" style="top:48.28%"></span>
+      <span class="unvisited" style="top:49.43%"></span>
+      <span class="unvisited" style="bottom:49.43%"></span>
+      <span class="unvisited" style="bottom:48.28%"></span>
+      <span class="unvisited" style="bottom:43.68%"></span>
+      <span class="unvisited" style="bottom:42.53%"></span>
+      <span class="unvisited" style="bottom:41.38%"></span>
+      <span class="unvisited" style="bottom:39.08%"></span>
+      <span class="unvisited" style="bottom:37.93%"></span>
+      <span class="unvisited" style="bottom:36.78%"></span>
+      <span class="unvisited" style="bottom:34.48%"></span>
+      <span class="unvisited" style="bottom:33.33%"></span>
+      <span class="unvisited" style="bottom:32.18%"></span>
+      <span class="unvisited" style="bottom:28.74%"></span>
+      <span class="unvisited" style="bottom:27.59%"></span>
+      <span class="unvisited" style="bottom:25.29%"></span>
+      <span class="unvisited" style="bottom:24.14%"></span>
+      <span class="unvisited" style="bottom:22.99%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span class="unvisited"> </span>
+<a id="L6"></a><span class="unvisited"> </span>
+<a id="L7"></a><span class="unvisited"> </span>
+<a id="L8"></a><span class="unvisited"> </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span > </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span > </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span class="unvisited"> </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span class="unvisited"> </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="unvisited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span > </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span class="unvisited"> </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span class="unvisited"> </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span class="unvisited"> </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span class="unvisited"> </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span class="unvisited"> </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="unvisited"> </span>
+<a id="L44"></a><span class="unvisited"> </span>
+<a id="L45"></a><span class="unvisited"> </span>
+<a id="L46"></a><span > </span>
+<a id="L47"></a><span > </span>
+<a id="L48"></a><span > </span>
+<a id="L49"></a><span class="unvisited"> </span>
+<a id="L50"></a><span class="unvisited"> </span>
+<a id="L51"></a><span class="unvisited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="unvisited"> </span>
+<a id="L54"></a><span class="unvisited"> </span>
+<a id="L55"></a><span class="unvisited"> </span>
+<a id="L56"></a><span > </span>
+<a id="L57"></a><span class="unvisited"> </span>
+<a id="L58"></a><span class="unvisited"> </span>
+<a id="L59"></a><span class="unvisited"> </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span class="unvisited"> </span>
+<a id="L63"></a><span class="unvisited"> </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span class="unvisited"> </span>
+<a id="L66"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="unvisited"> </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span > </span>
+<a id="L75"></a><span > </span>
+<a id="L76"></a><span > </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+<a id="L80"></a><span > </span>
+<a id="L81"></a><span > </span>
+<a id="L82"></a><span > </span>
+<a id="L83"></a><span > </span>
+<a id="L84"></a><span > </span>
+<a id="L85"></a><span > </span>
+<a id="L86"></a><span > </span>
+<a id="L87"></a><span class="visited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+<a href="#L80">80</a>
+<a href="#L81">81</a>
+<a href="#L82">82</a>
+<a href="#L83">83</a>
+<a href="#L84">84</a>
+<a href="#L85">85</a>
+<a href="#L86">86</a>
+<a href="#L87">87</a>
+</pre>
+<pre><code class="ocaml">open Ast
+open Arrow_table
+
+let separate_rows_impl (named_args : (string option * value) list) _env =
+  <span data-count="0">m</span>atch named_args with
+  | <span data-count="0">(</span>_, VDataFrame df) :: rest -&gt;
+      let col_to_sep = match List.filter (fun (k, _) -&gt; <span data-count="0">k</span> = None) rest with
+        | <span data-count="0">[</span>(_, v)] -&gt; Utils.extract_column_nam<span data-count="0">e</span> v
+        | <span data-count="0">_</span> -&gt; None
+      in
+      let sep = match List.assoc_opt (Some "sep") rest with <span data-count="0">S</span>ome (VString s) -&gt; s | <span data-count="0">_</span> -&gt; "[^A-Za-z0-9]+" in
+
+      (match col_to_sep with
+       | <span data-count="0">N</span>one -&gt; Error.make_error ArityError "separate_rows expects a column to separate ($col)."
+       | <span data-count="0">S</span>ome col_name -&gt;
+           match Arrow_table.get_column df.arrow_table col_name with
+           | <span data-count="0">S</span>ome (StringColumn data) -&gt;
+               let re_res = String_ops.compile_regexp "separate_rows" sep in
+               <span data-count="0">(</span>match re_res with
+                | <span data-count="0">E</span>rror err -&gt; err
+                | <span data-count="0">O</span>k re -&gt;
+                    let tokens_res =
+                      try
+                        Ok (Array.ma<span data-count="0">p</span> (function 
+                          | <span data-count="0">S</span>ome s -&gt; String_ops.split_str_semantics re s
+                          | <span data-count="0">N</span>one -&gt; [""]
+                        ) data)
+                      with
+                      | <span data-count="0">P</span>cre2.Error _ | <span data-count="0">I</span>nvalid_argument _ -&gt;
+                          Error (Error.value_erro<span data-count="0">r</span> "Function `separate_rows` failed while splitting values.")
+                    in
+                    (match tokens_res with
+                     | <span data-count="0">E</span>rror err -&gt; err
+                     | <span data-count="0">O</span>k tokens -&gt;
+                    
+                    let final_nrows = Array.fold_left (fun acc t -&gt; <span data-count="0">a</span>cc + List.lengt<span data-count="0">h</span> t) 0 tokens in
+                    
+                    <span data-count="0">l</span>et expansion_indices = Array.make final_nrows 0 in
+                    <span data-count="0">l</span>et sep_values = Array.make final_nrows (VNA NAGeneric) in
+                    <span data-count="0">l</span>et curr = ref 0 in
+                    Array.iteri (fun i t_list -&gt;
+                      <span data-count="0">L</span>ist.iter (fun t -&gt;
+                        <span data-count="0">e</span>xpansion_indices.(!curr) &lt;- i;
+                        <span data-count="0">s</span>ep_values.(!curr) &lt;- VString t;
+                        <span data-count="0">i</span>ncr curr
+                      ) t_list
+                    ) tokens;
+                    
+                    <span data-count="0">l</span>et rec build_cols acc = function
+                      | <span data-count="0">[</span>] -&gt; Ok (List.re<span data-count="0">v</span> acc)
+                      | <span data-count="0">(</span>name, _) :: rest -&gt;
+                          if name = col_name then
+                            <span data-count="0">(</span>match Arrow_bridge.values_to_column sep_values with
+                             | <span data-count="0">O</span>k col -&gt; build_cols ((name, col) :: acc) rest
+                             | <span data-count="0">E</span>rror err -&gt; Error err)
+                          else
+                            <span data-count="0">m</span>atch Arrow_table.get_column df.arrow_table name with
+                            | <span data-count="0">S</span>ome col -&gt; build_cols ((name, Arrow_table.take_co<span data-count="0">l</span> col expansion_indices final_nrows) :: acc) rest
+                            | <span data-count="0">N</span>one -&gt; build_cols ((name, Arrow_table.NAColumn final_nrows) :: acc) rest
+                    in
+                    (match build_cols [] df.arrow_table.schema with
+                     | <span data-count="0">E</span>rror err -&gt; err
+                     | <span data-count="0">O</span>k new_columns -&gt;
+                         VDataFrame { df with arrow_table = { df.arrow_table with columns = new_columns; nrows = final_nrows; native_handle = None } })))
+           | <span data-count="0">_</span> -&gt; Error.type_error (Printf.sprint<span data-count="0">f</span> "Column `%s` is not a String column." col_name))
+  | <span data-count="0">_</span> :: _ -&gt; Error.type_error "Function `separate_rows` expects a DataFrame as first argument."
+  | <span data-count="0">[</span>] -&gt; Error.make_error ArityError "Function `separate_rows` requires a DataFrame."
+
+(*
+--# Split delimited values into rows
+--#
+--# Expands delimited string values into multiple rows while repeating the remaining columns.
+--#
+--# @name separate_rows
+--# @param df :: DataFrame The input data frame.
+--# @param col :: Column The column to split (bare name or $col reference).
+--# @param sep :: String = "[^A-Za-z0-9]+" Regular expression separator pattern
+--#   (compiled with PCRE2 in UTF-8 mode).
+--# @return :: DataFrame A DataFrame with the column values split across rows.
+--# @example
+--#   separate_rows(df, $items)
+--#   separate_rows(df, $codes, sep = ",")
+--# @family colcraft
+--# @export
+*)
+let register env =
+  <span data-count="276">E</span>nv.add "separate_rows" (make_builtin_name<span data-count="276">d</span> ~name:"separate_rows" ~variadic:true 1 separate_rows_impl) env
+</code></pre>
+      </div>
+    </div>
+    <script src="../../../coverage.js"></script>
+  </body>
+</html>

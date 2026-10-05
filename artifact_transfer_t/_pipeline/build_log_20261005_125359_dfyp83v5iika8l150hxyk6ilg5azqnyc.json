@@ -1,0 +1,48 @@
+{
+  "timestamp": "20261005_125359",
+  "hash": "dfyp83v5iika8l150hxyk6ilg5azqnyc",
+  "out_path": "/nix/store/dfyp83v5iika8l150hxyk6ilg5azqnyc-pipeline_output",
+  "duration": 33.6904,
+  "nodes": [
+{
+  "node": "node1",
+  "path": "/nix/store/dfyp83v5iika8l150hxyk6ilg5azqnyc-pipeline_output/node1/artifact",
+  "hash": "node1",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 21.4585
+},
+{
+  "node": "node2",
+  "path": "/nix/store/dfyp83v5iika8l150hxyk6ilg5azqnyc-pipeline_output/node2/artifact",
+  "hash": "node2",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": ["node1"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.3396
+},
+{
+  "node": "node3",
+  "path": "/nix/store/dfyp83v5iika8l150hxyk6ilg5azqnyc-pipeline_output/node3/artifact",
+  "hash": "node3",
+  "runtime": "sh",
+  "serializer": "text",
+  "class": "ShellOutput",
+  "dependencies": ["node2"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2182
+}
+],
+  "pipeline": "p"
+}

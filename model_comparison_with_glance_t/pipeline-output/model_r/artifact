@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+  <Header>
+    <Application name="R2PMML package" version="0.31.0"/>
+    <Timestamp>2026-10-05T14:47:28Z</Timestamp>
+  </Header>
+  <DataDictionary>
+    <DataField name="mpg" optype="continuous" dataType="double"/>
+    <DataField name="hp" optype="continuous" dataType="double"/>
+    <DataField name="wt" optype="continuous" dataType="double"/>
+    <DataField name="qsec" optype="continuous" dataType="double"/>
+  </DataDictionary>
+  <RegressionModel functionName="regression">
+    <MiningSchema>
+      <MiningField name="mpg" usageType="target"/>
+      <MiningField name="hp"/>
+      <MiningField name="wt"/>
+      <MiningField name="qsec"/>
+    </MiningSchema>
+    <RegressionTable intercept="27.610526858204913" stdError="8.4199284765393" tStatistic="3.27918781437835" pValue="0.00278455566110206">
+      <NumericPredictor name="hp" coefficient="-0.01782227160554247" stdError="0.0149811688489363" tStatistic="-1.18964493259869" pValue="0.244176240903366"/>
+      <NumericPredictor name="wt" coefficient="-4.358797200162683" stdError="0.752700392234739" tStatistic="-5.79087940584378" pValue="3.21722152963987e-06"/>
+      <NumericPredictor name="qsec" coefficient="0.5108336942450583" stdError="0.439221532037553" tStatistic="1.16304337784921" pValue="0.254628381026501"/>
+    </RegressionTable>
+    <PredictiveModelQuality r2="0.83476776170583" adj-r2="0.817064307602883" aic="157.142610839998" bic="164.471290353997" sigma="2.57778488252082" nobs="32" fStatistic="47.1528187014578" fPValue="4.5064110240248e-11" logLik="-73.5713054199992" deviance="186.05929721548" dfResidual="28"/>
+  </RegressionModel>
+</PMML>

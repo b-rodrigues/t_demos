@@ -1,0 +1,21 @@
+{
+  "dataset_np": "/nix/store/54hc9f8ycmjd3skqh6z04q4qx4m3zikc-dataset_np.drv",
+  "X_test": "/nix/store/k79hi13ncida85xzzyw7b8kvjff2j18r-X_test.drv",
+  "roc_plot": "/nix/store/ia0x23j1m5nra2dhfgbn64940l9ywxg1-roc_plot.drv",
+  "report": "/nix/store/vszaf67zwkzqg2vrvj0kxp2fz9cjnxzm-report.drv",
+  "y_pred": "/nix/store/sdhc03agmj92vix6ygxslr4wgq3x5jfr-y_pred.drv",
+  "Y": "/nix/store/yyb1d8pmchnvl92q74pi66mjyvc95n2p-Y.drv",
+  "X": "/nix/store/jz3cj2vfm419jinypjm9kdnam1v9bjrl-X.drv",
+  "accuracy": "/nix/store/2kcq245j7vp6v0fqk653wbfvnmrbf5mj-accuracy.drv",
+  "X_train": "/nix/store/hlca4y0bmg2ilaw3lfhw3z25gqmqdd81-X_train.drv",
+  "y_train": "/nix/store/apwpvpkpy7sfrahh5vw710f199dbww0v-y_train.drv",
+  "y_proba": "/nix/store/qkdrs1jya902a9vnd3div8xm1cmbaqz0-y_proba.drv",
+  "y_test": "/nix/store/6adi3qlgqd72dz5r1rfxjqh3bbsny50j-y_test.drv",
+  "splits": "/nix/store/c9cjicsiph31dvkxg4szz6acji30gcbs-splits.drv",
+  "roc_df": "/nix/store/46m76wkxlb7hbd71xd3apw7rss5di73c-roc_df.drv",
+  "combined_df": "/nix/store/v2jaay3nd14m06d28ksk35s4wyl1p0gk-combined_df.drv",
+  "confusion_matrix": "/nix/store/49b0x7z95rj1hdyx20qml5bw55avcri6-confusion_matrix.drv",
+  "roc_data": "/nix/store/whbfmx12qahn55nbcf9211bzhklqk43m-roc_data.drv",
+  "trained_model": "/nix/store/wgqha8vrmi5hha8mjz5fsvgr4mb7lm8x-trained_model.drv",
+  "roc_auc": "/nix/store/xasb4ansnimbrkx327bizqmwlvdi7chf-roc_auc.drv"
+}
