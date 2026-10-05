@@ -8,7 +8,7 @@ description = "End-to-end test for explain(p.node).foreign_meta boosted-tree fac
 packages = ["jsonlite", "xgboost"]
 
 [py-dependencies]
-packages = ["xgboost"]
+packages = ["xgboost", "scikit-learn"]
 
 [t]
 min_version = "0.55.0"
