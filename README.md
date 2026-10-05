@@ -1,6 +1,6 @@
 # T Language Demos
 
-This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 73 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
+This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 122 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
 
 ## Key Features Showcased
 - **Polyglot Pipelines**: Orchestrating T, R (`rn`), Python (`pyn`), and Shell (`shn`) nodes in a single DAG.
@@ -33,6 +33,10 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 ### Modeling and comparison demos
 - `model_capabilities_demo_t`, `model_comparison_t`, `model_comparison_with_glance_t`, `stats_functions_t`
 - `glm_basic_r_t`, `glm_basic_py_t`, `glm_discoveries_t`, `glm_hsb_t`, `glm_titanic_t`, `glm_warpbreaks_t`
+
+### Foreign metadata (`explain`) demos
+- `explain_foreign_classic_t`, `explain_foreign_cluster_t`, `explain_foreign_discriminant_t`, `explain_foreign_forests_t`, `explain_foreign_frames_t`, `explain_foreign_lightgbm_t`
+- `explain_foreign_logistic_t`, `explain_foreign_matrix_t`, `explain_foreign_mixed_t`, `explain_foreign_models_t`, `explain_foreign_timeseries_t`, `explain_foreign_xgboost_t`, `explain_node_test_t`
 
 ### Case studies and end-to-end examples
 - `quarto_latex_demo_t`, `quarto_test_t`, `yanai_lercher_2020_t`
