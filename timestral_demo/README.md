@@ -4,14 +4,24 @@ A **T** demonstration project benchmarking **Timestral** (Mistral AI's open-weig
 
 ## Benchmark Overview
 
-- **Dataset**: Monthly US Consumer Price Index (CPIAUCSL), 2010–2024.
-- **Task**: Out-of-sample 12-month ahead inflation forecasting (test window: 2024-01 to 2024-12).
-- **Models**:
-  - `R Tuned SARIMA / ARIMA`: Fit in R via `forecast::auto.arima(..., seasonal = TRUE)`. Because the CPI series is already seasonally adjusted by the Bureau of Labor Statistics, `auto.arima` selects non-seasonal $(0, 2, 2)$ with $(0, 0, 0)_{12}$, making SARIMA and ARIMA identical.
-  - `Timestral-5M`: 5M-parameter foundation model running lightweight zero-shot CPU inference.
-  - `Timestral-209M`: 209M-parameter foundation model running zero-shot CPU inference.
-- **Evaluation Metrics**: Root Mean Squared Error (RMSE) and Mean Absolute Error (MAE).
-- **Report**: Generated Quarto document (`src/report.qmd`) in French compiling metrics and analyzing model trade-offs.
+The demonstration evaluates **Timestral-5M** and **Timestral-209M** against standard R econometric baselines across three distinct paradigms:
+
+1. **Study 1: Canonical Univariate Inflation Benchmark (CPI)**:
+   - Data: `CPIAUCSL` (2010–2024, FRED).
+   - Models: `forecast::auto.arima` (optimal $\text{ARIMA}(0, 2, 2)$) vs Timestral-5M vs Timestral-209M.
+   - Finding: SARIMA and ARIMA are identical because the series is already seasonally adjusted by BLS; Timestral-5M beats ARIMA.
+
+2. **Study 2: Multi-Sector Retail Sales & Hierarchical Structure (Proposition 1)**:
+   - Data: US Census Bureau Monthly Retail Trade Survey (`RSAFS`, `RSMVPD`, `RSFSDP`, `RSCCAS`, `RSNSR`, `RSGMS`).
+   - Models: Independent per-sector `auto.arima` and Bottom-Up sum vs batch zero-shot Timestral-5M and 209M.
+   - Finding: Timestral-209M dominates volatile sectors (Automotive, E-commerce) while ARIMA performs well on steady non-cyclical food/general retail.
+
+3. **Study 3: Macroeconomic Triad & Monetary Policy Shocks (Proposition 3)**:
+   - Data: 25 years (2000–2024) of Inflation (`CPIAUCSL`), Unemployment (`UNRATE`), and Effective Federal Funds Rate (`FEDFUNDS`).
+   - Models: Structural Vector Autoregression (`vars::VAR(2)`) and dynamic transfer-function ARIMAX with policy rate vs zero-shot Timestral.
+   - Finding: ARIMAX with interest rates excels on inflation, but Timestral crushes statistical models on unemployment by avoiding false rate-shock over-reaction.
+
+- **Quarto Report**: Synthesized French analysis report (`src/report.qmd`) rendered into HTML with `{t}` code blocks.
 
 ## Getting Started
 
