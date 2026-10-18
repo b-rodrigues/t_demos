@@ -9,7 +9,7 @@ authors = ["Your Name <email@example.com>"]
 date = "2026-10-18"
 
 [r-dependencies]
-packages = ["arrow", "jsonlite", "forecast", "vars", "knitr", "rmarkdown"]
+packages = ["arrow", "jsonlite", "forecast", "vars", "hts", "knitr", "rmarkdown"]
 
 [py-dependencies]
 version = "python314"

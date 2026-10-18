@@ -1,113 +1,132 @@
 ---
-title: "Benchmark Avancé : Timestral (Mistral AI) vs Économétrie Statistique (R)"
-subtitle: "Évaluation empirique sur l'inflation, les ventes sectorielles et le triptyque macroéconomique"
+title: "Benchmark Avancé : Timestral (Mistral AI) vs Économétrie d'État de l'Art (R)"
+subtitle: "Évaluation empirique sur l'inflation, la hiérarchie sectorielle et les chocs de politique monétaire"
 format: html
 filters:
   - tlang
 ---
 
-## 1. Introduction & Présentation de Timestral
+## 1. Introduction & Architecture de Timestral
 
-**Timestral** est une famille de modèles de fondation open-weight conçue par **Mistral AI** pour la prévision de séries temporelles en mode *zero-shot* (sans fine-tuning sur la série cible).
+**Timestral** est la famille de modèles de fondation ouverts pour séries temporelles développée par **Mistral AI**. 
 
-L'architecture repose sur des blocs transformateurs opérant sur des **patchs temporels** de 32 pas de temps consécutifs. Cette tokenisation permet au modèle d'agréger une vision locale tout en maintenant un coût de calcul linéaire sur de longs historiques. Le modèle prédit simultanément 21 quantiles (du 5ᵉ au 95ᵉ percentile), dont la médiane (p50) est retenue pour les prévisions ponctuelles.
-
-Deux versions sont comparées à l'état de l'art statistique dans ce document :
-* **Timestral-5M** (~5 millions de paramètres) : modèle compact à faible empreinte mémoire, adapté à l'inférence rapide sur CPU.
-* **Timestral-209M** (~209 millions de paramètres) : modèle à grande capacité conçu pour appréhender des non-linéarités complexes.
+### Principes architecturaux
+* **Patching temporel** : Les séries univariées ou multivariées sont découpées en patchs de 32 pas de temps consécutifs. Ce découpage permet à l'attention du transformateur d'apprendre des motifs multi-échelles sans explosion quadratique de la mémoire.
+* **Tête probabiliste à 21 quantiles** : Prédit la distribution complète de $q_{0.05}$ à $q_{0.95}$, permettant une quantification de l'incertitude sans hypothèse de normalité.
+* **Prise en charge native des covariables (Variables Exogènes)** :
+  Contrairement à une idée répandue, l'API de Timestral accepte deux types de régresseurs exogènes via son tokenizer :
+  - `past_covariates` : covariables observées uniquement dans le passé (contexte).
+  - `known_covariates` : covariables déterministes ou planifiées connues sur le passé ET sur l'horizon futur de prévision (par exemple le taux directeur de la banque centrale ou les effets calendaires).
+* **Variantes évaluées** :
+  - **Timestral-5M** (~5 millions de paramètres) : modèle ultra-léger et rapide pour CPU.
+  - **Timestral-209M** (~209 millions de paramètres) : modèle à grande capacité conçu pour capturer des non-linéarités complexes et exploiter les signaux exogènes.
 
 ---
 
-## 2. Étude 1 : Benchmark canonique univarié sur l'inflation (CPI)
+## 2. Étude 1 : Prévision canonique de l'inflation (CPI)
 
-### Données & Méthodologie
+### Données
 * **Série** : Indice des prix à la consommation américain (`CPIAUCSL`, FRED).
-* **Historique** : Janvier 2010 à décembre 2024 (180 mois).
-* **Horizon de test** : 12 mois hors-échantillon (année 2024).
+* **Période** : 2010 à 2024 (180 mois). Échantillon de test : les 12 mois de 2024.
+* **Note sur la désaisonnalisation** : La série étant déjà désaisonnalisée par le BLS via X-13ARIMA-SEATS, `forecast::auto.arima(..., seasonal = TRUE)` sélectionne $(P=0, D=0, Q=0)_{12}$, rendant ARIMA et SARIMA strictement équivalents ($\text{ARIMA}(0, 2, 2)$).
 
-### Pourquoi ARIMA et non SARIMA ?
-La série `CPIAUCSL` est **déjà désaisonnalisée** (*Seasonally Adjusted*) par le Bureau of Labor Statistics (BLS) à l'aide de l'algorithme X-13ARIMA-SEATS. 
-Lors de l'optimisation par minimisation de l'AIC via `forecast::auto.arima(..., seasonal = TRUE)`, l'algorithme sélectionne systématiquement $(P=0, D=0, Q=0)_{12}$. Les spécifications ARIMA et SARIMA convergent donc vers le même modèle $\text{ARIMA}(0, 2, 2)$.
+### Modèles comparés
+1. **R ARIMA(0, 2, 2)** : Sélection canonique par AIC.
+2. **R ETS (Espace d'états à lissage exponentiel)** : Modèle `forecast::ets()` qui sélectionne automatiquement les composantes d'erreur, tendance et saisonnalité.
+3. **R Ensemble Hybride (ARIMA + ETS) / 2** : Combinaison simple inspirée des travaux de Bates & Granger et des compétitions M4.
+4. **Timestral-5M** (zero-shot univarié).
+5. **Timestral-209M** (zero-shot univarié).
 
-### Résultats empiriques (CPI)
+### Résultats comparatifs (CPI)
 
 ```{t}
-#| label: cpi-benchmark-results
+#| label: cpi-results
 #| echo: false
 metrics_cpi = read_node(p.benchmark_metrics)
 print(metrics_cpi)
 ```
 
-**Analyse** :
-1. **Timestral-5M** devance l'ARIMA optimisé (RMSE de 0,91 vs 1,08, MAE de 0,76 vs 0,99).
-2. **Timestral-209M** sous-performe (RMSE de 1,41) : son pré-entraînement massif sur des dynamiques stationnaires lui confère un fort a priori de retour à la moyenne (*mean-reversion*), l'amenant à prévoir une décrue de l'inflation plus rapide que celle observée sur le terrain en 2024.
+### Analyse
+* **La supériorité d'ETS sur la macroéconomie lisse** : Le modèle **R ETS** atteint le meilleur score absolu ($\text{RMSE} = 0{,}745$), devançant Timestral-5M ($0{,}914$) et l'ARIMA classique ($1{,}081$). Le lissage exponentiel en espace d'états gère particulièrement bien la dérive locale et le ralentissement continu de l'inflation.
+* **L'Ensemble ARIMA + ETS** fournit un excellent compromis de robustesse ($\text{RMSE} = 0{,}774$).
+* **Timestral-5M** surpasse nettement l'ARIMA canonique, confirmant qu'un transformateur compact peut extraire efficacement l'inertie tendancielle sans aucun ajustement statistique préalable.
 
 ---
 
-## 3. Étude 2 : Ventes au détail multi-secteurs & Cohérence Hiérarchique
+## 3. Étude 2 : Ventes au détail sectorielles & Réconciliation Hiérarchique (MinT)
 
-### Données sectorielles
-Les données proviennent du *Monthly Retail Trade Survey* (FRED / US Census Bureau) de 2010 à 2024 :
-1. **Total Retail Sales** (`total`)
-2. **Véhicules & Pièces Automobiles** (`automotive`)
-3. **Alimentation & Boissons** (`food_beverage`)
-4. **Habillement & Accessoires** (`clothing`)
-5. **E-commerce & Vente hors magasin** (`ecommerce`)
-6. **Magasins généraux & Grandes surfaces** (`general_merchandise`)
+### Données & Structure
+Données du *Monthly Retail Trade Survey* (FRED / US Census Bureau) de 2010 à 2024 (180 mois) :
+* Série agrégée : **Total Retail Sales**
+* 5 sous-secteurs : **Automobile**, **Alimentation**, **Habillement**, **E-commerce**, et **Grandes surfaces**.
 
-### Question méthodologique : Spécialisation locale vs Modèle unifié
-En approche classique R, un modèle `auto.arima` dédié est ajusté indépendamment pour chaque secteur. Avec Timestral, les 6 séries temporelles sont projetées en une seule passe d'inférence vectorisée sans aucun réentraînement sectoriel.
+### Problématique de la cohérence hiérarchique
+Lorsque des prévisions sont produites indépendamment pour chaque composante et pour le total :
+$$\sum_{i=1}^5 \hat{y}_{i, t+h} \neq \hat{y}_{\text{Total}, t+h}$$
+Pour résoudre cette incohérence fondamentale, nous appliquons l'algorithme **MinT** (*Minimum Trace Optimal Reconciliation*, Wickramasuriya, Athanasopoulos & Hyndman, 2019) via projection matricielle :
+$$\tilde{\mathbf{y}}_t = \mathbf{S} (\mathbf{S}^T \mathbf{S})^{-1} \mathbf{S}^T \hat{\mathbf{y}}_t$$
+où $\mathbf{S}$ est la matrice de sommation reliant les 5 séries de base au total.
 
 ### Résultats par secteur (RMSE & MAE)
 
 ```{t}
-#| label: retail-benchmark-results
+#| label: retail-results
 #| echo: false
 metrics_retail = read_node(p.retail_benchmark_metrics)
 print(metrics_retail)
 ```
 
-### Analyse de la cohérence d'agrégation (*Bottom-Up vs Top-Down*)
-Dans une structure hiérarchique, la somme des prévisions sectorielles (*Bottom-Up*) doit idéalement concorder avec la prévision directe de la série agrégée (*Top-Down*).
-* Les modèles ARIMA ajustés indépendamment présentent une divergence d'agrégation car chaque modèle optimise son propre critère d'information local sans contrainte de conservation de masse.
-* Timestral, en inférant l'ensemble des séries avec un espace latent partagé, capture des tendances macro-économiques communes, bien qu'une étape formelle de réconciliation (comme l'algorithme MinT de Wickramasuriya et al.) demeure recommandée pour garantir l'additivité exacte.
+### Analyse
+1. **Secteurs hautement cycliques (Automobile, E-commerce)** :
+   * **Timestral-209M** surclasse nettement l'ensemble des modèles statistiques sur l'automobile ($\text{RMSE} = 2\,974$ vs $5\,533$ pour ARIMA) et sur l'e-commerce ($3\,190$ vs $4\,358$). L'architecture à grande capacité capture les ruptures d'achats post-pandémie mieux que les modèles linéaires.
+2. **Secteurs alimentaires et grande distribution** :
+   * Les modèles **ARIMA et ETS** conservent un net avantage sur l'alimentaire ($\text{RMSE} \approx 584$ vs $>1400$ pour Timestral), où la dynamique de consommation des ménages est rigide et peu exposée aux chocs discrétionnaires.
+3. **Apport de la réconciliation MinT** :
+   * La réconciliation MinT assure une cohérence mathématique parfaite entre les branches et le total, éliminant tout écart d'agrégation tout en préservant la précision sectorielle.
 
 ---
 
-## 4. Étude 3 : Système Multivarié & Choc Monétaire (Règle de Taylor / Courbe de Phillips)
+## 4. Étude 3 : Triptyque Macroéconomique & Impact des Variables Exogènes
 
-### Le triptyque macroéconomique
-Pour aller au-delà de la prévision univariée, cette étude modélise les interactions simultanées entre trois grandeurs économiques majeures sur la période 2000–2024 (25 ans, 300 mois) :
-1. **Inflation** : Indice CPI (`CPIAUCSL`).
-2. **Chômage** : Taux de chômage américain (`UNRATE`).
-3. **Politique monétaire** : Taux effectif des fonds fédéraux (`FEDFUNDS`).
+### Données
+25 ans de données mensuelles (2000–2024, 300 observations) reliant :
+1. **Inflation** (`CPIAUCSL`)
+2. **Taux de chômage** (`UNRATE`)
+3. **Taux effectif des fonds fédéraux** (`FEDFUNDS`)
 
-### Modèles en compétition
-* **VAR(2) Multivarié (R `vars::VAR`)** : Modèle dynamique à équations simultanées où chaque variable dépend de ses propres retards et des retards des deux autres grandeurs.
-* **ARIMAX (R `forecast::auto.arima`)** : Modèle ARIMA univarié enrichi du taux directeur `FEDFUNDS` comme régresseur exogène dynamique (*transfer function*).
-* **Timestral-5M & 209M** : Modèles de fondation temporels évaluant les trajectoires en mode *zero-shot* univarié pur.
+### Modèles & Expérimentation sur les variables exogènes
+* **VAR(6) Multivarié** (`vars::VAR`) : Sélection automatique du retard optimal par le critère d'Akaike (`VARselect` retient $p=6$, traduisant le délai de transmission semestriel de la politique monétaire).
+* **ARIMAX** (`forecast::auto.arima` avec régresseur exogène dynamique `FEDFUNDS`).
+* **Timestral-5M & 209M (Univarié)** : Modèles de fondation purs, sans régresseurs.
+* **Timestral-5M & 209M (avec `known_covariates`)** : Conditionnement explicite du transformateur sur la trajectoire des taux directeurs sur l'ensemble de l'historique et de l'horizon de prévision.
 
-### Résultats comparatifs sur CPI et Chômage (2024)
+### Résultats comparatifs sur l'horizon 2024
 
 ```{t}
-#| label: macro-benchmark-results
+#| label: macro-results
 #| echo: false
 metrics_macro = read_node(p.macro_benchmark_metrics)
 print(metrics_macro)
 ```
 
-### Enseignements de l'étude multivariée
-1. **L'apport des régresseurs exogènes (ARIMAX)** : Lorsque la Banque Centrale applique un resserrement monétaire brutal (hausse des Fed Funds de 0% à 5,3% en 2022-2023), l'intégration du taux directeur dans un modèle ARIMAX fournit un signal causal déterminant sur le coût de l'emprunt et le ralentissement de l'économie.
-2. **Robustesse zero-shot de Timestral** : Même sans accès à la variable exogène des taux d'intérêt, `Timestral-5M` démontre une remarquable capacité à extraire la dynamique d'inertie de l'inflation et du chômage à partir de l'historique pur, surpassant le modèle VAR(2) non contraint qui souffre d'une sur-paramétrisation sur les horizons longs.
+### Enseignements capitaux sur les variables exogènes
+1. **Timestral-209M sait exploiter les variables exogènes sur l'inflation** :
+   * L'injection du taux `FEDFUNDS` dans `Timestral-209M` via `known_covariates` **améliore son RMSE de 1,113 à 0,978** sur le CPI. Avec une capacité suffisante (209M de paramètres), le modèle utilise le signal monétaire pour affiner la prévision de décélération des prix.
+2. **Timestral-5M et la sur-réaction au signal de taux** :
+   * Sur le modèle compact 5M, l'injection d'un taux d'intérêt à 5,3% a provoqué une prévision excessivement restrictive. Le modèle univarié pur conserve une meilleure précision ($\text{RMSE} = 1{,}062$).
+3. **Sur le chômage (UNRATE) : Triomphe des modèles de fondation** :
+   * **Timestral-209M et 5M écrasent les modèles économétriques** ($\text{RMSE} \approx 0{,}14$ vs $0{,}62$ pour le VAR et $0{,}71$ pour ARIMAX).
+   * Les modèles statistiques traditionnels ont estimé une relation forte entre hausse des taux et montée du chômage (courbe de Phillips / loi d'Okun historique). Or, en 2024, le marché du travail américain a fait preuve d'une résilience inédite (*labor hoarding*). Les modèles Timestral ont correctement projeté l'inertie observée sans fabriquer une récession artificielle.
 
 ---
 
-## 5. Synthèse & Recommandations Pratiques
+## 5. Synthèse & Tableau Récapitulatif
 
-| Caractéristique | Modèles Classiques (ARIMA / VAR) | Timestral-5M | Timestral-209M |
-|---|---|---|---|
-| **Coût d'entraînement** | Nécessite un ajustement pour chaque série | Aucun (Zero-shot) | Aucun (Zero-shot) |
-| **Variables exogènes** | Support natif et interprétable (ARIMAX, VAR) | Limité à l'historique univarié | Limité à l'historique univarié |
-| **Inférence CPU** | Rapide (ms) | Ultra-rapide (~100 ms) | Modéré (~1 s) |
-| **Comportement sur série courte** | Dépend de la stationnarité | Excellent suivi de tendance | A priori excessif de retour à la moyenne |
-| **Déploiement en production** | Maintenance de dizaines de modèles | Un seul point d'inférence standardisé | Un seul point d'inférence standardisé |
+| Cas d'usage | Meilleur Modèle R | Performance R (RMSE) | Meilleur Modèle Timestral | Performance Timestral (RMSE) | Vainqueur & Analyse |
+|---|---|---|---|---|---|
+| **Inflation univariée (CPI)** | **R ETS** | **0,745** | Timestral-5M | 0,914 | **R ETS** (Idéal pour lisser la dérive locale) |
+| **Ventes Automobiles** | R MinT | 5 533 | **Timestral-209M** | **2 974** | **Timestral-209M** (Capte les ruptures de tendance) |
+| **E-commerce** | R MinT | 4 358 | **Timestral-209M** | **3 190** | **Timestral-209M** (Modélise la volatilité non-linéaire) |
+| **Alimentation** | **R ARIMA / ETS** | **584** | Timestral-209M | 1 403 | **R classique** (Séries régulières quasi-déterministes) |
+| **Inflation multivariée (CPI)** | **ARIMAX (FedFunds)** | **0,875** | Timestral-209M (avec FedFunds) | 0,978 | **ARIMAX** (Estimation précise du coefficient de transmission) |
+| **Marché de l'emploi (Chômage)** | VAR(6) | 0,626 | **Timestral-209M** | **0,146** | **Timestral** (Immunité contre les fausses récessions macro) |
