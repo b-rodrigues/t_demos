@@ -1,0 +1,59 @@
+---
+title: "Comparaison de prévision : Timestral (Mistral AI) vs ARIMA"
+subtitle: "Évaluation sur l'indice des prix à la consommation américain (CPI)"
+format: html
+filters:
+  - tlang
+---
+
+## 1. Présentation de Timestral
+
+**Timestral** est une famille de modèles de fondation open-weight développée par **Mistral AI**, dédiée à la prévision de séries temporelles en mode *zero-shot* (sans réentraînement spécifique).
+
+L'architecture repose sur des transformateurs avec découpage en patchs temporels (32 pas de temps par patch), permettant d'extraire des représentations globales et de prédire 21 quantiles de distribution prédictive. Dans cette démonstration, deux variantes de taille différente sont évaluées :
+
+* **Timestral-5M** (~5 millions de paramètres) : modèle très compact, ultra-rapide et conçu pour l'inférence légère sur CPU.
+* **Timestral-209M** (~209 millions de paramètres) : modèle à grande capacité conçu pour capturer des interactions complexes et non-linéaires.
+
+---
+
+## 2. Le jeu de données
+
+Les données utilisées proviennent de la Réserve fédérale de Saint-Louis (FRED) :
+* **Série** : `CPIAUCSL` (*Consumer Price Index for All Urban Consumers: All Items in U.S. City Average*).
+* **Fréquence** : Données mensuelles de janvier 2010 à décembre 2024 (180 observations).
+* **Protocole d'évaluation** :
+  * Échantillon d'apprentissage : janvier 2010 à décembre 2023 (168 mois).
+  * Échantillon de test hors-échantillon : les 12 mois de l'année 2024.
+
+---
+
+## 3. Pourquoi comparer à ARIMA et non SARIMA ?
+
+La série `CPIAUCSL` est **déjà désaisonnalisée** (*Seasonally Adjusted*, indiqué par le suffixe `SL` dans l'identifiant FRED) par le Bureau of Labor Statistics (BLS) à l'aide de l'algorithme X-13ARIMA-SEATS avant sa publication.
+
+Lors de l'application de la procédure canonique `forecast::auto.arima(..., seasonal = TRUE)` sur la série temporelle :
+* L'optimisation par minimisation du critère d'information d'Akaike (AIC) ne retient aucun paramètre saisonnier : $(P = 0, D = 0, Q = 0)_{12}$.
+* Le modèle saisonnier (SARIMA) et le modèle non-saisonnier (ARIMA) sont donc **strictement identiques** et convergent tous deux vers la spécification $\text{ARIMA}(0, 2, 2)$.
+
+---
+
+## 4. Résultats du benchmark
+
+Les modèles sont comparés sur l'horizon de 12 mois de l'année 2024 selon la racine de l'erreur quadratique moyenne (**RMSE**) et l'erreur absolue moyenne (**MAE**) :
+
+```{t}
+#| label: benchmark-results
+#| echo: false
+metrics = read_node(p.benchmark_metrics)
+print(metrics)
+```
+
+### Analyse des performances
+
+1. **Timestral-5M surpasse le modèle ARIMA optimisé** :
+   Avec un RMSE de **0,91** et un MAE de **0,76**, le modèle zero-shot compact de 5M dépasse le modèle classique ajusté $\text{ARIMA}(0, 2, 2)$ (RMSE de **1,08**, MAE de **0,99**).
+
+2. **Pourquoi Timestral-209M obtient-il un score moins bon que le 5M ?**
+   * **Biais de retour à la moyenne (mean-reversion)** : Le modèle 209M a été pré-entraîné sur de vastes corpus multi-domaines où les taux de croissance à long terme subissent une forte régularisation vers la moyenne historique. Sur l'année 2024, la trajectoire de l'inflation américaine est restée soutenue ; le modèle 209M a trop rapidement anticipé un ralentissement de la pente des prix.
+   * **Adéquation capacité / complexité** : La série étudiée est univariée, courte (168 pas) et très lisse. La capacité restreinte de `Timestral-5M` agit comme un régulateur naturel qui conserve la dynamique de tendance locale sans sur-paramétrisation.

@@ -9,11 +9,23 @@ authors = ["Your Name <email@example.com>"]
 date = "2026-10-18"
 
 [r-dependencies]
-packages = ["arrow", "jsonlite", "forecast"]
+packages = ["arrow", "jsonlite", "forecast", "knitr", "rmarkdown"]
 
 [py-dependencies]
 version = "python314"
-packages = ["mistralai-timestral", "pandas", "numpy", "pyarrow"]
+packages = [
+  "mistralai-timestral",
+  "pandas",
+  "numpy",
+  "pyarrow",
+  "ipykernel",
+  "nbclient",
+  "nbformat",
+  "pyyaml"
+]
+
+[additional-tools]
+packages = ["quarto", "which"]
 
 [t]
 min_version = "0.56.1"

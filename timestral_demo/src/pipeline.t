@@ -88,6 +88,9 @@ timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": pre
     ],
     serializer = ^csv
   )
+
+  -- 6. Render Quarto report in French
+  report = node(script = "src/report.qmd", runtime = Quarto)
 }
 
 -- Materialize and build
@@ -110,9 +113,12 @@ if (is_error(p.timestral_209m)) {
 if (is_error(p.benchmark_metrics)) {
   error(str_join(["Node 'benchmark_metrics' errored: ", error_msg(p.benchmark_metrics)]))
 }
+if (is_error(p.report)) {
+  error(str_join(["Node 'report' errored: ", error_msg(p.report)]))
+}
 
 -- Assertions with built-in check() (Rule 5)
-check(expect_nodes(p, ["raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics"]))
+check(expect_nodes(p, ["raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics", "report"]))
 
 metrics_res = read_node(p.benchmark_metrics)
 check(expect_nrow(metrics_res, 3))
