@@ -3,8 +3,6 @@ _build/
 _pipeline/
 pipeline-output/
 result
-flake.nix
-flake.lock
 models/
 *.exe
 /.t_julia_depot/
