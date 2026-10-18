@@ -6,7 +6,7 @@ authors = ["Your Name <email@example.com>"]
 [dependencies]
 
 [nixpkgs]
-date = "2026-10-18"
+date = ""
 
 [r-dependencies]
 packages = ["arrow", "jsonlite", "forecast", "vars", "hts", "knitr", "rmarkdown"]

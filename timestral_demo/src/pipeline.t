@@ -2,7 +2,7 @@
 
 p = pipeline {
   ----------------------------------------------------------------------------
-  -- STUDY 1: Canonical Inflation Benchmark (CPIAUCSL)
+  -- STUDY 1: Canonical Inflation Benchmark (CPIAUCSL) & Probabilistic Evaluation
   ----------------------------------------------------------------------------
   raw_data = node(
     command = read_csv("data/cpi.csv", separator = ","),
@@ -23,26 +23,32 @@ p = pipeline {
       fit_rwf  = rwf(ts_train, h = 12, drift = TRUE)
       fc_drift = as.numeric(fit_rwf$mean)
 
-      # 2. Dynamic ARIMA with extracted specification
-      fit_arima = auto.arima(ts_train, seasonal = TRUE)
-      fc_arima  = as.numeric(forecast(fit_arima, h = 12)$mean)
+      # 2. Dynamic ARIMA with extracted specification & predictive distribution
+      fit_arima  = auto.arima(ts_train, seasonal = TRUE)
+      fc_obj_ari = forecast(fit_arima, h = 12, level = c(80, 95))
+      fc_arima   = as.numeric(fc_obj_ari$mean)
+      sd_arima   = as.numeric((fc_obj_ari$upper[, "95%"] - fc_obj_ari$lower[, "95%"]) / (2 * qnorm(0.975)))
       arima_spec = paste0("ARIMA(", paste(arimaorder(fit_arima), collapse = ","), ")")
 
       # 3. State-Space Exponential Smoothing (ETS)
-      fit_ets   = ets(ts_train)
-      fc_ets    = as.numeric(forecast(fit_ets, h = 12)$mean)
-      ets_spec  = fit_ets$method
+      fit_ets    = ets(ts_train)
+      fc_obj_ets = forecast(fit_ets, h = 12, level = c(80, 95))
+      fc_ets     = as.numeric(fc_obj_ets$mean)
+      sd_ets     = as.numeric((fc_obj_ets$upper[, "95%"] - fc_obj_ets$lower[, "95%"]) / (2 * qnorm(0.975)))
+      ets_spec   = fit_ets$method
 
       # 4. Hybrid Ensemble (ARIMA + ETS) / 2
-      fc_ens    = (fc_arima + fc_ets) / 2
+      fc_ens     = (fc_arima + fc_ets) / 2
 
       data.frame(
         step       = 1:12,
         naive      = fc_naive,
         drift      = fc_drift,
         arima      = fc_arima,
+        arima_sd   = sd_arima,
         arima_spec = rep(arima_spec, 12),
         ets        = fc_ets,
+        ets_sd     = sd_ets,
         ets_spec   = rep(ets_spec, 12),
         ensemble   = fc_ens
       )
@@ -61,7 +67,15 @@ cpi_vals = raw_data["cpi"].values[:-12]
 fc = TimestralForecaster.from_pretrained("models/Timestral-5M")
 res = fc.forecast(cpi_vals, prediction_length=12)
 preds = res.median.cpu().numpy().squeeze().tolist()
-timestral_5m = pd.DataFrame({"step": list(range(1, 13)), "timestral_5m": preds})
+q_mat = res.quantiles.cpu().numpy().squeeze()
+q_levels = list(res.quantile_levels)
+
+data_dict = {"step": list(range(1, 13)), "timestral_5m": preds}
+for i, lvl in enumerate(q_levels):
+    col_name = f"q_{int(round(lvl*100)):02d}"
+    data_dict[col_name] = q_mat[:, i].tolist()
+
+timestral_5m = pd.DataFrame(data_dict)
     }>,
     deserializer = ^csv,
     serializer = ^csv
@@ -77,7 +91,15 @@ cpi_vals = raw_data["cpi"].values[:-12]
 fc = TimestralForecaster.from_pretrained("models/Timestral-209M")
 res = fc.forecast(cpi_vals, prediction_length=12)
 preds = res.median.cpu().numpy().squeeze().tolist()
-timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": preds})
+q_mat = res.quantiles.cpu().numpy().squeeze()
+q_levels = list(res.quantile_levels)
+
+data_dict = {"step": list(range(1, 13)), "timestral_209m": preds}
+for i, lvl in enumerate(q_levels):
+    col_name = f"q_{int(round(lvl*100)):02d}"
+    data_dict[col_name] = q_mat[:, i].tolist()
+
+timestral_209m = pd.DataFrame(data_dict)
     }>,
     deserializer = ^csv,
     serializer = ^csv
@@ -130,8 +152,70 @@ timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": pre
     serializer = ^csv
   )
 
+  cpi_probabilistic_metrics = rn(
+    command = <{
+      actual = tail(raw_data$cpi, 12)
+      q_levels = c(0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 0.99)
+
+      # Evaluate Pinball loss & prediction interval coverage
+      eval_q_dist <- function(q_matrix) {
+        # q_matrix is 12 x 21
+        loss_mat = matrix(0, 12, length(q_levels))
+        cov80 = logical(12)
+        cov90 = logical(12)
+        for (t in 1:12) {
+          y = actual[t]
+          q_row = q_matrix[t, ]
+          loss_mat[t, ] = ifelse(y >= q_row, q_levels * (y - q_row), (1 - q_levels) * (q_row - y))
+          cov80[t] = (y >= q_row[3]) && (y <= q_row[19])  # 0.10 to 0.90 (80% interval)
+          cov90[t] = (y >= q_row[2]) && (y <= q_row[20])  # 0.05 to 0.95 (90% interval)
+        }
+        c(pinball = mean(loss_mat), cov80 = mean(cov80), cov90 = mean(cov90))
+      }
+
+      # 1. ARIMA Gaussian quantiles
+      arima_q = matrix(0, 12, length(q_levels))
+      for (t in 1:12) {
+        arima_q[t, ] = r_arima$arima[t] + r_arima$arima_sd[t] * qnorm(q_levels)
+      }
+      res_arima = eval_q_dist(arima_q)
+
+      # 2. ETS Gaussian quantiles
+      ets_q = matrix(0, 12, length(q_levels))
+      for (t in 1:12) {
+        ets_q[t, ] = r_arima$ets[t] + r_arima$ets_sd[t] * qnorm(q_levels)
+      }
+      res_ets = eval_q_dist(ets_q)
+
+      # 3. Timestral-5M native 21 quantiles
+      q_cols = sprintf("q_%02d", round(q_levels * 100))
+      t5m_q = as.matrix(timestral_5m[, q_cols])
+      res_t5m = eval_q_dist(t5m_q)
+
+      # 4. Timestral-209M native 21 quantiles
+      t209m_q = as.matrix(timestral_209m[, q_cols])
+      res_t209m = eval_q_dist(t209m_q)
+
+      cpi_probabilistic_metrics = data.frame(
+        model              = c("R ARIMA (Gaussien)", "R ETS (Gaussien)", "Timestral-5M (21 quantiles)", "Timestral-209M (21 quantiles)"),
+        mean_pinball_loss  = round(c(res_arima["pinball"], res_ets["pinball"], res_t5m["pinball"], res_t209m["pinball"]), 4),
+        coverage_80        = round(c(res_arima["cov80"], res_ets["cov80"], res_t5m["cov80"], res_t209m["cov80"]), 3),
+        coverage_90        = round(c(res_arima["cov90"], res_ets["cov90"], res_t5m["cov90"], res_t209m["cov90"]), 3)
+      )
+      rownames(cpi_probabilistic_metrics) <- NULL
+      cpi_probabilistic_metrics
+    }>,
+    deserializer = [
+      raw_data: ^csv,
+      r_arima: ^csv,
+      timestral_5m: ^csv,
+      timestral_209m: ^csv
+    ],
+    serializer = ^csv
+  )
+
   ----------------------------------------------------------------------------
-  -- STUDY 2 (Proposition 1): Multi-Sector Retail Sales & Real MinT Reconciliation
+  -- STUDY 2: Multi-Sector Retail Sales & Real MinT Reconciliation
   ----------------------------------------------------------------------------
   retail_raw_data = node(
     command = read_csv("data/retail_sales.csv", separator = ","),
@@ -172,17 +256,33 @@ timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": pre
         fcasts_ari[[s]] = as.numeric(forecast(fit_a, h = 12)$mean)
       }
 
-      # 2. Real MinT (Minimum Trace) Reconciliation:
-      # P = (S' W^{-1} S)^{-1} S' W^{-1} where W is the empirical residual covariance matrix
+      # 2. Real MinT-shrink (Minimum Trace with Shrinkage Covariance) Reconciliation:
+      # (Wickramasuriya et al., 2019; Schäfer & Strimmer, 2005)
+      # P = (S' W^{-1} S)^{-1} S' W^{-1} where W is the shrinkage residual covariance matrix
       S = rbind(rep(1, 6), diag(6))
       rownames(S) = sectors_all
       colnames(S) = sectors_bottom
 
-      res_mat = do.call(cbind, res_ets)
-      W = cov(res_mat)
-      # Regularize covariance if needed to avoid singularity
-      diag(W) = diag(W) + 1e-4 * mean(diag(W))
-      Wi = solve(W)
+      res_mat  = do.call(cbind, res_ets)
+      n_res    = nrow(res_mat)
+      S_sample = cov(res_mat)
+      tar      = diag(diag(S_sample))
+      res_c    = scale(res_mat, center = TRUE, scale = FALSE)
+      p_dim    = ncol(res_mat)
+      var_cov  = matrix(0, p_dim, p_dim)
+      for (i in 1:p_dim) {
+        for (j in 1:p_dim) {
+          if (i != j) {
+            v = res_c[, i] * res_c[, j]
+            var_cov[i, j] = (n_res / ((n_res - 1)^3)) * sum((v - mean(v))^2)
+          }
+        }
+      }
+      off_diag_sq = sum((S_sample - tar)^2)
+      lambda = if (off_diag_sq > 0) sum(var_cov) / off_diag_sq else 0
+      lambda = max(0, min(1, lambda))
+      W_shrink = (1 - lambda) * S_sample + lambda * tar
+      Wi = solve(W_shrink)
 
       P_mint = solve(t(S) %*% Wi %*% S) %*% t(S) %*% Wi
 
@@ -190,8 +290,15 @@ timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": pre
       reconciled_mat = t(S %*% P_mint %*% t(base_mat))
       colnames(reconciled_mat) = sectors_all
 
-      res = data.frame(step = 1:12)
-      for (s in c("total", sectors_5)) {
+      # Mathematical coherence validation: sum of bottom series must equal total
+      coherence_err = max(abs(reconciled_mat[, "total"] - rowSums(reconciled_mat[, sectors_bottom])))
+
+      res = data.frame(
+        step = 1:12,
+        mint_lambda = rep(lambda, 12),
+        mint_coherence_max_error = rep(coherence_err, 12)
+      )
+      for (s in sectors_all) {
         res[[paste0("arima_", s)]] = fcasts_ari[[s]]
         res[[paste0("ets_", s)]]   = fcasts_ets[[s]]
         res[[paste0("mint_", s)]]  = reconciled_mat[, s]
@@ -263,12 +370,13 @@ retail_timestral_209m = res_df
   retail_benchmark_metrics = rn(
     command = <{
       actual = tail(retail_raw_data, 12)
-      sectors = c("total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise")
+      actual$other = actual$total - (actual$automotive + actual$food_beverage + actual$clothing + actual$ecommerce + actual$general_merchandise)
+
+      sectors_all = c("total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other")
       rmse <- function(pred, act) sqrt(mean((pred - act)^2))
-      mae  <- function(pred, act) mean(abs(pred - act))
 
       rows <- list()
-      for (s in sectors) {
+      for (s in sectors_all) {
         act   = actual[[s]]
         n_p   = retail_r_arima[[paste0("naive_", s)]]
         a_p   = retail_r_arima[[paste0("arima_", s)]]
@@ -279,18 +387,43 @@ retail_timestral_209m = res_df
 
         n_rmse = rmse(n_p, act)
 
+        t5m_bu_val  = if (s == "total") round(rmse(retail_timestral_5m$t5m_bottom_up, act), 1) else round(rmse(t5_p, act), 1)
+        t20m_bu_val = if (s == "total") round(rmse(retail_timestral_209m$t209m_bottom_up, act), 1) else round(rmse(t20_p, act), 1)
+
         rows[[s]] = data.frame(
-          sector      = s,
-          naive_rmse  = round(n_rmse, 1),
-          arima_rmse  = round(rmse(a_p, act), 1),
-          ets_rmse    = round(rmse(e_p, act), 1),
-          mint_rmse   = round(rmse(m_p, act), 1),
-          t5m_rmse    = round(rmse(t5_p, act), 1),
-          t209m_rmse  = round(rmse(t20_p, act), 1),
-          best_rel_rmse = round(min(rmse(a_p, act), rmse(e_p, act), rmse(m_p, act), rmse(t5_p, act), rmse(t20_p, act)) / n_rmse, 3)
+          sector         = s,
+          naive_rmse     = round(n_rmse, 1),
+          arima_rmse     = round(rmse(a_p, act), 1),
+          ets_rmse       = round(rmse(e_p, act), 1),
+          mint_ets_rmse  = round(rmse(m_p, act), 1),
+          t5m_rmse       = round(rmse(t5_p, act), 1),
+          t5m_bu_rmse    = t5m_bu_val,
+          t209m_rmse     = round(rmse(t20_p, act), 1),
+          t209m_bu_rmse  = t20m_bu_val
         )
       }
-      retail_benchmark_metrics = do.call(rbind, rows)
+
+      # Compute coherence table row
+      # Coherence error = max |Total - sum(Sectors)|
+      bu_ets = retail_r_arima$ets_automotive + retail_r_arima$ets_food_beverage + retail_r_arima$ets_clothing + retail_r_arima$ets_ecommerce + retail_r_arima$ets_general_merchandise + retail_r_arima$ets_other
+      coh_ets_base = max(abs(retail_r_arima$ets_total - bu_ets))
+      coh_mint     = max(retail_r_arima$mint_coherence_max_error)
+      coh_t5m_base = max(abs(retail_timestral_5m$t5m_total - retail_timestral_5m$t5m_bottom_up))
+      coh_t20_base = max(abs(retail_timestral_209m$t209m_total - retail_timestral_209m$t209m_bottom_up))
+
+      coh_row = data.frame(
+        sector         = "[Incoherence_Abs_Max]",
+        naive_rmse     = 0.0,
+        arima_rmse     = round(coh_ets_base, 1),
+        ets_rmse       = round(coh_ets_base, 1),
+        mint_ets_rmse  = round(coh_mint, 8),
+        t5m_rmse       = round(coh_t5m_base, 1),
+        t5m_bu_rmse    = 0.0,
+        t209m_rmse     = round(coh_t20_base, 1),
+        t209m_bu_rmse  = 0.0
+      )
+
+      retail_benchmark_metrics = rbind(do.call(rbind, rows), coh_row)
       rownames(retail_benchmark_metrics) <- NULL
       retail_benchmark_metrics
     }>,
@@ -304,7 +437,7 @@ retail_timestral_209m = res_df
   )
 
   ----------------------------------------------------------------------------
-  -- STUDY 3 (Proposition 3): Macro Triad & Monetary Policy Shocks (VAR, ARIMAX & Covariates)
+  -- STUDY 3: Macro Triad & Monetary Policy Shocks (VAR, ARIMAX & Covariates)
   ----------------------------------------------------------------------------
   macro_raw_data = node(
     command = read_csv("data/macro_triad.csv", separator = ","),
@@ -424,7 +557,6 @@ macro_timestral_209m = pd.DataFrame({
     command = <{
       actual = tail(macro_raw_data, 12)
       rmse <- function(pred, act) sqrt(mean((pred - act)^2))
-      mae  <- function(pred, act) mean(abs(pred - act))
 
       # CPI models
       act_c = actual$cpi
@@ -508,16 +640,20 @@ macro_timestral_209m = pd.DataFrame({
   ----------------------------------------------------------------------------
   -- STUDY 4: Comprehensive Quarto Report in French
   ----------------------------------------------------------------------------
-  report = node(script = "src/report.qmd", runtime = Quarto)
+  report = node(
+    script = "src/report.qmd",
+    runtime = Quarto,
+    deps = [benchmark_metrics, cpi_probabilistic_metrics, retail_benchmark_metrics, macro_benchmark_metrics]
+  )
 }
 
 -- Materialize and build
 populate_pipeline(p, build = true, verbose = 1)
 pipeline_copy()
 
--- Guard against failed pipeline node execution in a clean loop (Rule 5)
+-- Explicit error checking for all 17 pipeline nodes (AGENTS.md Rule 5)
 nodes_to_guard = [
-  "raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics",
+  "raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics", "cpi_probabilistic_metrics",
   "retail_raw_data", "retail_r_arima", "retail_timestral_5m", "retail_timestral_209m", "retail_benchmark_metrics",
   "macro_raw_data", "macro_r_models", "macro_timestral_5m", "macro_timestral_209m", "macro_benchmark_metrics",
   "report"
@@ -528,6 +664,7 @@ if (is_error(p.r_arima)) { error(str_join(["Node 'r_arima' errored: ", error_msg
 if (is_error(p.timestral_5m)) { error(str_join(["Node 'timestral_5m' errored: ", error_msg(p.timestral_5m)])) }
 if (is_error(p.timestral_209m)) { error(str_join(["Node 'timestral_209m' errored: ", error_msg(p.timestral_209m)])) }
 if (is_error(p.benchmark_metrics)) { error(str_join(["Node 'benchmark_metrics' errored: ", error_msg(p.benchmark_metrics)])) }
+if (is_error(p.cpi_probabilistic_metrics)) { error(str_join(["Node 'cpi_probabilistic_metrics' errored: ", error_msg(p.cpi_probabilistic_metrics)])) }
 if (is_error(p.retail_raw_data)) { error(str_join(["Node 'retail_raw_data' errored: ", error_msg(p.retail_raw_data)])) }
 if (is_error(p.retail_r_arima)) { error(str_join(["Node 'retail_r_arima' errored: ", error_msg(p.retail_r_arima)])) }
 if (is_error(p.retail_timestral_5m)) { error(str_join(["Node 'retail_timestral_5m' errored: ", error_msg(p.retail_timestral_5m)])) }
@@ -546,15 +683,19 @@ check(expect_nodes(p, nodes_to_guard))
 cpi_metrics = read_node(p.benchmark_metrics)
 check(expect_nrow(cpi_metrics, 7))
 
+cpi_prob = read_node(p.cpi_probabilistic_metrics)
+check(expect_nrow(cpi_prob, 4))
+
 retail_metrics = read_node(p.retail_benchmark_metrics)
-check(expect_nrow(retail_metrics, 6))
+check(expect_nrow(retail_metrics, 8))
 
 macro_metrics = read_node(p.macro_benchmark_metrics)
 check(expect_nrow(macro_metrics, 16))
 
 -- Verify metrics DataFrames contain no missing values
 check(expect_no_na(cpi_metrics))
+check(expect_no_na(cpi_prob))
 check(expect_no_na(retail_metrics))
 check(expect_no_na(macro_metrics))
 
-print("✓ timestral_demo: all 16 nodes and substantive assertions passed successfully!")
+print("✓ timestral_demo: all 17 nodes and substantive assertions passed successfully!")

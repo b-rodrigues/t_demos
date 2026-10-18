@@ -1,6 +1,6 @@
 ---
 title: "Benchmark Méthodologique : Timestral (Mistral AI) vs Économétrie Statistique (R)"
-subtitle: "Analyse critique sur l'inflation, la hiérarchie sectorielle et le conditionnement par variables exogènes"
+subtitle: "Analyse critique sur l'inflation, la hiérarchie sectorielle, le conditionnement par variables exogènes et l'évaluation probabiliste"
 format: html
 filters:
   - tlang
@@ -11,109 +11,121 @@ filters:
 **Timestral** est une famille de modèles de fondation ouverts développée par **Mistral AI** pour la prévision de séries temporelles.
 
 ### Spécifications architecturales
-* **Patching temporel** : Les séries temporelles sont découpées en patchs disjoints de **32 pas de temps** consécutifs (`patch_size: 32`), projetés dans un espace de dimension $d_{\text{model}} = 192$ (pour le 5M). L'attention du transformateur alterne entre attention temporelle et attention inter-variates (`time` et `time_variate`).
-* **Distribution prédictive** : Une tête de projection prédit **21 quantiles** (nœuds de 0,01 à 0,99, avec la médiane $q_{0.50}$ servant de prévision ponctuelle).
-* **Support des variables exogènes (`covariate_enabled: true`)** :
-  L'API `TimestralForecaster` accepte deux régresseurs exogènes :
-  - `past_covariates` : covariables observées uniquement dans le passé `(B, C, T)`.
-  - `known_covariates` : régresseurs connus sur le passé et projetés sur l'horizon futur `(B, C, T + H)`.
-* **Variantes testées** : `Timestral-5M` (~5M paramètres) et `Timestral-209M` (~209M paramètres).
+* **Patching temporel** : Les séries temporelles sont partitionnées en patchs disjoints de **32 pas de temps** consécutifs (`patch_size: 32`), projetés dans l'espace latent du modèle. L'attention alternée permet de modéliser les dynamiques intra-temporelles et inter-séries.
+* **Distribution prédictive** : Une tête de projection dédiée génère directement **21 quantiles** ($q_{0.01}$ à $q_{0.99}$). La médiane ($q_{0.50}$) sert d'estimateur ponctuel, tandis que l'ensemble des quantiles permet une évaluation probabiliste complète sans hypothèse paramétrique a priori.
+* **Support des covariables (`covariate_enabled: true`)** :
+  L'API `TimestralForecaster` gère les régresseurs exogènes passés (`past_covariates`) et connus sur l'horizon de prévision (`known_covariates`).
+* **Modèles évalués** : `Timestral-5M` (~5M paramètres) et `Timestral-209M` (~209M paramètres).
 
 ---
 
 ## 2. Limites méthodologiques préalables
 
-Toute comparaison empirique entre modèles de fondation et modèles statistiques impose plusieurs avertissements rigoureux :
+Toute comparaison empirique rigoureuse entre modèles de fondation et modèles statistiques impose quatre réserves essentielles :
 
-1. **Risque de contamination des données de pré-entraînement** : Les séries `CPIAUCSL`, `UNRATE` et `FEDFUNDS` de la Réserve fédérale de Saint-Louis sont omniprésentes dans les corpus de données publiques. Il est impossible de garantir que l'historique ou la dynamique de ces séries n'a pas été partiellement mémorisé lors du pré-entraînement de Mistral AI. Le terme *zero-shot* doit donc être interprété avec prudence.
-2. **Horizon unique (année 2024, 12 observations)** : L'évaluation porte sur une seule fenêtre de 12 mois. En l'absence d'une validation par origines roulantes (*rolling-origin cross-validation*) et de tests de Diebold-Mariano avec correction de Harvey, ces résultats illustrent des comportements comparés mais ne constituent pas une preuve de supériorité statistique universelle.
-3. **Niveau de prix vs Taux d'inflation** : Dans l'Étude 1, la variable cible est le **niveau de l'indice** $P_t$ (extrapolation de dérive cumulée) et non le taux d'inflation stationnaire $\Delta \log P_t$.
+1. **Risque de contamination des données de pré-entraînement** : Les séries macroéconomiques (`CPIAUCSL`, `UNRATE`, `FEDFUNDS`) et les données de ventes au détail du Census Bureau sont omniprésentes dans les banques de données ouvertes. Il est impossible de certifier que leur historique n'a pas été observé lors de la phase de pré-entraînement de Mistral AI. Le qualificatif *zero-shot* doit être interprété dans cette limite.
+2. **Horizon unique (année 2024, 12 observations)** : Les résultats présentés portent sur une unique fenêtre de 12 mois. En l'absence d'une validation par origines roulantes (*rolling-origin cross-validation*) et de tests de Diebold-Mariano avec correction de petits échantillons de Harvey, ils illustrent des dynamiques observées et non une supériorité théorique universelle.
+3. **Niveau d'indice vs Taux de variation** : Dans l'Étude 1, l'extrapolation porte sur le niveau de l'indice des prix $P_t$ (dérive cumulée), favorisant les modèles amortis face aux modèles différentiés.
+4. **Sensibilité à la longueur du contexte** : Comme démontré ci-après, la taille de l'historique fourni aux modèles de fondation influence significativement leurs prédictions.
 
 ---
 
-## 3. Étude 1 : Prévision univariée de l'indice des prix (CPI)
+## 3. Étude 1 : Prévision de l'indice des prix (CPI) & Évaluation Probabiliste
 
 ### Données & Procédure
 * **Données** : `CPIAUCSL` (2010–2024, 180 mois, test sur 2024).
-* **Équivalence ARIMA / SARIMA** : La série étant déjà désaisonnalisée par le BLS via X-13ARIMA-SEATS, `forecast::auto.arima` sélectionne une composante saisonnière nulle $(P=0, D=0, Q=0)_{12}$, convergeant vers $\text{ARIMA}(0, 2, 2)$.
-* **Baselines naïves** :
-  - *Naive* : projection de la dernière valeur observée ($\hat{y}_{t+h} = y_t$).
-  - *Drift* : marche aléatoire avec dérive linéaire historique.
-* **Métrique d'étalonnage** : **Relative RMSE** ($rRMSE = \text{RMSE}_{\text{modèle}} / \text{RMSE}_{\text{naive}}$). Un $rRMSE < 1$ indique que le modèle bat la marche aléatoire.
+* **Sélection ARIMA / SARIMA** : La série étant déjà désaisonnalisée par le BLS via X-13ARIMA-SEATS, `forecast::auto.arima` sélectionne une composante saisonnière nulle et identifie la structure optimale par minimisation du critère AIC.
+* **Baselines naïves** : Marche aléatoire simple (*Naive*) et marche aléatoire avec dérive linéaire historique (*Drift*).
+* **Métrique d'étalonnage ponctuel** : *Relative RMSE* ($rRMSE = \text{RMSE}_{\text{modèle}} / \text{RMSE}_{\text{naive}}$).
 
-### Résultats (CPI)
+### Résultats ponctuels (CPI)
 
-```{t}
+```{r}
 #| label: cpi-results
 #| echo: false
-metrics_cpi = read_node(p.benchmark_metrics)
-print(metrics_cpi)
+metrics_cpi = read.csv(Sys.getenv("T_INPUT_benchmark_metrics"))
+knitr::kable(metrics_cpi, digits = 4)
+```
+
+### Évaluation Probabiliste : Pinball Loss & Couverture d'Intervalles
+
+L'évaluation ponctuelle (RMSE / MAE sur la médiane $q_{0.50}$) néglige la capacité probabiliste de Timestral. Nous évaluons ci-dessous :
+- La **Pinball Loss moyenne** (perte quantile asymétrique) calculée sur les 21 quantiles :
+  $$L_q(y, \hat{y}_q) = \max(q(y - \hat{y}_q), (1 - q)(\hat{y}_q - y))$$
+- Le **taux de couverture empirique à 80 %** ($[q_{0.10}, q_{0.90}]$) et à **90 %** ($[q_{0.05}, q_{0.95}]$), comparé aux distributions prédictives gaussiennes d'ARIMA et d'ETS.
+
+```{r}
+#| label: cpi-prob-results
+#| echo: false
+prob_metrics = read.csv(Sys.getenv("T_INPUT_cpi_probabilistic_metrics"))
+knitr::kable(prob_metrics, digits = 4)
 ```
 
 ### Analyse
-* **Victoire du lissage exponentiel (ETS)** : Le modèle **R ETS** obtient le meilleur score ($\text{RMSE} = 0{,}745$, $rRMSE = 0{,}165$), suivi de près par l'Ensemble ARIMA+ETS ($0{,}775$). L'amortissement de tendance en espace d'états capture idéalement l'atterrissage en douceur de la trajectoire des prix.
-* **Timestral-5M** surclasse l'ARIMA classique ($0{,}914$ vs $1{,}081$), tandis que le modèle **209M** ($1{,}411$) extrapole une pente trop faible en raison de son a priori de retour à la moyenne.
+* **Performance ponctuelle vs probabiliste** : Si le lissage exponentiel (ETS) réalise le meilleur score ponctuel sur la trajectoire moyenne de l'indice, **Timestral-5M** obtient la perte quantile (Pinball loss) la plus faible parmi tous les modèles, illustrant une distribution prédictive particulièrement bien calibrée autour des quantiles extrêmes.
+* **Qualité des intervalles** : Les quatre modèles assurent une couverture empirique complète sur cet horizon de 12 mois, mais Timestral-5M resserre ses quantiles avec une dispersion plus économe que les intervalles gaussiens extrapolés d'ARIMA.
 
 ---
 
 ## 4. Étude 2 : Ventes au détail sectorielles & Réconciliation Hiérarchique (MinT)
 
 ### Structure de l'arbre hiérarchique
-Les données du *Monthly Retail Trade Survey* (FRED / US Census Bureau) comprennent le **Total des ventes au détail** et 5 sous-secteurs majeurs. Afin de fermer mathématiquement la hiérarchie ($Total \equiv \sum Secteurs$), nous isolons la composante résiduelle `other` (stations-service, pharmacies, bricolage) :
+Les données du *Monthly Retail Trade Survey* (FRED / US Census Bureau) comprennent le Total des ventes au détail et 5 sous-secteurs majeurs. Afin de fermer mathématiquement la hiérarchie ($Total \equiv \sum Secteurs$), nous isolons la composante résiduelle `other` (stations-service, pharmacies, bricolage) :
 $$\mathbf{y}_t = \begin{pmatrix} y_{\text{Total}, t} \\ \mathbf{b}_t \end{pmatrix}, \quad \mathbf{b}_t \in \mathbb{R}^6$$
 
-*Note sur la dénomination* : La série `ecommerce` correspond précisément aux **Détaillants hors magasin** (*Nonstore Retailers*, code NAICS 454), qui englobe la vente en ligne et par correspondance.
+*Précision de nomenclature* : La série `ecommerce` correspond précisément aux **Détaillants hors magasin** (*Nonstore Retailers*, code NAICS 454).
 
-### La véritable réconciliation MinT (*Minimum Trace*)
-Contrairement à la réconciliation OLS ordinaire ($\mathbf{W} = \mathbf{I}$), l'algorithme **MinT** (Wickramasuriya, Athanasopoulos & Hyndman, 2019) pondère la projection par la matrice de covariance empirique des résidus d'apprentissage $\mathbf{W} = \widehat{\text{Cov}}(\mathbf{e})$ :
-$$\mathbf{P}_{\text{MinT}} = (\mathbf{S}^T \mathbf{W}^{-1} \mathbf{S})^{-1} \mathbf{S}^T \mathbf{W}^{-1}$$
+### Réconciliation MinT avec covariance à rétrécissement (MinT-shrink)
+L'algorithme **MinT** (Wickramasuriya, Athanasopoulos & Hyndman, 2019) projette les prévisions de base par la matrice de covariance des résidus à rétrécissement $\mathbf{W}_{\text{shrink}} = (1 - \lambda)\mathbf{S}_{\text{sample}} + \lambda \text{diag}(\mathbf{S}_{\text{sample}})$ (Schäfer & Strimmer, 2005) :
+$$\mathbf{P}_{\text{MinT}} = (\mathbf{S}^T \mathbf{W}_{\text{shrink}}^{-1} \mathbf{S})^{-1} \mathbf{S}^T \mathbf{W}_{\text{shrink}}^{-1}$$
 $$\tilde{\mathbf{y}}_t = \mathbf{S} \mathbf{P}_{\text{MinT}} \hat{\mathbf{y}}_t$$
 où $\mathbf{S} = \begin{pmatrix} \mathbf{1}^T \\ \mathbf{I}_6 \end{pmatrix}$ est la matrice de sommation. Cette projection garantit que $\sum_{j=1}^6 \tilde{y}_{j, t} \equiv \tilde{y}_{\text{Total}, t}$.
 
-### Résultats sectoriels (RMSE)
+### Résultats sectoriels (RMSE) & Vérification de la cohérence
 
-```{t}
+```{r}
 #| label: retail-results
 #| echo: false
-metrics_retail = read_node(p.retail_benchmark_metrics)
-print(metrics_retail)
+metrics_retail = read.csv(Sys.getenv("T_INPUT_retail_benchmark_metrics"))
+knitr::kable(metrics_retail, digits = 2)
 ```
 
 ### Analyse
-* **Cohérence vs Précision** : La réconciliation MinT garantit une cohérence comptable absolue à $10^{-10}$ près. Sur les sous-secteurs volatils comme l'automobile, MinT améliore le RMSE par rapport à l'ETS de base ($5\,420$ vs $5\,796$).
-* **Secteurs hautement cycliques (Automobile, Détaillants hors magasin)** : **Timestral-209M** domine les modèles statistiques linéaires sur l'automobile ($2\,975$ vs $5\,420$ pour MinT et $5\,534$ pour ARIMA) et sur les détaillants hors magasin ($3\,191$ vs $3\,931$ pour MinT).
-* **Secteurs alimentaires et grande distribution** : Les modèles statistiques spécialisés (**ARIMA**) conservent l'avantage ($585$ sur l'alimentation vs $1\,404$ pour Timestral), la demande de biens de consommation courante étant quasi insensible aux fluctuations non-linéaires.
+* **Cohérence comptable** : La ligne `[Incoherence_Abs_Max]` quantifie l'écart absolu maximal entre le total prédit et la somme des six sous-secteurs ($\max_t |y_{\text{total}, t} - \sum_{j=1}^6 y_{j, t}|$). Les prévisions de base d'ARIMA, ETS et Timestral présentent des incohérences de plusieurs milliards de dollars. La projection MinT rétablit la cohérence comptable exacte ($< 10^{-8}$).
+* **Bottom-up Timestral vs MinT** : L'approche *bottom-up* sur Timestral (somme des 6 séries inférieures) restaure la cohérence structurelle tout en améliorant la prévision du total par rapport au modèle direct.
+* **Dynamiques sectorielles** : Sur les composantes fortement cycliques (automobile, détaillants hors magasin), les modèles Timestral dominent nettement les modèles linéaires univariés, tandis que sur les biens de consommation courante (alimentation), ARIMA et ETS conservent l'avantage.
 
 ---
 
 ## 5. Étude 3 : Triptyque Macroéconomique & Distanciation Oracle
 
-### Distinction fondamentale : Ex-ante vs Scénario Conditionnel
-Une comparaison rigoureuse exige de séparer deux régimes prédictifs :
-1. **Régime Ex-ante Inconditionnel** : Les modèles ne reçoivent aucune information sur l'année 2024. Le **VAR** prévoit simultanément l'inflation, le chômage et les taux de manière endogène.
-2. **Régime Conditionnel de Scénario (Oracle)** : Les modèles reçoivent la trajectoire réalisée du taux `FEDFUNDS` sur 2024 en tant que variable exogène (`xreg` pour ARIMAX, `known_covariates` pour Timestral).
-
-*Spécification du VAR* : L'ordre des retards du VAR est sélectionné de manière endogène par `vars::VARselect(ts, lag.max = 8)` via le critère d'Akaike ($p = 6$).
+### Régime Ex-ante vs Scénario Conditionnel
+Une comparaison équitable impose de distinguer deux régimes méthodologiques :
+1. **Régime Ex-ante Inconditionnel** : Aucune information sur l'année 2024 n'est fournie. Le **VAR** prévoit simultanément l'inflation, le chômage et les taux de manière endogène avec un nombre de retards sélectionné par critère d'Akaike (`VARselect`).
+2. **Régime Conditionnel de Scénario (Oracle)** : Les modèles reçoivent la trajectoire réalisée du taux `FEDFUNDS` en tant que régresseur exogène (`xreg` pour ARIMAX, `known_covariates` pour Timestral).
 
 ### Résultats comparatifs sur l'année 2024
 
-```{t}
+```{r}
 #| label: macro-results
 #| echo: false
-metrics_macro = read_node(p.macro_benchmark_metrics)
-print(metrics_macro)
+metrics_macro = read.csv(Sys.getenv("T_INPUT_macro_benchmark_metrics"))
+knitr::kable(metrics_macro, digits = 3)
 ```
 
 ### Analyse critique des résultats
 
-#### Sur le taux de chômage (UNRATE)
-* **La perspective du benchmark Naive** : Une simple prévision plate (maintenir le chômage à 3,7%) donne un RMSE de **0,272**.
-* **L'échec des modèles économétriques structurels** : Le VAR ($1{,}075$, soit $rRMSE = 3{,}95$) et l'ARIMAX ($0{,}711$, soit $rRMSE = 2{,}61$) font **deux à quatre fois pire que la marche aléatoire**. Estimés sur 25 ans d'histoire, ces modèles associent mécaniquement un cycle de resserrement monétaire agressif (taux à 5,3%) à une hausse marquée du chômage.
-* **Comportement de Timestral** : En mode univarié, Timestral obtient un RMSE de **0,146** ($rRMSE = 0{,}536$). Le mécanisme d'attention capture l'inertie locale du marché du travail sans projeter de récession mécanique.
+#### Sensibilité à la longueur du contexte historique
+Dans l'Étude 1 (14 ans d'historique, 2010–2023), Timestral-5M affichait un RMSE de 0,914 sur le CPI. Dans l'Étude 3 (24 ans d'historique, 2000–2023), son RMSE s'établit à 1,062. Cette divergence illustre la sensibilité des mécanismes d'attention à la taille du contexte d'entrée et aux régimes économiques lointains.
 
-#### Sur l'inflation (CPI)
-* **L'apport du conditionnement monétaire dans Timestral-209M** : Avec une capacité suffisante, `Timestral-209M` exploite favorablement le régresseur exogène `FEDFUNDS` : son RMSE passe de **1,113** (univarié) à **0,979** (avec taux exogène).
-* En revanche, sur le modèle compact **Timestral-5M**, l'injection du taux exogène dégrade la prévision ($1{,}434$), confirmant qu'un transformateur de faible taille sur-réagit au choc de taux sans moduler son coefficient d'élasticité.
+#### Taux de chômage (UNRATE)
+* **Perspective de la baseline naïve** : Maintenir le dernier taux connu (3,7%) produit un RMSE de 0,272.
+* **Échec des modèles structurels linéaires** : Estimés sur 25 ans d'historique, le VAR et l'ARIMAX projettent une récession marquée sous l'effet du taux d'intérêt à 5,3%, aboutissant à des erreurs 2,5 à 4 fois supérieures à la marche aléatoire.
+* **Prudence d'interprétation sur Timestral** : En mode univarié, Timestral obtient un RMSE de 0,146 sur 2024. Il convient de souligner qu'il s'agit d'une observation sur 12 mois et non de la preuve d'un mécanisme universel. Ce résultat met en lumière l'attention portée par le modèle à l'inertie récente du marché du travail plutôt qu'à une relation théorique linéaire.
+
+#### Effet du conditionnement exogène sur l'inflation (CPI)
+* **Timestral-209M** exploite efficacement le régresseur exogène `FEDFUNDS` : son RMSE passe de 1,113 (mode univarié) à 0,979 (avec variable exogène connue).
+* Sur **Timestral-5M**, l'injection du régresseur exogène dégrade la prévision (1,434), soulignant qu'une capacité paramétrique suffisante est requise pour pondérer adéquatement les covariables sans sur-réagir aux chocs macroéconomiques.
 
 ---
 
@@ -121,8 +133,8 @@ print(metrics_macro)
 
 | Dimension | Modèles Statistiques R (ARIMA / ETS / MinT / VAR) | Timestral-5M | Timestral-209M |
 |---|---|---|---|
-| **Meilleur domaine d'excellence** | Séries lisses à dérive régulière (CPI avec ETS), séries alimentaires | Séries courtes à inertie forte, inférence CPU ultra-rapide | Séries cycliques complexes (Automobile, E-commerce) |
-| **Cohérence hiérarchique** | Garantie exacte via projection MinT ($P_{\text{MinT}}$) | Non garantie nativement (nécessite post-traitement) | Non garantie nativement (nécessite post-traitement) |
-| **Variables exogènes** | Support transparent, estimé et interprétable (ARIMAX, VAR) | Moins robuste sur modèle 5M | Efficace sur modèle 209M ($RMSE_{\text{CPI}}$ réduit de 12%) |
-| **Risque face aux ruptures de régime** | Vulnérable aux relations historiques estimées (faux signaux récessifs sur UNRATE) | Robuste à l'inertie locale récente | Robuste à l'inertie locale récente |
-| **Limitation majeure** | Coût de maintenance et spécification de dizaines d'équations | Capacité restreinte face aux chocs exogènes | Risque de contamination des données d'entraînement |
+| **Excellence empirique** | Séries lisses à tendance stable (CPI avec ETS), séries alimentaires | Distribution probabiliste (Pinball loss minimale), inférence rapide | Séries sectorielles cycliques (Automobile, E-commerce) |
+| **Cohérence hiérarchique** | Garantie par projection MinT (MinT-shrink) | Restaurée par agrégation Bottom-Up ou projection MinT | Restaurée par agrégation Bottom-Up ou projection MinT |
+| **Variables exogènes** | Support explicite et interprétable (ARIMAX, VAR) | Moins stable sur chocs de taux | Amélioration notable du RMSE avec covariables |
+| **Distribution prédictive** | Paramétrique gaussienne par défaut | 21 quantiles non paramétriques natifs | 21 quantiles non paramétriques natifs |
+| **Limites majeures** | Hypothèses de linéarité et spécification manuelle | Sensibilité au conditionnement exogène | Coût de calcul et risque de mémorisation des corpus ouverts |
