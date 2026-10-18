@@ -1,0 +1,19 @@
+[project]
+name = "timestral_demo"
+description = "Benchmarking Timestral (5M and 209M) against R ARIMA on economic inflation data"
+authors = ["Your Name <email@example.com>"]
+
+[dependencies]
+
+[nixpkgs]
+date = "2026-10-18"
+
+[r-dependencies]
+packages = ["arrow", "jsonlite"]
+
+[py-dependencies]
+version = "python314"
+packages = ["mistralai-timestral", "pandas", "numpy", "pyarrow"]
+
+[t]
+min_version = "0.56.1"
