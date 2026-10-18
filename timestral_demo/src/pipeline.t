@@ -8,12 +8,34 @@ p = pipeline {
     serializer = ^csv
   )
 
-  -- 2. R ARIMA model (order c(1, 1, 1))
+  -- 2. Tuned R SARIMA model (automatic AIC grid search over p, d, q and seasonal P, D, Q)
   r_arima = rn(
     command = <{
       train_cpi = head(raw_data$cpi, -12)
-      fit = arima(train_cpi, order = c(1, 1, 1))
-      preds = as.numeric(predict(fit, n.ahead = 12)$pred)
+      
+      best_aic <- Inf
+      best_fit <- NULL
+      
+      for (d in 1:2) {
+        for (p in 0:2) {
+          for (q in 0:2) {
+            for (P in 0:1) {
+              for (Q in 0:1) {
+                fit <- tryCatch(
+                  arima(train_cpi, order = c(p, d, q), seasonal = list(order = c(P, 0, Q), period = 12), method = "CSS-ML"),
+                  error = function(e) NULL
+                )
+                if (!is.null(fit) && !is.nan(fit$aic) && fit$aic < best_aic) {
+                  best_aic <- fit$aic
+                  best_fit <- fit
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      preds = as.numeric(predict(best_fit, n.ahead = 12)$pred)
       data.frame(step = 1:12, arima = preds)
     }>,
     deserializer = ^csv,
@@ -71,7 +93,7 @@ timestral_209m = pd.DataFrame({"step": list(range(1, 13)), "timestral_209m": pre
       t209m_mae  = mae(timestral_209m$timestral_209m, actual)
 
       benchmark_metrics = data.frame(
-        model = c("R ARIMA(1,1,1)", "Timestral-5M", "Timestral-209M"),
+        model = c("R Tuned SARIMA", "Timestral-5M", "Timestral-209M"),
         rmse  = c(arima_rmse, t5m_rmse, t209m_rmse),
         mae   = c(arima_mae, t5m_mae, t209m_mae)
       )

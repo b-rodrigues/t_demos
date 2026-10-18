@@ -7,7 +7,7 @@ A **T** demonstration project benchmarking **Timestral** (Mistral AI's open-weig
 - **Dataset**: Monthly US Consumer Price Index (CPIAUCSL), 2010–2024.
 - **Task**: Out-of-sample 12-month ahead inflation forecasting (test window: 2024-01 to 2024-12).
 - **Models**:
-  - `R ARIMA(1,1,1)`: Classical Box-Jenkins ARIMA fit in R (`stats::arima`).
+  - `R Tuned SARIMA`: Optimal SARIMA specification selected via AIC grid search over $(p, d, q) \times (P, D, Q)_{12}$ fit in R (`stats::arima`).
   - `Timestral-5M`: 5M-parameter foundation model running lightweight zero-shot CPU inference.
   - `Timestral-209M`: 209M-parameter foundation model running zero-shot CPU inference.
 - **Evaluation Metrics**: Root Mean Squared Error (RMSE) and Mean Absolute Error (MAE).
