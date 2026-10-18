@@ -8,34 +8,14 @@ p = pipeline {
     serializer = ^csv
   )
 
-  -- 2. Tuned R SARIMA model (automatic AIC grid search over p, d, q and seasonal P, D, Q)
+  -- 2. Tuned R SARIMA model via forecast::auto.arima (evaluates both seasonal SARIMA and non-seasonal ARIMA)
   r_arima = rn(
     command = <{
+      library(forecast)
       train_cpi = head(raw_data$cpi, -12)
-      
-      best_aic <- Inf
-      best_fit <- NULL
-      
-      for (d in 1:2) {
-        for (p in 0:2) {
-          for (q in 0:2) {
-            for (P in 0:1) {
-              for (Q in 0:1) {
-                fit <- tryCatch(
-                  arima(train_cpi, order = c(p, d, q), seasonal = list(order = c(P, 0, Q), period = 12), method = "CSS-ML"),
-                  error = function(e) NULL
-                )
-                if (!is.null(fit) && !is.nan(fit$aic) && fit$aic < best_aic) {
-                  best_aic <- fit$aic
-                  best_fit <- fit
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      preds = as.numeric(predict(best_fit, n.ahead = 12)$pred)
+      ts_train = ts(train_cpi, frequency = 12)
+      fit = auto.arima(ts_train, seasonal = TRUE)
+      preds = as.numeric(forecast(fit, h = 12)$mean)
       data.frame(step = 1:12, arima = preds)
     }>,
     deserializer = ^csv,
