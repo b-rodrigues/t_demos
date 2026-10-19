@@ -24,6 +24,7 @@ p = pipeline {
   r_arima = rn(
     command = <{
       library(forecast)
+      stopifnot(is.character(helpers$code), nchar(paste(helpers$code, collapse = "")) > 0)
       eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       train_cpi = head(raw_data$cpi, -12)
@@ -1045,8 +1046,10 @@ rolling_timestral = pd.DataFrame(rows)
       library(forecast)
       eval(parse(text = paste(helpers$code, collapse = "\n")))
 
+      all_dates = format(seq(as.Date("2000-01-01"), by = "month", length.out = length(macro_raw_data$cpi)), "%Y-%m")
       origins = seq(150, 288, by = 6) # 24 origins spaced by 6 months
-      covid_origins = c(234, 240, 246, 252) # Origins whose 12-month test windows cover COVID 2020-2021
+      # Identify origins whose 12-month test window contains the acute COVID-19 shock months (March-April 2020)
+      covid_origins = origins[sapply(origins, function(L) any(c("2020-03", "2020-04") %in% all_dates[(L + 1):(L + 12)]))]
       idx_nocov = which(!origins %in% covid_origins)
 
       roll_rows = list()
@@ -1115,8 +1118,8 @@ rolling_timestral = pd.DataFrame(rows)
           wis           = NA_real_,
           crps          = NA_real_,
           coverage_80   = NA_real_,
-          dm_stat       = c(round(dm_n_1["stat"], 3), NA_real_, round(dm_e_1["stat"], 3), round(dm_t5_1["stat"], 3), round(dm_t209_1["stat"], 3)),
-          dm_pval       = c(round(dm_n_1["pval"], 4), NA_real_, round(dm_e_1["pval"], 4), round(dm_t5_1["pval"], 4), round(dm_t209_1["pval"], 4))
+          dm_stat       = unname(c(round(dm_n_1["stat"], 3), NA_real_, round(dm_e_1["stat"], 3), round(dm_t5_1["stat"], 3), round(dm_t209_1["stat"], 3))),
+          dm_pval       = unname(c(round(dm_n_1["pval"], 4), NA_real_, round(dm_e_1["pval"], 4), round(dm_t5_1["pval"], 4), round(dm_t209_1["pval"], 4)))
         )
 
         # 2. Horizon Pas 12 (h=12)
@@ -1131,8 +1134,8 @@ rolling_timestral = pd.DataFrame(rows)
           wis           = NA_real_,
           crps          = NA_real_,
           coverage_80   = NA_real_,
-          dm_stat       = c(round(dm_n_12["stat"], 3), NA_real_, round(dm_e_12["stat"], 3), round(dm_t5_12["stat"], 3), round(dm_t209_12["stat"], 3)),
-          dm_pval       = c(round(dm_n_12["pval"], 4), NA_real_, round(dm_e_12["pval"], 4), round(dm_t5_12["pval"], 4), round(dm_t209_12["pval"], 4))
+          dm_stat       = unname(c(round(dm_n_12["stat"], 3), NA_real_, round(dm_e_12["stat"], 3), round(dm_t5_12["stat"], 3), round(dm_t209_12["stat"], 3))),
+          dm_pval       = unname(c(round(dm_n_12["pval"], 4), NA_real_, round(dm_e_12["pval"], 4), round(dm_t5_12["pval"], 4), round(dm_t209_12["pval"], 4)))
         )
 
         # 3. Horizon Trajectoire (1..12m)
@@ -1175,6 +1178,7 @@ rolling_timestral = pd.DataFrame(rows)
     script = "src/report.qmd",
     runtime = Quarto,
     deps = [
+      macro_raw_data,
       benchmark_metrics,
       cpi_probabilistic_metrics,
       retail_benchmark_metrics,
