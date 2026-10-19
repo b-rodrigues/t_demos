@@ -56,6 +56,7 @@ jobs:
         run: |
           nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
           if [ -f flake.nix ]; then
+            sed -i 's|nixpkgs.url = "github:rstats-on-nix/nixpkgs/[^"]*";|nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-10-18";|' flake.nix
             sed -i "s|t-lang.url = \"github:b-rodrigues/tlang/[^\"]*\";|t-lang.url = \"github:$TLANG_REPO/$TLANG_SHA\";|" flake.nix
             sed -i 's|pkgs = nixpkgs.legacyPackages.\${system};|pkgs = nixpkgs.legacyPackages.\${system}.extend (self: super: { quarto = super.quarto.overrideAttrs (old: { postFixup = ""; }); });|' flake.nix
             sed -i 's|devShells.default = pkgs.mkShell {|legacyPackages = pkgs;\n        devShells.default = pkgs.mkShell {|' flake.nix
