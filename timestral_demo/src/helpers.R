@@ -9,34 +9,61 @@ quantile_cols    <- function(df) grep("^q_[0-9]{2}$", names(df), value = TRUE)
 levels_from_cols <- function(cols) as.integer(sub("^q_", "", cols)) / 100
 check_grid       <- function(cols) isTRUE(all.equal(levels_from_cols(cols), Q_LEVELS))
 
-# Predictive quantiles directly from forecast::forecast(..., level = ...) with state-space
-# trajectory simulation for ETS (which selects multiplicative error models ETS(M,A,N) / ETS(M,Ad,N)
-# whose prediction intervals are asymmetric).
-forecast_quantiles <- function(fit, h = 12, xreg = NULL, simulate = inherits(fit, "ets"), npaths = 5000, seed = 2024) {
-  set.seed(seed)
-  lv <- c(10, 20, 30, 40, 50, 60, 70, 80, 90, 98)
-  fc <- if (is.null(xreg)) {
-    forecast(fit, h = h, level = lv, simulate = simulate, npaths = npaths)
-  } else {
-    forecast(fit, h = h, xreg = xreg, level = lv, simulate = simulate, npaths = npaths)
-  }
-  expected_colnames <- paste0(lv, "%")
-  stopifnot(
-    identical(as.numeric(fc$level), lv),
-    identical(colnames(fc$lower), expected_colnames),
-    identical(colnames(fc$upper), expected_colnames)
-  )
-  lo_mat <- matrix(as.numeric(fc$lower), nrow = h, ncol = length(lv), dimnames = list(NULL, colnames(fc$lower)))
-  hi_mat <- matrix(as.numeric(fc$upper), nrow = h, ncol = length(lv), dimnames = list(NULL, colnames(fc$upper)))
-  lo <- lo_mat[, rev(expected_colnames), drop = FALSE]
-  hi <- hi_mat[, expected_colnames, drop = FALSE]
-  md <- matrix(as.numeric(fc$mean), nrow = h, ncol = 1)
-  qmat <- cbind(lo, md, hi)
-  tau <- c((1 - rev(lv) / 100) / 2, 0.50, (1 + lv / 100) / 2)
-  # Isotonic rearrangement (Chernozhukov, Fernández-Val & Galichon, 2010)
-  qmat <- t(apply(qmat, 1, sort))
-  colnames(qmat) <- sprintf("q_%02d", round(tau * 100))
+# Exact predictive quantiles:
+# 1. Random Walk Naive Gaussian distribution based on in-sample 1-step innovation variance
+forecast_quantiles_naive <- function(y_train, h = 12) {
+  last_val <- tail(y_train, 1)
+  sigma1   <- sd(diff(y_train))
+  sd_h     <- sigma1 * sqrt(seq_len(h))
+  qmat     <- sapply(Q_LEVELS, function(p) rep(last_val, h) + sd_h * qnorm(p))
+  colnames(qmat) <- q_names()
   qmat
+}
+
+# 2. Random Walk with Drift Gaussian distribution
+forecast_quantiles_drift <- function(y_train, h = 12) {
+  last_val <- tail(y_train, 1)
+  n        <- length(y_train)
+  mu_drift <- (last_val - y_train[1]) / (n - 1)
+  fc_mean  <- last_val + seq_len(h) * mu_drift
+  sigma1   <- sd(diff(y_train) - mu_drift)
+  sd_h     <- sigma1 * sqrt(seq_len(h))
+  qmat     <- sapply(Q_LEVELS, function(p) fc_mean + sd_h * qnorm(p))
+  colnames(qmat) <- q_names()
+  qmat
+}
+
+# 3. ARIMA exact analytic Gaussian predictive quantiles (strictly monotonic, mean == median)
+forecast_quantiles_arima <- function(fit, h = 12, xreg = NULL) {
+  fc   <- if (is.null(xreg)) forecast::forecast(fit, h = h) else forecast::forecast(fit, h = h, xreg = xreg)
+  mu   <- as.numeric(fc$mean)
+  fc95 <- if (is.null(xreg)) forecast::forecast(fit, h = h, level = 95) else forecast::forecast(fit, h = h, xreg = xreg, level = 95)
+  sd_h <- (as.numeric(fc95$upper) - as.numeric(fc95$lower)) / (2 * qnorm(0.975))
+  qmat <- sapply(Q_LEVELS, function(p) mu + sd_h * qnorm(p))
+  colnames(qmat) <- q_names()
+  qmat
+}
+
+# 4. State-Space ETS trajectory simulation quantiles (simulates exact asymmetric multiplicative paths;
+# quantile() computes true simulated median and percentiles with guaranteed mathematical monotonicity)
+forecast_quantiles_ets <- function(fit, h = 12, npaths = 3000, seed = 2024) {
+  set.seed(seed)
+  sim_paths <- replicate(npaths, as.numeric(simulate(fit, nsim = h)))
+  qmat      <- t(apply(sim_paths, 1, quantile, probs = Q_LEVELS))
+  colnames(qmat) <- q_names()
+  qmat
+}
+
+forecast_quantiles <- function(fit, h = 12, xreg = NULL, y_train = NULL, npaths = 3000, seed = 2024) {
+  if (is.character(fit) && fit == "naive") {
+    forecast_quantiles_naive(y_train, h = h)
+  } else if (is.character(fit) && fit == "drift") {
+    forecast_quantiles_drift(y_train, h = h)
+  } else if (inherits(fit, "ets")) {
+    forecast_quantiles_ets(fit, h = h, npaths = npaths, seed = seed)
+  } else {
+    forecast_quantiles_arima(fit, h = h, xreg = xreg)
+  }
 }
 
 pinball <- function(y, q, tau) ifelse(y >= q, tau * (y - q), (1 - tau) * (q - y))
@@ -47,7 +74,7 @@ pinball <- function(y, q, tau) ifelse(y >= q, tau * (y - q), (1 - tau) * (q - y)
 #  - mean_pinball: unweighted mean pinball loss across the 21 quantiles
 #  - in80, in90: coverage indicators using named columns q_10, q_90, q_05, q_95
 #  - w80, w90: interval widths (q_90 - q_10) and (q_95 - q_05)
-#  - cross: number of non-monotonic quantile inversions per row
+#  - cross: raw non-monotonic quantile inversions per row
 score_rows <- function(y, qmat) {
   cols <- colnames(qmat)
   stopifnot(check_grid(cols))
@@ -111,18 +138,16 @@ mint <- function(base, W, S) {
 }
 
 # Diebold-Mariano test with Harvey, Leybourne & Newbold (1997) small-sample correction
-# and Bartlett long-run variance estimator.
+# and Bartlett long-run variance estimator. Does NOT mask test failures.
 dm_harvey <- function(e_model, e_bench, h = 1) {
   if (all(abs(e_model - e_bench) < 1e-12)) {
-    return(c(stat = 0.0, pval = 1.0))
+    return(c(stat = 0.0, pval = 1.0)) # Identical forecasts: difference is zero
   }
   res <- tryCatch(
     forecast::dm.test(e_model, e_bench, alternative = "two.sided", h = h, power = 2, varestimator = "bartlett"),
-    error = function(e) list(statistic = 0.0, p.value = 1.0)
+    error = function(e) list(statistic = NA_real_, p.value = NA_real_)
   )
   st <- as.numeric(res$statistic)
   pv <- as.numeric(res$p.value)
-  if (is.na(st) || is.nan(st)) st <- 0.0
-  if (is.na(pv) || is.nan(pv)) pv <- 1.0
   c(stat = st, pval = pv)
 }

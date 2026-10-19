@@ -9,20 +9,41 @@ filters:
 ```{r}
 #| label: setup-data
 #| include: false
-metrics_cpi = read.csv(Sys.getenv("T_INPUT_benchmark_metrics"), stringsAsFactors = FALSE)
-prob_cpi = read.csv(Sys.getenv("T_INPUT_cpi_probabilistic_metrics"), stringsAsFactors = FALSE)
-metrics_retail = read.csv(Sys.getenv("T_INPUT_retail_benchmark_metrics"), stringsAsFactors = FALSE)
-coherence_retail = read.csv(Sys.getenv("T_INPUT_retail_coherence_metrics"), stringsAsFactors = FALSE)
-metrics_macro = read.csv(Sys.getenv("T_INPUT_macro_benchmark_metrics"), stringsAsFactors = FALSE)
-rolling_ablation = read.csv(Sys.getenv("T_INPUT_rolling_and_ablation_metrics"), stringsAsFactors = FALSE)
+try(Sys.setlocale("LC_ALL", "C.UTF-8"), silent = TRUE)
 
-ablation_df = subset(rolling_ablation, section == "context_ablation")
-rolling_df  = subset(rolling_ablation, section == "rolling_24_origins")
+metrics_cpi      = read.csv(Sys.getenv("T_INPUT_benchmark_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+prob_cpi         = read.csv(Sys.getenv("T_INPUT_cpi_probabilistic_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+metrics_retail   = read.csv(Sys.getenv("T_INPUT_retail_benchmark_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+coherence_retail = read.csv(Sys.getenv("T_INPUT_retail_coherence_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+metrics_macro    = read.csv(Sys.getenv("T_INPUT_macro_benchmark_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+ablation_df      = read.csv(Sys.getenv("T_INPUT_context_ablation_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
+rolling_df       = read.csv(Sys.getenv("T_INPUT_rolling_origin_metrics"), stringsAsFactors = FALSE, encoding = "UTF-8")
 
-fmt = function(x, d = 3) formatC(as.numeric(x), format = "f", digits = d, decimal.mark = ",")
+fmt = function(x, d = 3) {
+  x_num = as.numeric(x)
+  res = formatC(x_num, format = "f", digits = d, decimal.mark = ",")
+  res[is.na(x_num)] = "NA"
+  res
+}
 
+best_mod = function(df, col, minimize = TRUE) {
+  v = as.numeric(df[[col]])
+  idx = if (minimize) which.min(v) else which.max(v)
+  df$model[idx]
+}
+
+min_val = function(df, col, d = 3) {
+  fmt(min(as.numeric(df[[col]]), na.rm = TRUE), d)
+}
+
+max_val = function(df, col, d = 3) {
+  fmt(max(as.numeric(df[[col]]), na.rm = TRUE), d)
+}
+
+# Study 1 helpers
 cpi_arima_name = metrics_cpi$specification[grep("^R ARIMA", metrics_cpi$model)[1]]
 cpi_ets_name   = metrics_cpi$specification[grep("^R ETS", metrics_cpi$model)[1]]
+cpi_arima_d    = gsub(".*,([0-9]+),.*", "\\1", cpi_arima_name)
 
 get_cpi = function(pat, col = "rmse", d = 3) {
   fmt(metrics_cpi[[col]][grep(pat, metrics_cpi$model)[1]], d)
@@ -30,6 +51,24 @@ get_cpi = function(pat, col = "rmse", d = 3) {
 get_prob_cpi = function(pat, col = "wis", d = 3) {
   fmt(prob_cpi[[col]][grep(pat, prob_cpi$model)[1]], d)
 }
+
+best_cpi_rmse_mod = best_mod(metrics_cpi, "rmse")
+best_cpi_wis_mod  = best_mod(prob_cpi, "wis")
+best_cpi_crps_mod = best_mod(prob_cpi, "crps")
+narrowest_80_mod  = best_mod(prob_cpi, "width_80")
+widest_80_mod     = best_mod(prob_cpi, "width_80", minimize = FALSE)
+
+# Study 2 helpers
+sector_labels = c(
+  total               = "Total",
+  automotive          = "Automobile",
+  food_beverage       = "Alimentation",
+  clothing            = "Habillement",
+  ecommerce           = "Commerce hors magasin (ecommerce)",
+  general_merchandise = "Marchandises diverses (NAICS 452)",
+  other               = "Autres secteurs"
+)
+
 get_retail = function(ser, col = "arima_rmse", d = 1) {
   fmt(metrics_retail[[col]][metrics_retail$sector == ser][1], d)
 }
@@ -39,6 +78,24 @@ get_coh = function(pat, col = "max_abs_incoherence_sci") {
 get_coh_val = function(pat, col = "total_rmse", d = 1) {
   fmt(coherence_retail[[col]][grep(pat, coherence_retail$method)[1]], d)
 }
+
+# Best models per sector under MinT
+sub_sectors = c("automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise")
+best_sector_mint = sapply(sub_sectors, function(s) {
+  r = subset(metrics_retail, sector == s)
+  v = c("ARIMA" = r$mint_arima_rmse, "ETS" = r$mint_ets_rmse, "Timestral-5M" = r$mint_t5m_rmse, "Timestral-209M" = r$mint_t209m_rmse)
+  names(which.min(v))
+})
+sectors_t209 = names(best_sector_mint[best_sector_mint == "Timestral-209M"])
+sectors_t5m  = names(best_sector_mint[best_sector_mint == "Timestral-5M"])
+sectors_ari  = names(best_sector_mint[best_sector_mint == "ARIMA"])
+sectors_ets  = names(best_sector_mint[best_sector_mint == "ETS"])
+
+tot_r = subset(metrics_retail, sector == "total")
+tot_v = c("ARIMA" = tot_r$mint_arima_rmse, "ETS" = tot_r$mint_ets_rmse, "Timestral-5M" = tot_r$mint_t5m_rmse, "Timestral-209M" = tot_r$mint_t209m_rmse)
+best_tot_mint = names(which.min(tot_v))
+
+# Study 3 helpers
 get_macro = function(tgt_pat, mod_pat, col = "rmse", d = 3) {
   sub_df = metrics_macro[grep(tgt_pat, metrics_macro$target), ]
   fmt(sub_df[[col]][grep(mod_pat, sub_df$model)[1]], d)
@@ -48,13 +105,37 @@ sub_cpi          = metrics_macro[grep("CPI", metrics_macro$target), ]
 macro_arimax_cpi = sub_cpi$specification[grep("ARIMAX", sub_cpi$model)][1]
 macro_ets_cpi    = sub_cpi$specification[grep("^R ETS", sub_cpi$model)][1]
 
+unr_ex = subset(metrics_macro, grepl("UNRATE", target) & grepl("Ex-ante", regime))
+best_unr_ex_mod = best_mod(unr_ex, "rmse")
+
+cpi_ex = subset(metrics_macro, grepl("CPI", target) & grepl("Ex-ante", regime))
+best_cpi_ex_mod = best_mod(cpi_ex, "rmse")
+
+# Study 4.1 Ablation helpers
 get_ablation = function(L_val, col = "t209m_rmse", d = 3) {
   fmt(ablation_df[[col]][ablation_df$context_months == L_val][1], d)
 }
-get_roll = function(tgt_pat, mod_pat, col = "arima_rmse", d = 3) {
-  sub_df = rolling_df[grep(tgt_pat, rolling_df$target), ]
+t209_cor = cor(ablation_df$context_months, ablation_df$t209m_rmse)
+t209_mono = all(diff(ablation_df$t209m_rmse) <= 0)
+t209_cor_str = fmt(t209_cor, 2)
+
+best_L_t209 = ablation_df$context_months[which.min(ablation_df$t209m_rmse)]
+best_L_t5   = ablation_df$context_months[which.min(ablation_df$t5m_rmse)]
+
+# Study 4.2 Rolling DM helpers
+best_roll_mod = function(tgt_pat, h_val, col = "rmse") {
+  sub_df = subset(rolling_df, grepl(tgt_pat, target) & horizon == h_val)
+  best_mod(sub_df, col)
+}
+get_roll = function(tgt_pat, h_val, mod_pat, col = "rmse", d = 3) {
+  sub_df = subset(rolling_df, grepl(tgt_pat, target) & horizon == h_val)
   fmt(sub_df[[col]][grep(mod_pat, sub_df$model)[1]], d)
 }
+
+dm_sub = subset(rolling_df, !grepl("réf", model))
+dm_valid = subset(dm_sub, !is.na(dm_pval))
+dm_sig_5 = sum(dm_valid$dm_pval < 0.05)
+dm_na_count = nrow(dm_sub) - nrow(dm_valid)
 ```
 
 ## 1. Introduction & Architecture de Timestral
@@ -64,8 +145,7 @@ get_roll = function(tgt_pat, mod_pat, col = "arima_rmse", d = 3) {
 ### Spécifications architecturales
 * **Patching temporel** : Les séries temporelles sont partitionnées en patchs disjoints de 32 pas de temps consécutifs (`patch_size: 32`), projetés dans l'espace latent du modèle. L'attention alternée permet de modéliser les dynamiques intra-temporelles et inter-séries.
 * **Distribution prédictive** : Une tête de projection dédiée génère directement une grille empirique de quantiles ($q_{0.01}$ à $q_{0.99}$), lue dynamiquement depuis les sorties du modèle. La médiane ($q_{0.50}$) sert d'estimateur ponctuel, tandis que l'ensemble des quantiles permet une évaluation probabiliste complète via des règles de score propres (*Weighted Interval Score* et *CRPS*) sans hypothèse paramétrique gaussienne a priori.
-* **Support des covariables (`covariate_enabled: true`)** :
-  L'API `TimestralForecaster` gère les régresseurs exogènes passés (`past_covariates`) et connus sur l'horizon de prévision (`known_covariates`).
+* **Support des covariables (`covariate_enabled: true`)** : L'API `TimestralForecaster` gère les régresseurs exogènes passés (`past_covariates`) et connus sur l'horizon de prévision (`known_covariates`).
 * **Modèles évalués** : `Timestral-5M` et `Timestral-209M`.
 
 ---
@@ -75,8 +155,8 @@ get_roll = function(tgt_pat, mod_pat, col = "arima_rmse", d = 3) {
 Une comparaison empirique rigoureuse entre modèles de fondation et modèles statistiques impose quatre garde-fous méthodologiques intégrés à ce pipeline :
 
 1. **Risque de contamination des données de pré-entraînement** : Les séries macroéconomiques (`CPIAUCSL`, `UNRATE`, `FEDFUNDS`) et les données de ventes au détail du Census Bureau sont omniprésentes dans les banques de données ouvertes. Il est impossible de certifier que leur historique n'a pas été observé lors de la phase de pré-entraînement de Mistral AI. Le qualificatif *zero-shot* doit être interprété dans cette limite.
-2. **Validation multi-origines et tests de Diebold–Mariano** : Une évaluation sur une unique fenêtre de 12 mois (année 2024) souffre d'une forte variance d'échantillonnage et d'une autocorrélation marquée des erreurs à horizons multiples. Nous complétons donc l'analyse sur 2024 par une validation en origines roulantes (*rolling-origin evaluation*) sur 24 origines successives assortie de tests de Diebold–Mariano avec correction de petits échantillons de Harvey, Leybourne & Newbold (1997) en Section 6.
-3. **Intervalles prédictifs exacts par simulation Monte Carlo** : Les modèles de lissage exponentiel sélectionnés par `forecast::ets` peuvent comporter des erreurs multiplicatives (par exemple `` `r cpi_ets_name` `` sur le CPI dans l'Étude 1 ou `` `r macro_ets_cpi` `` dans l'Étude 3), dont les distributions prédictives à plusieurs pas sont asymétriques. Plutôt que de reconstruire des quantiles par approximation gaussienne symétrique, nous extrayons directement les quantiles exacts de `forecast(..., simulate = TRUE, npaths = 5000)` pour chacun des niveaux nominaux correspondant à la grille de Timestral.
+2. **Validation multi-origines espacées et tests de Diebold–Mariano** : Une évaluation sur une unique fenêtre de 12 mois (année 2024) souffre d'une forte variance d'échantillonnage et d'une autocorrélation marquée des erreurs. Nous complétons donc l'analyse sur 2024 par une validation en origines roulantes (*rolling-origin evaluation*) sur 24 origines espacées de 6 mois s'étendant de 2012 à 2023, assortie de tests de Diebold–Mariano avec correction de petits échantillons de Harvey, Leybourne & Newbold (1997) en Section 6.
+3. **Intervalles prédictifs exacts par simulation Monte Carlo** : Les modèles de lissage exponentiel sélectionnés par `forecast::ets` peuvent comporter des erreurs multiplicatives (par exemple `r cpi_ets_name` sur le CPI dans l'Étude 1 ou `r macro_ets_cpi` dans l'Étude 3), dont les distributions prédictives à plusieurs pas sont asymétriques. Plutôt que de reconstruire des quantiles par approximation gaussienne symétrique, nous extrayons directement les quantiles exacts de `forecast(..., simulate = TRUE, npaths = 3000)` pour chacun des niveaux nominaux correspondant à la grille de Timestral.
 4. **Isolation de la longueur de contexte** : Afin de séparer l'effet pur de la longueur d'historique $L$ du changement de fenêtre temporelle, la Section 6 évalue systématiquement $L \in \{60, 120, 168, 240, 288\}$ mois sur la même série `CPIAUCSL` et la même cible de test (année 2024).
 
 ---
@@ -85,9 +165,9 @@ Une comparaison empirique rigoureuse entre modèles de fondation et modèles sta
 
 ### Données & Procédure
 * **Données** : `CPIAUCSL` (180 mois, entraînement 2010–2023 soit 168 mois, test sur les 12 mois de 2024).
-* **Sélection automatique ARIMA & ETS** : La série étant déjà désaisonnalisée par le BLS via X-13ARIMA-SEATS, `forecast::auto.arima` sélectionne `` `r cpi_arima_name` `` et `forecast::ets` identifie `` `r cpi_ets_name` `` par minimisation du critère AICc.
-* **Baselines naïves** : Marche aléatoire simple (*Naive*, RMSE de `` `r get_cpi("^Naive", "rmse")` ``) et marche aléatoire avec dérive linéaire historique (*Drift*, RMSE de `` `r get_cpi("Drift", "rmse")` ``).
-* **Métrique d'étalonnage ponctuel** : *Relative RMSE* ($rRMSE = \text{RMSE}_{\text{modèle}} / \text{RMSE}_{\text{naive}}$).
+* **Sélection automatique ARIMA & ETS** : La série étant déjà désaisonnalisée par le BLS via X-13ARIMA-SEATS, `forecast::auto.arima` sélectionne `r cpi_arima_name` et `forecast::ets` identifie `r cpi_ets_name` par minimisation du critère AICc.
+* **Baselines naïves** : Marche aléatoire simple (*Naive*, RMSE de `r get_cpi("^Naive", "rmse")`) et marche aléatoire avec dérive linéaire historique (*Drift*, RMSE de `r get_cpi("Drift", "rmse")`).
+* **Métriques d'étalonnage** : *Relative RMSE* ($rRMSE = \text{RMSE}_{\text{modèle}} / \text{RMSE}_{\text{naive}}$) et *Scaled WIS* ($sWIS = \text{WIS}_{\text{modèle}} / \text{WIS}_{\text{naive}}$).
 
 ### Résultats ponctuels (CPI, horizon 2024)
 
@@ -101,33 +181,33 @@ knitr::kable(metrics_cpi[, c("model", "specification", "rmse", "mae", "relative_
 
 ### Évaluation Probabiliste : Pinball Loss, WIS, CRPS & Couverture d'Intervalles
 
-L'évaluation ponctuelle (RMSE / MAE sur la médiane $q_{0.50}$) ne renseigne pas sur la calibration de la distribution prédictive complète. Nous évaluons sur la grille des quantiles indexés par nom (`q_01` à `q_99`) :
-- La **Pinball Loss moyenne** sur la grille complète des quantiles :
+L'évaluation ponctuelle (RMSE / MAE sur la médiane $q_{0.50}$) ne renseigne pas sur la calibration de la distribution prédictive complète. Nous évaluons sur la grille des 21 quantiles natifs :
+- La **Pinball Loss moyenne** :
   $$L_\tau(y, \hat{q}_\tau) = \max(\tau(y - \hat{q}_\tau), (1 - \tau)(\hat{q}_\tau - y))$$
-- Le **Weighted Interval Score (WIS)** (Bracher et al., 2021), règle de score propre combinant l'erreur absolue médiane et les scores d'intervalles $IS_\alpha$ sur les $K = 10$ intervalles centraux ($\alpha \in \{0.02, 0.10, 0.20, \dots, 0.90\}$), ainsi que le **CRPS** approché par intégration de Riemann pondérée par la largeur des cellules de probabilité $\Delta \tau_k$ (pondérant correctement les queues $q_{0.01}$ et $q_{0.99}$).
-- Le **taux de couverture empirique** à 80 % ($[q_{0.10}, q_{0.90}]$) et à 90 % ($[q_{0.05}, q_{0.95}]$), accompagné de la **largeur moyenne des intervalles** (`width_80`, `width_90`) et du nombre de **croisements de quantiles** (`crossings`).
+- Le **Weighted Interval Score (WIS)** (Bracher et al., 2021), règle de score propre combinant l'erreur absolue médiane et les scores d'intervalles sur 10 intervalles centraux, ainsi que le **CRPS** approché par intégration de Riemann pondérée par les largeurs de cellules de probabilité $\Delta \tau_k$.
+- Le **taux de couverture empirique** à 80 % ($[q_{0.10}, q_{0.90}]$) et à 90 % ($[q_{0.05}, q_{0.95}]$), accompagné de la **largeur moyenne des intervalles** (`width_80`, `width_90`) et du nombre d'inversions de quantiles brutes (`crossings`).
 
 ```{r}
 #| label: cpi-prob-results
 #| echo: false
-knitr::kable(prob_cpi[, c("model", "dist_method", "wis", "crps", "mean_pinball", "coverage_80", "coverage_90", "width_80", "width_90", "crossings")],
-             col.names = c("Modèle", "Méthode distribution", "WIS", "CRPS", "Pinball", "Couv. 80%", "Couv. 90%", "Largeur 80%", "Largeur 90%", "Croisements"),
-             digits = 4)
+knitr::kable(prob_cpi[, c("model", "dist_method", "scaled_wis", "wis", "crps", "mean_pinball", "coverage_80", "coverage_90", "width_80", "width_90", "crossings")],
+             col.names = c("Modèle", "Méthode distribution", "sWIS", "WIS", "CRPS", "Pinball", "Couv. 80%", "Couv. 90%", "Largeur 80%", "Largeur 90%", "Inversions"),
+             digits = 3)
 ```
 
 ### Analyse
-* **Scores propres (WIS & CRPS) vs erreur ponctuelle** : Sur cette fenêtre de 12 mois, `` `r cpi_ets_name` `` obtient le RMSE ponctuel le plus bas (`` `r get_cpi("^R ETS", "rmse")` ``, soit $rRMSE =$ `` `r get_cpi("^R ETS", "relative_rmse")` ``), tandis que `Timestral-5M` présente un RMSE de `` `r get_cpi("Timestral-5M", "rmse")` `` ($rRMSE =$ `` `r get_cpi("Timestral-5M", "relative_rmse")` ``) et `Timestral-209M` un RMSE de `` `r get_cpi("Timestral-209M", "rmse")` ``. Sur le plan probabiliste, `Timestral-5M` obtient sur cet échantillon le WIS (`` `r get_prob_cpi("Timestral-5M", "wis")` ``) et le CRPS (`` `r get_prob_cpi("Timestral-5M", "crps")` ``) les plus faibles devant `` `r cpi_ets_name` `` (WIS de `` `r get_prob_cpi("^R ETS", "wis")` ``, CRPS de `` `r get_prob_cpi("^R ETS", "crps")` ``) et `` `r cpi_arima_name` `` (WIS de `` `r get_prob_cpi("^R ARIMA", "wis")` ``, CRPS de `` `r get_prob_cpi("^R ARIMA", "crps")` ``).
-* **Interprétation critique de la couverture à 100 % et de la largeur des intervalles** : Les quatre modèles affichent une couverture empirique de `` `r get_prob_cpi("Timestral-5M", "coverage_80", 2)` `` à 80 % et de `` `r get_prob_cpi("Timestral-5M", "coverage_90", 2)` `` à 90 % (zéro croisement de quantiles, `crossings = 0`). Une couverture empirique de 100 % pour des niveaux nominaux de 80 % et 90 % sur 12 observations fortement autocorrélées ne constitue **pas** la preuve d'une calibration idéale : avec une granularité discrète de $1/12 \approx 8,33\,\%$ par point et une trajectoire d'inflation 2024 régulière, elle traduit au contraire des intervalles prédictifs conservateurs (trop larges par rapport à la volatilité réalisée sur 2024). En revanche, la comparaison des largeurs moyennes d'intervalles à 80 % (`width_80`) est informative : `Timestral-5M` génère des intervalles nettement plus étroits (`` `r get_prob_cpi("Timestral-5M", "width_80", 2)` `` points d'indice) que `` `r cpi_ets_name` `` (`` `r get_prob_cpi("^R ETS", "width_80", 2)` ``), `Timestral-209M` (`` `r get_prob_cpi("Timestral-209M", "width_80", 2)` ``) et surtout `` `r cpi_arima_name` `` (`` `r get_prob_cpi("^R ARIMA", "width_80", 2)` ``, dont la double différenciation $I(2)$ fait croître rapidement la variance prédictive avec l'horizon).
+* **Scores propres (WIS & CRPS) vs erreur ponctuelle** : Sur cette fenêtre de 12 mois, `r best_cpi_rmse_mod` obtient le RMSE ponctuel le plus bas (`r min_val(metrics_cpi, "rmse")`, soit $rRMSE =$ `r min_val(metrics_cpi, "relative_rmse")`), tandis que `Timestral-5M` présente un RMSE de `r get_cpi("Timestral-5M", "rmse")` ($rRMSE =$ `r get_cpi("Timestral-5M", "relative_rmse")`) et `Timestral-209M` un RMSE de `r get_cpi("Timestral-209M", "rmse")`. Sur le plan probabiliste, `r best_cpi_wis_mod` obtient sur cet échantillon le WIS le plus faible (`r min_val(prob_cpi, "wis")`) et `r best_cpi_crps_mod` le CRPS le plus faible (`r min_val(prob_cpi, "crps")`), devant `r cpi_ets_name` (WIS de `r get_prob_cpi("^R ETS", "wis")`, CRPS de `r get_prob_cpi("^R ETS", "crps")`) et `r cpi_arima_name` (WIS de `r get_prob_cpi("^R ARIMA", "wis")`, CRPS de `r get_prob_cpi("^R ARIMA", "crps")`).
+* **Interprétation critique de la couverture et de la largeur des intervalles** : Les modèles affichent des couvertures empiriques comprises entre `r min_val(prob_cpi, "coverage_80", 2)` et `r max_val(prob_cpi, "coverage_80", 2)` à 80 % et entre `r min_val(prob_cpi, "coverage_90", 2)` et `r max_val(prob_cpi, "coverage_90", 2)` à 90 % (avec zéro inversion de quantiles sur l'ensemble des distributions, `crossings = 0`). Une couverture empirique atteignant ou approchant 100 % pour des niveaux nominaux de 80 % et 90 % sur seulement 12 observations fortement autocorrélées ne constitue **pas** la preuve d'une calibration idéale : avec une granularité discrète de $1/12 \approx 8,33\,\%$ par observation et une trajectoire d'inflation 2024 régulière, elle traduit au contraire des intervalles prédictifs conservateurs. En revanche, la largeur moyenne d'intervalles (`width_80`) discrimine nettement les approches : `r narrowest_80_mod` génère les intervalles les plus resserrés (`r min_val(prob_cpi, "width_80", 2)` points d'indice), alors que `r widest_80_mod` produit les plus larges (`r max_val(prob_cpi, "width_80", 2)` points d'indice, notamment sous l'effet de l'ordre d'intégration `r paste0("I(", cpi_arima_d, ")")` dont la variance d'extrapolation croît rapidement avec l'horizon).
 
 ---
 
 ## 4. Étude 2 : Ventes au détail sectorielles & Réconciliation Hiérarchique (MinT-shrink)
 
 ### Structure de l'arbre hiérarchique
-Les données du *Monthly Retail Trade Survey* (FRED / US Census Bureau) comprennent le Total des ventes au détail (`total`) et 5 sous-secteurs majeurs (`auto`, `food`, `clothing`, `electronics`, `ecommerce`). Afin de fermer mathématiquement la hiérarchie ($Total_t \equiv \sum_{j=1}^6 b_{j,t}$), nous isolons la composante résiduelle `other` :
+Les données du *Monthly Retail Trade Survey* (FRED / US Census Bureau) comprennent le Total des ventes au détail (`total`) et 5 sous-secteurs majeurs (`automotive`, `food_beverage`, `clothing`, `ecommerce`, `general_merchandise`). Afin de fermer mathématiquement la hiérarchie ($Total_t \equiv \sum_{j=1}^6 b_{j,t}$), nous isolons la composante résiduelle `other` :
 $$\mathbf{y}_t = \begin{pmatrix} y_{\text{Total}, t} \\ \mathbf{b}_t \end{pmatrix} = \mathbf{S} \mathbf{b}_t, \quad \mathbf{S} = \begin{pmatrix} \mathbf{1}_6^T \\ \mathbf{I}_6 \end{pmatrix} \in \mathbb{R}^{7 \times 6}$$
 
-*Précision de nomenclature* : La série `ecommerce` correspond à la série officielle `RSNSR` du Census Bureau, c'est-à-dire aux **Détaillants hors magasin** (*Nonstore Retailers*, code NAICS 454), qui incluent le commerce électronique mais également la vente par correspondance et les distributeurs automatiques.
+*Précision de nomenclature* : La série `ecommerce` correspond à la série officielle `RSNSR` du Census Bureau (**Détaillants hors magasin**, *Nonstore Retailers*, code NAICS 454), tandis que `general_merchandise` correspond aux **Magasins de marchandises diverses** (*General Merchandise Stores*, code NAICS 452).
 
 ### Réconciliation MinT avec rétrécissement sur la matrice de corrélation (MinT-shrink)
 Pour comparer équitablement les modèles statistiques et les modèles de fondation, nous appliquons les **deux mêmes opérateurs de réconciliation** — agrégation **Bottom-Up (`_bu`)** et projection **MinT-shrink (`_mint`)** — aux **quatre familles de modèles** (`ARIMA`, `ETS`, `Timestral-5M`, `Timestral-209M`).
@@ -154,16 +234,22 @@ knitr::kable(coherence_retail[, c("method", "is_reconciled", "shrinkage_lambda",
 ```{r}
 #| label: retail-results
 #| echo: false
-knitr::kable(metrics_retail, digits = 1)
+retail_display = metrics_retail
+retail_display$secteur = sector_labels[retail_display$sector]
+retail_display = retail_display[, c("secteur", "naive_rmse", "arima_rmse", "mint_arima_rmse", "ets_rmse", "mint_ets_rmse", "t5m_rmse", "mint_t5m_rmse", "t209m_rmse", "mint_t209m_rmse", "wis_arima", "wis_ets", "wis_t5m", "wis_t209m")]
+
+knitr::kable(retail_display,
+             col.names = c("Secteur", "Naive (RW)", "ARIMA Base", "ARIMA MinT", "ETS Base", "ETS MinT", "T5M Base", "T5M MinT", "T209M Base", "T209M MinT", "WIS ARIMA", "WIS ETS", "WIS T5M", "WIS T209M"),
+             digits = 1)
 ```
 
 ### Analyse
-* **Restauration exacte de la cohérence** : Les prévisions de base non réconciliées (`base`) violent la contrainte comptable avec des écarts maximaux allant de `` `r get_coh("Timestral-209M.*Base")` `` M\$ (`Timestral-209M`) à `` `r get_coh("Timestral-5M.*Base")` `` M\$ (`Timestral-5M`), `` `r get_coh("ARIMA.*Base")` `` M\$ (`ARIMA`) et `` `r get_coh("ETS.*Base")` `` M\$ (`ETS`). Les projections `bottom_up` et `mint_shrink` réduisent cette incohérence au bruit numérique de virgule flottante (`` `r get_coh("ETS.*MinT")` `` M\$, vérifié par assertion stricte $< 10^{-6}$ dans le pipeline).
+* **Restauration exacte de la cohérence** : Les prévisions de base non réconciliées (`base`) violent la contrainte comptable avec des incohérences maximales allant de `r get_coh("Timestral-209M.*Base")` M\$ (`Timestral-209M`) à `r get_coh("Timestral-5M.*Base")` M\$ (`Timestral-5M`), `r get_coh("ARIMA.*Base")` M\$ (`ARIMA`) et `r get_coh("ETS.*Base")` M\$ (`ETS`). Les projections `bottom_up` et `mint_shrink` réduisent cette incohérence au bruit numérique de virgule flottante (`r get_coh("ETS.*MinT")` M\$, vérifié par assertion stricte $< 10^{-8} \times 750\,000$ dans le pipeline).
 * **Effet nuancé de la réconciliation sur le Total** : Contrairement à une idée reçue, ni le *Bottom-Up* ni *MinT-shrink* n'améliorent mécaniquement le RMSE du Total pour tous les modèles :
-  - Pour `Timestral-209M`, la réconciliation améliore la prévision du Total : le RMSE passe de `` `r get_coh_val("Timestral-209M.*Base")` `` M\$ (`base`) à `` `r get_coh_val("Timestral-209M.*Bottom-Up")` `` M\$ (`bottom_up`) et `` `r get_coh_val("Timestral-209M.*MinT")` `` M\$ (`mint_shrink`).
-  - Pour `Timestral-5M`, la prévision directe du Total (`base` : `` `r get_coh_val("Timestral-5M.*Base")` `` M\$) est plus précise que l'agrégation *bottom-up* (`` `r get_coh_val("Timestral-5M.*Bottom-Up")` `` M\$), et la projection `mint_shrink` établit un compromis cohérent à `` `r get_coh_val("Timestral-5M.*MinT")` `` M\$.
-  - Pour `ARIMA` et `ETS`, la réconciliation `mint_shrink` améliore nettement le *Bottom-Up* sur le Total (`` `r get_coh_val("ARIMA.*MinT")` `` contre `` `r get_coh_val("ARIMA.*Bottom-Up")` `` pour ARIMA ; `` `r get_coh_val("ETS.*MinT")` `` contre `` `r get_coh_val("ETS.*Bottom-Up")` `` pour ETS) ainsi que les sous-secteurs `auto` et `other`, bien que la prévision directe non réconciliée du Total reste légèrement inférieure en RMSE (`` `r get_coh_val("ETS.*Base")` `` pour ETS).
-* **Comparaison par secteur (base, Bottom-Up et MinT)** : Sur le Total réconcilié par MinT-shrink, `Timestral-209M` (`` `r get_retail("total", "mint_t209m_rmse")` `` M\$) et `Timestral-5M` (`` `r get_retail("total", "mint_t5m_rmse")` `` M\$) surpassent `ETS` (`` `r get_retail("total", "mint_ets_rmse")` `` M\$) et `ARIMA` (`` `r get_retail("total", "mint_arima_rmse")` `` M\$). `Timestral-209M` domine sur `auto` (`` `r get_retail("automotive", "mint_t209m_rmse")` `` M\$ en MinT contre `` `r get_retail("automotive", "mint_arima_rmse")` `` M\$ pour ARIMA) et `ecommerce` (`` `r get_retail("ecommerce", "mint_t209m_rmse")` `` M\$ en MinT), tandis qu'`ARIMA` conserve l'avantage sur `food` (`` `r get_retail("food_beverage", "mint_arima_rmse")` `` M\$), `clothing` (`` `r get_retail("clothing", "mint_arima_rmse")` `` M\$) et `electronics` (`` `r get_retail("general_merchandise", "mint_arima_rmse")` `` M\$).
+  - Pour `Timestral-209M`, la réconciliation améliore la prévision du Total : le RMSE passe de `r get_coh_val("Timestral-209M.*Base")` M\$ (`base`) à `r get_coh_val("Timestral-209M.*Bottom-Up")` M\$ (`bottom_up`) et `r get_coh_val("Timestral-209M.*MinT")` M\$ (`mint_shrink`).
+  - Pour `Timestral-5M`, la prévision directe du Total (`base` : `r get_coh_val("Timestral-5M.*Base")` M\$) est plus précise que l'agrégation *bottom-up* (`r get_coh_val("Timestral-5M.*Bottom-Up")` M\$), et la projection `mint_shrink` établit un compromis cohérent à `r get_coh_val("Timestral-5M.*MinT")` M\$.
+  - Pour `ARIMA` et `ETS`, la réconciliation `mint_shrink` améliore nettement le *Bottom-Up* sur le Total (`r get_coh_val("ARIMA.*MinT")` contre `r get_coh_val("ARIMA.*Bottom-Up")` pour ARIMA ; `r get_coh_val("ETS.*MinT")` contre `r get_coh_val("ETS.*Bottom-Up")` pour ETS) ainsi que les sous-secteurs, bien que la prévision directe non réconciliée du Total reste inférieure en RMSE (`r get_coh_val("ETS.*Base")` pour ETS).
+* **Comparaison sectorielle sous réconciliation MinT-shrink** : Sur le Total réconcilié par MinT-shrink, `r best_tot_mint` obtient le RMSE le plus bas (`r fmt(min(tot_v), 1)` M\$), devant les autres modèles (`r paste(paste0(names(tot_v), " : ", fmt(tot_v, 1), " M$"), collapse = ", ")`). Sur les sous-secteurs d'activité, les modèles se partagent les meilleures performances : `Timestral-209M` l'emporte sur `r if(length(sectors_t209)>0) paste(sector_labels[sectors_t209], collapse = ", ") else "aucun secteur"`, `Timestral-5M` sur `r if(length(sectors_t5m)>0) paste(sector_labels[sectors_t5m], collapse = ", ") else "aucun secteur"`, `ARIMA` sur `r if(length(sectors_ari)>0) paste(sector_labels[sectors_ari], collapse = ", ") else "aucun secteur"` et `ETS` sur `r if(length(sectors_ets)>0) paste(sector_labels[sectors_ets], collapse = ", ") else "aucun secteur"`.
 
 ---
 
@@ -171,22 +257,22 @@ knitr::kable(metrics_retail, digits = 1)
 
 ### Régime Ex-ante vs Scénario Conditionnel (Oracle)
 L'échantillon couvre 300 mois (2000–2024 : 288 mois d'entraînement 2000–2023, 12 mois de test sur 2024) pour le CPI (`CPIAUCSL`), le chômage (`UNRATE`) et le taux directeur de la Fed (`FEDFUNDS`). Nous séparons strictement :
-1. **Régime Ex-ante Inconditionnel** : Aucune information future sur 2024 n'est fournie. Le modèle vectoriel autorégressif `` `r macro_var_name` `` (ordre sélectionné dynamiquement par `VARselect` avec critère AIC) prévoit conjointement les trois variables de manière endogène, aux côtés des modèles univariés (`Naive`, `Drift`, `ARIMA`, `ETS`, `Timestral-5M`, `Timestral-209M`).
-2. **Régime Conditionnel de Scénario (Oracle `FEDFUNDS`)** : Les modèles reçoivent la trajectoire réalisée de `FEDFUNDS` en 2024 comme variable exogène connue (`xreg` pour `` `r macro_arimax_cpi` ``, `known_covariates` pour Timestral). Il s'agit d'un exercice de prévision conditionnelle (stress-test / scénario de politique monétaire) et non d'une prévision ex-ante.
+1. **Régime Ex-ante Inconditionnel** : Aucune information future sur 2024 n'est fournie. Le modèle vectoriel autorégressif `r macro_var_name` (ordre sélectionné dynamiquement par `VARselect` avec critère AIC) prévoit conjointement les trois variables de manière endogène, aux côtés des modèles univariés (`Naive`, `Drift`, `ARIMA`, `ETS`, `Timestral-5M`, `Timestral-209M`).
+2. **Régime Conditionnel de Scénario (Oracle `FEDFUNDS`)** : Les modèles reçoivent la trajectoire réalisée de `FEDFUNDS` en 2024 comme variable exogène connue (`xreg` pour `r macro_arimax_cpi`, `known_covariates` pour Timestral). Il s'agit d'un exercice de prévision conditionnelle (stress-test / scénario de politique monétaire) et non d'une prévision ex-ante.
 
 ### Résultats comparatifs sur l'année 2024 (Ponctuels & Probabilistes)
 
 ```{r}
 #| label: macro-results
 #| echo: false
-knitr::kable(metrics_macro[, c("target", "regime", "model", "specification", "rmse", "relative_rmse", "wis", "crps", "coverage_80", "coverage_90", "width_80", "crossings")],
-             col.names = c("Cible", "Régime", "Modèle", "Spécification", "RMSE", "rRMSE (vs Naive)", "WIS", "CRPS", "Couv. 80%", "Couv. 90%", "Largeur 80%", "Croisements"),
+knitr::kable(metrics_macro[, c("target", "regime", "model", "specification", "rmse", "relative_rmse", "scaled_wis", "wis", "crps", "coverage_80", "coverage_90", "width_80", "crossings")],
+             col.names = c("Cible", "Régime", "Modèle", "Spécification", "RMSE", "rRMSE (vs Naive)", "sWIS", "WIS", "CRPS", "Couv. 80%", "Couv. 90%", "Largeur 80%", "Inversions"),
              digits = 3)
 ```
 
 ### Analyse critique des résultats
-* **Taux de chômage (`UNRATE`) et baseline naïve** : Sur l'année 2024, la marche aléatoire (`Naive`) affiche un RMSE de `` `r get_macro("UNRATE", "Naive", "rmse")` `` point de pourcentage. Estimés sur 24 ans d'historique (2000–2023), le modèle `` `r macro_var_name` `` (RMSE de `` `r get_macro("UNRATE", "^VAR", "rmse")` ``, soit $rRMSE =$ `` `r get_macro("UNRATE", "^VAR", "relative_rmse", 2)` ``) et l'ARIMAX conditionnel (RMSE de `` `r get_macro("UNRATE", "^ARIMAX", "rmse")` ``, $rRMSE =$ `` `r get_macro("UNRATE", "^ARIMAX", "relative_rmse", 2)` ``) sur-réagissent au niveau élevé des taux d'intérêt. En régime ex-ante univarié, `Timestral-5M` et `Timestral-209M` atteignent tous deux un RMSE de `` `r get_macro("UNRATE", "Timestral-5M.*Univ", "rmse")` `` ($rRMSE =$ `` `r get_macro("UNRATE", "Timestral-5M.*Univ", "relative_rmse", 2)` ``, WIS de `` `r get_macro("UNRATE", "Timestral-5M.*Univ", "wis")` `` et `` `r get_macro("UNRATE", "Timestral-209M.*Univ", "wis")` ``). L'ajout de `FEDFUNDS` en covariable dégrade légèrement cette prévision sur 2024 (`Timestral-209M` passe à `` `r get_macro("UNRATE", "Timestral-209M.*FedFunds", "rmse")` `` et `Timestral-5M` à `` `r get_macro("UNRATE", "Timestral-5M.*FedFunds", "rmse")` ``).
-* **Inflation (`CPI`) et conditionnement exogène** : En régime ex-ante sur la fenêtre de 288 mois, `` `r macro_ets_cpi` `` obtient un RMSE de `` `r get_macro("CPI", "^R ETS", "rmse")` `` (WIS de `` `r get_macro("CPI", "^R ETS", "wis")` ``), devant `Timestral-5M` (RMSE de `` `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` ``, WIS de `` `r get_macro("CPI", "Timestral-5M.*Univ", "wis")` ``) et `Timestral-209M` (RMSE de `` `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")` ``, WIS de `` `r get_macro("CPI", "Timestral-209M.*Univ", "wis")` ``). En régime conditionnel (Oracle `FEDFUNDS`), `Timestral-209M` voit son RMSE passer de `` `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")` `` à `` `r get_macro("CPI", "Timestral-209M.*FedFunds", "rmse")` `` (et son WIS de `` `r get_macro("CPI", "Timestral-209M.*Univ", "wis")` `` à `` `r get_macro("CPI", "Timestral-209M.*FedFunds", "wis")` ``), tandis que `Timestral-5M` voit son RMSE augmenter de `` `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` `` à `` `r get_macro("CPI", "Timestral-5M.*FedFunds", "rmse")` ``.
+* **Taux de chômage (`UNRATE`) et baseline naïve** : Sur l'année 2024, la marche aléatoire (`Naive`) affiche un RMSE de `r get_macro("UNRATE", "Naive", "rmse")` point de pourcentage. Estimés sur 24 ans d'historique (2000–2023), le modèle `r macro_var_name` (RMSE de `r get_macro("UNRATE", "^VAR", "rmse")`, soit $rRMSE =$ `r get_macro("UNRATE", "^VAR", "relative_rmse", 2)`) et l'ARIMAX conditionnel (RMSE de `r get_macro("UNRATE", "^ARIMAX", "rmse")`, $rRMSE =$ `r get_macro("UNRATE", "^ARIMAX", "relative_rmse", 2)`) sur-réagissent au niveau élevé des taux d'intérêt. En régime ex-ante inconditionnel, le modèle `r best_unr_ex_mod` atteint le RMSE le plus faible (`r get_macro("UNRATE", best_unr_ex_mod, "rmse")`, $rRMSE =$ `r get_macro("UNRATE", best_unr_ex_mod, "relative_rmse", 2)`, WIS de `r get_macro("UNRATE", best_unr_ex_mod, "wis")`). L'ajout de `FEDFUNDS` en covariable modifie la prévision sur 2024 (`Timestral-209M` passe à `r get_macro("UNRATE", "Timestral-209M.*FedFunds", "rmse")` et `Timestral-5M` à `r get_macro("UNRATE", "Timestral-5M.*FedFunds", "rmse")`).
+* **Inflation (`CPI`) et conditionnement exogène** : En régime ex-ante sur la fenêtre de 288 mois, `r best_cpi_ex_mod` obtient le RMSE le plus bas (`r min_val(cpi_ex, "rmse")`, WIS de `r get_macro("CPI", best_cpi_ex_mod, "wis")`), devant les modèles statistiques traditionnels (`r macro_ets_cpi` : RMSE de `r get_macro("CPI", "^R ETS", "rmse")`, `r cpi_arima_name` : `r get_macro("CPI", "^R ARIMA", "rmse")`) et `Timestral-209M` (RMSE de `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")`, WIS de `r get_macro("CPI", "Timestral-209M.*Univ", "wis")`). En régime conditionnel (Oracle `FEDFUNDS`), `Timestral-209M` voit son RMSE passer de `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")` à `r get_macro("CPI", "Timestral-209M.*FedFunds", "rmse")` (et son WIS de `r get_macro("CPI", "Timestral-209M.*Univ", "wis")` à `r get_macro("CPI", "Timestral-209M.*FedFunds", "wis")`), tandis que `Timestral-5M` voit son RMSE évoluer de `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` à `r get_macro("CPI", "Timestral-5M.*FedFunds", "rmse")`.
 
 ---
 
@@ -194,32 +280,33 @@ knitr::kable(metrics_macro[, c("target", "regime", "model", "specification", "rm
 
 ### 6.1 Ablation contrôlée de la longueur de contexte sur la même série CPI
 
-Pour vérifier pourquoi `Timestral-5M` passe d'un RMSE de `` `r get_cpi("Timestral-5M", "rmse")` `` dans l'Étude 1 ($L = 168$ mois, 2010–2023) à `` `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` `` dans l'Étude 3 ($L = 288$ mois, 2000–2023), nous évaluons $L \in \{60, 120, 168, 240, 288\}$ mois en tronquant exactement la **même série `CPIAUCSL`** (les 180 dernières observations de `macro_triad.csv` étant identiques au fichier `cpi.csv` à $0,0$ près), toutes les fenêtres se terminant en décembre 2023 et étant évaluées sur la même cible 2024 :
+Pour vérifier pourquoi `Timestral-5M` passe d'un RMSE de `r get_cpi("Timestral-5M", "rmse")` dans l'Étude 1 ($L = 168$ mois, 2010–2023) à `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` dans l'Étude 3 ($L = 288$ mois, 2000–2023), nous évaluons $L \in \{60, 120, 168, 240, 288\}$ mois en tronquant exactement la **même série `CPIAUCSL`** (les 180 dernières observations de `macro_triad.csv` étant identiques au fichier `cpi.csv` à $0,0$ près, vérifié par assertion), toutes les fenêtres se terminant en décembre 2023 et étant évaluées sur la même cible 2024 :
 
 ```{r}
 #| label: context-ablation
 #| echo: false
-knitr::kable(ablation_df[, c("context_months", "window_start", "arima_rmse", "ets_rmse", "t5m_rmse", "t209m_rmse")],
-             col.names = c("Longueur L (mois)", "Début fenêtre", "RMSE ARIMA", "RMSE ETS", "RMSE Timestral-5M", "RMSE Timestral-209M"),
+knitr::kable(ablation_df[, c("context_months", "window_start", "arima_spec", "ets_spec", "arima_rmse", "ets_rmse", "t5m_rmse", "t209m_rmse")],
+             col.names = c("Longueur L (mois)", "Début fenêtre", "Spéc. ARIMA", "Spéc. ETS", "RMSE ARIMA", "RMSE ETS", "RMSE Timestral-5M", "RMSE Timestral-209M"),
              digits = 4)
 ```
 
-* **Interprétation** : Pour `Timestral-209M`, l'allongement du contexte améliore de façon quasi monotone la prévision sur 2024 : le RMSE diminue de `` `r get_ablation(60, "t209m_rmse")` `` ($L=60$) et `` `r get_ablation(120, "t209m_rmse")` `` ($L=120$) à `` `r get_ablation(168, "t209m_rmse")` `` ($L=168$), puis `` `r get_ablation(288, "t209m_rmse")` `` ($L=288$). Pour `Timestral-5M`, l'optimum sur cette cible est atteint aux longueurs intermédiaires $L=168$ (`` `r get_ablation(168, "t5m_rmse")` ``) et $L=240$ (`` `r get_ablation(240, "t5m_rmse")` ``), avant de remonter légèrement à `` `r get_ablation(288, "t5m_rmse")` `` lorsque la décennie 2000–2009 (incluant le choc de 2008) entre dans la fenêtre d'attention. Notons que modifier $L$ en gardant la date de fin fixe modifie simultanément le nombre de patchs fournis au modèle et les régimes macroéconomiques historiques inclus dans la fenêtre.
+* **Interprétation** : Pour `Timestral-209M`, l'évolution du RMSE en fonction de la longueur de contexte $L$ est fortement favorable à l'allongement de l'historique (corrélation de `r t209_cor_str` avec $L$`r if (t209_mono) ", décroissance strictement monotone" else ""`) : le RMSE passe de `r get_ablation(60, "t209m_rmse")` ($L=60$) à `r get_ablation(120, "t209m_rmse")` ($L=120$), `r get_ablation(168, "t209m_rmse")` ($L=168$) et `r get_ablation(288, "t209m_rmse")` ($L=288$), avec un minimum atteint à $L = `r best_L_t209`$. Pour `Timestral-5M`, l'optimum sur cette cible est atteint pour $L = `r best_L_t5`$ (RMSE de `r get_ablation(best_L_t5, "t5m_rmse")`), avant de remonter à `r get_ablation(288, "t5m_rmse")` lorsque la décennie 2000–2009 (incluant le choc de 2008) entre dans la fenêtre d'attention. Notons que modifier $L$ en gardant la date de fin fixe modifie simultanément le nombre de patchs fournis au modèle et les régimes macroéconomiques historiques inclus dans la fenêtre.
 
-### 6.2 Évaluation en Origines Roulantes (24 fenêtres) & Tests de Diebold–Mariano
+### 6.2 Évaluation en Origines Roulantes (24 fenêtres espacées) & Tests de Diebold–Mariano
 
-Afin de dépasser les limites d'une seule fenêtre de 12 mois, nous exécutons une validation en origines roulantes sur $N = 24$ origines consécutives ($t \in \{265, \dots, 288\}$) pour `CPI` et `UNRATE`, à la fois à l'horizon $h = 1$ mois (24 erreurs indépendantes de 1 pas) et à l'horizon $h = 12$ mois (24 erreurs à 1 an d'horizon). La colonne `dm_pval_vs_arima` rapporte la $p$-valeur bilatérale du test de Diebold–Mariano par rapport au benchmark `ARIMA` avec correction de petits échantillons de Harvey, Leybourne & Newbold (1997) :
+Afin de dépasser les limites d'une seule fenêtre de 12 mois, nous exécutons une validation en origines roulantes sur $N = 24$ origines espacées de 6 mois ($L \in \{150, 156, \dots, 288\}$, couvrant la période 2012–2023) pour `CPI` et `UNRATE`, à la fois à l'horizon $h = 1$ mois (24 erreurs indépendantes espacées de 6 mois) et à l'horizon $h = 12$ mois (24 erreurs à 1 an d'horizon avec fenêtres chevauchantes). La colonne `dm_pval` rapporte la $p$-valeur bilatérale du test de Diebold–Mariano par rapport au benchmark `ARIMA` avec correction de petits échantillons de Harvey, Leybourne & Newbold (1997) :
 
 ```{r}
 #| label: rolling-dm
 #| echo: false
-knitr::kable(rolling_df[, c("target", "model", "arima_rmse", "ets_rmse", "t5m_rmse", "t209m_rmse", "dm_stat_h1", "dm_pval_h1", "dm_stat_h12", "dm_pval_h12")],
-             col.names = c("Cible", "Modèle", "RMSE (h=1)", "RMSE (h=12)", "RMSE moyen traj. 12m", "WIS moyen traj. 12m", "Stat DM (h=1)", "p-val DM (h=1)", "Stat DM (h=12)", "p-val DM (h=12)"),
+knitr::kable(rolling_df[, c("target", "horizon", "model", "rmse", "mae", "wis", "crps", "coverage_80", "dm_stat", "dm_pval")],
+             col.names = c("Cible", "Horizon", "Modèle", "RMSE", "MAE", "WIS", "CRPS", "Couv. 80%", "Stat DM (vs ARIMA)", "p-val DM (Harvey)"),
              digits = 3)
 ```
 
-* **Horizon $h = 1$ mois (`h1`)** : Sur 24 origines à 1 pas d'avance sur le `CPI`, `ETS` atteint un RMSE de `` `r get_roll("CPI", "ETS", "arima_rmse")` `` et `ARIMA` de `` `r get_roll("CPI", "ARIMA", "arima_rmse")` ``, devant `Timestral-5M` (`` `r get_roll("CPI", "Timestral-5M", "arima_rmse")` ``, $p =$ `` `r get_roll("CPI", "Timestral-5M", "dm_pval_h1")` ``) et `Timestral-209M` (`` `r get_roll("CPI", "Timestral-209M", "arima_rmse")` ``, $p =$ `` `r get_roll("CPI", "Timestral-209M", "dm_pval_h1")` ``). Sur `UNRATE` à $h = 1$, les écarts entre `Naive` (`` `r get_roll("UNRATE", "Naive", "arima_rmse")` ``), `Timestral-5M` (`` `r get_roll("UNRATE", "Timestral-5M", "arima_rmse")` ``, $p =$ `` `r get_roll("UNRATE", "Timestral-5M", "dm_pval_h1")` ``), `Timestral-209M` (`` `r get_roll("UNRATE", "Timestral-209M", "arima_rmse")` ``, $p =$ `` `r get_roll("UNRATE", "Timestral-209M", "dm_pval_h1")` ``) et `ARIMA` (`` `r get_roll("UNRATE", "ARIMA", "arima_rmse")` ``) ne sont pas statistiquement significatifs au seuil de 5 %.
-* **Horizon $h = 12$ mois (`h12`)** : À l'horizon de 12 mois sur 24 origines roulantes, `Timestral-5M` affiche le RMSE le plus faible sur le `CPI` (`` `r get_roll("CPI", "Timestral-5M", "ets_rmse")` `` contre `` `r get_roll("CPI", "ARIMA", "ets_rmse")` `` pour `ARIMA`, $p =$ `` `r get_roll("CPI", "Timestral-5M", "dm_pval_h12")` ``) ainsi que sur `UNRATE` (`` `r get_roll("UNRATE", "Timestral-5M", "ets_rmse")` `` contre `` `r get_roll("UNRATE", "ARIMA", "ets_rmse")` `` pour `ARIMA`, $p =$ `` `r get_roll("UNRATE", "Timestral-5M", "dm_pval_h12")` ``). Compte tenu du chevauchement des fenêtres à $h=12$ (pris en compte par la bande passante de Bartlett $h=12$ dans le test DM), les $p$-valeurs corrigées de Harvey confirment qu'aucune différence sur 24 origines chevauchantes ne franchit le seuil de significativité statistique de 5 %, justifiant pleinement une interprétation prudente et nuancée des classements ponctuels.
+* **Horizon $h = 1$ mois (`h1`)** : Sur 24 origines à 1 pas d'avance sur le `CPI`, le modèle affichant le RMSE le plus bas est `r best_roll_mod("CPI", "h=1")` (`r get_roll("CPI", "h=1", best_roll_mod("CPI", "h=1"))`), suivi de `ARIMA` (`r get_roll("CPI", "h=1", "^R ARIMA")`), `Timestral-5M` (`r get_roll("CPI", "h=1", "Timestral-5M")`, $p =$ `r get_roll("CPI", "h=1", "Timestral-5M", "dm_pval")`) et `Timestral-209M` (`r get_roll("CPI", "h=1", "Timestral-209M")`, $p =$ `r get_roll("CPI", "h=1", "Timestral-209M", "dm_pval")`). Sur `UNRATE` à $h = 1$, le modèle le plus précis est `r best_roll_mod("UNRATE", "h=1")` (`r get_roll("UNRATE", "h=1", best_roll_mod("UNRATE", "h=1"))`).
+* **Horizon $h = 12$ mois (`h12`)** : À l'horizon de 12 mois sur 24 origines roulantes, le modèle présentant le RMSE le plus bas sur le `CPI` est `r best_roll_mod("CPI", "h=12")` (`r get_roll("CPI", "h=12", best_roll_mod("CPI", "h=12"))`, test DM vs ARIMA $p =$ `r get_roll("CPI", "h=12", best_roll_mod("CPI", "h=12"), "dm_pval")`) et sur `UNRATE` `r best_roll_mod("UNRATE", "h=12")` (`r get_roll("UNRATE", "h=12", best_roll_mod("UNRATE", "h=12"))`, test DM vs ARIMA $p =$ `r get_roll("UNRATE", "h=12", best_roll_mod("UNRATE", "h=12"), "dm_pval")`).
+* **Synthèse des tests de significativité** : Sur l'ensemble des `r nrow(dm_valid)` tests de Diebold–Mariano calculés avec la correction de Harvey (`r dm_na_count` cas non estimables avec variance négative retournés en `NA`), `r dm_sig_5` test(s) franchi(ssent) le seuil de 5 %. Cela confirme la nécessité de ne pas sur-interpréter les classements obtenus sur une fenêtre unique.
 
 ---
 
@@ -227,8 +314,8 @@ knitr::kable(rolling_df[, c("target", "model", "arima_rmse", "ets_rmse", "t5m_rm
 
 | Dimension | Modèles Statistiques R (ARIMA / ETS / MinT / VAR) | Timestral-5M | Timestral-209M |
 |---|---|---|---|
-| **Observations empiriques (Ponctuel & WIS)** | Très compétitifs à court horizon ($h=1$) et sur les séries régulières (`CPI` avec `` `r cpi_ets_name` ``, secteurs `food`, `clothing`, `electronics`) | Faible erreur à moyen terme ($h=12$, RMSE `` `r get_roll("CPI", "Timestral-5M", "ets_rmse")` `` sur CPI roulant) et intervalles étroits sur 2024 (WIS `` `r get_prob_cpi("Timestral-5M", "wis")` ``) | Meilleur RMSE sur le Total des ventes au détail réconcilié (`` `r get_retail("total", "mint_t209m_rmse")` `` M\$) et les secteurs `auto` / `ecommerce` |
-| **Cohérence hiérarchique** | Restaurée exactement par MinT-shrink ($\hat{\lambda}_{\text{ETS}} =$ `` `r fmt(coherence_retail$shrinkage_lambda[grep("ETS.*MinT", coherence_retail$method)][1], 3)` ``, incohérence `` `r get_coh("ETS.*MinT")` `` M\$) | Restaurée par Bottom-Up ou MinT-shrink ($\hat{\lambda} =$ `` `r fmt(coherence_retail$shrinkage_lambda[grep("Timestral-5M.*MinT", coherence_retail$method)][1], 3)` ``, incohérence `` `r get_coh("Timestral-5M.*MinT")` `` M\$) | Gain simultané de cohérence et de RMSE sur le Total via Bottom-Up (`` `r get_coh_val("Timestral-209M.*Bottom-Up")` `` M\$) et MinT-shrink (`` `r get_coh_val("Timestral-209M.*MinT")` `` M\$) |
-| **Variables exogènes (Scénario Oracle)** | Paramétrisation linéaire explicite (`ARIMAX`), sensible aux changements de régime sur `UNRATE` | Dégradation sur le scénario de taux 2024 (`CPI` de `` `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` `` à `` `r get_macro("CPI", "Timestral-5M.*FedFunds", "rmse")` ``) | Amélioration sur le scénario `CPI` 2024 (RMSE de `` `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")` `` à `` `r get_macro("CPI", "Timestral-209M.*FedFunds", "rmse")` ``) |
-| **Distribution prédictive** | Quantiles exacts par simulation Monte Carlo (`simulate = TRUE`), erreurs additives ou multiplicatives | Grille de 21 quantiles natifs sans croisement (`crossings = 0`) | Grille de 21 quantiles natifs sans croisement (`crossings = 0`) |
-| **Limites méthodologiques** | Sensibilité au choix de différenciation ($I(2)$ élargit fortement les intervalles à $h=12$) | Sensibilité au conditionnement exogène et aux régimes historiques inclus dans $L$ | Coût d'inférence plus élevé et opacité du corpus de pré-entraînement vis-à-vis des séries publiques FRED |
+| **Observations empiriques (Ponctuel & WIS)** | Compétitifs à court horizon ($h=1$) et sur les séries régulières (`CPI` avec `r cpi_ets_name`, secteurs `r if (length(c(sectors_ari, sectors_ets)) > 0) paste(sector_labels[c(sectors_ari, sectors_ets)], collapse = ", ") else "aucun"`) | Compétitif à moyen terme ($h=12$, RMSE `r get_roll("CPI", "h=12", "Timestral-5M", "rmse")` sur CPI roulant) et intervalles resserrés sur 2024 (WIS `r get_prob_cpi("Timestral-5M", "wis")`) | RMSE le plus bas sur le Total des ventes au détail réconcilié (`r get_retail("total", "mint_t209m_rmse")` M\$) et secteurs `r if (length(sectors_t209) > 0) paste(sector_labels[sectors_t209], collapse = ", ") else "aucun"` |
+| **Cohérence hiérarchique** | Restaurée exactement par MinT-shrink ($\hat{\lambda}_{\text{ETS}} =$ `r fmt(coherence_retail$shrinkage_lambda[grep("ETS.*MinT", coherence_retail$method)][1], 3)`, incohérence `r get_coh("ETS.*MinT")` M\$) | Restaurée par Bottom-Up ou MinT-shrink ($\hat{\lambda} =$ `r fmt(coherence_retail$shrinkage_lambda[grep("Timestral-5M.*MinT", coherence_retail$method)][1], 3)`, incohérence `r get_coh("Timestral-5M.*MinT")` M\$) | Gain simultané de cohérence et de RMSE sur le Total via Bottom-Up (`r get_coh_val("Timestral-209M.*Bottom-Up")` M\$) et MinT-shrink (`r get_coh_val("Timestral-209M.*MinT")` M\$) |
+| **Variables exogènes (Scénario Oracle)** | Paramétrisation linéaire explicite (`ARIMAX`), sensible aux ruptures de tendance sur `UNRATE` | Dégradation sur le scénario de taux 2024 (`CPI` de `r get_macro("CPI", "Timestral-5M.*Univ", "rmse")` à `r get_macro("CPI", "Timestral-5M.*FedFunds", "rmse")`) | Amélioration sur le scénario `CPI` 2024 (RMSE de `r get_macro("CPI", "Timestral-209M.*Univ", "rmse")` à `r get_macro("CPI", "Timestral-209M.*FedFunds", "rmse")`) |
+| **Distribution prédictive** | Quantiles exacts par simulation Monte Carlo (`simulate = TRUE`), erreurs additives ou multiplicatives | Grille de 21 quantiles natifs sans inversion (`crossings = 0`) | Grille de 21 quantiles natifs sans inversion (`crossings = 0`) |
+| **Limites méthodologiques** | Sensibilité au choix de différenciation (`r paste0("I(", cpi_arima_d, ")")` élargit fortement les intervalles à $h=12$) | Sensibilité au conditionnement exogène et aux régimes historiques inclus dans $L$ | Coût d'inférence plus élevé et opacité du corpus de pré-entraînement vis-à-vis des séries publiques FRED |

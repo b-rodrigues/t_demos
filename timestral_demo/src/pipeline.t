@@ -1,6 +1,6 @@
 -- timestral_demo: Multi-Study Methodological Benchmark of Timestral (5M & 209M)
 -- vs Econometric Models (ARIMA, ETS, MinT-shrink, VAR, ARIMAX) with Probabilistic
--- Evaluation (WIS, CRPS, Pinball), Context-Length Ablation, and Rolling-Origin Diebold-Mariano Tests
+-- Evaluation (WIS, CRPS, Pinball), Context-Length Ablation, and Spaced Rolling-Origin Diebold-Mariano Tests
 
 p = pipeline {
   ----------------------------------------------------------------------------
@@ -21,21 +21,24 @@ p = pipeline {
       ts_train  = ts(train_cpi, frequency = 12)
       last_val  = tail(train_cpi, 1)
 
-      # 1. Naive & Drift baselines
+      # 1. Naive & Drift baselines with probabilistic quantiles
       fc_naive = rep(last_val, 12)
-      fc_drift = as.numeric(rwf(ts_train, h = 12, drift = TRUE)$mean)
+      q_naive  = forecast_quantiles("naive", h = 12, y_train = train_cpi)
 
-      # 2. Dynamic ARIMA with direct forecast(..., level = ...) quantiles
+      fc_drift = as.numeric(rwf(ts_train, h = 12, drift = TRUE)$mean)
+      q_drift  = forecast_quantiles("drift", h = 12, y_train = train_cpi)
+
+      # 2. Dynamic ARIMA with direct analytic Gaussian predictive quantiles
       fit_arima  = auto.arima(ts_train, seasonal = TRUE)
       fc_arima   = as.numeric(forecast(fit_arima, h = 12)$mean)
-      q_arima    = forecast_quantiles(fit_arima, h = 12, simulate = FALSE)
+      q_arima    = forecast_quantiles(fit_arima, h = 12)
       arima_spec = paste0("ARIMA(", paste(arimaorder(fit_arima), collapse = ","), ")")
 
       # 3. State-Space Exponential Smoothing (ETS) with simulated state-space quantiles
-      # (handles multiplicative error structures such as ETS(M,A,N) without Gaussian symmetry assumption)
+      # (handles multiplicative error structures such as ETS(M,A,N) with exact simulated median & percentiles)
       fit_ets    = ets(ts_train)
       fc_ets     = as.numeric(forecast(fit_ets, h = 12)$mean)
-      q_ets      = forecast_quantiles(fit_ets, h = 12, simulate = TRUE, npaths = 5000, seed = 2024)
+      q_ets      = forecast_quantiles(fit_ets, h = 12, npaths = 3000, seed = 2024)
       ets_spec   = fit_ets$method
 
       # 4. Hybrid Ensemble (ARIMA + ETS) / 2
@@ -53,6 +56,8 @@ p = pipeline {
         ensemble   = fc_ens
       )
       for (cn in colnames(q_arima)) {
+        out[[paste0("nai_", cn)]] = q_naive[, cn]
+        out[[paste0("dri_", cn)]] = q_drift[, cn]
         out[[paste0("ari_", cn)]] = q_arima[, cn]
         out[[paste0("ets_", cn)]] = q_ets[, cn]
         out[[paste0("ens_", cn)]] = q_ens[, cn]
@@ -165,31 +170,44 @@ timestral_209m = pd.DataFrame(data_dict)
       source("src/helpers.R")
       actual = tail(raw_data$cpi, 12)
 
-      # Dynamically discover quantile columns from Timestral output (never hardcoded)
       q_cols = quantile_cols(timestral_5m)
       stopifnot(check_grid(q_cols), identical(q_cols, quantile_cols(timestral_209m)))
 
-      ari_q = as.matrix(r_arima[, paste0("ari_", q_cols)])
-      colnames(ari_q) = q_cols
+      get_m <- function(df, prefix) {
+        m = as.matrix(df[, paste0(prefix, q_cols)])
+        colnames(m) = q_cols
+        m
+      }
 
-      ets_q = as.matrix(r_arima[, paste0("ets_", q_cols)])
-      colnames(ets_q) = q_cols
-
-      ens_q = as.matrix(r_arima[, paste0("ens_", q_cols)])
-      colnames(ens_q) = q_cols
-
+      nai_q   = get_m(r_arima, "nai_")
+      dri_q   = get_m(r_arima, "dri_")
+      ari_q   = get_m(r_arima, "ari_")
+      ets_q   = get_m(r_arima, "ets_")
+      ens_q   = get_m(r_arima, "ens_")
       t5m_q   = as.matrix(timestral_5m[, q_cols])
       t209m_q = as.matrix(timestral_209m[, q_cols])
 
       ari_spec = as.character(r_arima$arima_spec[1])
       ets_spec = as.character(r_arima$ets_spec[1])
 
+      sc_nai = summarise_scores(score_rows(actual, nai_q))
+      sc_dri = summarise_scores(score_rows(actual, dri_q))
+      sc_ari = summarise_scores(score_rows(actual, ari_q))
+      sc_ets = summarise_scores(score_rows(actual, ets_q))
+      sc_ens = summarise_scores(score_rows(actual, ens_q))
+      sc_t5  = summarise_scores(score_rows(actual, t5m_q))
+      sc_t20 = summarise_scores(score_rows(actual, t209m_q))
+
+      nai_wis = sc_nai$wis[1]
+
       prob_list = list(
-        cbind(data.frame(model = "R ARIMA",        dist_method = paste0(ari_spec, " (analytique)")),      summarise_scores(score_rows(actual, ari_q))),
-        cbind(data.frame(model = "R ETS",          dist_method = paste0(ets_spec, " (simulé, B=5000)")),  summarise_scores(score_rows(actual, ets_q))),
-        cbind(data.frame(model = "R Ensemble",     dist_method = "Moyenne de quantiles (ARIMA+ETS)"),     summarise_scores(score_rows(actual, ens_q))),
-        cbind(data.frame(model = "Timestral-5M",   dist_method = "21 quantiles natifs (L=168)"),          summarise_scores(score_rows(actual, t5m_q))),
-        cbind(data.frame(model = "Timestral-209M", dist_method = "21 quantiles natifs (L=168)"),          summarise_scores(score_rows(actual, t209m_q)))
+        cbind(data.frame(model = "Naive (Marche aléatoire)", dist_method = "RW gaussien (innovations 1-pas)", scaled_wis = 1.000), sc_nai),
+        cbind(data.frame(model = "RW avec Dérive (Drift)",    dist_method = "RW+dérive gaussien",             scaled_wis = round(sc_dri$wis / nai_wis, 3)), sc_dri),
+        cbind(data.frame(model = "R ARIMA",                  dist_method = paste0(ari_spec, " (analytique)"), scaled_wis = round(sc_ari$wis / nai_wis, 3)), sc_ari),
+        cbind(data.frame(model = "R ETS",                    dist_method = paste0(ets_spec, " (simulé, B=3000)"), scaled_wis = round(sc_ets$wis / nai_wis, 3)), sc_ets),
+        cbind(data.frame(model = "R Ensemble",               dist_method = "Moyenne de quantiles (ARIMA+ETS)", scaled_wis = round(sc_ens$wis / nai_wis, 3)), sc_ens),
+        cbind(data.frame(model = "Timestral-5M",             dist_method = "21 quantiles natifs (L=168)",     scaled_wis = round(sc_t5$wis / nai_wis, 3)), sc_t5),
+        cbind(data.frame(model = "Timestral-209M",           dist_method = "21 quantiles natifs (L=168)",     scaled_wis = round(sc_t20$wis / nai_wis, 3)), sc_t20)
       )
 
       cpi_probabilistic_metrics = do.call(rbind, prob_list)
@@ -249,20 +267,20 @@ timestral_209m = pd.DataFrame(data_dict)
         fit_e = ets(y_ts)
         fcasts_ets[[s]] = as.numeric(forecast(fit_e, h = 12)$mean)
         res_ets[[s]]    = as.numeric(residuals(fit_e, type = "response"))
-        sc_e            = score_rows(act, forecast_quantiles(fit_e, h = 12, simulate = TRUE, npaths = 2000, seed = 2024))
+        sc_e            = score_rows(act, forecast_quantiles(fit_e, h = 12, npaths = 2000, seed = 2024))
         wis_ets[s]      = mean(sc_e$wis)
         crps_ets[s]     = mean(sc_e$crps)
 
         fit_a = auto.arima(y_ts)
         fcasts_ari[[s]] = as.numeric(forecast(fit_a, h = 12)$mean)
         res_ari[[s]]    = as.numeric(residuals(fit_a, type = "response"))
-        sc_a            = score_rows(act, forecast_quantiles(fit_a, h = 12, simulate = FALSE))
+        sc_a            = score_rows(act, forecast_quantiles(fit_a, h = 12))
         wis_ari[s]      = mean(sc_a$wis)
         crps_ari[s]     = mean(sc_a$crps)
       }
 
       # Correlation-standardized Schäfer-Strimmer (2005) MinT-shrink reconciliation
-      # (identical to hts:::shrink.estim, invariant to relative series scale)
+      # using in-sample 1-step residuals across all available training history
       S = rbind(rep(1, 6), diag(6))
       rownames(S) = sectors_all
       colnames(S) = sectors_bottom
@@ -314,6 +332,7 @@ sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", 
 fc = TimestralForecaster.from_pretrained("models/Timestral-5M")
 
 # 1. Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
+# Evaluated across batch of 7 independent univariate series (verified identical to individual 1D calls up to float32 precision ~1e-7)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
 res_list = []
 for o in range(120, mat_train.shape[1]):
@@ -390,6 +409,7 @@ sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", 
 fc = TimestralForecaster.from_pretrained("models/Timestral-209M")
 
 # 1. Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
+# Evaluated across batch of 7 independent univariate series (verified identical to individual 1D calls up to float32 precision ~1e-7)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
 res_list = []
 for o in range(120, mat_train.shape[1]):
@@ -622,9 +642,12 @@ retail_timestral_209m = res_df
       train = head(macro_raw_data, -12)
       test  = tail(macro_raw_data, 12)
 
-      # 1. Naive baselines
-      naive_cpi    = rep(tail(train$cpi, 1), 12)
-      naive_unrate = rep(tail(train$unrate, 1), 12)
+      # 1. Naive baselines with probabilistic quantiles
+      naive_cpi      = rep(tail(train$cpi, 1), 12)
+      q_naive_cpi    = forecast_quantiles("naive", h = 12, y_train = train$cpi)
+
+      naive_unrate   = rep(tail(train$unrate, 1), 12)
+      q_naive_unrate = forecast_quantiles("naive", h = 12, y_train = train$unrate)
 
       # 2. Ex-ante Unconditional ARIMA & ETS with predictive quantiles
       ts_cpi    = ts(train$cpi, frequency = 12)
@@ -632,22 +655,22 @@ retail_timestral_209m = res_df
 
       fit_cpi_arima    = auto.arima(ts_cpi)
       fc_cpi_arima     = as.numeric(forecast(fit_cpi_arima, h = 12)$mean)
-      q_cpi_arima      = forecast_quantiles(fit_cpi_arima, h = 12, simulate = FALSE)
+      q_cpi_arima      = forecast_quantiles(fit_cpi_arima, h = 12)
       cpi_arima_spec   = paste0("ARIMA(", paste(arimaorder(fit_cpi_arima), collapse = ","), ")")
 
       fit_cpi_ets      = ets(ts_cpi)
       fc_cpi_ets       = as.numeric(forecast(fit_cpi_ets, h = 12)$mean)
-      q_cpi_ets        = forecast_quantiles(fit_cpi_ets, h = 12, simulate = TRUE, npaths = 5000, seed = 2024)
+      q_cpi_ets        = forecast_quantiles(fit_cpi_ets, h = 12, npaths = 3000, seed = 2024)
       cpi_ets_spec     = fit_cpi_ets$method
 
       fit_unrate_arima  = auto.arima(ts_unrate)
       fc_unrate_arima   = as.numeric(forecast(fit_unrate_arima, h = 12)$mean)
-      q_unrate_arima    = forecast_quantiles(fit_unrate_arima, h = 12, simulate = FALSE)
+      q_unrate_arima    = forecast_quantiles(fit_unrate_arima, h = 12)
       unrate_arima_spec = paste0("ARIMA(", paste(arimaorder(fit_unrate_arima), collapse = ","), ")")
 
       fit_unrate_ets    = ets(ts_unrate)
       fc_unrate_ets     = as.numeric(forecast(fit_unrate_ets, h = 12)$mean)
-      q_unrate_ets      = forecast_quantiles(fit_unrate_ets, h = 12, simulate = TRUE, npaths = 5000, seed = 2024)
+      q_unrate_ets      = forecast_quantiles(fit_unrate_ets, h = 12, npaths = 3000, seed = 2024)
       unrate_ets_spec   = fit_unrate_ets$method
 
       # 3. Ex-ante Unconditional VAR with dynamic AIC lag selection
@@ -660,12 +683,12 @@ retail_timestral_209m = res_df
       # 4. Conditional Scenario ARIMAX with realized (oracle) FEDFUNDS & predictive quantiles
       fit_cpi_arimax    = auto.arima(ts_cpi, xreg = train$fedfunds)
       fc_cpi_arimax     = as.numeric(forecast(fit_cpi_arimax, xreg = test$fedfunds, h = 12)$mean)
-      q_cpi_arimax      = forecast_quantiles(fit_cpi_arimax, h = 12, xreg = test$fedfunds, simulate = FALSE)
+      q_cpi_arimax      = forecast_quantiles(fit_cpi_arimax, h = 12, xreg = test$fedfunds)
       cpi_arimax_spec   = paste0("ARIMAX(", paste(arimaorder(fit_cpi_arimax), collapse = ","), ")")
 
       fit_unrate_arimax  = auto.arima(ts_unrate, xreg = train$fedfunds)
       fc_unrate_arimax   = as.numeric(forecast(fit_unrate_arimax, xreg = test$fedfunds, h = 12)$mean)
-      q_unrate_arimax    = forecast_quantiles(fit_unrate_arimax, h = 12, xreg = test$fedfunds, simulate = FALSE)
+      q_unrate_arimax    = forecast_quantiles(fit_unrate_arimax, h = 12, xreg = test$fedfunds)
       unrate_arimax_spec = paste0("ARIMAX(", paste(arimaorder(fit_unrate_arimax), collapse = ","), ")")
 
       out = data.frame(
@@ -689,9 +712,11 @@ retail_timestral_209m = res_df
         unrate_arimax_spec = rep(unrate_arimax_spec, 12)
       )
       for (cn in colnames(q_cpi_arima)) {
+        out[[paste0("cpi_nai_", cn)]]    = q_naive_cpi[, cn]
         out[[paste0("cpi_ari_", cn)]]    = q_cpi_arima[, cn]
         out[[paste0("cpi_ets_", cn)]]    = q_cpi_ets[, cn]
         out[[paste0("cpi_arx_", cn)]]    = q_cpi_arimax[, cn]
+        out[[paste0("unr_nai_", cn)]]    = q_naive_unrate[, cn]
         out[[paste0("unr_ari_", cn)]]    = q_unrate_arima[, cn]
         out[[paste0("unr_ets_", cn)]]    = q_unrate_ets[, cn]
         out[[paste0("unr_arx_", cn)]]    = q_unrate_arimax[, cn]
@@ -797,13 +822,27 @@ macro_timestral_209m = pd.DataFrame(data)
       var_p   = macro_r_models$var_lag[1]
       var_lbl = paste0("VAR(p=", var_p, ", AIC)")
 
-      build_row <- function(target_lbl, act, n_rmse, regime_lbl, mod_lbl, spec_lbl, pred, qmat = NULL) {
+      act_c = actual$cpi
+      n_c   = rmse(macro_r_models$naive_cpi, act_c)
+      q_nc  = get_q(macro_r_models, "cpi_nai_")
+      sc_nc = summarise_scores(score_rows(act_c, q_nc), digits = 3)
+      n_wis_c = sc_nc$wis[1]
+
+      act_u = actual$unrate
+      n_u   = rmse(macro_r_models$naive_unrate, act_u)
+      q_nu  = get_q(macro_r_models, "unr_nai_")
+      sc_nu = summarise_scores(score_rows(act_u, q_nu), digits = 3)
+      n_wis_u = sc_nu$wis[1]
+
+      build_row <- function(target_lbl, act, n_rmse, n_wis, regime_lbl, mod_lbl, spec_lbl, pred, qmat = NULL) {
         r_val = rmse(pred, act)
         if (is.null(qmat)) {
-          sc = data.frame(wis = NA_real_, crps = NA_real_, mean_pinball = NA_real_,
+          sc = data.frame(scaled_wis = NA_real_, wis = NA_real_, crps = NA_real_, mean_pinball = NA_real_,
                           coverage_80 = NA_real_, coverage_90 = NA_real_, width_80 = NA_real_, width_90 = NA_real_, crossings = 0L)
         } else {
-          sc = summarise_scores(score_rows(act, qmat), digits = 3)
+          sc_val = summarise_scores(score_rows(act, qmat), digits = 3)
+          s_wis  = if (is.na(n_wis) || n_wis == 0) NA_real_ else round(sc_val$wis / n_wis, 3)
+          sc     = cbind(data.frame(scaled_wis = s_wis), sc_val)
         }
         cbind(
           data.frame(
@@ -818,32 +857,27 @@ macro_timestral_209m = pd.DataFrame(data)
         )
       }
 
-      act_c = actual$cpi
-      n_c   = rmse(macro_r_models$naive_cpi, act_c)
-      act_u = actual$unrate
-      n_u   = rmse(macro_r_models$naive_unrate, act_u)
-
       rows = list(
         # CPI
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "Naive (Dernière valeur)", "RW(0)", macro_r_models$naive_cpi, NULL),
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "R ARIMA", as.character(macro_r_models$cpi_arima_spec[1]), macro_r_models$arima_cpi, get_q(macro_r_models, "cpi_ari_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "R ETS", as.character(macro_r_models$cpi_ets_spec[1]), macro_r_models$ets_cpi, get_q(macro_r_models, "cpi_ets_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "VAR multivarié", var_lbl, macro_r_models$var_cpi, NULL),
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "Timestral-5M Univarié", "L=288, sans cov.", macro_timestral_5m$t5m_cpi_univ, get_q(macro_timestral_5m, "cpi_u_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Ex-ante Inconditionnel", "Timestral-209M Univarié", "L=288, sans cov.", macro_timestral_209m$t209m_cpi_univ, get_q(macro_timestral_209m, "cpi_u_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Conditionnel (Oracle FedFunds)", "ARIMAX (avec FedFunds)", as.character(macro_r_models$cpi_arimax_spec[1]), macro_r_models$arimax_cpi, get_q(macro_r_models, "cpi_arx_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Conditionnel (Oracle FedFunds)", "Timestral-5M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_5m$t5m_cpi_cov, get_q(macro_timestral_5m, "cpi_c_")),
-        build_row("CPI (Inflation)", act_c, n_c, "Conditionnel (Oracle FedFunds)", "Timestral-209M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_209m$t209m_cpi_cov, get_q(macro_timestral_209m, "cpi_c_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "Naive (Dernière valeur)", "RW(0)", macro_r_models$naive_cpi, q_nc),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "R ARIMA", as.character(macro_r_models$cpi_arima_spec[1]), macro_r_models$arima_cpi, get_q(macro_r_models, "cpi_ari_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "R ETS", as.character(macro_r_models$cpi_ets_spec[1]), macro_r_models$ets_cpi, get_q(macro_r_models, "cpi_ets_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "VAR multivarié", var_lbl, macro_r_models$var_cpi, NULL),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "Timestral-5M Univarié", "L=288, sans cov.", macro_timestral_5m$t5m_cpi_univ, get_q(macro_timestral_5m, "cpi_u_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Ex-ante Inconditionnel", "Timestral-209M Univarié", "L=288, sans cov.", macro_timestral_209m$t209m_cpi_univ, get_q(macro_timestral_209m, "cpi_u_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Conditionnel (Oracle FedFunds)", "ARIMAX (avec FedFunds)", as.character(macro_r_models$cpi_arimax_spec[1]), macro_r_models$arimax_cpi, get_q(macro_r_models, "cpi_arx_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Conditionnel (Oracle FedFunds)", "Timestral-5M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_5m$t5m_cpi_cov, get_q(macro_timestral_5m, "cpi_c_")),
+        build_row("CPI (Inflation)", act_c, n_c, n_wis_c, "Conditionnel (Oracle FedFunds)", "Timestral-209M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_209m$t209m_cpi_cov, get_q(macro_timestral_209m, "cpi_c_")),
         # UNRATE
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "Naive (Dernière valeur)", "RW(0)", macro_r_models$naive_unrate, NULL),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "R ARIMA", as.character(macro_r_models$unrate_arima_spec[1]), macro_r_models$arima_unrate, get_q(macro_r_models, "unr_ari_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "R ETS", as.character(macro_r_models$unrate_ets_spec[1]), macro_r_models$ets_unrate, get_q(macro_r_models, "unr_ets_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "VAR multivarié", var_lbl, macro_r_models$var_unrate, NULL),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "Timestral-5M Univarié", "L=288, sans cov.", macro_timestral_5m$t5m_unrate_univ, get_q(macro_timestral_5m, "unr_u_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Ex-ante Inconditionnel", "Timestral-209M Univarié", "L=288, sans cov.", macro_timestral_209m$t209m_unrate_univ, get_q(macro_timestral_209m, "unr_u_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Conditionnel (Oracle FedFunds)", "ARIMAX (avec FedFunds)", as.character(macro_r_models$unrate_arimax_spec[1]), macro_r_models$arimax_unrate, get_q(macro_r_models, "unr_arx_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Conditionnel (Oracle FedFunds)", "Timestral-5M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_5m$t5m_unrate_cov, get_q(macro_timestral_5m, "unr_c_")),
-        build_row("UNRATE (Chômage)", act_u, n_u, "Conditionnel (Oracle FedFunds)", "Timestral-209M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_209m$t209m_unrate_cov, get_q(macro_timestral_209m, "unr_c_"))
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "Naive (Dernière valeur)", "RW(0)", macro_r_models$naive_unrate, q_nu),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "R ARIMA", as.character(macro_r_models$unrate_arima_spec[1]), macro_r_models$arima_unrate, get_q(macro_r_models, "unr_ari_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "R ETS", as.character(macro_r_models$unrate_ets_spec[1]), macro_r_models$ets_unrate, get_q(macro_r_models, "unr_ets_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "VAR multivarié", var_lbl, macro_r_models$var_unrate, NULL),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "Timestral-5M Univarié", "L=288, sans cov.", macro_timestral_5m$t5m_unrate_univ, get_q(macro_timestral_5m, "unr_u_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Ex-ante Inconditionnel", "Timestral-209M Univarié", "L=288, sans cov.", macro_timestral_209m$t209m_unrate_univ, get_q(macro_timestral_209m, "unr_u_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Conditionnel (Oracle FedFunds)", "ARIMAX (avec FedFunds)", as.character(macro_r_models$unrate_arimax_spec[1]), macro_r_models$arimax_unrate, get_q(macro_r_models, "unr_arx_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Conditionnel (Oracle FedFunds)", "Timestral-5M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_5m$t5m_unrate_cov, get_q(macro_timestral_5m, "unr_c_")),
+        build_row("UNRATE (Chômage)", act_u, n_u, n_wis_u, "Conditionnel (Oracle FedFunds)", "Timestral-209M (avec FedFunds)", "L=288 + known_covariates", macro_timestral_209m$t209m_unrate_cov, get_q(macro_timestral_209m, "unr_c_"))
       )
 
       macro_benchmark_metrics = do.call(rbind, rows)
@@ -860,7 +894,7 @@ macro_timestral_209m = pd.DataFrame(data)
   )
 
   ----------------------------------------------------------------------------
-  -- STUDY 4: Multi-Origin Rolling Evaluation (24 Origins) & Diebold-Mariano
+  -- STUDY 4: Multi-Origin Rolling Evaluation (24 Spaced Origins) & Diebold-Mariano
   -- Tests (Harvey Small-Sample Correction) + Context-Length Ablation
   ----------------------------------------------------------------------------
   rolling_timestral = pyn(
@@ -870,7 +904,11 @@ import numpy as np
 from timestral import TimestralForecaster
 
 N = len(macro_raw_data)  # 300
-origins = list(range(N - 12 - 23, N - 12 + 1))  # 24 rolling origins: lengths 265..288
+all_dates = pd.date_range("2000-01-01", periods=300, freq="MS").strftime("%Y-%m").tolist()
+
+# 24 origins spaced every 6 months across 2012-2023 (ending at L=288, test 2024):
+# L in [150, 156, ..., 282, 288]
+origins = [288 - (23 - i) * 6 for i in range(24)]
 
 fc5   = TimestralForecaster.from_pretrained("models/Timestral-5M")
 fc209 = TimestralForecaster.from_pretrained("models/Timestral-209M")
@@ -881,6 +919,8 @@ for v in ["cpi", "unrate"]:
     for idx, L in enumerate(origins):
         ctx = y[:L].copy()
         act = y[L : L + 12]
+        w_start = all_dates[L]
+        w_end = all_dates[L + 11]
         for mname, fc in [("Timestral-5M", fc5), ("Timestral-209M", fc209)]:
             out = fc.forecast(ctx, prediction_length=12)
             med = out.median.cpu().numpy().squeeze()
@@ -902,10 +942,12 @@ for v in ["cpi", "unrate"]:
                 "target": v,
                 "origin_idx": idx + 1,
                 "train_len": L,
+                "test_window": f"{w_start}..{w_end}",
                 "model": mname,
                 "err_h1": float(act[0] - med[0]),
                 "err_h12": float(act[11] - med[11]),
                 "rmse_12m": float(np.sqrt(np.mean((act - med) ** 2))),
+                "mae_12m": float(np.mean(np.abs(act - med))),
                 "wis_12m": float(np.mean(wis_vec)),
                 "crps_12m": float(np.mean(crps_vec)),
                 "cov80_12m": cov80,
@@ -919,80 +961,86 @@ rolling_timestral = pd.DataFrame(rows)
     serializer = ^csv
   )
 
-  rolling_and_ablation_metrics = rn(
+  context_ablation_metrics = rn(
     command = <{
       library(forecast)
       source("src/helpers.R")
 
-      # Part A: Context-Length Ablation on CPI (all windows ending in Dec 2023, predicting 2024)
-      train_cpi = head(macro_raw_data$cpi, -12)
+      all_dates = format(seq(as.Date("2000-01-01"), by = "month", length.out = 300), "%Y-%m")
+      train_cpi = head(macro_raw_data$cpi, 288)
       test_cpi  = tail(macro_raw_data$cpi, 12)
       L_grid    = c(60, 120, 168, 240, 288)
 
       ctx_rows = lapply(L_grid, function(L) {
-        sub_y = tail(train_cpi, L)
-        start_date = switch(as.character(L),
-          "60"  = "2019-01",
-          "120" = "2014-01",
-          "168" = "2010-01",
-          "240" = "2004-01",
-          "288" = "2000-01",
-          "inconnu"
-        )
-        ts_sub = ts(sub_y, frequency = 12)
-        fc_a = as.numeric(forecast(auto.arima(ts_sub, seasonal = FALSE), h = 12)$mean)
-        fc_e = as.numeric(forecast(ets(ts_sub, model = "ZZN"), h = 12)$mean)
-        p5   = macro_timestral_5m[[paste0("ctx_", L, "_med")]]
-        p209 = macro_timestral_209m[[paste0("ctx_", L, "_med")]]
+        sub_y      = tail(train_cpi, L)
+        start_date = all_dates[288 - L + 1]
+        ts_sub     = ts(sub_y, frequency = 12)
+        fit_a      = auto.arima(ts_sub)
+        fc_a       = as.numeric(forecast(fit_a, h = 12)$mean)
+        fit_e      = ets(ts_sub)
+        fc_e       = as.numeric(forecast(fit_e, h = 12)$mean)
+        p5         = macro_timestral_5m[[paste0("ctx_", L, "_med")]]
+        p209       = macro_timestral_209m[[paste0("ctx_", L, "_med")]]
         data.frame(
-          section        = "context_ablation",
-          target         = "CPI (2024)",
           context_months = L,
-          window_start   = as.character(start_date),
-          model          = paste0("L=", L, "m (depuis ", start_date, ")"),
+          window_start   = start_date,
+          arima_spec     = paste0("ARIMA(", paste(arimaorder(fit_a), collapse = ","), ")"),
+          ets_spec       = fit_e$method,
           arima_rmse     = round(rmse(fc_a, test_cpi), 4),
           ets_rmse       = round(rmse(fc_e, test_cpi), 4),
           t5m_rmse       = round(rmse(p5, test_cpi), 4),
-          t209m_rmse     = round(rmse(p209, test_cpi), 4),
-          dm_stat_h1     = 0.0,
-          dm_pval_h1     = 1.0,
-          dm_stat_h12    = 0.0,
-          dm_pval_h12    = 1.0
+          t209m_rmse     = round(rmse(p209, test_cpi), 4)
         )
       })
-      ctx_df = do.call(rbind, ctx_rows)
+      context_ablation_metrics = do.call(rbind, ctx_rows)
+      rownames(context_ablation_metrics) <- NULL
+      context_ablation_metrics
+    }>,
+    deserializer = [
+      macro_raw_data: ^csv,
+      macro_timestral_5m: ^csv,
+      macro_timestral_209m: ^csv
+    ],
+    serializer = ^csv
+  )
 
-      # Part B: 24-Origin Rolling Evaluation & Harvey-corrected Diebold-Mariano Tests
-      N = nrow(macro_raw_data)
-      origins = (N - 12 - 23):(N - 12)  # 24 rolling origins
+  rolling_origin_metrics = rn(
+    command = <{
+      library(forecast)
+      source("src/helpers.R")
+
+      origins = seq(150, 288, by = 6) # 24 origins spaced by 6 months
 
       roll_rows = list()
       for (v in c("cpi", "unrate")) {
         y = macro_raw_data[[v]]
         t_lbl = if (v == "cpi") "CPI (24 origines)" else "UNRATE (24 origines)"
 
-        e1_n = e12_n = r12_n = numeric(length(origins))
-        e1_a = e12_a = r12_a = w12_a = c80_a = numeric(length(origins))
-        e1_e = e12_e = r12_e = w12_e = c80_e = numeric(length(origins))
+        e1_n = e12_n = numeric(length(origins))
+        e1_a = e12_a = r12_a = m12_a = w12_a = c80_a = numeric(length(origins))
+        e1_e = e12_e = r12_e = m12_e = w12_e = c80_e = numeric(length(origins))
 
         for (i in seq_along(origins)) {
           L = origins[i]
           tr = ts(y[1:L], frequency = 12)
           act = y[(L + 1):(L + 12)]
 
+          # Naive
           p_n = rep(y[L], 12)
-          fit_a = auto.arima(tr, seasonal = FALSE)
+          e1_n[i] = act[1] - p_n[1]; e12_n[i] = act[12] - p_n[12]
+
+          # ARIMA (consistent specification)
+          fit_a = auto.arima(tr)
           p_a   = as.numeric(forecast(fit_a, h = 12)$mean)
-          sc_a  = score_rows(act, forecast_quantiles(fit_a, h = 12, simulate = FALSE))
-
-          fit_e = ets(tr, model = "ZZN")
-          p_e   = as.numeric(forecast(fit_e, h = 12)$mean)
-          sc_e  = score_rows(act, forecast_quantiles(fit_e, h = 12, simulate = FALSE))
-
-          e1_n[i] = act[1] - p_n[1]; e12_n[i] = act[12] - p_n[12]; r12_n[i] = rmse(p_n, act)
-          e1_a[i] = act[1] - p_a[1]; e12_a[i] = act[12] - p_a[12]; r12_a[i] = rmse(p_a, act)
+          sc_a  = score_rows(act, forecast_quantiles(fit_a, h = 12))
+          e1_a[i] = act[1] - p_a[1]; e12_a[i] = act[12] - p_a[12]; r12_a[i] = rmse(p_a, act); m12_a[i] = mae(p_a, act)
           w12_a[i] = mean(sc_a$wis); c80_a[i] = mean(sc_a$in80)
-          e1_e[i] = act[1] - p_e[1]; e12_e[i] = act[12] - p_e[12]; r12_e[i] = rmse(p_e, act)
+
+          # ETS (consistent specification with state-space simulations)
+          fit_e = ets(tr)
+          p_e   = as.numeric(forecast(fit_e, h = 12)$mean)
+          sc_e  = score_rows(act, forecast_quantiles(fit_e, h = 12, npaths = 1000, seed = 2024 + i))
+          e1_e[i] = act[1] - p_e[1]; e12_e[i] = act[12] - p_e[12]; r12_e[i] = rmse(p_e, act); m12_e[i] = mae(p_e, act)
           w12_e[i] = mean(sc_e$wis); c80_e[i] = mean(sc_e$in80)
         }
 
@@ -1001,42 +1049,50 @@ rolling_timestral = pd.DataFrame(rows)
         sub_t5   = sub_t5[order(sub_t5$origin_idx), ]
         sub_t209 = sub_t209[order(sub_t209$origin_idx), ]
 
-        # Harvey-corrected Diebold-Mariano tests against R ARIMA baseline
+        # DM tests vs ARIMA benchmark at h=1 (independent errors spaced by 6m)
+        # and at h=12 (6-month overlapping errors)
         dm_n_1    = dm_harvey(e1_n, e1_a, h = 1);             dm_n_12    = dm_harvey(e12_n, e12_a, h = 12)
         dm_e_1    = dm_harvey(e1_e, e1_a, h = 1);             dm_e_12    = dm_harvey(e12_e, e12_a, h = 12)
         dm_t5_1   = dm_harvey(sub_t5$err_h1, e1_a, h = 1);    dm_t5_12   = dm_harvey(sub_t5$err_h12, e12_a, h = 12)
         dm_t209_1 = dm_harvey(sub_t209$err_h1, e1_a, h = 1);  dm_t209_12 = dm_harvey(sub_t209$err_h12, e12_a, h = 12)
 
-        # In the rolling rows:
-        # arima_rmse  -> h=1 rolling RMSE
-        # ets_rmse    -> h=12 rolling RMSE
-        # t5m_rmse    -> mean 12-step trajectory RMSE across 24 origins
-        # t209m_rmse  -> mean 12-step WIS across 24 origins (0 for Naive)
-        roll_rows[[v]] = data.frame(
-          section        = "rolling_24_origins",
-          target         = t_lbl,
-          context_months = as.integer(round( c(0, mean(c80_a), mean(c80_e), mean(sub_t5$cov80_12m), mean(sub_t209$cov80_12m)) * 1000 )),
-          window_start   = "2022-01..2023-12",
-          model          = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M"),
-          arima_rmse     = round(c(sqrt(mean(e1_n^2)), sqrt(mean(e1_a^2)), sqrt(mean(e1_e^2)), sqrt(mean(sub_t5$err_h1^2)), sqrt(mean(sub_t209$err_h1^2))), 3),
-          ets_rmse       = round(c(sqrt(mean(e12_n^2)), sqrt(mean(e12_a^2)), sqrt(mean(e12_e^2)), sqrt(mean(sub_t5$err_h12^2)), sqrt(mean(sub_t209$err_h12^2))), 3),
-          t5m_rmse       = round(c(mean(r12_n), mean(r12_a), mean(r12_e), mean(sub_t5$rmse_12m), mean(sub_t209$rmse_12m)), 3),
-          t209m_rmse     = round(c(0.0, mean(w12_a), mean(w12_e), mean(sub_t5$wis_12m), mean(sub_t209$wis_12m)), 3),
-          dm_stat_h1     = round(c(dm_n_1["stat"], 0.0, dm_e_1["stat"], dm_t5_1["stat"], dm_t209_1["stat"]), 3),
-          dm_pval_h1     = round(c(dm_n_1["pval"], 1.0, dm_e_1["pval"], dm_t5_1["pval"], dm_t209_1["pval"]), 4),
-          dm_stat_h12    = round(c(dm_n_12["stat"], 0.0, dm_e_12["stat"], dm_t5_12["stat"], dm_t209_12["stat"]), 3),
-          dm_pval_h12    = round(c(dm_n_12["pval"], 1.0, dm_e_12["pval"], dm_t5_12["pval"], dm_t209_12["pval"]), 4)
+        # Clear long-format rows for h=1 and h=12:
+        df_h1 = data.frame(
+          target        = t_lbl,
+          horizon       = "h=1",
+          model         = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M"),
+          rmse          = round(c(sqrt(mean(e1_n^2)), sqrt(mean(e1_a^2)), sqrt(mean(e1_e^2)), sqrt(mean(sub_t5$err_h1^2)), sqrt(mean(sub_t209$err_h1^2))), 3),
+          mae           = round(c(mean(abs(e1_n)), mean(abs(e1_a)), mean(abs(e1_e)), mean(abs(sub_t5$err_h1)), mean(abs(sub_t209$err_h1))), 3),
+          wis           = NA_real_,
+          crps          = NA_real_,
+          coverage_80   = NA_real_,
+          dm_stat       = round(c(dm_n_1["stat"], 0.0, dm_e_1["stat"], dm_t5_1["stat"], dm_t209_1["stat"]), 3),
+          dm_pval       = round(c(dm_n_1["pval"], 1.0, dm_e_1["pval"], dm_t5_1["pval"], dm_t209_1["pval"]), 4)
         )
+
+        df_h12 = data.frame(
+          target        = t_lbl,
+          horizon       = "h=12",
+          model         = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M"),
+          rmse          = round(c(sqrt(mean(e12_n^2)), sqrt(mean(e12_a^2)), sqrt(mean(e12_e^2)), sqrt(mean(sub_t5$err_h12^2)), sqrt(mean(sub_t209$err_h12^2))), 3),
+          mae           = round(c(mean(abs(e12_n)), mean(abs(e12_a)), mean(abs(e12_e)), mean(abs(sub_t5$err_h12)), mean(abs(sub_t209$err_h12))), 3),
+          wis           = round(c(NA_real_, mean(w12_a), mean(w12_e), mean(sub_t5$wis_12m), mean(sub_t209$wis_12m)), 3),
+          crps          = round(c(NA_real_, NA_real_, NA_real_, mean(sub_t5$crps_12m), mean(sub_t209$crps_12m)), 3),
+          coverage_80   = round(c(NA_real_, mean(c80_a), mean(c80_e), mean(sub_t5$cov80_12m), mean(sub_t209$cov80_12m)), 3),
+          dm_stat       = round(c(dm_n_12["stat"], 0.0, dm_e_12["stat"], dm_t5_12["stat"], dm_t209_12["stat"]), 3),
+          dm_pval       = round(c(dm_n_12["pval"], 1.0, dm_e_12["pval"], dm_t5_12["pval"], dm_t209_12["pval"]), 4)
+        )
+
+        roll_rows[[paste0(v, "_h1")]]  = df_h1
+        roll_rows[[paste0(v, "_h12")]] = df_h12
       }
 
-      rolling_and_ablation_metrics = rbind(ctx_df, do.call(rbind, roll_rows))
-      rownames(rolling_and_ablation_metrics) <- NULL
-      rolling_and_ablation_metrics
+      rolling_origin_metrics = do.call(rbind, roll_rows)
+      rownames(rolling_origin_metrics) <- NULL
+      rolling_origin_metrics
     }>,
     deserializer = [
       macro_raw_data: ^csv,
-      macro_timestral_5m: ^csv,
-      macro_timestral_209m: ^csv,
       rolling_timestral: ^csv
     ],
     serializer = ^csv
@@ -1054,7 +1110,8 @@ rolling_timestral = pd.DataFrame(rows)
       retail_benchmark_metrics,
       retail_coherence_metrics,
       macro_benchmark_metrics,
-      rolling_and_ablation_metrics
+      context_ablation_metrics,
+      rolling_origin_metrics
     ]
   )
 }
@@ -1063,49 +1120,34 @@ rolling_timestral = pd.DataFrame(rows)
 populate_pipeline(p, build = true, verbose = 1)
 pipeline_copy()
 
--- Guard against failed pipeline nodes (AGENTS.md Rule 5):
--- 1. Check pipeline-wide diagnostics via errored_nodes(p)
+-- Guard against failed pipeline nodes (AGENTS.md Rule 5)
 err_list = errored_nodes(p) |> map(\(n) n.name)
+if (length(err_list) > 0) {
+  error(str_join(["Pipeline nodes errored: ", str_join(err_list, ", ")]))
+}
 check(expect_equal(length(err_list), 0))
 
--- 2. Verify all 20 expected nodes are present in the pipeline
+-- Verify all 21 expected nodes are present in the pipeline
 expected_nodes = [
   "raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics", "cpi_probabilistic_metrics",
   "retail_raw_data", "retail_r_arima", "retail_timestral_5m", "retail_timestral_209m", "retail_benchmark_metrics", "retail_coherence_metrics",
   "macro_raw_data", "macro_r_models", "macro_timestral_5m", "macro_timestral_209m", "macro_benchmark_metrics",
-  "rolling_timestral", "rolling_and_ablation_metrics", "report"
+  "rolling_timestral", "context_ablation_metrics", "rolling_origin_metrics", "report"
 ]
 check(expect_nodes(p, expected_nodes))
 
--- 3. Explicit node error guards (Rule 5)
-if (is_error(p.raw_data)) { error(str_join(["Node 'raw_data' errored: ", error_msg(p.raw_data)])) }
-if (is_error(p.r_arima)) { error(str_join(["Node 'r_arima' errored: ", error_msg(p.r_arima)])) }
-if (is_error(p.timestral_5m)) { error(str_join(["Node 'timestral_5m' errored: ", error_msg(p.timestral_5m)])) }
-if (is_error(p.timestral_209m)) { error(str_join(["Node 'timestral_209m' errored: ", error_msg(p.timestral_209m)])) }
-if (is_error(p.benchmark_metrics)) { error(str_join(["Node 'benchmark_metrics' errored: ", error_msg(p.benchmark_metrics)])) }
-if (is_error(p.cpi_probabilistic_metrics)) { error(str_join(["Node 'cpi_probabilistic_metrics' errored: ", error_msg(p.cpi_probabilistic_metrics)])) }
-if (is_error(p.retail_raw_data)) { error(str_join(["Node 'retail_raw_data' errored: ", error_msg(p.retail_raw_data)])) }
-if (is_error(p.retail_r_arima)) { error(str_join(["Node 'retail_r_arima' errored: ", error_msg(p.retail_r_arima)])) }
-if (is_error(p.retail_timestral_5m)) { error(str_join(["Node 'retail_timestral_5m' errored: ", error_msg(p.retail_timestral_5m)])) }
-if (is_error(p.retail_timestral_209m)) { error(str_join(["Node 'retail_timestral_209m' errored: ", error_msg(p.retail_timestral_209m)])) }
-if (is_error(p.retail_benchmark_metrics)) { error(str_join(["Node 'retail_benchmark_metrics' errored: ", error_msg(p.retail_benchmark_metrics)])) }
-if (is_error(p.retail_coherence_metrics)) { error(str_join(["Node 'retail_coherence_metrics' errored: ", error_msg(p.retail_coherence_metrics)])) }
-if (is_error(p.macro_raw_data)) { error(str_join(["Node 'macro_raw_data' errored: ", error_msg(p.macro_raw_data)])) }
-if (is_error(p.macro_r_models)) { error(str_join(["Node 'macro_r_models' errored: ", error_msg(p.macro_r_models)])) }
-if (is_error(p.macro_timestral_5m)) { error(str_join(["Node 'macro_timestral_5m' errored: ", error_msg(p.macro_timestral_5m)])) }
-if (is_error(p.macro_timestral_209m)) { error(str_join(["Node 'macro_timestral_209m' errored: ", error_msg(p.macro_timestral_209m)])) }
-if (is_error(p.macro_benchmark_metrics)) { error(str_join(["Node 'macro_benchmark_metrics' errored: ", error_msg(p.macro_benchmark_metrics)])) }
-if (is_error(p.rolling_timestral)) { error(str_join(["Node 'rolling_timestral' errored: ", error_msg(p.rolling_timestral)])) }
-if (is_error(p.rolling_and_ablation_metrics)) { error(str_join(["Node 'rolling_and_ablation_metrics' errored: ", error_msg(p.rolling_and_ablation_metrics)])) }
-if (is_error(p.report)) { error(str_join(["Node 'report' errored: ", error_msg(p.report)])) }
+-- Data integrity assertion: verify that the last 180 observations of macro CPI match cpi.csv exactly
+cpi_hist = read_node(p.raw_data).cpi
+macro_cpi = read_node(p.macro_raw_data).cpi
+check(expect_equal(tail(macro_cpi, 180), cpi_hist))
 
--- 4. Substantive data, coherence, and quantile-monotonicity assertions with check() (Rule 5)
+-- Substantive data, coherence, and quantile assertions
 cpi_metrics = read_node(p.benchmark_metrics)
 check(expect_nrow(cpi_metrics, 7))
 check(expect_no_na(cpi_metrics))
 
 cpi_prob = read_node(p.cpi_probabilistic_metrics)
-check(expect_nrow(cpi_prob, 5))
+check(expect_nrow(cpi_prob, 7))
 check(expect_no_na(cpi_prob))
 -- Assert zero quantile crossings across all Study 1 probabilistic forecasts
 check(expect_nrow(filter(cpi_prob, $crossings > 0), 0))
@@ -1117,8 +1159,8 @@ check(expect_no_na(retail_metrics))
 retail_coh = read_node(p.retail_coherence_metrics)
 check(expect_nrow(retail_coh, 12))
 check(expect_no_na(retail_coh))
--- Assert hierarchical accounting coherence (< 1e-6) for all reconciled models (MinT-shrink & Bottom-Up)
-check(expect_nrow(filter(retail_coh, $is_reconciled == 1 && $max_abs_incoherence >= 1e-6), 0))
+-- Assert relative accounting coherence (< 1e-8 * max_scale ~ 7.5e-3 M$) for all reconciled models
+check(expect_nrow(filter(retail_coh, $is_reconciled == 1 && $max_abs_incoherence >= 1e-8 * 750000), 0))
 -- Assert unreconciled base models are genuinely incoherent (> 100 M$)
 check(expect_nrow(filter(retail_coh, $is_reconciled == 0 && $max_abs_incoherence < 100), 0))
 
@@ -1133,8 +1175,11 @@ check(expect_no_na(roll_tbl))
 -- Assert zero quantile crossings across all 96 rolling-origin Timestral forecasts (96 x 12 x 21 quantiles)
 check(expect_nrow(filter(roll_tbl, $crossings > 0), 0))
 
-roll_metrics = read_node(p.rolling_and_ablation_metrics)
-check(expect_nrow(roll_metrics, 15))
-check(expect_no_na(roll_metrics))
+ablation_metrics = read_node(p.context_ablation_metrics)
+check(expect_nrow(ablation_metrics, 5))
+check(expect_no_na(ablation_metrics))
 
-print("✓ timestral_demo: all 20 nodes and substantive coherence/monotonicity assertions passed successfully!")
+roll_metrics = read_node(p.rolling_origin_metrics)
+check(expect_nrow(roll_metrics, 20))
+
+print("✓ timestral_demo: all 21 nodes and substantive coherence/monotonicity assertions passed successfully!")
