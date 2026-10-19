@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261019_151132",
+  "hash": "c1hj61akm25ghvvk2l326g3yllgp31ys",
+  "out_path": "/nix/store/c1hj61akm25ghvvk2l326g3yllgp31ys-pipeline_output",
+  "duration": 9.0640,
+  "nodes": [
+{
+  "node": "result",
+  "path": "/nix/store/c1hj61akm25ghvvk2l326g3yllgp31ys-pipeline_output/result/artifact",
+  "hash": "result",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3039,
+  "source": "\"t_fallback\""
+}
+],
+  "pipeline": "p_fork3"
+}

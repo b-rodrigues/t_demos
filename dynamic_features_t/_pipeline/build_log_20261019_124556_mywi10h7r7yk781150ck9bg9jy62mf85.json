@@ -1,0 +1,67 @@
+{
+  "timestamp": "20261019_124556",
+  "hash": "mywi10h7r7yk781150ck9bg9jy62mf85",
+  "out_path": "/nix/store/mywi10h7r7yk781150ck9bg9jy62mf85-pipeline_output",
+  "duration": 17.4613,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/mywi10h7r7yk781150ck9bg9jy62mf85-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.5876,
+  "source": "library(readr)\n        set.seed(123)\n        df <- data.frame(\n            id = 1:50,\n            income = runif(50, 20000, 100000),\n            age = runif(50, 20, 70),\n            category = sample(c(\"A\", \"B\"), 50, replace = TRUE),\n            stringsAsFactors = FALSE\n        )\n        df"
+},
+{
+  "node": "features_t",
+  "path": "/nix/store/mywi10h7r7yk781150ck9bg9jy62mf85-pipeline_output/features_t/artifact",
+  "hash": "features_t",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.4835,
+  "source": "import \"src/features.t\"\n        -- We define the transformations as a list of dictionaries\n        feature_specs = [\n            [col: \"income\", type: \"log\", suffix: \"_log\"],\n            [col: \"income\", type: \"scale\", suffix: \"_z\"],\n            [col: \"age\", type: \"sqrt\", suffix: \"_sqrt\"]\n        ]\n        -- Apply the transformations using our T-Lang function\n        engineer_features(raw_data, feature_specs)"
+},
+{
+  "node": "features_r",
+  "path": "/nix/store/mywi10h7r7yk781150ck9bg9jy62mf85-pipeline_output/features_r/artifact",
+  "hash": "features_r",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5016,
+  "source": "library(dplyr)\n        raw_data %>%\n            mutate(\n                income_log = log(income),\n                income_z = (income - mean(income)) / sd(income),\n                age_sqrt = sqrt(age)\n            )"
+},
+{
+  "node": "validation",
+  "path": "/nix/store/mywi10h7r7yk781150ck9bg9jy62mf85-pipeline_output/validation/artifact",
+  "hash": "validation",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["features_r", "features_t"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.3326,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: Column names mismatch.",
+  "source": "-- Check column names\n        t_cols = colnames(features_t)\n        r_cols = colnames(features_r)\n        assert(t_cols == r_cols, \"Column names mismatch\")\n        \n        -- Check values with tolerance\n        check_feature = \\(name) {\n            v_t = get(features_t, name)\n            v_r = get(features_r, name)\n            diff = sum(abs(v_t - v_r))\n            assert(diff < 0.000000001, str_join([\"Mismatch in feature: \", name]))\n        }\n        \n        check_feature(\"income_log\")\n        check_feature(\"income_z\")\n        check_feature(\"age_sqrt\")\n        \n        \"Validation Successful: T-Lang dynamic features match R reference!\""
+}
+],
+  "pipeline": "p"
+}

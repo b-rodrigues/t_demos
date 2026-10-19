@@ -1,0 +1,13 @@
+{
+  "py_frozen": "/nix/store/y6yimbp6ppnljmi2cxb3rs85mc17nkbz-py_frozen.drv",
+  "r_fitdistr": "/nix/store/7895yvvmyba6rbhfhdkj1avn442h9mjk-r_fitdistr.drv",
+  "r_loess": "/nix/store/102dd9h1hrlahs348m92vmyagjmw3vrq-r_loess.drv",
+  "r_htest": "/nix/store/xgsrqqnks6vv7qn3z4l6papjfgxgja2k-r_htest.drv",
+  "py_sparse": "/nix/store/h36bb8kh4nasa9kqkdds50hgsrwz7is5-py_sparse.drv",
+  "py_pipe": "/nix/store/rd5m4ysm1dx8zkfh1cdpx9dmffg5jcz4-py_pipe.drv",
+  "py_ets": "/nix/store/k42n3r3lsmwk270g0mmi5j1098xzaibp-py_ets.drv",
+  "r_nls": "/nix/store/jvaq1a30gbpavmxsi18zq7xmwpc38x0h-r_nls.drv",
+  "r_density": "/nix/store/bm55yd450z8j1dbz9yck8262spy795ms-r_density.drv",
+  "py_phreg": "/nix/store/ir2cn0v0l0csj6ddj3nhifqlr7lb9bp6-py_phreg.drv",
+  "py_mnlogit": "/nix/store/7302ph2ls2ccrrqi8avi2chwcwgmncmz-py_mnlogit.drv"
+}

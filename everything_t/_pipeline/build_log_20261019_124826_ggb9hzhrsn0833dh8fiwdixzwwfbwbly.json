@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261019_124826",
+  "hash": "ggb9hzhrsn0833dh8fiwdixzwwfbwbly",
+  "out_path": "/nix/store/ggb9hzhrsn0833dh8fiwdixzwwfbwbly-pipeline_output",
+  "duration": 724.1057,
+  "nodes": [
+{
+  "node": "datathin",
+  "path": "/nix/store/ggb9hzhrsn0833dh8fiwdixzwwfbwbly-pipeline_output/datathin/artifact",
+  "hash": "datathin",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "integer",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 421.0473,
+  "source": "cat(\"--- R/renv: datathin::datathin() ---\\n\")\n      library(datathin)\n      set.seed(42)\n      x = rnorm(100)\n      result = datathin(x, family = \"normal\", K = 2, arg = 1)\n      cat(sprintf(\"Only possible because renv.lock resolved datathin from GitHub and its CRAN deps (VGAM, extraDistr, mvtnorm)\\n\"))\n      cat(sprintf(\"Data thinning split 100 observations into %d total outputs (training + test)\\n\", length(unlist(result))))\n      length(unlist(result))"
+},
+{
+  "node": "modecomp",
+  "path": "/nix/store/ggb9hzhrsn0833dh8fiwdixzwwfbwbly-pipeline_output/modecomp/artifact",
+  "hash": "modecomp",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 420.9975,
+  "source": "cat(\"--- R/git: brotools::sample_mode() via DESCRIPTION auto-detection ---\\n\")\n      library(brotools)\n      data = c(7, 7, 7, 1, 2, 3)\n      m = sample_mode(data)\n      cat(sprintf(\"Only possible because DESCRIPTION auto-detection resolved all 12 CRAN deps (dplyr, rlang, stringr, ...)\\n\"))\n      cat(sprintf(\"Mode of c(7,7,7,1,2,3) is %d (not available in base R)\\n\", m))\n      m"
+},
+{
+  "node": "py_mean",
+  "path": "/nix/store/ggb9hzhrsn0833dh8fiwdixzwwfbwbly-pipeline_output/py_mean/artifact",
+  "hash": "py_mean",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6671,
+  "source": "import pandas as pd\n      print(\"--- Python/uv: pandas from uv workspace ---\")\n      df = pd.read_csv(\"data/scores.csv\")\n      m = float(df[\"score\"].mean())\n      print(\"Only possible because uv workspace resolver provides pandas via pyproject.toml + uv.lock\")\n      print(f\"Mean score from scores.csv: {m}\")\n      m"
+},
+{
+  "node": "jl_custom",
+  "path": "/nix/store/ggb9hzhrsn0833dh8fiwdixzwwfbwbly-pipeline_output/jl_custom/artifact",
+  "hash": "jl_custom",
+  "runtime": "Julia",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 392.9086,
+  "source": "println(\"--- Julia/custom flake: nixos-24.11 ---\")\n      result = \"This Julia node runs from nixos-24.11 nixpkgs, not the project default rstats-on-nix\"\n      println(\"Only possible because per-node flake support lets this node use a different nixpkgs\")\n      println(result)\n      result"
+}
+],
+  "pipeline": "p"
+}

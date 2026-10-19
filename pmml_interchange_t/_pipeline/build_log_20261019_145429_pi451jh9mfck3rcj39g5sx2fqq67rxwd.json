@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261019_145429",
+  "hash": "pi451jh9mfck3rcj39g5sx2fqq67rxwd",
+  "out_path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output",
+  "duration": 23.2310,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 9.3675,
+  "source": "(read_csv(\"data/mtcars.csv\", separator = \"|\") |> mutate(cyl = to_factor($cyl), am = to_factor($am)))"
+},
+{
+  "node": "model_r_node",
+  "path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output/model_r_node/artifact",
+  "hash": "model_r_node",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.7411,
+  "source": "# In R: mpg predicted by weight, horsepower, and cylinder (as factor)\n        lm(mpg ~ wt + hp + cyl, data = data_node)"
+},
+{
+  "node": "rf_r_node",
+  "path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output/rf_r_node/artifact",
+  "hash": "rf_r_node",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "randomForest.formula",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.6973,
+  "source": "# In R: Random Forest for regression\n        library(randomForest)\n        randomForest(mpg ~ wt + hp + disp, data = data_node, ntree = 10)"
+},
+{
+  "node": "model_py_node",
+  "path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output/model_py_node/artifact",
+  "hash": "model_py_node",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "LinearRegression",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 9.1202,
+  "source": "# In Python: scikit-learn OLS\nimport pandas as pd\nfrom sklearn.linear_model import LinearRegression\n\nX = data_node[[\"wt\", \"hp\"]]\ny = data_node[\"mpg\"]\nmodel = LinearRegression().fit(X, y)\n\n# Metadata for T-Lang bridge (Phase 4 GLM support)\nmodel.r2_ = model.score(X, y)\nmodel.nobs_ = len(y)\nmodel"
+},
+{
+  "node": "verify_node",
+  "path": "/nix/store/pi451jh9mfck3rcj39g5sx2fqq67rxwd-pipeline_output/verify_node/artifact",
+  "hash": "verify_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["data_node", "model_py_node", "model_r_node", "rf_r_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.6618,
+  "source": "print(\"--- PHASE 2: AUTHORITY PIVOT VERIFICATION ---\")\n\n        -- Score R Linear Model (Categorical factors resolved by JPMML)\n        p_lm_r = predict(data_node, model_r_node)\n        print(\"R Linear Model Predictions (first 5):\")\n        print(head(p_lm_r))\n\n        -- Score R Random Forest (Complex trees resolved by JPMML)\n        p_rf_r = predict(data_node, rf_r_node)\n        print(\"R Random Forest Predictions (first 5):\")\n        print(head(p_rf_r))\n\n        -- Score Python Model\n        p_lm_py = predict(data_node, model_py_node)\n        print(\"Python model predictions in T:\")\n        print(head(p_lm_py))\n\n        print(\"--- PHASE 4: METADATA & VALIDATION ---\")\n        print(\"R Model Summary:\")\n        print(summary(model_r_node))\n\n        print(\"Python Model R-Squared:\")\n        print(model_py_node.r_squared)\n\n        \"Verification complete\""
+}
+],
+  "pipeline": "p"
+}

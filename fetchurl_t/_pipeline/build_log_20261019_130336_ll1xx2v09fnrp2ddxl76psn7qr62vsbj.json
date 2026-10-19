@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261019_130336",
+  "hash": "ll1xx2v09fnrp2ddxl76psn7qr62vsbj",
+  "out_path": "/nix/store/ll1xx2v09fnrp2ddxl76psn7qr62vsbj-pipeline_output",
+  "duration": 3.3345,
+  "nodes": [
+{
+  "node": "readme",
+  "path": "/nix/store/ll1xx2v09fnrp2ddxl76psn7qr62vsbj-pipeline_output/readme/artifact",
+  "hash": "readme",
+  "runtime": "fetchurl",
+  "serializer": "bin",
+  "class": "BinaryFile",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "\"https://raw.githubusercontent.com/b-rodrigues/tlang/refs/heads/main/README.md\""
+}
+],
+  "pipeline": "p"
+}

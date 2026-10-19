@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261019_125924",
+  "hash": "8nhim2mxhsm55wnh0ldq9vgzrhkwinih",
+  "out_path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output",
+  "duration": 17.5200,
+  "nodes": [
+{
+  "node": "r_lda",
+  "path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output/r_lda/artifact",
+  "hash": "r_lda",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lda",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.0270,
+  "source": "library(MASS)\n            lda(Species ~ ., iris)"
+},
+{
+  "node": "r_polr",
+  "path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output/r_polr/artifact",
+  "hash": "r_polr",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "polr",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.9433,
+  "source": "library(MASS)\n            polr(Sat ~ Infl + Type + Cont, data = housing, Hess = TRUE)"
+},
+{
+  "node": "r_multinom",
+  "path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output/r_multinom/artifact",
+  "hash": "r_multinom",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "multinom",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.9877,
+  "source": "library(nnet)\n            multinom(Species ~ ., iris, trace = FALSE)"
+},
+{
+  "node": "py_gmm",
+  "path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output/py_gmm/artifact",
+  "hash": "py_gmm",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "GaussianMixture",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.0345,
+  "source": "from sklearn.mixture import GaussianMixture\n            GaussianMixture(n_components = 2).fit([[1.0], [2.0], [3.0], [8.0], [9.0], [10.0]])"
+},
+{
+  "node": "py_grid",
+  "path": "/nix/store/8nhim2mxhsm55wnh0ldq9vgzrhkwinih-pipeline_output/py_grid/artifact",
+  "hash": "py_grid",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "GridSearchCV",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.3503,
+  "source": "from sklearn.linear_model import LogisticRegression\n            from sklearn.model_selection import GridSearchCV\n            X_grid = [[1.0], [2.0], [3.0], [4.0], [5.0], [6.0]]\n            y_grid = [0, 0, 0, 1, 1, 1]\n            GridSearchCV(LogisticRegression(), {\"C\": [0.1, 1.0]}, cv = 2).fit(X_grid, y_grid)"
+}
+],
+  "pipeline": "p"
+}

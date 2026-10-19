@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261019_124628",
+  "hash": "zhgjxml32nlq6mqq417970l2cxfgg9na",
+  "out_path": "/nix/store/zhgjxml32nlq6mqq417970l2cxfgg9na-pipeline_output",
+  "duration": 8.6606,
+  "nodes": [
+{
+  "node": "good_val",
+  "path": "/nix/store/zhgjxml32nlq6mqq417970l2cxfgg9na-pipeline_output/good_val/artifact",
+  "hash": "good_val",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4562,
+  "source": "(100 / 50)"
+},
+{
+  "node": "recovered_with_match",
+  "path": "/nix/store/zhgjxml32nlq6mqq417970l2cxfgg9na-pipeline_output/recovered_with_match/artifact",
+  "hash": "recovered_with_match",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4395,
+  "source": "{ risky = (42 / 0); match(risky) { Error { msg } => 0, default => risky } }"
+},
+{
+  "node": "recovered_with_maybe_pipe",
+  "path": "/nix/store/zhgjxml32nlq6mqq417970l2cxfgg9na-pipeline_output/recovered_with_maybe_pipe/artifact",
+  "hash": "recovered_with_maybe_pipe",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4171,
+  "source": "{ risky = (99 / 0); (risky ?|> \\(x) if (is_error(x)) { -1 } else { x }) }"
+},
+{
+  "node": "short_circuit_then_recover",
+  "path": "/nix/store/zhgjxml32nlq6mqq417970l2cxfgg9na-pipeline_output/short_circuit_then_recover/artifact",
+  "hash": "short_circuit_then_recover",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3929,
+  "source": "{ risky = (1 / 0); piped = (risky |> \\(x) (x + 100)); (piped ?|> \\(x) if (is_error(x)) { 0 } else { x }) }"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261019_150410",
+  "hash": "wpds3v0xjkm78444s3x0kl2wwi35hkmq",
+  "out_path": "/nix/store/wpds3v0xjkm78444s3x0kl2wwi35hkmq-pipeline_output",
+  "duration": 14.1148,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/wpds3v0xjkm78444s3x0kl2wwi35hkmq-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1853,
+  "source": "library(brotools)\n      sample_mode(c(1, 1, 2, 3))"
+}
+],
+  "pipeline": "p"
+}

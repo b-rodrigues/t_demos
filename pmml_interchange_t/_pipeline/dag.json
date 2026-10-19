@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "data_node",
+  "depends": []
+},
+{
+  "node_name": "model_r_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "rf_r_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "model_py_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "verify_node",
+  "depends": ["data_node", "model_py_node", "model_r_node", "rf_r_node"]
+}
+]

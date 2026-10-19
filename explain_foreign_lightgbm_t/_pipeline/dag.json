@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "r_lgb",
+  "depends": []
+},
+{
+  "node_name": "py_lgb",
+  "depends": []
+}
+]

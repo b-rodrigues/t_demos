@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "foo",
+  "depends": []
+},
+{
+  "node_name": "bar",
+  "depends": []
+},
+{
+  "node_name": "baz",
+  "depends": []
+},
+{
+  "node_name": "qux",
+  "depends": []
+}
+]

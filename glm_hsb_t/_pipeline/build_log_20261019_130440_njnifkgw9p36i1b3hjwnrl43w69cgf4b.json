@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261019_130440",
+  "hash": "njnifkgw9p36i1b3hjwnrl43w69cgf4b",
+  "out_path": "/nix/store/njnifkgw9p36i1b3hjwnrl43w69cgf4b-pipeline_output",
+  "duration": 20.4215,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/njnifkgw9p36i1b3hjwnrl43w69cgf4b-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.0466,
+  "source": "library(faraway)\n            data(hsb)\n            # Select relevant columns and handle factors\n            # We convert binary target to integer for easier comparison\n            hsb$target <- as.integer(hsb$prog == \"academic\")\n            hsb$ses <- as.character(hsb$ses)\n            hsb$schtyp <- as.character(hsb$schtyp)\n            hsb"
+},
+{
+  "node": "r_model_node",
+  "path": "/nix/store/njnifkgw9p36i1b3hjwnrl43w69cgf4b-pipeline_output/r_model_node/artifact",
+  "hash": "r_model_node",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "glm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.0718,
+  "source": "# Logistic regression as in the article\n            # Formula: target ~ ses + schtyp + read + write + science + socst\n            data_node$target <- as.factor(data_node$target)\n            data_node$ses <- as.factor(data_node$ses)\n            data_node$schtyp <- as.factor(data_node$schtyp)\n            glm(target ~ ses + schtyp + read + write + science + socst, \n                family = binomial(link = \"logit\"), \n                data = data_node)"
+},
+{
+  "node": "py_model_node",
+  "path": "/nix/store/njnifkgw9p36i1b3hjwnrl43w69cgf4b-pipeline_output/py_model_node/artifact",
+  "hash": "py_model_node",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1032,
+  "source": "import statsmodels.api as sm\nimport pandas as pd\n# Manual dummification to ensure JPMML compatibility\n# We match R's specific dummies seen in previous summaries: seslow, sesmiddle, schtyppublic\ndata_node['ses_low'] = (data_node['ses'] == 'low').astype(float)\ndata_node['ses_middle'] = (data_node['ses'] == 'middle').astype(float)\ndata_node['schtyp_public'] = (data_node['schtyp'] == 'public').astype(float)\n\nX = data_node[['ses_low', 'ses_middle', 'schtyp_public', 'read', 'write', 'science', 'socst']]\nX = sm.add_constant(X)\ny = data_node['target']\n# jpmml-statsmodels serialization\npy_model_node = sm.GLM(y, X, family=sm.families.Binomial()).fit()"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,66 @@
+{
+  "timestamp": "20261019_143328",
+  "hash": "8jvf65pjxwj97cq7c24jz93cdwx8jrif",
+  "out_path": "/nix/store/8jvf65pjxwj97cq7c24jz93cdwx8jrif-pipeline_output",
+  "duration": 22.3203,
+  "nodes": [
+{
+  "node": "raw",
+  "path": "/nix/store/8jvf65pjxwj97cq7c24jz93cdwx8jrif-pipeline_output/raw/artifact",
+  "hash": "raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.3830,
+  "source": "read_csv(\"data/sample.csv\")"
+},
+{
+  "node": "heavy_r_node",
+  "path": "/nix/store/8jvf65pjxwj97cq7c24jz93cdwx8jrif-pipeline_output/heavy_r_node/artifact",
+  "hash": "heavy_r_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "Unknown",
+  "dependencies": ["raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.4190,
+  "source": "library(dplyr)\n      raw %>% group_by(group) %>% summarize(total = sum(value))"
+},
+{
+  "node": "summary_stats",
+  "path": "/nix/store/8jvf65pjxwj97cq7c24jz93cdwx8jrif-pipeline_output/summary_stats/artifact",
+  "hash": "summary_stats",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["heavy_r_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.3713,
+  "source": "(heavy_r_node |> filter(($total > 100)))"
+},
+{
+  "node": "report",
+  "path": "/nix/store/8jvf65pjxwj97cq7c24jz93cdwx8jrif-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "QuartoOutput",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.1198,
+  "script": "src/report.qmd",
+  "script_hash": "2a576e16cb4778a19550919001d3fcbb"
+}
+],
+  "pipeline": "p_site"
+}

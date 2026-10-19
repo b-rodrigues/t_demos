@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261019_130646",
+  "hash": "da72vxp7n7p4p6ylmvydrjgq54kh47s3",
+  "out_path": "/nix/store/da72vxp7n7p4p6ylmvydrjgq54kh47s3-pipeline_output",
+  "duration": 15.8034,
+  "nodes": [
+{
+  "node": "wage_raw",
+  "path": "/nix/store/da72vxp7n7p4p6ylmvydrjgq54kh47s3-pipeline_output/wage_raw/artifact",
+  "hash": "wage_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.9837,
+  "source": "read_csv(\"data/Wage.csv\")"
+},
+{
+  "node": "t_data",
+  "path": "/nix/store/da72vxp7n7p4p6ylmvydrjgq54kh47s3-pipeline_output/t_data/artifact",
+  "hash": "t_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["wage_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.7447,
+  "source": "-- Use eval(to_expr(...)) to allow splicing !!!\n            cols = poly(wage_raw.age, 4, raw = true)\n            eval(to_expr(mutate(wage_raw, !!!cols)))"
+},
+{
+  "node": "t_model",
+  "path": "/nix/store/da72vxp7n7p4p6ylmvydrjgq54kh47s3-pipeline_output/t_model/artifact",
+  "hash": "t_model",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["t_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.3722,
+  "source": "if (is_error(t_data)) {\n                print(\"t_data loading failed!\")\n                print(t_data)\n                exit(1)\n            } else {\n                lm(t_data, wage ~ poly1 + poly2 + poly3 + poly4)\n            }"
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/da72vxp7n7p4p6ylmvydrjgq54kh47s3-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["wage_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.4225,
+  "source": "# Pre-compute polynomial terms to avoid r2pmml formula errors\n            df <- wage_raw\n            p <- poly(df$age, 4, raw = TRUE)\n            df$poly1 <- p[,1]\n            df$poly2 <- p[,2]\n            df$poly3 <- p[,3]\n            df$poly4 <- p[,4]\n            fit <- lm(wage ~ poly1 + poly2 + poly3 + poly4, data = df)\n            fit"
+}
+],
+  "pipeline": "p"
+}

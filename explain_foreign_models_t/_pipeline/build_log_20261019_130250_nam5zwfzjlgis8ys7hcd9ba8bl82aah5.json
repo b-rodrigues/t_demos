@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261019_130250",
+  "hash": "nam5zwfzjlgis8ys7hcd9ba8bl82aah5",
+  "out_path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output",
+  "duration": 17.8572,
+  "nodes": [
+{
+  "node": "r_fit",
+  "path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output/r_fit/artifact",
+  "hash": "r_fit",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lm",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.0871,
+  "source": "lm(mpg ~ wt + hp, data = mtcars)"
+},
+{
+  "node": "py_fit",
+  "path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output/py_fit/artifact",
+  "hash": "py_fit",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "LinearRegression",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.6379,
+  "source": "from sklearn.linear_model import LinearRegression\n            LinearRegression().fit([[1], [2], [3]], [2.0, 4.0, 6.0])"
+},
+{
+  "node": "r_coxph",
+  "path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output/r_coxph/artifact",
+  "hash": "r_coxph",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "coxph",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1294,
+  "source": "library(survival)\n            coxph(Surv(time, status) ~ age + sex, data = lung)"
+},
+{
+  "node": "r_rpart",
+  "path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output/r_rpart/artifact",
+  "hash": "r_rpart",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "rpart",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.0430,
+  "source": "library(rpart)\n            rpart(Species ~ ., iris)"
+},
+{
+  "node": "r_survfit",
+  "path": "/nix/store/nam5zwfzjlgis8ys7hcd9ba8bl82aah5-pipeline_output/r_survfit/artifact",
+  "hash": "r_survfit",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "survfit",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.0906,
+  "source": "library(survival)\n            survfit(Surv(time, status) ~ sex, data = lung)"
+}
+],
+  "pipeline": "p"
+}

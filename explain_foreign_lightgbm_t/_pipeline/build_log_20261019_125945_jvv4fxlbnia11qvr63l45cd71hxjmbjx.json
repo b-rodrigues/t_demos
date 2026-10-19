@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261019_125945",
+  "hash": "jvv4fxlbnia11qvr63l45cd71hxjmbjx",
+  "out_path": "/nix/store/jvv4fxlbnia11qvr63l45cd71hxjmbjx-pipeline_output",
+  "duration": 165.0659,
+  "nodes": [
+{
+  "node": "r_lgb",
+  "path": "/nix/store/jvv4fxlbnia11qvr63l45cd71hxjmbjx-pipeline_output/r_lgb/artifact",
+  "hash": "r_lgb",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lgb.Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.4929,
+  "source": "library(lightgbm)\n            data(agaricus.train)\n            dm = lgb.Dataset(agaricus.train$data, label = agaricus.train$label)\n            lgb.train(list(objective = \"binary\", num_leaves = 4), dm, 5)"
+},
+{
+  "node": "py_lgb",
+  "path": "/nix/store/jvv4fxlbnia11qvr63l45cd71hxjmbjx-pipeline_output/py_lgb/artifact",
+  "hash": "py_lgb",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 150.1240,
+  "source": "import lightgbm as lgb\n            from sklearn.datasets import make_classification\n            X, y = make_classification(n_samples = 100, n_features = 4, random_state = 1)\n            dm = lgb.Dataset(X, label = y)\n            lgb.train({\"objective\": \"binary\", \"num_leaves\": 4}, dm, num_boost_round = 5)"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261019_124615",
+  "hash": "5hmhi0mcjaw9lxmb9cfxng4fp12dvqm2",
+  "out_path": "/nix/store/5hmhi0mcjaw9lxmb9cfxng4fp12dvqm2-pipeline_output",
+  "duration": 12.9882,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/5hmhi0mcjaw9lxmb9cfxng4fp12dvqm2-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.8369,
+  "source": "to_dataframe([[x: 1, y: 3], [x: 2, y: 4]])"
+},
+{
+  "node": "final_status",
+  "path": "/nix/store/5hmhi0mcjaw9lxmb9cfxng4fp12dvqm2-pipeline_output/final_status/artifact",
+  "hash": "final_status",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5992,
+  "source": "(raw_data |> mutate(z = ($x + $y)))"
+},
+{
+  "node": "extra_step",
+  "path": "/nix/store/5hmhi0mcjaw9lxmb9cfxng4fp12dvqm2-pipeline_output/extra_step/artifact",
+  "hash": "extra_step",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["final_status"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3607,
+  "source": "(final_status |> mutate(msg = str_join([$z, \" - extended\"])))"
+}
+],
+  "pipeline": "final_p"
+}

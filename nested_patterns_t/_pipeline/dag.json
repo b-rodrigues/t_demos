@@ -1,0 +1,42 @@
+[
+{
+  "node_name": "groups",
+  "depends": []
+},
+{
+  "node_name": "adjustments",
+  "depends": []
+},
+{
+  "node_name": "base_branch_1",
+  "depends": ["groups"]
+},
+{
+  "node_name": "base_branch_2",
+  "depends": ["groups"]
+},
+{
+  "node_name": "final_branch_1",
+  "depends": ["adjustments", "base_branch_1"]
+},
+{
+  "node_name": "final_branch_2",
+  "depends": ["adjustments", "base_branch_1"]
+},
+{
+  "node_name": "final_branch_3",
+  "depends": ["adjustments", "base_branch_1"]
+},
+{
+  "node_name": "final_branch_4",
+  "depends": ["adjustments", "base_branch_2"]
+},
+{
+  "node_name": "final_branch_5",
+  "depends": ["adjustments", "base_branch_2"]
+},
+{
+  "node_name": "final_branch_6",
+  "depends": ["adjustments", "base_branch_2"]
+}
+]

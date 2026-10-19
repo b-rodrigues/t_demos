@@ -1,0 +1,67 @@
+{
+  "timestamp": "20261019_141917",
+  "hash": "hq101f64n19fspdlzz93w2hp26r9v5g4",
+  "out_path": "/nix/store/hq101f64n19fspdlzz93w2hp26r9v5g4-pipeline_output",
+  "duration": 16.9651,
+  "nodes": [
+{
+  "node": "train_classifier",
+  "path": "/nix/store/hq101f64n19fspdlzz93w2hp26r9v5g4-pipeline_output/train_classifier/artifact",
+  "hash": "train_classifier",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "RandomForestClassifier",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5351,
+  "source": "import numpy as np\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.datasets import make_classification\n\n# Generate synthetic classification data\nX, y = make_classification(n_samples=100, n_features=4, n_informative=2, n_redundant=0, random_state=42)\nX = X.astype(np.float32)\n\n# Train the model\nmodel = RandomForestClassifier(n_estimators=10, max_depth=5, random_state=42)\nmodel.fit(X, y)\n\n# Return the model for auto-ONNX serialization\nmodel"
+},
+{
+  "node": "python_predictions",
+  "path": "/nix/store/hq101f64n19fspdlzz93w2hp26r9v5g4-pipeline_output/python_predictions/artifact",
+  "hash": "python_predictions",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 2.5553,
+  "source": "import numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.datasets import make_classification\n\n# Re-generate the same data\nX, y = make_classification(n_samples=100, n_features=4, n_informative=2, n_redundant=0, random_state=42)\nX = X.astype(np.float32)\n\n# Train the same model\nmodel = RandomForestClassifier(n_estimators=10, max_depth=5, random_state=42)\nmodel.fit(X, y)\n\n# Define test samples for parity check\ntest_samples = pd.DataFrame({\n    \"f1\": [0.1, -1.0, 2.0],\n    \"f2\": [0.5, 0.0, -0.5],\n    \"f3\": [-0.2, 1.2, 0.8],\n    \"f4\": [0.8, -0.3, 1.5]\n}).astype(np.float32)\n\n# Get predictions using the native Scikit-Learn model in Python\npy_preds = model.predict(test_samples).astype(np.float64).tolist()\npy_preds"
+},
+{
+  "node": "t_predictions",
+  "path": "/nix/store/hq101f64n19fspdlzz93w2hp26r9v5g4-pipeline_output/t_predictions/artifact",
+  "hash": "t_predictions",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["train_classifier"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6117,
+  "source": "test_samples = to_dataframe([\n                f1: [0.1, -1.0, 2.0],\n                f2: [0.5, 0.0, -0.5],\n                f3: [-0.2, 1.2, 0.8],\n                f4: [0.8, -0.3, 1.5]\n            ])\n            \n            predictions = predict(test_samples, train_classifier)\n            predictions"
+},
+{
+  "node": "validate_parity",
+  "path": "/nix/store/hq101f64n19fspdlzz93w2hp26r9v5g4-pipeline_output/validate_parity/artifact",
+  "hash": "validate_parity",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": ["python_predictions", "t_predictions"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.3146,
+  "error_code": "AssertionError",
+  "error_message": "Assertion failed: T-Lang ONNX scoring does not match Python Scikit-Learn scoring!.",
+  "source": "assert(t_predictions == python_predictions, \"T-Lang ONNX scoring does not match Python Scikit-Learn scoring!\")\n            true"
+}
+],
+  "pipeline": "p"
+}

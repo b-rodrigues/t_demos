@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261019_130903",
+  "hash": "p9svrr21abghv9ibzkh78qqpyswzzg1q",
+  "out_path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output",
+  "duration": 8.6560,
+  "nodes": [
+{
+  "node": "alpha",
+  "path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output/alpha/artifact",
+  "hash": "alpha",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6345,
+  "source": "10"
+},
+{
+  "node": "beta",
+  "path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output/beta/artifact",
+  "hash": "beta",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6169,
+  "source": "20"
+},
+{
+  "node": "gamma",
+  "path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output/gamma/artifact",
+  "hash": "gamma",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5948,
+  "source": "30"
+},
+{
+  "node": "greeting",
+  "path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output/greeting/artifact",
+  "hash": "greeting",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5659,
+  "source": "\"hello\""
+},
+{
+  "node": "sum_node",
+  "path": "/nix/store/p9svrr21abghv9ibzkh78qqpyswzzg1q-pipeline_output/sum_node/artifact",
+  "hash": "sum_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["alpha", "beta"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3231,
+  "source": "(alpha + beta)"
+}
+],
+  "pipeline": "p"
+}

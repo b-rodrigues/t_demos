@@ -1,0 +1,9 @@
+{
+  "plotnine_node": "/nix/store/5lq4ln4x8y4m0xmvg4c3gffkq7npscaj-plotnine_node.drv",
+  "plotly_node": "/nix/store/1y9ci183vh9chq0g2nk9nqz9mbqh6f30-plotly_node.drv",
+  "seaborn_node": "/nix/store/kwb86vf2bbhs43ssxygvwm1zx3wigpr4-seaborn_node.drv",
+  "altair_node": "/nix/store/gd3q6y75f4ivar7qb7bp1fnrl2x0slxj-altair_node.drv",
+  "matplotlib_node": "/nix/store/9qflarq1im9sdqpw7lmv238v8nd7i6ii-matplotlib_node.drv",
+  "ggplot_node": "/nix/store/m57rhv610nrbg9829nbawcqw8h8fgp11-ggplot_node.drv",
+  "data_node": "/nix/store/hyv06k4hkr43llbg7pwlhjyay341kpin-data_node.drv"
+}

@@ -1,0 +1,93 @@
+{
+  "timestamp": "20261019_131056",
+  "hash": "8x3qhx5p981wdz15rsgamwif91w1vw8x",
+  "out_path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output",
+  "duration": 8.2880,
+  "nodes": [
+{
+  "node": "alpha",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/alpha/artifact",
+  "hash": "alpha",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "10"
+},
+{
+  "node": "beta",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/beta/artifact",
+  "hash": "beta",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "20"
+},
+{
+  "node": "gamma",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/gamma/artifact",
+  "hash": "gamma",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "30"
+},
+{
+  "node": "greeting",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/greeting/artifact",
+  "hash": "greeting",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "\"hello\""
+},
+{
+  "node": "sum_node",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/sum_node/artifact",
+  "hash": "sum_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["alpha", "beta"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "(alpha + beta)"
+},
+{
+  "node": "delta",
+  "path": "/nix/store/8x3qhx5p981wdz15rsgamwif91w1vw8x-pipeline_output/delta/artifact",
+  "hash": "delta",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3141,
+  "source": "999"
+}
+],
+  "pipeline": "p3"
+}

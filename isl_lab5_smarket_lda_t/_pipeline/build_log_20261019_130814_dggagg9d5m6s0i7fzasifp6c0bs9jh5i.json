@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261019_130814",
+  "hash": "dggagg9d5m6s0i7fzasifp6c0bs9jh5i",
+  "out_path": "/nix/store/dggagg9d5m6s0i7fzasifp6c0bs9jh5i-pipeline_output",
+  "duration": 17.0654,
+  "nodes": [
+{
+  "node": "smarket_raw",
+  "path": "/nix/store/dggagg9d5m6s0i7fzasifp6c0bs9jh5i-pipeline_output/smarket_raw/artifact",
+  "hash": "smarket_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.3534,
+  "source": "read_csv(\"data/Smarket.csv\")"
+},
+{
+  "node": "data_node",
+  "path": "/nix/store/dggagg9d5m6s0i7fzasifp6c0bs9jh5i-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["smarket_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1255,
+  "source": "# Prepare data: Year before 2005 for training\n            df <- smarket_raw[, -1]\n            df$Direction <- as.factor(df$Direction)\n            df"
+},
+{
+  "node": "r_preds",
+  "path": "/nix/store/dggagg9d5m6s0i7fzasifp6c0bs9jh5i-pipeline_output/r_preds/artifact",
+  "hash": "r_preds",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1476,
+  "source": "library(MASS)\n            train <- data_node[data_node$Year < 2005, ]\n            test <- data_node[data_node$Year >= 2005, ]\n            fit <- lda(Direction ~ Lag1 + Lag2, data = train)\n            preds <- predict(fit, test)$class\n            data.frame(Direction = as.character(preds))"
+},
+{
+  "node": "py_preds",
+  "path": "/nix/store/dggagg9d5m6s0i7fzasifp6c0bs9jh5i-pipeline_output/py_preds/artifact",
+  "hash": "py_preds",
+  "runtime": "Python",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1772,
+  "source": "import pandas as pd\nfrom sklearn.discriminant_analysis import LinearDiscriminantAnalysis\n\ntrain = data_node[data_node['Year'] < 2005]\ntest = data_node[data_node['Year'] >= 2005]\n\nX_train = train[['Lag1', 'Lag2']]\ny_train = train['Direction']\nX_test = test[['Lag1', 'Lag2']]\n\npy_lda = LinearDiscriminantAnalysis()\npy_lda.fit(X_train, y_train)\npreds = py_lda.predict(X_test)\npy_preds = pd.DataFrame({'Direction': preds})"
+}
+],
+  "pipeline": "p"
+}
