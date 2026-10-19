@@ -1,9 +1,8 @@
 ---
 title: "Benchmark Méthodologique : Timestral (Mistral AI) vs Économétrie Statistique (R)"
 subtitle: "Analyse critique sur l'inflation, la hiérarchie sectorielle, le conditionnement par variables exogènes et l'évaluation probabiliste"
-format: html
-filters:
-  - tlang
+date: "2026-10-19"
+format: typst
 ---
 
 ```{r}

@@ -66,12 +66,12 @@ jobs:
         run: |
           nix develop --command t run --failfast src/pipeline.t
 
-      - name: Verify HTML Artifact
+      - name: Verify PDF Artifact
         run: |
           ls -la pipeline-output/report/artifact/
-          if [ -f pipeline-output/report/artifact/report.html ]; then
-            echo "SUCCESS: report.html found."
+          if [ -f pipeline-output/report/artifact/report.pdf ]; then
+            echo "SUCCESS: report.pdf found."
           else
-            echo "FAILURE: report.html NOT found."
+            echo "FAILURE: report.pdf NOT found."
             exit 1
           fi

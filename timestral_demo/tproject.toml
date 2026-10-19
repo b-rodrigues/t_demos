@@ -25,7 +25,7 @@ packages = [
 ]
 
 [additional-tools]
-packages = ["quarto", "which"]
+packages = ["quarto", "which", "typst"]
 
 [t]
 min_version = "0.56.1"
