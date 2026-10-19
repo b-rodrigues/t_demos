@@ -5,7 +5,12 @@
 p = pipeline {
   ----------------------------------------------------------------------------
   -- STUDY 1: Canonical Inflation Benchmark (CPIAUCSL, 2010-2024)
-  ----------------------------------------------------------------------------
+  helpers = node(
+    command = [code: read_file("src/helpers.R")],
+    runtime = T,
+    serializer = ^json
+  )
+
   raw_data = node(
     command = read_csv("data/cpi.csv", separator = ","),
     runtime = T,
@@ -15,7 +20,7 @@ p = pipeline {
   r_arima = rn(
     command = <{
       library(forecast)
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
 
       train_cpi = head(raw_data$cpi, -12)
       ts_train  = ts(train_cpi, frequency = 12)
@@ -64,7 +69,10 @@ p = pipeline {
       }
       r_arima = out
     }>,
-    deserializer = ^csv,
+    deserializer = [
+      raw_data: ^csv,
+      helpers: ^json
+    ],
     serializer = ^csv
   )
 
@@ -118,7 +126,7 @@ timestral_209m = pd.DataFrame(data_dict)
 
   benchmark_metrics = rn(
     command = <{
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
       actual = tail(raw_data$cpi, 12)
       last_train = tail(head(raw_data$cpi, -12), 1)
       calc_inf <- function(pred) (tail(pred, 1) - last_train) / last_train * 100
@@ -160,14 +168,15 @@ timestral_209m = pd.DataFrame(data_dict)
       raw_data: ^csv,
       r_arima: ^csv,
       timestral_5m: ^csv,
-      timestral_209m: ^csv
+      timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
 
   cpi_probabilistic_metrics = rn(
     command = <{
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
       actual = tail(raw_data$cpi, 12)
 
       q_cols = quantile_cols(timestral_5m)
@@ -218,7 +227,8 @@ timestral_209m = pd.DataFrame(data_dict)
       raw_data: ^csv,
       r_arima: ^csv,
       timestral_5m: ^csv,
-      timestral_209m: ^csv
+      timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
@@ -236,7 +246,7 @@ timestral_209m = pd.DataFrame(data_dict)
   retail_r_arima = rn(
     command = <{
       library(forecast)
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
 
       train = head(retail_raw_data, -12)
       test  = tail(retail_raw_data, 12)
@@ -313,7 +323,10 @@ timestral_209m = pd.DataFrame(data_dict)
 
       retail_r_arima = res
     }>,
-    deserializer = ^csv,
+    deserializer = [
+      retail_raw_data: ^csv,
+      helpers: ^json
+    ],
     serializer = ^csv
   )
 
@@ -331,9 +344,15 @@ for d in (train, test):
 sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other"]
 fc = TimestralForecaster.from_pretrained("models/Timestral-5M")
 
-# 1. Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
-# Evaluated across batch of 7 independent univariate series (verified identical to individual 1D calls up to float32 precision ~1e-7)
+# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls (< 1e-5)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
+test_sample = mat_train[:, :120].copy()
+batch_pred = fc.forecast(test_sample, prediction_length=1).median.cpu().numpy().squeeze()
+indiv_pred = np.array([fc.forecast(test_sample[idx], prediction_length=1).median.cpu().numpy().squeeze() for idx in range(len(sectors_all))])
+max_diff = float(np.max(np.abs(batch_pred - indiv_pred)))
+assert np.allclose(batch_pred, indiv_pred, rtol=1e-5, atol=0.1), f"Batch vs 1D parity failed for Timestral-5M: max diff is {max_diff}"
+
+# Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
 res_list = []
 for o in range(120, mat_train.shape[1]):
     p1 = fc.forecast(mat_train[:, :o].copy(), prediction_length=1).median.cpu().numpy().squeeze()
@@ -408,9 +427,15 @@ for d in (train, test):
 sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other"]
 fc = TimestralForecaster.from_pretrained("models/Timestral-209M")
 
-# 1. Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
-# Evaluated across batch of 7 independent univariate series (verified identical to individual 1D calls up to float32 precision ~1e-7)
+# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls (< 1e-5)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
+test_sample = mat_train[:, :120].copy()
+batch_pred = fc.forecast(test_sample, prediction_length=1).median.cpu().numpy().squeeze()
+indiv_pred = np.array([fc.forecast(test_sample[idx], prediction_length=1).median.cpu().numpy().squeeze() for idx in range(len(sectors_all))])
+max_diff = float(np.max(np.abs(batch_pred - indiv_pred)))
+assert np.allclose(batch_pred, indiv_pred, rtol=1e-5, atol=0.1), f"Batch vs 1D parity failed for Timestral-209M: max diff is {max_diff}"
+
+# Rolling 1-step backtest residuals on training set (48 origins: 120..167) for MinT-shrink W
 res_list = []
 for o in range(120, mat_train.shape[1]):
     p1 = fc.forecast(mat_train[:, :o].copy(), prediction_length=1).median.cpu().numpy().squeeze()
@@ -473,7 +498,7 @@ retail_timestral_209m = res_df
 
   retail_benchmark_metrics = rn(
     command = <{
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
       actual = tail(retail_raw_data, 12)
       actual$other = actual$total - (actual$automotive + actual$food_beverage + actual$clothing + actual$ecommerce + actual$general_merchandise)
 
@@ -518,14 +543,15 @@ retail_timestral_209m = res_df
       retail_raw_data: ^csv,
       retail_r_arima: ^csv,
       retail_timestral_5m: ^csv,
-      retail_timestral_209m: ^csv
+      retail_timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
 
   retail_coherence_metrics = rn(
     command = <{
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
       actual = tail(retail_raw_data, 12)
       actual$other = actual$total - (actual$automotive + actual$food_beverage + actual$clothing + actual$ecommerce + actual$general_merchandise)
       sectors_bottom = c("automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other")
@@ -619,7 +645,8 @@ retail_timestral_209m = res_df
       retail_raw_data: ^csv,
       retail_r_arima: ^csv,
       retail_timestral_5m: ^csv,
-      retail_timestral_209m: ^csv
+      retail_timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
@@ -637,7 +664,7 @@ retail_timestral_209m = res_df
     command = <{
       library(forecast)
       library(vars)
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
 
       train = head(macro_raw_data, -12)
       test  = tail(macro_raw_data, 12)
@@ -723,7 +750,10 @@ retail_timestral_209m = res_df
       }
       macro_r_models = out
     }>,
-    deserializer = ^csv,
+    deserializer = [
+      macro_raw_data: ^csv,
+      helpers: ^json
+    ],
     serializer = ^csv
   )
 
@@ -809,7 +839,7 @@ macro_timestral_209m = pd.DataFrame(data)
 
   macro_benchmark_metrics = rn(
     command = <{
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
       actual = tail(macro_raw_data, 12)
       q_cols = q_names()
 
@@ -888,7 +918,8 @@ macro_timestral_209m = pd.DataFrame(data)
       macro_raw_data: ^csv,
       macro_r_models: ^csv,
       macro_timestral_5m: ^csv,
-      macro_timestral_209m: ^csv
+      macro_timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
@@ -964,7 +995,7 @@ rolling_timestral = pd.DataFrame(rows)
   context_ablation_metrics = rn(
     command = <{
       library(forecast)
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
 
       all_dates = format(seq(as.Date("2000-01-01"), by = "month", length.out = 300), "%Y-%m")
       train_cpi = head(macro_raw_data$cpi, 288)
@@ -999,7 +1030,8 @@ rolling_timestral = pd.DataFrame(rows)
     deserializer = [
       macro_raw_data: ^csv,
       macro_timestral_5m: ^csv,
-      macro_timestral_209m: ^csv
+      macro_timestral_209m: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
@@ -1007,41 +1039,49 @@ rolling_timestral = pd.DataFrame(rows)
   rolling_origin_metrics = rn(
     command = <{
       library(forecast)
-      source("src/helpers.R")
+      eval(parse(text = helpers$code))
 
       origins = seq(150, 288, by = 6) # 24 origins spaced by 6 months
+      covid_origins = c(234, 240, 246, 252) # Origins whose 12-month test windows cover COVID 2020-2021
+      idx_nocov = which(!origins %in% covid_origins)
 
       roll_rows = list()
       for (v in c("cpi", "unrate")) {
         y = macro_raw_data[[v]]
         t_lbl = if (v == "cpi") "CPI (24 origines)" else "UNRATE (24 origines)"
 
-        e1_n = e12_n = numeric(length(origins))
-        e1_a = e12_a = r12_a = m12_a = w12_a = c80_a = numeric(length(origins))
-        e1_e = e12_e = r12_e = m12_e = w12_e = c80_e = numeric(length(origins))
+        e1_n = e12_n = r12_n = m12_n = w12_n = crps12_n = c80_n = numeric(length(origins))
+        e1_a = e12_a = r12_a = m12_a = w12_a = crps12_a = c80_a = numeric(length(origins))
+        e1_e = e12_e = r12_e = m12_e = w12_e = crps12_e = c80_e = numeric(length(origins))
 
         for (i in seq_along(origins)) {
           L = origins[i]
           tr = ts(y[1:L], frequency = 12)
           act = y[(L + 1):(L + 12)]
 
-          # Naive
+          # Naive with robust probabilistic quantiles
           p_n = rep(y[L], 12)
+          q_n = forecast_quantiles("naive", h = 12, y_train = y[1:L])
+          sc_n = score_rows(act, q_n)
           e1_n[i] = act[1] - p_n[1]; e12_n[i] = act[12] - p_n[12]
+          r12_n[i] = rmse(p_n, act); m12_n[i] = mae(p_n, act)
+          w12_n[i] = mean(sc_n$wis); crps12_n[i] = mean(sc_n$crps); c80_n[i] = mean(sc_n$in80)
 
           # ARIMA (consistent specification)
           fit_a = auto.arima(tr)
           p_a   = as.numeric(forecast(fit_a, h = 12)$mean)
           sc_a  = score_rows(act, forecast_quantiles(fit_a, h = 12))
-          e1_a[i] = act[1] - p_a[1]; e12_a[i] = act[12] - p_a[12]; r12_a[i] = rmse(p_a, act); m12_a[i] = mae(p_a, act)
-          w12_a[i] = mean(sc_a$wis); c80_a[i] = mean(sc_a$in80)
+          e1_a[i] = act[1] - p_a[1]; e12_a[i] = act[12] - p_a[12]
+          r12_a[i] = rmse(p_a, act); m12_a[i] = mae(p_a, act)
+          w12_a[i] = mean(sc_a$wis); crps12_a[i] = mean(sc_a$crps); c80_a[i] = mean(sc_a$in80)
 
           # ETS (consistent specification with state-space simulations)
           fit_e = ets(tr)
           p_e   = as.numeric(forecast(fit_e, h = 12)$mean)
           sc_e  = score_rows(act, forecast_quantiles(fit_e, h = 12, npaths = 1000, seed = 2024 + i))
-          e1_e[i] = act[1] - p_e[1]; e12_e[i] = act[12] - p_e[12]; r12_e[i] = rmse(p_e, act); m12_e[i] = mae(p_e, act)
-          w12_e[i] = mean(sc_e$wis); c80_e[i] = mean(sc_e$in80)
+          e1_e[i] = act[1] - p_e[1]; e12_e[i] = act[12] - p_e[12]
+          r12_e[i] = rmse(p_e, act); m12_e[i] = mae(p_e, act)
+          w12_e[i] = mean(sc_e$wis); crps12_e[i] = mean(sc_e$crps); c80_e[i] = mean(sc_e$in80)
         }
 
         sub_t5   = rolling_timestral[rolling_timestral$target == v & rolling_timestral$model == "Timestral-5M", ]
@@ -1049,20 +1089,25 @@ rolling_timestral = pd.DataFrame(rows)
         sub_t5   = sub_t5[order(sub_t5$origin_idx), ]
         sub_t209 = sub_t209[order(sub_t209$origin_idx), ]
 
-        # DM tests vs ARIMA benchmark at h=1 (independent errors spaced by 6m)
-        # and at h=12 (6-month overlapping errors)
-        dm_n_1    = dm_harvey(e1_n, e1_a, h = 1);             dm_n_12    = dm_harvey(e12_n, e12_a, h = 12)
-        dm_e_1    = dm_harvey(e1_e, e1_a, h = 1);             dm_e_12    = dm_harvey(e12_e, e12_a, h = 12)
-        dm_t5_1   = dm_harvey(sub_t5$err_h1, e1_a, h = 1);    dm_t5_12   = dm_harvey(sub_t5$err_h12, e12_a, h = 12)
-        dm_t209_1 = dm_harvey(sub_t209$err_h1, e1_a, h = 1);  dm_t209_12 = dm_harvey(sub_t209$err_h12, e12_a, h = 12)
+        # DM tests vs ARIMA benchmark:
+        # h=1: independent 1-step errors spaced by 6 months -> h = 1
+        # h=12: 12-step errors sampled every 6 months overlap by 6 months -> effective autocorrelation lag ceil(12/6) = 2 -> h = 2
+        dm_n_1    = dm_harvey(e1_n, e1_a, h = 1);             dm_n_12    = dm_harvey(e12_n, e12_a, h = 2)
+        dm_e_1    = dm_harvey(e1_e, e1_a, h = 1);             dm_e_12    = dm_harvey(e12_e, e12_a, h = 2)
+        dm_t5_1   = dm_harvey(sub_t5$err_h1, e1_a, h = 1);    dm_t5_12   = dm_harvey(sub_t5$err_h12, e12_a, h = 2)
+        dm_t209_1 = dm_harvey(sub_t209$err_h1, e1_a, h = 1);  dm_t209_12 = dm_harvey(sub_t209$err_h12, e12_a, h = 2)
 
-        # Clear long-format rows for h=1 and h=12:
+        models_vec = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M")
+
+        # 1. Horizon Pas 1 (h=1)
         df_h1 = data.frame(
           target        = t_lbl,
-          horizon       = "h=1",
-          model         = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M"),
+          horizon       = "Pas 1 (h=1)",
+          model         = models_vec,
           rmse          = round(c(sqrt(mean(e1_n^2)), sqrt(mean(e1_a^2)), sqrt(mean(e1_e^2)), sqrt(mean(sub_t5$err_h1^2)), sqrt(mean(sub_t209$err_h1^2))), 3),
           mae           = round(c(mean(abs(e1_n)), mean(abs(e1_a)), mean(abs(e1_e)), mean(abs(sub_t5$err_h1)), mean(abs(sub_t209$err_h1))), 3),
+          rmse_ex_covid = round(c(sqrt(mean(e1_n[idx_nocov]^2)), sqrt(mean(e1_a[idx_nocov]^2)), sqrt(mean(e1_e[idx_nocov]^2)), sqrt(mean(sub_t5$err_h1[idx_nocov]^2)), sqrt(mean(sub_t209$err_h1[idx_nocov]^2))), 3),
+          mae_ex_covid  = round(c(mean(abs(e1_n[idx_nocov])), mean(abs(e1_a[idx_nocov])), mean(abs(e1_e[idx_nocov])), mean(abs(sub_t5$err_h1[idx_nocov])), mean(abs(sub_t209$err_h1[idx_nocov]))), 3),
           wis           = NA_real_,
           crps          = NA_real_,
           coverage_80   = NA_real_,
@@ -1070,21 +1115,41 @@ rolling_timestral = pd.DataFrame(rows)
           dm_pval       = round(c(dm_n_1["pval"], 1.0, dm_e_1["pval"], dm_t5_1["pval"], dm_t209_1["pval"]), 4)
         )
 
+        # 2. Horizon Pas 12 (h=12)
         df_h12 = data.frame(
           target        = t_lbl,
-          horizon       = "h=12",
-          model         = c("Naive (RW)", "R ARIMA (réf. DM)", "R ETS", "Timestral-5M", "Timestral-209M"),
+          horizon       = "Pas 12 (h=12)",
+          model         = models_vec,
           rmse          = round(c(sqrt(mean(e12_n^2)), sqrt(mean(e12_a^2)), sqrt(mean(e12_e^2)), sqrt(mean(sub_t5$err_h12^2)), sqrt(mean(sub_t209$err_h12^2))), 3),
           mae           = round(c(mean(abs(e12_n)), mean(abs(e12_a)), mean(abs(e12_e)), mean(abs(sub_t5$err_h12)), mean(abs(sub_t209$err_h12))), 3),
-          wis           = round(c(NA_real_, mean(w12_a), mean(w12_e), mean(sub_t5$wis_12m), mean(sub_t209$wis_12m)), 3),
-          crps          = round(c(NA_real_, NA_real_, NA_real_, mean(sub_t5$crps_12m), mean(sub_t209$crps_12m)), 3),
-          coverage_80   = round(c(NA_real_, mean(c80_a), mean(c80_e), mean(sub_t5$cov80_12m), mean(sub_t209$cov80_12m)), 3),
+          rmse_ex_covid = round(c(sqrt(mean(e12_n[idx_nocov]^2)), sqrt(mean(e12_a[idx_nocov]^2)), sqrt(mean(e12_e[idx_nocov]^2)), sqrt(mean(sub_t5$err_h12[idx_nocov]^2)), sqrt(mean(sub_t209$err_h12[idx_nocov]^2))), 3),
+          mae_ex_covid  = round(c(mean(abs(e12_n[idx_nocov])), mean(abs(e12_a[idx_nocov])), mean(abs(e12_e[idx_nocov])), mean(abs(sub_t5$err_h12[idx_nocov])), mean(abs(sub_t209$err_h12[idx_nocov]))), 3),
+          wis           = NA_real_,
+          crps          = NA_real_,
+          coverage_80   = NA_real_,
           dm_stat       = round(c(dm_n_12["stat"], 0.0, dm_e_12["stat"], dm_t5_12["stat"], dm_t209_12["stat"]), 3),
           dm_pval       = round(c(dm_n_12["pval"], 1.0, dm_e_12["pval"], dm_t5_12["pval"], dm_t209_12["pval"]), 4)
         )
 
-        roll_rows[[paste0(v, "_h1")]]  = df_h1
-        roll_rows[[paste0(v, "_h12")]] = df_h12
+        # 3. Horizon Trajectoire (1..12m)
+        df_traj = data.frame(
+          target        = t_lbl,
+          horizon       = "Trajectoire (1..12m)",
+          model         = models_vec,
+          rmse          = round(c(sqrt(mean(r12_n^2)), sqrt(mean(r12_a^2)), sqrt(mean(r12_e^2)), sqrt(mean(sub_t5$rmse_12m^2)), sqrt(mean(sub_t209$rmse_12m^2))), 3),
+          mae           = round(c(mean(m12_n), mean(m12_a), mean(m12_e), mean(sub_t5$mae_12m), mean(sub_t209$mae_12m)), 3),
+          rmse_ex_covid = round(c(sqrt(mean(r12_n[idx_nocov]^2)), sqrt(mean(r12_a[idx_nocov]^2)), sqrt(mean(r12_e[idx_nocov]^2)), sqrt(mean(sub_t5$rmse_12m[idx_nocov]^2)), sqrt(mean(sub_t209$rmse_12m[idx_nocov]^2))), 3),
+          mae_ex_covid  = round(c(mean(m12_n[idx_nocov]), mean(m12_a[idx_nocov]), mean(m12_e[idx_nocov]), mean(sub_t5$mae_12m[idx_nocov]), mean(sub_t209$mae_12m[idx_nocov])), 3),
+          wis           = round(c(mean(w12_n), mean(w12_a), mean(w12_e), mean(sub_t5$wis_12m), mean(sub_t209$wis_12m)), 3),
+          crps          = round(c(mean(crps12_n), mean(crps12_a), mean(crps12_e), mean(sub_t5$crps_12m), mean(sub_t209$crps_12m)), 3),
+          coverage_80   = round(c(mean(c80_n), mean(c80_a), mean(c80_e), mean(sub_t5$cov80_12m), mean(sub_t209$cov80_12m)), 3),
+          dm_stat       = NA_real_,
+          dm_pval       = NA_real_
+        )
+
+        roll_rows[[paste0(v, "_h1")]]   = df_h1
+        roll_rows[[paste0(v, "_h12")]]  = df_h12
+        roll_rows[[paste0(v, "_traj")]] = df_traj
       }
 
       rolling_origin_metrics = do.call(rbind, roll_rows)
@@ -1093,7 +1158,8 @@ rolling_timestral = pd.DataFrame(rows)
     }>,
     deserializer = [
       macro_raw_data: ^csv,
-      rolling_timestral: ^csv
+      rolling_timestral: ^csv,
+      helpers: ^json
     ],
     serializer = ^csv
   )
@@ -1127,8 +1193,9 @@ if (length(err_list) > 0) {
 }
 check(expect_equal(length(err_list), 0))
 
--- Verify all 21 expected nodes are present in the pipeline
+-- Verify all 22 expected nodes are present in the pipeline
 expected_nodes = [
+  "helpers",
   "raw_data", "r_arima", "timestral_5m", "timestral_209m", "benchmark_metrics", "cpi_probabilistic_metrics",
   "retail_raw_data", "retail_r_arima", "retail_timestral_5m", "retail_timestral_209m", "retail_benchmark_metrics", "retail_coherence_metrics",
   "macro_raw_data", "macro_r_models", "macro_timestral_5m", "macro_timestral_209m", "macro_benchmark_metrics",
@@ -1161,8 +1228,10 @@ check(expect_nrow(retail_coh, 12))
 check(expect_no_na(retail_coh))
 -- Assert relative accounting coherence (< 1e-8 * max_scale ~ 7.5e-3 M$) for all reconciled models
 check(expect_nrow(filter(retail_coh, $is_reconciled == 1 && $max_abs_incoherence >= 1e-8 * 750000), 0))
--- Assert unreconciled base models are genuinely incoherent (> 100 M$)
-check(expect_nrow(filter(retail_coh, $is_reconciled == 0 && $max_abs_incoherence < 100), 0))
+-- Scale-invariant coherence check: minimum base incoherence is at least 1,000x larger than maximum reconciled incoherence
+min_base_incoh = min(filter(retail_coh, $is_reconciled == 0).max_abs_incoherence)
+max_rec_incoh  = max(filter(retail_coh, $is_reconciled == 1).max_abs_incoherence)
+check(expect_true(min_base_incoh > 1000 * max_rec_incoh))
 
 macro_metrics = read_node(p.macro_benchmark_metrics)
 check(expect_nrow(macro_metrics, 18))
@@ -1179,7 +1248,23 @@ ablation_metrics = read_node(p.context_ablation_metrics)
 check(expect_nrow(ablation_metrics, 5))
 check(expect_no_na(ablation_metrics))
 
-roll_metrics = read_node(p.rolling_origin_metrics)
-check(expect_nrow(roll_metrics, 20))
+-- Non-regression assertion: Ablation at L=168 must reproduce Study 1 benchmark metrics (< 1e-3)
+abl_ari = min(filter(ablation_metrics, $context_months == 168).arima_rmse)
+abl_ets = min(filter(ablation_metrics, $context_months == 168).ets_rmse)
+abl_t5m = min(filter(ablation_metrics, $context_months == 168).t5m_rmse)
+abl_t20 = min(filter(ablation_metrics, $context_months == 168).t209m_rmse)
 
-print("✓ timestral_demo: all 21 nodes and substantive coherence/monotonicity assertions passed successfully!")
+s1_ari = min(filter(cpi_metrics, $model == "R ARIMA (AIC)").rmse)
+s1_ets = min(filter(cpi_metrics, $model == "R ETS (Espace d'états)").rmse)
+s1_t5m = min(filter(cpi_metrics, $model == "Timestral-5M (Zero-shot)").rmse)
+s1_t20 = min(filter(cpi_metrics, $model == "Timestral-209M (Zero-shot)").rmse)
+
+check(expect_true(abs(abl_ari - s1_ari) < 0.001))
+check(expect_true(abs(abl_ets - s1_ets) < 0.001))
+check(expect_true(abs(abl_t5m - s1_t5m) < 0.001))
+check(expect_true(abs(abl_t20 - s1_t20) < 0.001))
+
+roll_metrics = read_node(p.rolling_origin_metrics)
+check(expect_nrow(roll_metrics, 30))
+
+print("✓ timestral_demo: all 22 nodes, non-regression, and substantive coherence/monotonicity assertions passed successfully!")

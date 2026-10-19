@@ -9,24 +9,27 @@ quantile_cols    <- function(df) grep("^q_[0-9]{2}$", names(df), value = TRUE)
 levels_from_cols <- function(cols) as.integer(sub("^q_", "", cols)) / 100
 check_grid       <- function(cols) isTRUE(all.equal(levels_from_cols(cols), Q_LEVELS))
 
-# Exact predictive quantiles:
-# 1. Random Walk Naive Gaussian distribution based on in-sample 1-step innovation variance
-forecast_quantiles_naive <- function(y_train, h = 12) {
+# 1. Random Walk Naive Gaussian distribution based on robust (MAD) in-sample 1-step innovation scale
+forecast_quantiles_naive <- function(y_train, h = 12, robust = TRUE) {
   last_val <- tail(y_train, 1)
-  sigma1   <- sd(diff(y_train))
+  dy       <- diff(y_train)
+  sigma1   <- if (robust) stats::mad(dy, na.rm = TRUE) else sd(dy, na.rm = TRUE)
+  if (is.na(sigma1) || sigma1 <= 0) sigma1 <- 1e-4
   sd_h     <- sigma1 * sqrt(seq_len(h))
   qmat     <- sapply(Q_LEVELS, function(p) rep(last_val, h) + sd_h * qnorm(p))
   colnames(qmat) <- q_names()
   qmat
 }
 
-# 2. Random Walk with Drift Gaussian distribution
-forecast_quantiles_drift <- function(y_train, h = 12) {
+# 2. Random Walk with Drift Gaussian distribution with robust (MAD) scale
+forecast_quantiles_drift <- function(y_train, h = 12, robust = TRUE) {
   last_val <- tail(y_train, 1)
   n        <- length(y_train)
   mu_drift <- (last_val - y_train[1]) / (n - 1)
   fc_mean  <- last_val + seq_len(h) * mu_drift
-  sigma1   <- sd(diff(y_train) - mu_drift)
+  dy_res   <- diff(y_train) - mu_drift
+  sigma1   <- if (robust) stats::mad(dy_res, na.rm = TRUE) else sd(dy_res, na.rm = TRUE)
+  if (is.na(sigma1) || sigma1 <= 0) sigma1 <- 1e-4
   sd_h     <- sigma1 * sqrt(seq_len(h))
   qmat     <- sapply(Q_LEVELS, function(p) fc_mean + sd_h * qnorm(p))
   colnames(qmat) <- q_names()
