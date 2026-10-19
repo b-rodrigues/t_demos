@@ -4,13 +4,17 @@
 
 p = pipeline {
   ----------------------------------------------------------------------------
-  -- STUDY 1: Canonical Inflation Benchmark (CPIAUCSL, 2010-2024)
+  -- SHARED HELPERS & CODE DEPENDENCIES
+  ----------------------------------------------------------------------------
   helpers = node(
     command = [code: read_file("src/helpers.R")],
     runtime = T,
     serializer = ^json
   )
 
+  ----------------------------------------------------------------------------
+  -- STUDY 1: Canonical Inflation Benchmark (CPIAUCSL, 2010-2024)
+  ----------------------------------------------------------------------------
   raw_data = node(
     command = read_csv("data/cpi.csv", separator = ","),
     runtime = T,
@@ -20,7 +24,7 @@ p = pipeline {
   r_arima = rn(
     command = <{
       library(forecast)
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       train_cpi = head(raw_data$cpi, -12)
       ts_train  = ts(train_cpi, frequency = 12)
@@ -126,7 +130,7 @@ timestral_209m = pd.DataFrame(data_dict)
 
   benchmark_metrics = rn(
     command = <{
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
       actual = tail(raw_data$cpi, 12)
       last_train = tail(head(raw_data$cpi, -12), 1)
       calc_inf <- function(pred) (tail(pred, 1) - last_train) / last_train * 100
@@ -176,7 +180,7 @@ timestral_209m = pd.DataFrame(data_dict)
 
   cpi_probabilistic_metrics = rn(
     command = <{
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
       actual = tail(raw_data$cpi, 12)
 
       q_cols = quantile_cols(timestral_5m)
@@ -246,7 +250,7 @@ timestral_209m = pd.DataFrame(data_dict)
   retail_r_arima = rn(
     command = <{
       library(forecast)
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       train = head(retail_raw_data, -12)
       test  = tail(retail_raw_data, 12)
@@ -344,7 +348,7 @@ for d in (train, test):
 sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other"]
 fc = TimestralForecaster.from_pretrained("models/Timestral-5M")
 
-# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls (< 1e-5)
+# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls up to float32 precision (rtol=1e-5, atol=0.1)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
 test_sample = mat_train[:, :120].copy()
 batch_pred = fc.forecast(test_sample, prediction_length=1).median.cpu().numpy().squeeze()
@@ -427,7 +431,7 @@ for d in (train, test):
 sectors_all = ["total", "automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other"]
 fc = TimestralForecaster.from_pretrained("models/Timestral-209M")
 
-# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls (< 1e-5)
+# 1. Programmatic assertion: verify batch evaluation matches individual 1D calls up to float32 precision (rtol=1e-5, atol=0.1)
 mat_train = np.stack([train[s].values for s in sectors_all], axis=0)
 test_sample = mat_train[:, :120].copy()
 batch_pred = fc.forecast(test_sample, prediction_length=1).median.cpu().numpy().squeeze()
@@ -498,7 +502,7 @@ retail_timestral_209m = res_df
 
   retail_benchmark_metrics = rn(
     command = <{
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
       actual = tail(retail_raw_data, 12)
       actual$other = actual$total - (actual$automotive + actual$food_beverage + actual$clothing + actual$ecommerce + actual$general_merchandise)
 
@@ -551,7 +555,7 @@ retail_timestral_209m = res_df
 
   retail_coherence_metrics = rn(
     command = <{
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
       actual = tail(retail_raw_data, 12)
       actual$other = actual$total - (actual$automotive + actual$food_beverage + actual$clothing + actual$ecommerce + actual$general_merchandise)
       sectors_bottom = c("automotive", "food_beverage", "clothing", "ecommerce", "general_merchandise", "other")
@@ -664,7 +668,7 @@ retail_timestral_209m = res_df
     command = <{
       library(forecast)
       library(vars)
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       train = head(macro_raw_data, -12)
       test  = tail(macro_raw_data, 12)
@@ -839,7 +843,7 @@ macro_timestral_209m = pd.DataFrame(data)
 
   macro_benchmark_metrics = rn(
     command = <{
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
       actual = tail(macro_raw_data, 12)
       q_cols = q_names()
 
@@ -995,7 +999,7 @@ rolling_timestral = pd.DataFrame(rows)
   context_ablation_metrics = rn(
     command = <{
       library(forecast)
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       all_dates = format(seq(as.Date("2000-01-01"), by = "month", length.out = 300), "%Y-%m")
       train_cpi = head(macro_raw_data$cpi, 288)
@@ -1039,7 +1043,7 @@ rolling_timestral = pd.DataFrame(rows)
   rolling_origin_metrics = rn(
     command = <{
       library(forecast)
-      eval(parse(text = helpers$code))
+      eval(parse(text = paste(helpers$code, collapse = "\n")))
 
       origins = seq(150, 288, by = 6) # 24 origins spaced by 6 months
       covid_origins = c(234, 240, 246, 252) # Origins whose 12-month test windows cover COVID 2020-2021
@@ -1111,8 +1115,8 @@ rolling_timestral = pd.DataFrame(rows)
           wis           = NA_real_,
           crps          = NA_real_,
           coverage_80   = NA_real_,
-          dm_stat       = round(c(dm_n_1["stat"], 0.0, dm_e_1["stat"], dm_t5_1["stat"], dm_t209_1["stat"]), 3),
-          dm_pval       = round(c(dm_n_1["pval"], 1.0, dm_e_1["pval"], dm_t5_1["pval"], dm_t209_1["pval"]), 4)
+          dm_stat       = c(round(dm_n_1["stat"], 3), NA_real_, round(dm_e_1["stat"], 3), round(dm_t5_1["stat"], 3), round(dm_t209_1["stat"], 3)),
+          dm_pval       = c(round(dm_n_1["pval"], 4), NA_real_, round(dm_e_1["pval"], 4), round(dm_t5_1["pval"], 4), round(dm_t209_1["pval"], 4))
         )
 
         # 2. Horizon Pas 12 (h=12)
@@ -1127,8 +1131,8 @@ rolling_timestral = pd.DataFrame(rows)
           wis           = NA_real_,
           crps          = NA_real_,
           coverage_80   = NA_real_,
-          dm_stat       = round(c(dm_n_12["stat"], 0.0, dm_e_12["stat"], dm_t5_12["stat"], dm_t209_12["stat"]), 3),
-          dm_pval       = round(c(dm_n_12["pval"], 1.0, dm_e_12["pval"], dm_t5_12["pval"], dm_t209_12["pval"]), 4)
+          dm_stat       = c(round(dm_n_12["stat"], 3), NA_real_, round(dm_e_12["stat"], 3), round(dm_t5_12["stat"], 3), round(dm_t209_12["stat"], 3)),
+          dm_pval       = c(round(dm_n_12["pval"], 4), NA_real_, round(dm_e_12["pval"], 4), round(dm_t5_12["pval"], 4), round(dm_t209_12["pval"], 4))
         )
 
         # 3. Horizon Trajectoire (1..12m)
@@ -1266,5 +1270,7 @@ check(expect_true(abs(abl_t20 - s1_t20) < 0.001))
 
 roll_metrics = read_node(p.rolling_origin_metrics)
 check(expect_nrow(roll_metrics, 30))
+-- Assert no NA values in point error metrics across all 30 rolling origin evaluation rows
+check(expect_nrow(filter(roll_metrics, is_na($rmse) || is_na($mae) || is_na($rmse_ex_covid) || is_na($mae_ex_covid)), 0))
 
 print("✓ timestral_demo: all 22 nodes, non-regression, and substantive coherence/monotonicity assertions passed successfully!")
