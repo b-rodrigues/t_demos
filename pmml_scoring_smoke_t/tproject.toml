@@ -1,0 +1,18 @@
+[project]
+name = "pmml_scoring_smoke_t"
+version = "0.1.0"
+description = "End-to-end smoke test for JPMML scoring with the JARs shipped by t-lang"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["randomForest", "r2pmml", "XML", "jsonlite"]
+
+[py-dependencies]
+packages = ["numpy", "pandas", "pyarrow", "scikit-learn", "scipy", "sklearn2pmml", "statsmodels"]
+
+[additional-tools]
+packages = ["jpmml-evaluator", "jpmml-statsmodels", "jre"]
+
+[t]
+min_version = "0.56.0"

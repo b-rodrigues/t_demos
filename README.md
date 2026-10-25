@@ -1,6 +1,6 @@
 # T Language Demos
 
-This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 122 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
+This repository contains a large collection of demonstration projects for the **T** orchestration engine. The repository currently includes 124 self-contained demos covering polyglot pipelines, serialization and model exchange, diagnostics and recovery, statistical workflows, and reproducible Quarto reporting.
 
 ## Key Features Showcased
 - **Polyglot Pipelines**: Orchestrating T, R (`rn`), Python (`pyn`), and Shell (`shn`) nodes in a single DAG.
@@ -21,7 +21,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 
 ### Interchange, serialization, and model portability demos
 - `ipc_interop_t`, `ipc_source_coverage_t`, `ipc_edge_cases_t`, `custom_polyglot_serializer_t`, `json_interchange_t`, `multi_deserializer_t`, `r_py_json_t`
-- `factor_roundtrip_t`, `pmml_interchange_t`, `pmml_julia_r_interop_t`, `pmml_julia_rf_stress_t`, `onnx_exchange_t`, `onnx_classification_t`, `onnx_julia_stress_t`, `onnx_neural_world_age`, `onnx_neuralnet_t`
+- `factor_roundtrip_t`, `pmml_interchange_t`, `pmml_julia_r_interop_t`, `pmml_julia_rf_stress_t`, `pmml_scoring_smoke_t`, `onnx_exchange_t`, `onnx_classification_t`, `onnx_julia_stress_t`, `onnx_neural_world_age`, `onnx_neuralnet_t`
 - `onnx-exchange-deps-inject-test`, `r_py_xgboost_t`, `serializer_stress_test_t`
 - `artifact_transfer_t`
 
