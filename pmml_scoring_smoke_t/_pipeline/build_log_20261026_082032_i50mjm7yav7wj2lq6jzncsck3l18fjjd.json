@@ -1,0 +1,93 @@
+{
+  "timestamp": "20261026_082032",
+  "hash": "i50mjm7yav7wj2lq6jzncsck3l18fjjd",
+  "out_path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output",
+  "duration": 22.7470,
+  "nodes": [
+{
+  "node": "scoring_data",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/scoring_data/artifact",
+  "hash": "scoring_data",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 9.2584,
+  "source": "mtcars[, c(\"mpg\", \"wt\", \"hp\", \"disp\")]"
+},
+{
+  "node": "rf_model_r",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/rf_model_r/artifact",
+  "hash": "rf_model_r",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "randomForest.formula",
+  "dependencies": ["scoring_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.5977,
+  "source": "library(randomForest)\n        set.seed(42)\n        randomForest(mpg ~ wt + hp + disp, data = scoring_data, ntree = 25)"
+},
+{
+  "node": "rf_predictions_r",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/rf_predictions_r/artifact",
+  "hash": "rf_predictions_r",
+  "runtime": "R",
+  "serializer": "csv",
+  "class": "data.frame",
+  "dependencies": ["scoring_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.5510,
+  "source": "library(randomForest)\n        set.seed(42)\n        model <- randomForest(mpg ~ wt + hp + disp, data = scoring_data, ntree = 25)\n        data.frame(prediction = as.numeric(predict(model, scoring_data)))"
+},
+{
+  "node": "ols_model_py",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/ols_model_py/artifact",
+  "hash": "ols_model_py",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "RegressionResultsWrapper",
+  "dependencies": ["scoring_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.6638,
+  "source": "import pandas as pd\n        import statsmodels.api as sm\n\n        X = sm.add_constant(scoring_data[[\"wt\", \"hp\", \"disp\"]])\n        model = sm.OLS(scoring_data[\"mpg\"], X).fit()\n\n        # Metadata used by T's model summary.\n        model.r2_ = model.rsquared\n        model.nobs_ = int(model.nobs)\n        model"
+},
+{
+  "node": "ols_predictions_py",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/ols_predictions_py/artifact",
+  "hash": "ols_predictions_py",
+  "runtime": "Python",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": ["scoring_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.6381,
+  "source": "import pandas as pd\n        import statsmodels.api as sm\n\n        X = sm.add_constant(scoring_data[[\"wt\", \"hp\", \"disp\"]])\n        model = sm.OLS(scoring_data[\"mpg\"], X).fit()\n        pd.DataFrame({\"prediction\": model.predict(X)})"
+},
+{
+  "node": "verify_node",
+  "path": "/nix/store/i50mjm7yav7wj2lq6jzncsck3l18fjjd-pipeline_output/verify_node/artifact",
+  "hash": "verify_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["ols_model_py", "ols_predictions_py", "rf_model_r", "rf_predictions_r", "scoring_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.6460,
+  "source": "print(\"--- JPMML SCORING SMOKE TEST ---\")\n        print(\"Rows to score:\")\n        print(nrow(scoring_data))\n\n        pred_r = predict(scoring_data, rf_model_r)\n        pred_py = predict(scoring_data, ols_model_py)\n\n        check(expect_nrow(scoring_data, 32))\n        check(expect_length(pred_r, 32))\n        check(expect_length(pred_py, 32))\n        check(expect_no_na(pred_r))\n        check(expect_no_na(pred_py))\n\n        native_r = pull(rf_predictions_r, \"prediction\")\n        native_py = pull(ols_predictions_py, \"prediction\")\n\n        diff_r = (native_r .- pred_r) |> abs() |> max(na_rm = true)\n        diff_py = (native_py .- pred_py) |> abs() |> max(na_rm = true)\n\n        print(\"Max |R native - T JPMML| for randomForest:\")\n        print(diff_r)\n        print(\"Max |Python native - T JPMML| for statsmodels OLS:\")\n        print(diff_py)\n\n        check(diff_r < 0.000001)\n        check(diff_py < 0.000001)\n\n        \"JPMML scores match the native R and Python predictions\""
+}
+],
+  "pipeline": "p"
+}

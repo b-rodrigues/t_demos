@@ -1,0 +1,66 @@
+{
+  "timestamp": "20261026_063659",
+  "hash": "pj0svzn3id3m41wgskasab7sqg0r988j",
+  "out_path": "/nix/store/pj0svzn3id3m41wgskasab7sqg0r988j-pipeline_output",
+  "duration": 25.2123,
+  "nodes": [
+{
+  "node": "mtcars_r",
+  "path": "/nix/store/pj0svzn3id3m41wgskasab7sqg0r988j-pipeline_output/mtcars_r/artifact",
+  "hash": "mtcars_r",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "spec_tbl_df",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 10.6775,
+  "source": "readr::read_delim(list.files(\"data\", full.names = TRUE), delim = \"|\")"
+},
+{
+  "node": "mtcars_py",
+  "path": "/nix/store/pj0svzn3id3m41wgskasab7sqg0r988j-pipeline_output/mtcars_py/artifact",
+  "hash": "mtcars_py",
+  "runtime": "Python",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.6456,
+  "source": "read_many_csvs(\"data\")"
+},
+{
+  "node": "head_mtcars",
+  "path": "/nix/store/pj0svzn3id3m41wgskasab7sqg0r988j-pipeline_output/head_mtcars/artifact",
+  "hash": "head_mtcars",
+  "runtime": "Python",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["mtcars_py"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.7664,
+  "source": "mtcars_py.head()"
+},
+{
+  "node": "report",
+  "path": "/nix/store/pj0svzn3id3m41wgskasab7sqg0r988j-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "QuartoOutput",
+  "dependencies": ["mtcars_r"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.5995,
+  "script": "src/report.qmd",
+  "script_hash": "09bd9337e296e1eac395a96126fac603"
+}
+],
+  "pipeline": "p"
+}

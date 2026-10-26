@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261026_075727",
+  "hash": "8azkqi51vgk0vlhfzjhgrbcvac4zndrw",
+  "out_path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output",
+  "duration": 9.4296,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9345,
+  "source": "to_dataframe([[id: 1, group: \"alpha\", value: 10], [id: 2, group: \"alpha\", value: na()], [id: 3, group: \"beta\", value: 5], [id: 4, group: \"beta\", value: -2]])"
+},
+{
+  "node": "positive_rows",
+  "path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output/positive_rows/artifact",
+  "hash": "positive_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 0.7300,
+  "source": "(raw_data |> filter(($value > 0)))"
+},
+{
+  "node": "quiet_positive_rows",
+  "path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output/quiet_positive_rows/artifact",
+  "hash": "quiet_positive_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 0.7131,
+  "source": "((raw_data |> filter(($value > 0))) |> suppress_warnings)"
+},
+{
+  "node": "grouped_rows",
+  "path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output/grouped_rows/artifact",
+  "hash": "grouped_rows",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["quiet_positive_rows"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5091,
+  "source": "(quiet_positive_rows |> group_by($group))"
+},
+{
+  "node": "final_summary",
+  "path": "/nix/store/8azkqi51vgk0vlhfzjhgrbcvac4zndrw-pipeline_output/final_summary/artifact",
+  "hash": "final_summary",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["grouped_rows"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3092,
+  "source": "(grouped_rows |> summarize(total = sum($value, na_rm = true)))"
+}
+],
+  "pipeline": "edited_p"
+}

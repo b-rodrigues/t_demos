@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261026_060334",
+  "hash": "hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a",
+  "out_path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output",
+  "duration": 17.7545,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.6300,
+  "source": "set.seed(42)\n            df <- data.frame(\n                id = 1:10,\n                val_a = runif(10, 10, 20),\n                val_b = runif(10, 100, 200),\n                val_c = runif(10, 1, 2),\n                tag = sample(c(\"X\", \"Y\"), 10, replace = TRUE),\n                stringsAsFactors = FALSE\n            )\n            df"
+},
+{
+  "node": "r_across",
+  "path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output/r_across/artifact",
+  "hash": "r_across",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.6276,
+  "source": "library(dplyr)\n            raw_data %>%\n                mutate(across(starts_with(\"val\"), ~ .x / 10)) %>%\n                relocate(tag, .before = id)"
+},
+{
+  "node": "t_across_parity",
+  "path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output/t_across_parity/artifact",
+  "hash": "t_across_parity",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.6086,
+  "source": "raw_data \n              |> mutate_across([\"val_a\", \"val_b\", \"val_c\"], \\(x) x / 10.0) \n              |> relocate($tag, .before = $id)"
+},
+{
+  "node": "parity_check",
+  "path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output/parity_check/artifact",
+  "hash": "parity_check",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Bool",
+  "dependencies": ["r_across", "t_across_parity"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3282,
+  "source": "assert(identical(r_across, t_across_parity), \"R and T across() results are NOT identical!\")\n            print(\"✓ Parity check passed: R and T across() implementations matched perfectly.\")\n            true"
+},
+{
+  "node": "t_summary",
+  "path": "/nix/store/hhwm0nmi31wz6ibbgim6k3ln7d3l7n7a-pipeline_output/t_summary/artifact",
+  "hash": "t_summary",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5822,
+  "source": "raw_data |> summarize_across([\"val_a\", \"val_b\", \"val_c\"], mean)"
+}
+],
+  "pipeline": "p"
+}

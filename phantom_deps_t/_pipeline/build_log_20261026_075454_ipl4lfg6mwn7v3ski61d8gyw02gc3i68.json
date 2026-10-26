@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_075454",
+  "hash": "ipl4lfg6mwn7v3ski61d8gyw02gc3i68",
+  "out_path": "/nix/store/ipl4lfg6mwn7v3ski61d8gyw02gc3i68-pipeline_output",
+  "duration": 15.9268,
+  "nodes": [
+{
+  "node": "foo",
+  "path": "/nix/store/ipl4lfg6mwn7v3ski61d8gyw02gc3i68-pipeline_output/foo/artifact",
+  "hash": "foo",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.6603,
+  "source": "library(arrow)\n      foo <- data.frame(a = 1:3)\n      foo"
+},
+{
+  "node": "bar",
+  "path": "/nix/store/ipl4lfg6mwn7v3ski61d8gyw02gc3i68-pipeline_output/bar/artifact",
+  "hash": "bar",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.7277,
+  "source": "library(arrow)\n      x <- data.frame(x = 1:3)  # independent of the foo node\n      x"
+},
+{
+  "node": "baz",
+  "path": "/nix/store/ipl4lfg6mwn7v3ski61d8gyw02gc3i68-pipeline_output/baz/artifact",
+  "hash": "baz",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.6971,
+  "source": "library(arrow)\n      s <- \"the foo node\"\n      data.frame(x = 1:3)"
+},
+{
+  "node": "qux",
+  "path": "/nix/store/ipl4lfg6mwn7v3ski61d8gyw02gc3i68-pipeline_output/qux/artifact",
+  "hash": "qux",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.6133,
+  "source": "library(arrow)\n      # independent of the foo node\n      data.frame(x = 1:3)"
+}
+],
+  "pipeline": "p"
+}

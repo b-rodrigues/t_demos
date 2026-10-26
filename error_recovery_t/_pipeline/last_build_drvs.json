@@ -1,0 +1,6 @@
+{
+  "handled_node": "/nix/store/xsh2wrp560w1ssl3gqw3mgmw0snj8mrg-handled_node.drv",
+  "local_recovery": "/nix/store/al6l0qhjjxyjjn7k6kc8spk10c0k2mb7-local_recovery.drv",
+  "risky_node": "/nix/store/p89b93hrw7ri06q8pdpcxnsk059f5l6h-risky_node.drv",
+  "error_info": "/nix/store/fldl2s5zx71wb7klxs7jd7j4pb54h2fd-error_info.drv"
+}

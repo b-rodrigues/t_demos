@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261026_074729",
+  "hash": "wxajhr32n8ilfj837lgk661fyswbw4jw",
+  "out_path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output",
+  "duration": 19.0253,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.8793,
+  "source": "import numpy as np\nnp.random.seed(42)\nX = np.random.rand(1000, 2).astype(np.float32)\ny = (X[:, 0] + X[:, 1] > 1.0).astype(np.int64)\ntest_samples = np.array([[0.1, 0.1], [0.5, 0.5], [0.9, 0.9]], dtype=np.float32)\ndata = {\n    \"x\":            X[:, 0].tolist(),\n    \"y\":            X[:, 1].tolist(),\n    \"labels\":       y.tolist(),\n    \"test_samples\": test_samples.tolist()\n}"
+},
+{
+  "node": "model_skl",
+  "path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output/model_skl/artifact",
+  "hash": "model_skl",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.4922,
+  "source": "import numpy as np\nfrom sklearn.neural_network import MLPClassifier\nX = np.column_stack([data[\"x\"], data[\"y\"]]).astype(np.float32)\ny = np.array(data[\"labels\"], dtype=np.int64)\nmodel = MLPClassifier(hidden_layer_sizes = (10, 10), activation = 'relu', max_iter = 2000, random_state = 42, solver = 'lbfgs')\nmodel.fit(X, y)\nmodel"
+},
+{
+  "node": "model_sgd",
+  "path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output/model_sgd/artifact",
+  "hash": "model_sgd",
+  "runtime": "Python",
+  "serializer": "onnx",
+  "class": "MLPClassifier",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5153,
+  "source": "import numpy as np\nfrom sklearn.neural_network import MLPClassifier\nX = np.column_stack([data[\"x\"], data[\"y\"]]).astype(np.float32)\ny = np.array(data[\"labels\"], dtype=np.int64)\nmodel = MLPClassifier(hidden_layer_sizes = (10, 10), activation = 'relu', max_iter = 2000, random_state = 42, solver = 'sgd', learning_rate_init=0.1)\nmodel.fit(X, y)\nmodel"
+},
+{
+  "node": "pred_skl_t",
+  "path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output/pred_skl_t/artifact",
+  "hash": "pred_skl_t",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["model_skl"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3880,
+  "source": "test_df = to_dataframe([x: [0.1, 0.5, 0.9], y: [0.1, 0.5, 0.9]])\n            predict(test_df, model_skl)"
+},
+{
+  "node": "pred_sgd_t",
+  "path": "/nix/store/wxajhr32n8ilfj837lgk661fyswbw4jw-pipeline_output/pred_sgd_t/artifact",
+  "hash": "pred_sgd_t",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Vector",
+  "dependencies": ["model_sgd"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3194,
+  "source": "test_df = to_dataframe([x: [0.1, 0.5, 0.9], y: [0.1, 0.5, 0.9]])\n            predict(test_df, model_sgd)"
+}
+],
+  "pipeline": "p"
+}

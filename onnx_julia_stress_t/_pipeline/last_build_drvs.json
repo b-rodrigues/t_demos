@@ -1,0 +1,9 @@
+{
+  "verify_node": "/nix/store/rrx7h68ksz71j7j27524nw587q0fcn83-verify_node.drv",
+  "py_model": "/nix/store/20pl9gqhr6p3w4fi4kz77cj8gyr1qjnw-py_model.drv",
+  "py_model_params": "/nix/store/ziwd9jn9xsmbcsckwlq5pif0bwhla6nj-py_model_params.drv",
+  "synthetic_data": "/nix/store/al8ngdaw7lh1x7fw2bg6i2zvsahxjh3h-synthetic_data.drv",
+  "t_predict": "/nix/store/lbags714pgdc6skfh6fhn6z557vvbscx-t_predict.drv",
+  "julia_model": "/nix/store/7gfmbimk4xwvw5yyfmzj9fw2pa4wcpij-julia_model.drv",
+  "py_predict": "/nix/store/ygrb53crkcpkimji7nrmb4c8zba6lnkp-py_predict.drv"
+}

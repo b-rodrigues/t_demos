@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261026_083422",
+  "hash": "y9c9ay36gb04wzm67l9ivl8k22762piw",
+  "out_path": "/nix/store/y9c9ay36gb04wzm67l9ivl8k22762piw-pipeline_output",
+  "duration": 14.5414,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/y9c9ay36gb04wzm67l9ivl8k22762piw-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "json",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7863,
+  "source": "library(jsonlite)\n      library(datathin)\n      result = toJSON(list(\n        pkgs_loaded = \"jsonlite, datathin\",\n        n_rnorm = length(rnorm(10))\n      ), auto_unbox = TRUE)"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261026_075717",
+  "hash": "absvqkwy2nkp62x3p6sjg5anp8g3sgkn",
+  "out_path": "/nix/store/absvqkwy2nkp62x3p6sjg5anp8g3sgkn-pipeline_output",
+  "duration": 8.8556,
+  "nodes": [
+{
+  "node": "x",
+  "path": "/nix/store/absvqkwy2nkp62x3p6sjg5anp8g3sgkn-pipeline_output/x/artifact",
+  "hash": "x",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4940,
+  "source": "42"
+},
+{
+  "node": "y",
+  "path": "/nix/store/absvqkwy2nkp62x3p6sjg5anp8g3sgkn-pipeline_output/y/artifact",
+  "hash": "y",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["x"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2967,
+  "source": "(x * 2)"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "mtcars_r",
+  "depends": []
+},
+{
+  "node_name": "mtcars_py",
+  "depends": []
+},
+{
+  "node_name": "head_mtcars",
+  "depends": ["mtcars_py"]
+},
+{
+  "node_name": "report",
+  "depends": ["mtcars_r"]
+}
+]

@@ -1,0 +1,67 @@
+{
+  "timestamp": "20261026_061049",
+  "hash": "8szpa7km3li3gsnnbmyj39cpcympc9gm",
+  "out_path": "/nix/store/8szpa7km3li3gsnnbmyj39cpcympc9gm-pipeline_output",
+  "duration": 8.7805,
+  "nodes": [
+{
+  "node": "risky_node",
+  "path": "/nix/store/8szpa7km3li3gsnnbmyj39cpcympc9gm-pipeline_output/risky_node/artifact",
+  "hash": "risky_node",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.5363,
+  "error_code": "GenericError",
+  "error_message": "Expected dataset 'raw_data.csv' was not found.",
+  "source": "error(\"DATA_MISSING\", \"Expected dataset 'raw_data.csv' was not found.\")"
+},
+{
+  "node": "local_recovery",
+  "path": "/nix/store/8szpa7km3li3gsnnbmyj39cpcympc9gm-pipeline_output/local_recovery/artifact",
+  "hash": "local_recovery",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5535,
+  "source": "{ val = error(\"Oops\"); (val ?|> \\(x) if (is_error(x)) { \"Recovered Locally\" } else { x }) }"
+},
+{
+  "node": "handled_node",
+  "path": "/nix/store/8szpa7km3li3gsnnbmyj39cpcympc9gm-pipeline_output/handled_node/artifact",
+  "hash": "handled_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["risky_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3118,
+  "source": "(risky_node ?|> \\(input) { if (is_error(input)) { print(str_sprintf(\"Warning: Dependency failed with message: %s\", error_msg(input))); \"Fallback Data\" } else { input } })"
+},
+{
+  "node": "error_info",
+  "path": "/nix/store/8szpa7km3li3gsnnbmyj39cpcympc9gm-pipeline_output/error_info/artifact",
+  "hash": "error_info",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["risky_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3282,
+  "source": "(risky_node ?|> \\(input) [failed: is_error(input), code: if (is_error(input)) { error_code(input) } else { \"OK\" }, msg: if (is_error(input)) { error_msg(input) } else { \"\" }])"
+}
+],
+  "pipeline": "p"
+}

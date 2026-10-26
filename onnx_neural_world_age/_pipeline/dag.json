@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "data",
+  "depends": []
+},
+{
+  "node_name": "model_skl",
+  "depends": ["data"]
+},
+{
+  "node_name": "model_sgd",
+  "depends": ["data"]
+},
+{
+  "node_name": "pred_skl_t",
+  "depends": ["model_skl"]
+},
+{
+  "node_name": "pred_sgd_t",
+  "depends": ["model_sgd"]
+}
+]

@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261026_083733",
+  "hash": "3rak9da038r0sbxk9hsjny53b3rbrsif",
+  "out_path": "/nix/store/3rak9da038r0sbxk9hsjny53b3rbrsif-pipeline_output",
+  "duration": 12.6960,
+  "nodes": [
+{
+  "node": "result",
+  "path": "/nix/store/3rak9da038r0sbxk9hsjny53b3rbrsif-pipeline_output/result/artifact",
+  "hash": "result",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.6040,
+  "source": "list(lang = \"R\")"
+}
+],
+  "pipeline": "p_fork2"
+}

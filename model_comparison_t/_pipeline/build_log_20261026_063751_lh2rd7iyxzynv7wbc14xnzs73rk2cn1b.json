@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_063751",
+  "hash": "lh2rd7iyxzynv7wbc14xnzs73rk2cn1b",
+  "out_path": "/nix/store/lh2rd7iyxzynv7wbc14xnzs73rk2cn1b-pipeline_output",
+  "duration": 3692.6136,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/lh2rd7iyxzynv7wbc14xnzs73rk2cn1b-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3674.2626,
+  "source": "library(datasets)\ndata(mtcars)\nmtcars"
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/lh2rd7iyxzynv7wbc14xnzs73rk2cn1b-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3669.2900,
+  "source": "model = lm(mpg ~ hp + wt, data = raw_data)\nsummary(model)$r.squared"
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/lh2rd7iyxzynv7wbc14xnzs73rk2cn1b-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1523,
+  "source": "from sklearn.ensemble import RandomForestRegressor\nimport pandas as pd\nX = raw_data[['hp', 'wt']]\ny = raw_data['mpg']\nrf = RandomForestRegressor(n_estimators=10)\nrf.fit(X, y)\nres = rf.score(X, y)\nres"
+},
+{
+  "node": "comparison_result",
+  "path": "/nix/store/lh2rd7iyxzynv7wbc14xnzs73rk2cn1b-pipeline_output/comparison_result/artifact",
+  "hash": "comparison_result",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["py_model", "r_model"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4539,
+  "source": "res = [\n        r_r2: r_model, \n        py_r2: py_model, \n        improvement: py_model - r_model\n      ]\n      res"
+}
+],
+  "pipeline": "p_final"
+}

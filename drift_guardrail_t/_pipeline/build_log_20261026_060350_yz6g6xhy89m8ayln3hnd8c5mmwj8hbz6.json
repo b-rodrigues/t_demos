@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_060350",
+  "hash": "yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6",
+  "out_path": "/nix/store/yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6-pipeline_output",
+  "duration": 9.5174,
+  "nodes": [
+{
+  "node": "baseline_data",
+  "path": "/nix/store/yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6-pipeline_output/baseline_data/artifact",
+  "hash": "baseline_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7671,
+  "source": "read_csv(\"data/mtcars.csv\", separator = \"|\")"
+},
+{
+  "node": "baseline_stats",
+  "path": "/nix/store/yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6-pipeline_output/baseline_stats/artifact",
+  "hash": "baseline_stats",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5540,
+  "source": "baseline_data |> summarize(\n                avg_mpg = mean($mpg)\n            )"
+},
+{
+  "node": "live_data",
+  "path": "/nix/store/yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6-pipeline_output/live_data/artifact",
+  "hash": "live_data",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": ["baseline_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5367,
+  "source": "baseline_data |> mutate(\n                mpg = $mpg + 10.0\n            )"
+},
+{
+  "node": "drift_guardrail",
+  "path": "/nix/store/yz6g6xhy89m8ayln3hnd8c5mmwj8hbz6-pipeline_output/drift_guardrail/artifact",
+  "hash": "drift_guardrail",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Bool",
+  "dependencies": ["baseline_stats", "live_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3225,
+  "source": "live_stats = live_data |> summarize(avg_mpg = mean($mpg))\n            \n            -- Use the enhanced 3-arg get() with a Lens for safe column retrieval\n            -- We pipe to get(0) to ensure we have a scalar Number for the abs() function\n            b_mpg = get(baseline_stats, col_lens(\"avg_mpg\")) |> get(0)\n            l_mpg = get(live_stats, col_lens(\"avg_mpg\")) |> get(0)\n            \n            drift_val = abs(l_mpg - b_mpg)\n            \n            -- Guardrail Failure Condition (set to 15.0 to PASS by default)\n            -- Change to 2.0 to trigger drift detection!\n            res = assert(drift_val < 15.0, str_join([\"GUARDRAIL FAILURE: mpg drift is \", drift_val]))\n            \n            if (is_error(res)) {\n                res\n            } else {\n                true\n            }"
+}
+],
+  "pipeline": "p"
+}

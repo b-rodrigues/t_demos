@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "data",
+  "depends": []
+},
+{
+  "node_name": "filtered_data",
+  "depends": ["data"]
+},
+{
+  "node_name": "check_filter",
+  "depends": ["filtered_data"]
+},
+{
+  "node_name": "mutated_data",
+  "depends": ["data"]
+},
+{
+  "node_name": "check_mutate",
+  "depends": ["mutated_data"]
+}
+]

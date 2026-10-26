@@ -1,0 +1,42 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "check_raw",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "roundtrip",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "na_data",
+  "depends": []
+},
+{
+  "node_name": "na_filtered",
+  "depends": ["na_data"]
+},
+{
+  "node_name": "processed",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "branch_data_branch_1",
+  "depends": []
+},
+{
+  "node_name": "branch_data_branch_2",
+  "depends": []
+},
+{
+  "node_name": "branch_data_branch_3",
+  "depends": []
+},
+{
+  "node_name": "branch_data_branch_4",
+  "depends": []
+}
+]

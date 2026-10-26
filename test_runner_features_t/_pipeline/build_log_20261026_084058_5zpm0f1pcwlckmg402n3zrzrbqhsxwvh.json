@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261026_084058",
+  "hash": "5zpm0f1pcwlckmg402n3zrzrbqhsxwvh",
+  "out_path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output",
+  "duration": 7.4270,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "read_csv(\"tests/data/sample.csv\")"
+},
+{
+  "node": "filtered_data",
+  "path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output/filtered_data/artifact",
+  "hash": "filtered_data",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "(data |> filter(($score >= 88)))"
+},
+{
+  "node": "check_filter",
+  "path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output/check_filter/artifact",
+  "hash": "check_filter",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["filtered_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[nrow_check: assert(expect_nrow(filtered_data, 2)), colnames_check: assert(expect_colnames(filtered_data, [\"name\", \"score\", \"grade\"]))]"
+},
+{
+  "node": "mutated_data",
+  "path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output/mutated_data/artifact",
+  "hash": "mutated_data",
+  "runtime": "T",
+  "serializer": "csv",
+  "class": "DataFrame",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "(data |> mutate(pass = ($score >= 70)))"
+},
+{
+  "node": "check_mutate",
+  "path": "/nix/store/5zpm0f1pcwlckmg402n3zrzrbqhsxwvh-pipeline_output/check_mutate/artifact",
+  "hash": "check_mutate",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "Dict",
+  "dependencies": ["mutated_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[pass_col_check: assert(expect_in(\"pass\", colnames(mutated_data))), pass_count_check: assert(expect_nrow((mutated_data |> filter(($pass == true))), 4))]"
+}
+],
+  "pipeline": "combined"
+}

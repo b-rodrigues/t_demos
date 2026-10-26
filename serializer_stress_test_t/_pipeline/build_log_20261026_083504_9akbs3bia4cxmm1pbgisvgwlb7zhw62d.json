@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261026_083504",
+  "hash": "9akbs3bia4cxmm1pbgisvgwlb7zhw62d",
+  "out_path": "/nix/store/9akbs3bia4cxmm1pbgisvgwlb7zhw62d-pipeline_output",
+  "duration": 22.2638,
+  "nodes": [
+{
+  "node": "large_data",
+  "path": "/nix/store/9akbs3bia4cxmm1pbgisvgwlb7zhw62d-pipeline_output/large_data/artifact",
+  "hash": "large_data",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 10.1432,
+  "source": "n <- 1000000\n            cat(\"Generating\", n, \"rows in R...\\n\")\n            data.frame(\n                id = 1:n,\n                val_f = rnorm(n),\n                val_i = as.integer(runif(n, 0, 100)),\n                label = sample(LETTERS, n, replace = TRUE),\n                logic = sample(c(TRUE, FALSE), n, replace = TRUE)\n            )"
+},
+{
+  "node": "summarized",
+  "path": "/nix/store/9akbs3bia4cxmm1pbgisvgwlb7zhw62d-pipeline_output/summarized/artifact",
+  "hash": "summarized",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["large_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 7.9108,
+  "source": "((large_data |> group_by($label)) |> summarize(n = n(), avg_f = mean($val_f), sum_i = sum($val_i)))"
+}
+],
+  "pipeline": "p"
+}

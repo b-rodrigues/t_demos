@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261026_062727",
+  "hash": "22dcnp1n00hldy8ngn7pcwv2vynj76lx",
+  "out_path": "/nix/store/22dcnp1n00hldy8ngn7pcwv2vynj76lx-pipeline_output",
+  "duration": 18.2270,
+  "nodes": [
+{
+  "node": "r_xgb",
+  "path": "/nix/store/22dcnp1n00hldy8ngn7pcwv2vynj76lx-pipeline_output/r_xgb/artifact",
+  "hash": "r_xgb",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "xgb.Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 3.6442,
+  "source": "library(xgboost)\n            data(agaricus.train)\n            dm = xgb.DMatrix(agaricus.train$data, label = agaricus.train$label)\n            xgb.train(list(objective = \"binary:logistic\", max_depth = 2), dm, nrounds = 5)"
+},
+{
+  "node": "py_xgb",
+  "path": "/nix/store/22dcnp1n00hldy8ngn7pcwv2vynj76lx-pipeline_output/py_xgb/artifact",
+  "hash": "py_xgb",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.8846,
+  "source": "import xgboost as xgb\n            dm = xgb.DMatrix([[1.0], [2.0], [3.0], [4.0]], label = [0.0, 0.0, 1.0, 1.0])\n            xgb.train({\"objective\": \"binary:logistic\", \"max_depth\": 2}, dm, num_boost_round = 5)"
+},
+{
+  "node": "py_ranker",
+  "path": "/nix/store/22dcnp1n00hldy8ngn7pcwv2vynj76lx-pipeline_output/py_ranker/artifact",
+  "hash": "py_ranker",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "XGBRanker",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.9133,
+  "source": "import numpy as np\n            import xgboost as xgb\n            _X = np.array([[1.0], [2.0], [3.0], [4.0]])\n            xgb.XGBRanker(n_estimators = 3).fit(_X, np.array([0, 0, 1, 1]), qid = np.array([0, 0, 0, 0]))"
+}
+],
+  "pipeline": "p"
+}

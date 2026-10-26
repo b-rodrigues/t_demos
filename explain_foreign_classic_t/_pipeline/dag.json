@@ -1,0 +1,46 @@
+[
+{
+  "node_name": "r_nls",
+  "depends": []
+},
+{
+  "node_name": "r_htest",
+  "depends": []
+},
+{
+  "node_name": "r_fitdistr",
+  "depends": []
+},
+{
+  "node_name": "r_loess",
+  "depends": []
+},
+{
+  "node_name": "py_ets",
+  "depends": []
+},
+{
+  "node_name": "py_pipe",
+  "depends": []
+},
+{
+  "node_name": "py_sparse",
+  "depends": []
+},
+{
+  "node_name": "py_frozen",
+  "depends": []
+},
+{
+  "node_name": "r_density",
+  "depends": []
+},
+{
+  "node_name": "py_mnlogit",
+  "depends": []
+},
+{
+  "node_name": "py_phreg",
+  "depends": []
+}
+]

@@ -1,0 +1,30 @@
+[
+{
+  "node_name": "synthetic_data",
+  "depends": []
+},
+{
+  "node_name": "py_model_params",
+  "depends": ["synthetic_data"]
+},
+{
+  "node_name": "py_model",
+  "depends": ["synthetic_data"]
+},
+{
+  "node_name": "julia_model",
+  "depends": ["py_model"]
+},
+{
+  "node_name": "t_predict",
+  "depends": ["julia_model"]
+},
+{
+  "node_name": "py_predict",
+  "depends": ["py_model_params"]
+},
+{
+  "node_name": "verify_node",
+  "depends": ["py_predict", "t_predict"]
+}
+]

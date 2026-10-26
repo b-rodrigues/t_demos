@@ -1,0 +1,50 @@
+{
+  "timestamp": "20261026_060407",
+  "hash": "f7lnlris8my9isjhn2hvw8hqm35lhahw",
+  "out_path": "/nix/store/f7lnlris8my9isjhn2hvw8hqm35lhahw-pipeline_output",
+  "duration": 9.3118,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/f7lnlris8my9isjhn2hvw8hqm35lhahw-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5399,
+  "source": "[1, 2]"
+},
+{
+  "node": "b_branch_1",
+  "path": "/nix/store/f7lnlris8my9isjhn2hvw8hqm35lhahw-pipeline_output/b_branch_1/artifact",
+  "hash": "b_branch_1",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["a"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3331,
+  "source": "1 + 10"
+},
+{
+  "node": "b_branch_2",
+  "path": "/nix/store/f7lnlris8my9isjhn2hvw8hqm35lhahw-pipeline_output/b_branch_2/artifact",
+  "hash": "b_branch_2",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["a"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3158,
+  "source": "2 + 10"
+}
+]
+}

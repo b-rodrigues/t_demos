@@ -1,0 +1,26 @@
+[
+{
+  "node_name": "scoring_data",
+  "depends": []
+},
+{
+  "node_name": "rf_model_r",
+  "depends": ["scoring_data"]
+},
+{
+  "node_name": "rf_predictions_r",
+  "depends": ["scoring_data"]
+},
+{
+  "node_name": "ols_model_py",
+  "depends": ["scoring_data"]
+},
+{
+  "node_name": "ols_predictions_py",
+  "depends": ["scoring_data"]
+},
+{
+  "node_name": "verify_node",
+  "depends": ["ols_model_py", "ols_predictions_py", "rf_model_r", "rf_predictions_r", "scoring_data"]
+}
+]

@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261026_075941",
+  "hash": "glximgg8pc9mz4pp0zcjfrdrlwqyswq3",
+  "out_path": "/nix/store/glximgg8pc9mz4pp0zcjfrdrlwqyswq3-pipeline_output",
+  "duration": 8.7828,
+  "nodes": [
+{
+  "node": "words",
+  "path": "/nix/store/glximgg8pc9mz4pp0zcjfrdrlwqyswq3-pipeline_output/words/artifact",
+  "hash": "words",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[\"hello\", \"world\", \"from\", \"T\"]"
+},
+{
+  "node": "joined",
+  "path": "/nix/store/glximgg8pc9mz4pp0zcjfrdrlwqyswq3-pipeline_output/joined/artifact",
+  "hash": "joined",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": ["words"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5260,
+  "source": "str_join(words, sep = \" | \")"
+},
+{
+  "node": "char_len",
+  "path": "/nix/store/glximgg8pc9mz4pp0zcjfrdrlwqyswq3-pipeline_output/char_len/artifact",
+  "hash": "char_len",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["joined"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3139,
+  "source": "str_nchar(joined)"
+}
+],
+  "pipeline": "p6"
+}

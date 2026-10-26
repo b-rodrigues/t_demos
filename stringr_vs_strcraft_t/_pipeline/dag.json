@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "r_strings",
+  "depends": []
+},
+{
+  "node_name": "comparison",
+  "depends": ["r_strings"]
+}
+]

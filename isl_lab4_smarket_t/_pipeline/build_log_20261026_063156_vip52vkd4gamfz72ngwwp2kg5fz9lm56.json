@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_063156",
+  "hash": "vip52vkd4gamfz72ngwwp2kg5fz9lm56",
+  "out_path": "/nix/store/vip52vkd4gamfz72ngwwp2kg5fz9lm56-pipeline_output",
+  "duration": 19.5165,
+  "nodes": [
+{
+  "node": "smarket_raw",
+  "path": "/nix/store/vip52vkd4gamfz72ngwwp2kg5fz9lm56-pipeline_output/smarket_raw/artifact",
+  "hash": "smarket_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.5228,
+  "source": "read_csv(\"data/Smarket.csv\")"
+},
+{
+  "node": "data_node",
+  "path": "/nix/store/vip52vkd4gamfz72ngwwp2kg5fz9lm56-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["smarket_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.2800,
+  "source": "# smarket_raw is provided as an R data.frame\n            df <- smarket_raw[, -1]\n            df$Direction <- as.factor(df$Direction)\n            df"
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/vip52vkd4gamfz72ngwwp2kg5fz9lm56-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "glm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.2295,
+  "source": "glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, \n                data = data_node, \n                family = binomial)"
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/vip52vkd4gamfz72ngwwp2kg5fz9lm56-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.2616,
+  "source": "import statsmodels.api as sm\nimport patsy\n# Logistic regression using GLM with Binomial family\ny, X = patsy.dmatrices('Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume', data_node, return_type='dataframe')\n# statsmodels Direction[Up] or Direction[Down]? \n# patsy usually creates dummies for categorical responses too.\n# For binomial, we need a 1D endog.\ny = y.iloc[:, 1] # Usually Direction[Up] if Direction is the response\npy_model = sm.GLM(y, X, family=sm.families.Binomial()).fit()"
+}
+],
+  "pipeline": "p"
+}

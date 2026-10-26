@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_063133",
+  "hash": "jycgl825ksic8qhlsqai5jawx22ybhf0",
+  "out_path": "/nix/store/jycgl825ksic8qhlsqai5jawx22ybhf0-pipeline_output",
+  "duration": 19.3923,
+  "nodes": [
+{
+  "node": "boston_raw",
+  "path": "/nix/store/jycgl825ksic8qhlsqai5jawx22ybhf0-pipeline_output/boston_raw/artifact",
+  "hash": "boston_raw",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.4325,
+  "source": "read_csv(\"data/Boston.csv\")"
+},
+{
+  "node": "data_node",
+  "path": "/nix/store/jycgl825ksic8qhlsqai5jawx22ybhf0-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "tbl_df",
+  "dependencies": ["boston_raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.1895,
+  "source": "# boston_raw is provided as an R data.frame\n            df <- boston_raw[, -1]\n            df"
+},
+{
+  "node": "r_model",
+  "path": "/nix/store/jycgl825ksic8qhlsqai5jawx22ybhf0-pipeline_output/r_model/artifact",
+  "hash": "r_model",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1068,
+  "source": "# medv ~ lstat\n            lm(medv ~ lstat, data = data_node)"
+},
+{
+  "node": "py_model",
+  "path": "/nix/store/jycgl825ksic8qhlsqai5jawx22ybhf0-pipeline_output/py_model/artifact",
+  "hash": "py_model",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "RegressionResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.1382,
+  "source": "import statsmodels.api as sm\nimport patsy\n# medv ~ lstat\ny, X = patsy.dmatrices('medv ~ lstat', data_node, return_type='dataframe')\ny = y.iloc[:, 0]\npy_model = sm.OLS(y, X).fit()"
+}
+],
+  "pipeline": "p"
+}

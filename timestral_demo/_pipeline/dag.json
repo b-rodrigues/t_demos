@@ -1,0 +1,90 @@
+[
+{
+  "node_name": "helpers",
+  "depends": []
+},
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "r_arima",
+  "depends": ["helpers", "raw_data"]
+},
+{
+  "node_name": "timestral_5m",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "timestral_209m",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "benchmark_metrics",
+  "depends": ["helpers", "r_arima", "raw_data", "timestral_209m", "timestral_5m"]
+},
+{
+  "node_name": "cpi_probabilistic_metrics",
+  "depends": ["helpers", "r_arima", "raw_data", "timestral_209m", "timestral_5m"]
+},
+{
+  "node_name": "retail_raw_data",
+  "depends": []
+},
+{
+  "node_name": "retail_r_arima",
+  "depends": ["helpers", "retail_raw_data"]
+},
+{
+  "node_name": "retail_timestral_5m",
+  "depends": ["retail_raw_data"]
+},
+{
+  "node_name": "retail_timestral_209m",
+  "depends": ["retail_raw_data"]
+},
+{
+  "node_name": "retail_benchmark_metrics",
+  "depends": ["helpers", "retail_r_arima", "retail_raw_data", "retail_timestral_209m", "retail_timestral_5m"]
+},
+{
+  "node_name": "retail_coherence_metrics",
+  "depends": ["helpers", "retail_r_arima", "retail_raw_data", "retail_timestral_209m", "retail_timestral_5m"]
+},
+{
+  "node_name": "macro_raw_data",
+  "depends": []
+},
+{
+  "node_name": "macro_r_models",
+  "depends": ["helpers", "macro_raw_data"]
+},
+{
+  "node_name": "macro_timestral_5m",
+  "depends": ["macro_raw_data"]
+},
+{
+  "node_name": "macro_timestral_209m",
+  "depends": ["macro_raw_data"]
+},
+{
+  "node_name": "macro_benchmark_metrics",
+  "depends": ["helpers", "macro_r_models", "macro_raw_data", "macro_timestral_209m", "macro_timestral_5m"]
+},
+{
+  "node_name": "rolling_timestral",
+  "depends": ["macro_raw_data"]
+},
+{
+  "node_name": "context_ablation_metrics",
+  "depends": ["helpers", "macro_raw_data", "macro_timestral_209m", "macro_timestral_5m"]
+},
+{
+  "node_name": "rolling_origin_metrics",
+  "depends": ["helpers", "macro_raw_data", "rolling_timestral"]
+},
+{
+  "node_name": "report",
+  "depends": ["macro_raw_data", "benchmark_metrics", "cpi_probabilistic_metrics", "retail_benchmark_metrics", "retail_coherence_metrics", "macro_benchmark_metrics", "context_ablation_metrics", "rolling_origin_metrics"]
+}
+]

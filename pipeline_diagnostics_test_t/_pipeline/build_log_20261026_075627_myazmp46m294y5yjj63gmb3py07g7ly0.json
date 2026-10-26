@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261026_075627",
+  "hash": "myazmp46m294y5yjj63gmb3py07g7ly0",
+  "out_path": "/nix/store/myazmp46m294y5yjj63gmb3py07g7ly0-pipeline_output",
+  "duration": 7.0069,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/myazmp46m294y5yjj63gmb3py07g7ly0-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "5"
+},
+{
+  "node": "b",
+  "path": "/nix/store/myazmp46m294y5yjj63gmb3py07g7ly0-pipeline_output/b/artifact",
+  "hash": "b",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["a"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "(a * 2)"
+},
+{
+  "node": "c",
+  "path": "/nix/store/myazmp46m294y5yjj63gmb3py07g7ly0-pipeline_output/c/artifact",
+  "hash": "c",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["b"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "(b + 1)"
+}
+],
+  "pipeline": "p2"
+}

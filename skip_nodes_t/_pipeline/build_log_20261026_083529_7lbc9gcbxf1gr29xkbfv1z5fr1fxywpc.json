@@ -1,0 +1,66 @@
+{
+  "timestamp": "20261026_083529",
+  "hash": "7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc",
+  "out_path": "/nix/store/7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc-pipeline_output",
+  "duration": 12.9140,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3918,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "expensive_node",
+  "path": "/nix/store/7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc-pipeline_output/expensive_node/artifact",
+  "hash": "expensive_node",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "Unknown",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3803,
+  "source": "# Simulate a heavy computation\n      time.sleep(1)\n      [x * 2 for x in data]"
+},
+{
+  "node": "summary_stats",
+  "path": "/nix/store/7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc-pipeline_output/summary_stats/artifact",
+  "hash": "summary_stats",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["expensive_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "sum(expensive_node)"
+},
+{
+  "node": "report",
+  "path": "/nix/store/7lbc9gcbxf1gr29xkbfv1z5fr1fxywpc-pipeline_output/report/artifact",
+  "hash": "report",
+  "runtime": "Quarto",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": ["data", "expensive_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3655,
+  "script": "src/report.qmd",
+  "script_hash": "535ee7964e7695f5a926f96aa95f95a4"
+}
+],
+  "pipeline": "p"
+}

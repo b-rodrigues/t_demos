@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261026_062816",
+  "hash": "3wghpklm3p2bcw4b97ww9v476i6j5dg7",
+  "out_path": "/nix/store/3wghpklm3p2bcw4b97ww9v476i6j5dg7-pipeline_output",
+  "duration": 20.8946,
+  "nodes": [
+{
+  "node": "data_node",
+  "path": "/nix/store/3wghpklm3p2bcw4b97ww9v476i6j5dg7-pipeline_output/data_node/artifact",
+  "hash": "data_node",
+  "runtime": "T",
+  "serializer": "ipc",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 8.6096,
+  "source": "data = [\n                [x: 1.0, y: 0.0],\n                [x: 2.0, y: 0.0],\n                [x: 3.0, y: 1.0],\n                [x: 4.0, y: 1.0],\n                [x: 5.0, y: 1.0]\n            ]\n            to_dataframe(data)"
+},
+{
+  "node": "model_node",
+  "path": "/nix/store/3wghpklm3p2bcw4b97ww9v476i6j5dg7-pipeline_output/model_node/artifact",
+  "hash": "model_node",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "GLMResultsWrapper",
+  "dependencies": ["data_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 3.0996,
+  "source": "import statsmodels.api as sm\n            import pandas as pd\n            # data_node is a pandas DataFrame\n            y = data_node['y']\n            X = sm.add_constant(data_node['x'])\n            sm.GLM(y, X, family=sm.families.Binomial()).fit()\n            # t_write_pmml uses the JPMML-StatsModels bridge for this"
+}
+],
+  "pipeline": "p"
+}

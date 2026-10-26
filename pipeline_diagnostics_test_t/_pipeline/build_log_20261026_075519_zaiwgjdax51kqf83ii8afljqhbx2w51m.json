@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261026_075519",
+  "hash": "zaiwgjdax51kqf83ii8afljqhbx2w51m",
+  "out_path": "/nix/store/zaiwgjdax51kqf83ii8afljqhbx2w51m-pipeline_output",
+  "duration": 9.2442,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/zaiwgjdax51kqf83ii8afljqhbx2w51m-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7229,
+  "source": "to_dataframe([[x: 1], [x: NA], [x: 3]])"
+},
+{
+  "node": "filtered",
+  "path": "/nix/store/zaiwgjdax51kqf83ii8afljqhbx2w51m-pipeline_output/filtered/artifact",
+  "hash": "filtered",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": true,
+  "duration": 0.5209,
+  "source": "filter(data, ($x > 1))"
+},
+{
+  "node": "n_obs",
+  "path": "/nix/store/zaiwgjdax51kqf83ii8afljqhbx2w51m-pipeline_output/n_obs/artifact",
+  "hash": "n_obs",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["filtered"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3132,
+  "source": "nrow(filtered)"
+}
+],
+  "pipeline": "p_warn"
+}

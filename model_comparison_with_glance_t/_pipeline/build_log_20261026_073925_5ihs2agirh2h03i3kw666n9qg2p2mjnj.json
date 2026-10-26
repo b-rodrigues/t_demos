@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261026_073925",
+  "hash": "5ihs2agirh2h03i3kw666n9qg2p2mjnj",
+  "out_path": "/nix/store/5ihs2agirh2h03i3kw666n9qg2p2mjnj-pipeline_output",
+  "duration": 40.8297,
+  "nodes": [
+{
+  "node": "df",
+  "path": "/nix/store/5ihs2agirh2h03i3kw666n9qg2p2mjnj-pipeline_output/df/artifact",
+  "hash": "df",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 6.4691,
+  "source": "library(datasets)\n      data(mtcars)\n      mtcars"
+},
+{
+  "node": "model_r",
+  "path": "/nix/store/5ihs2agirh2h03i3kw666n9qg2p2mjnj-pipeline_output/model_r/artifact",
+  "hash": "model_r",
+  "runtime": "R",
+  "serializer": "pmml",
+  "class": "lm",
+  "dependencies": ["df"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.4108,
+  "source": "lm(mpg ~ hp + wt + qsec, data = df)"
+},
+{
+  "node": "model_py",
+  "path": "/nix/store/5ihs2agirh2h03i3kw666n9qg2p2mjnj-pipeline_output/model_py/artifact",
+  "hash": "model_py",
+  "runtime": "Python",
+  "serializer": "pmml",
+  "class": "PMMLPipeline",
+  "dependencies": ["df"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 4.4523,
+  "source": "import pandas as pd\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn2pmml import sklearn2pmml\nfrom sklearn2pmml.pipeline import PMMLPipeline\n\nX = df[['hp', 'wt', 'qsec']]\ny = df['mpg']\nmodel_py = PMMLPipeline([(\"regressor\", LinearRegression())]).fit(X, y)"
+},
+{
+  "node": "comparison",
+  "path": "/nix/store/5ihs2agirh2h03i3kw666n9qg2p2mjnj-pipeline_output/comparison/artifact",
+  "hash": "comparison",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["model_py", "model_r"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3959,
+  "source": "-- fit_stats() automatically stacks statistics when given a list.\n      -- Naming items in the list (Regression_R: ...) adds a 'model' column.\n      \n      fit_stats([\n        Regression_R: model_r, \n        Regression_Py: model_py\n      ])"
+}
+],
+  "pipeline": "p"
+}

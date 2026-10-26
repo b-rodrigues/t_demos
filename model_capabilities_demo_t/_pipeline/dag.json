@@ -1,0 +1,58 @@
+[
+{
+  "node_name": "df",
+  "depends": []
+},
+{
+  "node_name": "model_lm",
+  "depends": ["df", "hp", "mpg", "wt"]
+},
+{
+  "node_name": "model_nested",
+  "depends": ["df", "mpg", "wt"]
+},
+{
+  "node_name": "node_summary",
+  "depends": ["model_lm"]
+},
+{
+  "node_name": "node_coef",
+  "depends": ["model_lm"]
+},
+{
+  "node_name": "node_stats",
+  "depends": ["model_lm"]
+},
+{
+  "node_name": "node_ci",
+  "depends": ["model_lm"]
+},
+{
+  "node_name": "node_vcov",
+  "depends": ["model_lm"]
+},
+{
+  "node_name": "node_diag",
+  "depends": ["df", "model_lm"]
+},
+{
+  "node_name": "node_resid",
+  "depends": ["df", "model_lm"]
+},
+{
+  "node_name": "node_pred",
+  "depends": ["df", "model_lm"]
+},
+{
+  "node_name": "node_compare",
+  "depends": ["model_lm", "model_nested"]
+},
+{
+  "node_name": "node_anova",
+  "depends": ["model_lm", "model_nested"]
+},
+{
+  "node_name": "node_wald",
+  "depends": ["model_lm"]
+}
+]

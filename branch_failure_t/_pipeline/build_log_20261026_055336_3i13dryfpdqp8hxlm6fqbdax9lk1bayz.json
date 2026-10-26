@@ -1,0 +1,67 @@
+{
+  "timestamp": "20261026_055336",
+  "hash": "3i13dryfpdqp8hxlm6fqbdax9lk1bayz",
+  "out_path": "/nix/store/3i13dryfpdqp8hxlm6fqbdax9lk1bayz-pipeline_output",
+  "duration": 13.9321,
+  "nodes": [
+{
+  "node": "nums",
+  "path": "/nix/store/3i13dryfpdqp8hxlm6fqbdax9lk1bayz-pipeline_output/nums/artifact",
+  "hash": "nums",
+  "runtime": "T",
+  "serializer": "json",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5451,
+  "source": "[10, 20, 30]"
+},
+{
+  "node": "results_branch_1",
+  "path": "/nix/store/3i13dryfpdqp8hxlm6fqbdax9lk1bayz-pipeline_output/results_branch_1/artifact",
+  "hash": "results_branch_1",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["nums"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0479,
+  "source": "val <- 10[[1]]\n      if (val == 20) stop(\"intentional branch failure\")\n      val * 2"
+},
+{
+  "node": "results_branch_2",
+  "path": "/nix/store/3i13dryfpdqp8hxlm6fqbdax9lk1bayz-pipeline_output/results_branch_2/artifact",
+  "hash": "results_branch_2",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "VError",
+  "dependencies": ["nums"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 2.0147,
+  "error_code": "RuntimeError",
+  "error_message": "Error in doTryCatch(return(expr), name, parentenv, handler): intentional branch failure\n",
+  "source": "val <- 20[[1]]\n      if (val == 20) stop(\"intentional branch failure\")\n      val * 2"
+},
+{
+  "node": "results_branch_3",
+  "path": "/nix/store/3i13dryfpdqp8hxlm6fqbdax9lk1bayz-pipeline_output/results_branch_3/artifact",
+  "hash": "results_branch_3",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": ["nums"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.9745,
+  "source": "val <- 30[[1]]\n      if (val == 20) stop(\"intentional branch failure\")\n      val * 2"
+}
+],
+  "pipeline": "p_expanded"
+}
