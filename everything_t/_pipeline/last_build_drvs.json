@@ -1,0 +1,6 @@
+{
+  "datathin": "/nix/store/6zanyr3isqn1lmby3mkj0zn8fgwsvy23-datathin.drv",
+  "py_mean": "/nix/store/7b7n6gdcsh8g9aiac80aa6n2vfnl0fzm-py_mean.drv",
+  "jl_custom": "/nix/store/k0icmxr3pps7adjjjlbcsmdf2nvqdnal-jl_custom.drv",
+  "modecomp": "/nix/store/9hy58p5bavlnxyq6b5bajly593ndkbws-modecomp.drv"
+}

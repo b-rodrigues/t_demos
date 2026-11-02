@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261102_091026",
+  "hash": "n6qdch1lbcila3jcc3dv6gk6ci8ma9dp",
+  "out_path": "/nix/store/n6qdch1lbcila3jcc3dv6gk6ci8ma9dp-pipeline_output",
+  "duration": 7.5149,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/n6qdch1lbcila3jcc3dv6gk6ci8ma9dp-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "total",
+  "path": "/nix/store/n6qdch1lbcila3jcc3dv6gk6ci8ma9dp-pipeline_output/total/artifact",
+  "hash": "total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9484,
+  "source": "sum(data)"
+},
+{
+  "node": "r_out",
+  "path": "/nix/store/n6qdch1lbcila3jcc3dv6gk6ci8ma9dp-pipeline_output/r_out/artifact",
+  "hash": "r_out",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9632,
+  "source": "list(lang = \"R\", val = 42L)"
+}
+],
+  "pipeline": "p_r1"
+}

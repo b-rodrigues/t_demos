@@ -1,0 +1,6 @@
+{
+  "py_poisson": "/nix/store/wafx1xx3wwj05zrvk93yw98bc0lkx6l9-py_poisson.drv",
+  "r_poisson": "/nix/store/h7980vh0ajc1y601q34hjcwjsqjkss62-r_poisson.drv",
+  "r_nb": "/nix/store/47nq857i4a87xnzwfzcr8hdz16z4s8id-r_nb.drv",
+  "data_node": "/nix/store/pxl74g1gxljhl0khh3fh1d7dkqgv9g9y-data_node.drv"
+}

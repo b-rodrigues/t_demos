@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "df",
+  "depends": []
+},
+{
+  "node_name": "model_r",
+  "depends": ["df"]
+},
+{
+  "node_name": "model_py",
+  "depends": ["df"]
+},
+{
+  "node_name": "comparison",
+  "depends": ["model_py", "model_r"]
+}
+]

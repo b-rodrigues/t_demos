@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "raw",
+  "depends": []
+},
+{
+  "node_name": "computed",
+  "depends": ["raw"]
+}
+]

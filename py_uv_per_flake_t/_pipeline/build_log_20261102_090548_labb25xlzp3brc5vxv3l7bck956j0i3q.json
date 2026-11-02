@@ -1,0 +1,79 @@
+{
+  "timestamp": "20261102_090548",
+  "hash": "labb25xlzp3brc5vxv3l7bck956j0i3q",
+  "out_path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output",
+  "duration": 17.5015,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.1103,
+  "source": "import pandas as pd\n      df = pd.read_csv(\"data/scores.csv\")\n      float(df[\"score\"].mean())"
+},
+{
+  "node": "b",
+  "path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output/b/artifact",
+  "hash": "b",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0964,
+  "source": "sum([1, 2, 3, 4, 5])"
+},
+{
+  "node": "c",
+  "path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output/c/artifact",
+  "hash": "c",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "numeric",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7495,
+  "source": "mean(mtcars$mpg)"
+},
+{
+  "node": "d",
+  "path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output/d/artifact",
+  "hash": "d",
+  "runtime": "Julia",
+  "serializer": "json",
+  "class": "Float64",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0675,
+  "source": "sum([1, 2, 3, 4, 5]) / length([1, 2, 3, 4, 5])"
+},
+{
+  "node": "e",
+  "path": "/nix/store/labb25xlzp3brc5vxv3l7bck956j0i3q-pipeline_output/e/artifact",
+  "hash": "e",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.5410,
+  "source": "import numpy as np\n      float(np.array([1, 2, 3, 4, 5]).sum())"
+}
+],
+  "pipeline": "p"
+}

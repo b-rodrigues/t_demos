@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261102_073903",
+  "hash": "q60fv5cqi0nw4a7989g77l1vzdkb3wi8",
+  "out_path": "/nix/store/q60fv5cqi0nw4a7989g77l1vzdkb3wi8-pipeline_output",
+  "duration": 5.0033,
+  "nodes": [
+{
+  "node": "good_val",
+  "path": "/nix/store/q60fv5cqi0nw4a7989g77l1vzdkb3wi8-pipeline_output/good_val/artifact",
+  "hash": "good_val",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3424,
+  "source": "(100 / 50)"
+},
+{
+  "node": "recovered_with_match",
+  "path": "/nix/store/q60fv5cqi0nw4a7989g77l1vzdkb3wi8-pipeline_output/recovered_with_match/artifact",
+  "hash": "recovered_with_match",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3289,
+  "source": "{ risky = (42 / 0); match(risky) { Error { msg } => 0, default => risky } }"
+},
+{
+  "node": "recovered_with_maybe_pipe",
+  "path": "/nix/store/q60fv5cqi0nw4a7989g77l1vzdkb3wi8-pipeline_output/recovered_with_maybe_pipe/artifact",
+  "hash": "recovered_with_maybe_pipe",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3115,
+  "source": "{ risky = (99 / 0); (risky ?|> \\(x) if (is_error(x)) { -1 } else { x }) }"
+},
+{
+  "node": "short_circuit_then_recover",
+  "path": "/nix/store/q60fv5cqi0nw4a7989g77l1vzdkb3wi8-pipeline_output/short_circuit_then_recover/artifact",
+  "hash": "short_circuit_then_recover",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2956,
+  "source": "{ risky = (1 / 0); piped = (risky |> \\(x) (x + 100)); (piped ?|> \\(x) if (is_error(x)) { 0 } else { x }) }"
+}
+],
+  "pipeline": "p"
+}

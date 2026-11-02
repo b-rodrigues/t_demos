@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "etl.raw",
+  "depends": []
+},
+{
+  "node_name": "etl.clean",
+  "depends": ["etl.raw"]
+},
+{
+  "node_name": "stats.total",
+  "depends": ["etl.clean"]
+}
+]

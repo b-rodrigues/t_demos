@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "a",
+  "depends": []
+},
+{
+  "node_name": "aa",
+  "depends": []
+},
+{
+  "node_name": "a_b",
+  "depends": []
+},
+{
+  "node_name": "result_branch_1",
+  "depends": ["a"]
+},
+{
+  "node_name": "result_branch_2",
+  "depends": ["a"]
+}
+]

@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261102_074751",
+  "hash": "m4ch0amav7sdxj9cwxky1cs3yyqchmng",
+  "out_path": "/nix/store/m4ch0amav7sdxj9cwxky1cs3yyqchmng-pipeline_output",
+  "duration": 104.1047,
+  "nodes": [
+{
+  "node": "r_lgb",
+  "path": "/nix/store/m4ch0amav7sdxj9cwxky1cs3yyqchmng-pipeline_output/r_lgb/artifact",
+  "hash": "r_lgb",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "lgb.Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.5823,
+  "source": "library(lightgbm)\n            data(agaricus.train)\n            dm = lgb.Dataset(agaricus.train$data, label = agaricus.train$label)\n            lgb.train(list(objective = \"binary\", num_leaves = 4), dm, 5)"
+},
+{
+  "node": "py_lgb",
+  "path": "/nix/store/m4ch0amav7sdxj9cwxky1cs3yyqchmng-pipeline_output/py_lgb/artifact",
+  "hash": "py_lgb",
+  "runtime": "Python",
+  "serializer": "default",
+  "class": "Booster",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 93.6825,
+  "source": "import lightgbm as lgb\n            from sklearn.datasets import make_classification\n            X, y = make_classification(n_samples = 100, n_features = 4, random_state = 1)\n            dm = lgb.Dataset(X, label = y)\n            lgb.train({\"objective\": \"binary\", \"num_leaves\": 4}, dm, num_boost_round = 5)"
+}
+],
+  "pipeline": "p"
+}

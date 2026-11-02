@@ -1,0 +1,7 @@
+{
+  "verify_node": "/nix/store/877q9jwznp63lsw5kwyn6jgl92mpngg3-verify_node.drv",
+  "model_r_node": "/nix/store/x2pn3q68sv12w0ch4wfrcwxj4cw3viak-model_r_node.drv",
+  "rf_r_node": "/nix/store/k87x6mmwvsq1i401nvs815dyvrcajrci-rf_r_node.drv",
+  "model_py_node": "/nix/store/4ddxqzrlnpq7s0zfma57ngq1xsykvf6a-model_py_node.drv",
+  "data_node": "/nix/store/29kw50f0yhg9imai9pg32z0rljb3ddkb-data_node.drv"
+}

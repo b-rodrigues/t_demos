@@ -1,0 +1,18 @@
+{
+  "test_shadow_builtins": "/nix/store/4wacnwfyb7j57pf4kyc89bhkljzvzzfs-test_shadow_builtins.drv",
+  "test_reassignment": "/nix/store/43x3s3kmkh6bd6h33p5miwkivw4y6dzb-test_reassignment.drv",
+  "test_type_mismatch_func": "/nix/store/7rnp41n405l0qpd0grmiwi4h63da5n8g-test_type_mismatch_func.drv",
+  "test_deep_nesting": "/nix/store/xs6br2825zzcpilxqrvwjksg6r3mvd0m-test_deep_nesting.drv",
+  "validation": "/nix/store/l0qf71mk0nzydk5d1v15v13pa1b9k39p-validation.drv",
+  "test_div_zero_short": "/nix/store/0y96sj5f3psg3ryh68yg9486lfxkzpj7-test_div_zero_short.drv",
+  "test_div_zero_recover": "/nix/store/xinlkvhx6klxk4158xw3yw56435vnx3b-test_div_zero_recover.drv",
+  "test_match_na": "/nix/store/zz3kjdpij7b91q4gndlcj0zkv3qbjdma-test_match_na.drv",
+  "test_name_suggestions": "/nix/store/0lim8s0l19lad655myjfrlyqb42q3n10-test_name_suggestions.drv",
+  "test_error_chain": "/nix/store/r4aziypg85g9zwrqbbk8klsrz5hfix3w-test_error_chain.drv",
+  "test_factor_edges": "/nix/store/d9x64j7c65n3kf1f7gd4j0chisl01f63-test_factor_edges.drv",
+  "test_large_pipe": "/nix/store/ldc69kgpgbqz7w3nhfqg410j4yrl74n1-test_large_pipe.drv",
+  "test_type_mismatch_arith": "/nix/store/xhdwa1glq6s7zgk5pmlcp4h3x4cjj7vl-test_type_mismatch_arith.drv",
+  "test_rm": "/nix/store/1zc37hzjszv6pi2a765r7xpwbnwwv5xw-test_rm.drv",
+  "test_match_error": "/nix/store/yvjdx1nf9gbfyc25qja0b54ffj2v44qd-test_match_error.drv",
+  "test_rm_builtin": "/nix/store/ps2zlb5qpijf9mm77xgc4swg15cbn6y1-test_rm_builtin.drv"
+}

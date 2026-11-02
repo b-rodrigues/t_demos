@@ -1,0 +1,5 @@
+{
+  "final_node": "/nix/store/mh9g8mkizhqzlqm4xnk2wczp4nvq25d4-final_node.drv",
+  "process_node": "/nix/store/60p6a9w0n2dwb55mch03rsi6f9xjg7vi-process_node.drv",
+  "config_node": "/nix/store/kx1vwbbqkwm7r2bm5qldc7s0av6m93cw-config_node.drv"
+}

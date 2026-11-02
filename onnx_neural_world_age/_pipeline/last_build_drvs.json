@@ -1,0 +1,7 @@
+{
+  "pred_skl_t": "/nix/store/5ligd71sjybnkljm3g2rwxqq1k67q8zp-pred_skl_t.drv",
+  "pred_sgd_t": "/nix/store/qimdsqpkrl6c5v53ssrpxlqpf19x2q66-pred_sgd_t.drv",
+  "model_skl": "/nix/store/kvcvsq1v1n83n6c6aidppbavvrcj6k8j-model_skl.drv",
+  "data": "/nix/store/8wfwivx36gp77r64jw2vz9aacxvcsaj3-data.drv",
+  "model_sgd": "/nix/store/kcz1x89ngh65gfnvfrbh93732253kycz-model_sgd.drv"
+}
