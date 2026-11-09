@@ -1,0 +1,30 @@
+[
+{
+  "node_name": "data_node",
+  "depends": []
+},
+{
+  "node_name": "ggplot_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "matplotlib_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "seaborn_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "plotly_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "altair_node",
+  "depends": ["data_node"]
+},
+{
+  "node_name": "plotnine_node",
+  "depends": ["data_node"]
+}
+]

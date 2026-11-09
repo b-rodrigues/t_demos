@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261109_081559",
+  "hash": "8ll7chgrvy6ia37marq8rmq5smfdh52f",
+  "out_path": "/nix/store/8ll7chgrvy6ia37marq8rmq5smfdh52f-pipeline_output",
+  "duration": 13.5717,
+  "nodes": [
+{
+  "node": "config_node",
+  "path": "/nix/store/8ll7chgrvy6ia37marq8rmq5smfdh52f-pipeline_output/config_node/artifact",
+  "hash": "config_node",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "list",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.0499,
+  "source": "config_node <- list(alpha = 0.1, beta = 2)"
+},
+{
+  "node": "process_node",
+  "path": "/nix/store/8ll7chgrvy6ia37marq8rmq5smfdh52f-pipeline_output/process_node/artifact",
+  "hash": "process_node",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": ["config_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5480,
+  "source": "# config_node is read via the runtime JSON helper automatically\nres = config_node[\"alpha\"] + config_node[\"beta\"]\nprocess_node = {\"result\": res}"
+},
+{
+  "node": "final_node",
+  "path": "/nix/store/8ll7chgrvy6ia37marq8rmq5smfdh52f-pipeline_output/final_node/artifact",
+  "hash": "final_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Float",
+  "dependencies": ["process_node"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3626,
+  "source": "(process_node.result * 2)"
+}
+],
+  "pipeline": "p"
+}

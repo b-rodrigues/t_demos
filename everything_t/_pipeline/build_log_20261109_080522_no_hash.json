@@ -1,0 +1,67 @@
+{
+  "timestamp": "20261109_080522",
+  "hash": "no_hash",
+  "out_path": "",
+  "duration": 133.3899,
+  "nodes": [
+{
+  "node": "datathin",
+  "path": "/nix/store/z41wc7y2b7ka87ygdfjj0pq3bxgxsd0m-datathin/artifact",
+  "hash": "z41wc7y2b7ka87ygdfjj0pq3bxgxsd0m",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "Unknown",
+  "dependencies": [],
+  "status": "Skipped",
+  "success": false,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "cat(\"--- R/renv: datathin::datathin() ---\\n\")\n      library(datathin)\n      set.seed(42)\n      x = rnorm(100)\n      result = datathin(x, family = \"normal\", K = 2, arg = 1)\n      cat(sprintf(\"Only possible because renv.lock resolved datathin from GitHub and its CRAN deps (VGAM, extraDistr, mvtnorm)\\n\"))\n      cat(sprintf(\"Data thinning split 100 observations into %d total outputs (training + test)\\n\", length(unlist(result))))\n      length(unlist(result))"
+},
+{
+  "node": "modecomp",
+  "path": "/nix/store/ddx2n5p3blgg0ry7jj5p5hqvsnvbr36a-modecomp/artifact",
+  "hash": "ddx2n5p3blgg0ry7jj5p5hqvsnvbr36a",
+  "runtime": "R",
+  "serializer": "json",
+  "class": "Unknown",
+  "dependencies": [],
+  "status": "Skipped",
+  "success": false,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "cat(\"--- R/git: brotools::sample_mode() via DESCRIPTION auto-detection ---\\n\")\n      library(brotools)\n      data = c(7, 7, 7, 1, 2, 3)\n      m = sample_mode(data)\n      cat(sprintf(\"Only possible because DESCRIPTION auto-detection resolved all 12 CRAN deps (dplyr, rlang, stringr, ...)\\n\"))\n      cat(sprintf(\"Mode of c(7,7,7,1,2,3) is %d (not available in base R)\\n\", m))\n      m"
+},
+{
+  "node": "py_mean",
+  "path": "/nix/store/clammaqkisddrb31apdj4395kss2p2kw-py_mean/artifact",
+  "hash": "clammaqkisddrb31apdj4395kss2p2kw",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "Unknown",
+  "dependencies": [],
+  "status": "Skipped",
+  "success": false,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "import pandas as pd\n      print(\"--- Python/uv: pandas from uv workspace ---\")\n      df = pd.read_csv(\"data/scores.csv\")\n      m = float(df[\"score\"].mean())\n      print(\"Only possible because uv workspace resolver provides pandas via pyproject.toml + uv.lock\")\n      print(f\"Mean score from scores.csv: {m}\")\n      m"
+},
+{
+  "node": "jl_custom",
+  "path": "/nix/store/hghi9z0q6r85hrpw7x3k7scfyq0mz2wl-jl_custom/artifact",
+  "hash": "hghi9z0q6r85hrpw7x3k7scfyq0mz2wl",
+  "runtime": "Julia",
+  "serializer": "default",
+  "class": "Unknown",
+  "dependencies": [],
+  "status": "Errored",
+  "success": false,
+  "warnings": false,
+  "duration": 0.0000,
+  "error_code": "nix_error",
+  "error_message": "Failed to run nix log: Command 'nix log /nix/store/gd080g3pz9y2zmrgaifmz2d9gk1iqnyc-jl_custom.drv' failed (exit 1): error: build log of '/nix/store/gd080g3pz9y2zmrgaifmz2d9gk1iqnyc-jl_custom.drv' is not available",
+  "source": "println(\"--- Julia/custom flake: nixos-24.11 ---\")\n      result = \"This Julia node runs from nixos-24.11 nixpkgs, not the project default rstats-on-nix\"\n      println(\"Only possible because per-node flake support lets this node use a different nixpkgs\")\n      println(result)\n      result"
+}
+],
+  "pipeline": "p"
+}

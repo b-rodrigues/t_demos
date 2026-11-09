@@ -1,0 +1,86 @@
+[
+{
+  "node_name": "my_var",
+  "depends": []
+},
+{
+  "node_name": "var_name",
+  "depends": []
+},
+{
+  "node_name": "val1",
+  "depends": ["my_var"]
+},
+{
+  "node_name": "test_val1",
+  "depends": ["val1"]
+},
+{
+  "node_name": "val2",
+  "depends": ["my_var", "var_name"]
+},
+{
+  "node_name": "test_val2",
+  "depends": ["val2"]
+},
+{
+  "node_name": "my_list",
+  "depends": []
+},
+{
+  "node_name": "val3",
+  "depends": ["my_list"]
+},
+{
+  "node_name": "test_val3",
+  "depends": ["val3"]
+},
+{
+  "node_name": "node_a",
+  "depends": []
+},
+{
+  "node_name": "node_b",
+  "depends": []
+},
+{
+  "node_name": "dynamic_access",
+  "depends": ["node_a", "node_b"]
+},
+{
+  "node_name": "test_dynamic",
+  "depends": ["dynamic_access"]
+},
+{
+  "node_name": "target_col",
+  "depends": []
+},
+{
+  "node_name": "s",
+  "depends": ["target_col"]
+},
+{
+  "node_name": "test_sym",
+  "depends": ["s"]
+},
+{
+  "node_name": "my_dict",
+  "depends": []
+},
+{
+  "node_name": "l",
+  "depends": []
+},
+{
+  "node_name": "val4",
+  "depends": ["l", "my_dict"]
+},
+{
+  "node_name": "test_val4",
+  "depends": ["val4"]
+},
+{
+  "node_name": "all_passed",
+  "depends": ["test_dynamic", "test_sym", "test_val1", "test_val2", "test_val3", "test_val4"]
+}
+]

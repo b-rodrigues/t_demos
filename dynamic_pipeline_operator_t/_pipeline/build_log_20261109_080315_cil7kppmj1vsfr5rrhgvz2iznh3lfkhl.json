@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261109_080315",
+  "hash": "cil7kppmj1vsfr5rrhgvz2iznh3lfkhl",
+  "out_path": "/nix/store/cil7kppmj1vsfr5rrhgvz2iznh3lfkhl-pipeline_output",
+  "duration": 14.0569,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/cil7kppmj1vsfr5rrhgvz2iznh3lfkhl-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.9454,
+  "source": "to_dataframe([[x: 1, y: 3], [x: 2, y: 4]])"
+},
+{
+  "node": "final_status",
+  "path": "/nix/store/cil7kppmj1vsfr5rrhgvz2iznh3lfkhl-pipeline_output/final_status/artifact",
+  "hash": "final_status",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6868,
+  "source": "(raw_data |> mutate(z = ($x + $y)))"
+},
+{
+  "node": "extra_step",
+  "path": "/nix/store/cil7kppmj1vsfr5rrhgvz2iznh3lfkhl-pipeline_output/extra_step/artifact",
+  "hash": "extra_step",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["final_status"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4331,
+  "source": "(final_status |> mutate(msg = str_join([$z, \" - extended\"])))"
+}
+],
+  "pipeline": "final_p"
+}

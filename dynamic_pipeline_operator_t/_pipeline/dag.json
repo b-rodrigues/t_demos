@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "final_status",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "extra_step",
+  "depends": ["final_status"]
+}
+]

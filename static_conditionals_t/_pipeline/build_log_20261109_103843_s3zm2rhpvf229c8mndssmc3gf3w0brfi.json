@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261109_103843",
+  "hash": "s3zm2rhpvf229c8mndssmc3gf3w0brfi",
+  "out_path": "/nix/store/s3zm2rhpvf229c8mndssmc3gf3w0brfi-pipeline_output",
+  "duration": 7.9767,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/s3zm2rhpvf229c8mndssmc3gf3w0brfi-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "quick",
+  "path": "/nix/store/s3zm2rhpvf229c8mndssmc3gf3w0brfi-pipeline_output/quick/artifact",
+  "hash": "quick",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "sum(data)"
+}
+],
+  "pipeline": "p2"
+}

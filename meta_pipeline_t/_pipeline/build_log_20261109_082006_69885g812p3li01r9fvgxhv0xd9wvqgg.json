@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261109_082006",
+  "hash": "69885g812p3li01r9fvgxhv0xd9wvqgg",
+  "out_path": "/nix/store/69885g812p3li01r9fvgxhv0xd9wvqgg-pipeline_output",
+  "duration": 8.7674,
+  "nodes": [
+{
+  "node": "etl.raw",
+  "path": "/nix/store/69885g812p3li01r9fvgxhv0xd9wvqgg-pipeline_output/etl.raw/artifact",
+  "hash": "etl.raw",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7831,
+  "source": "10"
+},
+{
+  "node": "etl.clean",
+  "path": "/nix/store/69885g812p3li01r9fvgxhv0xd9wvqgg-pipeline_output/etl.clean/artifact",
+  "hash": "etl.clean",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["etl.raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5731,
+  "source": "(etl.raw + 2)"
+},
+{
+  "node": "stats.total",
+  "path": "/nix/store/69885g812p3li01r9fvgxhv0xd9wvqgg-pipeline_output/stats.total/artifact",
+  "hash": "stats.total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["etl.clean"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3627,
+  "source": "(etl.clean * 3)"
+}
+],
+  "pipeline": "meta"
+}

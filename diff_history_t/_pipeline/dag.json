@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "data",
+  "depends": []
+},
+{
+  "node_name": "scalar",
+  "depends": []
+},
+{
+  "node_name": "text_node",
+  "depends": []
+}
+]

@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261109_103531",
+  "hash": "0zljwy2884jx4i4a3ah440g56lcafhvd",
+  "out_path": "/nix/store/0zljwy2884jx4i4a3ah440g56lcafhvd-pipeline_output",
+  "duration": 12.6311,
+  "nodes": [
+{
+  "node": "remote_summary",
+  "path": "/nix/store/0zljwy2884jx4i4a3ah440g56lcafhvd-pipeline_output/remote_summary/artifact",
+  "hash": "remote_summary",
+  "runtime": "R",
+  "serializer": "default",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.7991,
+  "source": "values <- c(9, 7, -3, 5)\n      positives <- values[values > 0]\n      total <- sum(positives)\n      stopifnot(total == 21)\n      remote_summary <- data.frame(total = total, count = length(positives))"
+}
+],
+  "pipeline": "p"
+}

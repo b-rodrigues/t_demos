@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "r_across",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "t_across_parity",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "parity_check",
+  "depends": ["r_across", "t_across_parity"]
+},
+{
+  "node_name": "t_summary",
+  "depends": ["raw_data"]
+}
+]

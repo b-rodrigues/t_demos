@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261109_103834",
+  "hash": "8f60x2phpvd9l7zqfni1c1s0gfd3rn6z",
+  "out_path": "/nix/store/8f60x2phpvd9l7zqfni1c1s0gfd3rn6z-pipeline_output",
+  "duration": 8.5355,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/8f60x2phpvd9l7zqfni1c1s0gfd3rn6z-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5962,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "quick",
+  "path": "/nix/store/8f60x2phpvd9l7zqfni1c1s0gfd3rn6z-pipeline_output/quick/artifact",
+  "hash": "quick",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3718,
+  "source": "sum(data)"
+},
+{
+  "node": "heavy",
+  "path": "/nix/store/8f60x2phpvd9l7zqfni1c1s0gfd3rn6z-pipeline_output/heavy/artifact",
+  "hash": "heavy",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "String",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5786,
+  "source": "\"deep analysis\""
+}
+],
+  "pipeline": "p1"
+}

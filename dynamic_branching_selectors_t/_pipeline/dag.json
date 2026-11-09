@@ -1,0 +1,66 @@
+[
+{
+  "node_name": "nums",
+  "depends": []
+},
+{
+  "node_name": "headed_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "headed_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "headed_branch_3",
+  "depends": ["nums"]
+},
+{
+  "node_name": "sampled_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "sampled_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "r_tailed_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "r_tailed_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "py_headed_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "py_headed_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "py_headed_branch_3",
+  "depends": ["nums"]
+},
+{
+  "node_name": "tailed_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "tailed_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "sliced_branch_1",
+  "depends": ["nums"]
+},
+{
+  "node_name": "sliced_branch_2",
+  "depends": ["nums"]
+},
+{
+  "node_name": "sliced_branch_3",
+  "depends": ["nums"]
+}
+]

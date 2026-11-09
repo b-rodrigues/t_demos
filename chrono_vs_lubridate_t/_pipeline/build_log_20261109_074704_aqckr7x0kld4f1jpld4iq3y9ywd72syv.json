@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261109_074704",
+  "hash": "aqckr7x0kld4f1jpld4iq3y9ywd72syv",
+  "out_path": "/nix/store/aqckr7x0kld4f1jpld4iq3y9ywd72syv-pipeline_output",
+  "duration": 15.3080,
+  "nodes": [
+{
+  "node": "r_dates",
+  "path": "/nix/store/aqckr7x0kld4f1jpld4iq3y9ywd72syv-pipeline_output/r_dates/artifact",
+  "hash": "r_dates",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 2.5763,
+  "source": "library(lubridate)\n            df <- data.frame(\n                date_str = c(\"2023-01-01\", \"2023-05-15\", \"2023-12-31\"),\n                stringsAsFactors = FALSE\n            )\n            df$parsed <- ymd(df$date_str)\n            df$r_year <- year(df$parsed)\n            df$r_month <- month(df$parsed)\n            df$r_day <- day(df$parsed)\n            # Note: adding months in R might behave differently for end of month, \n            # but for these dates it's fine.\n            df$r_plus_one_month = df$parsed + months(1)\n            df"
+},
+{
+  "node": "comparison",
+  "path": "/nix/store/aqckr7x0kld4f1jpld4iq3y9ywd72syv-pipeline_output/comparison/artifact",
+  "hash": "comparison",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["r_dates"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3603,
+  "source": "(r_dates |> mutate(t_parsed = ymd($date_str), t_year = year($t_parsed), t_month = month($t_parsed), t_day = day($t_parsed), t_plus_one_month = ($t_parsed + months(1))))"
+}
+],
+  "pipeline": "p"
+}

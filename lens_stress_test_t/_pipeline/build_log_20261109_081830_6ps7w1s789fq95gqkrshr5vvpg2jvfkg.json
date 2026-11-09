@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261109_081830",
+  "hash": "6ps7w1s789fq95gqkrshr5vvpg2jvfkg",
+  "out_path": "/nix/store/6ps7w1s789fq95gqkrshr5vvpg2jvfkg-pipeline_output",
+  "duration": 8.3926,
+  "nodes": [
+{
+  "node": "runner",
+  "path": "/nix/store/6ps7w1s789fq95gqkrshr5vvpg2jvfkg-pipeline_output/runner/artifact",
+  "hash": "runner",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3446,
+  "source": "1 + 1"
+}
+],
+  "pipeline": "p_env"
+}

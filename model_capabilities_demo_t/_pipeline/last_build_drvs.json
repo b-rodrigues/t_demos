@@ -1,0 +1,16 @@
+{
+  "node_compare": "/nix/store/al78k0pkcl8w1nb7p4yij9y6is5vx4xh-node_compare.drv",
+  "node_ci": "/nix/store/44y7j07a2593bk44xhqkcikpfdjd6x16-node_ci.drv",
+  "df": "/nix/store/f4f4r5gxr8x2h7cmbw77fc4vxha1836q-df.drv",
+  "node_wald": "/nix/store/gyrafm67vw6ffzhj2v96nh19vjbmxc5h-node_wald.drv",
+  "node_diag": "/nix/store/rdg99p7rq9sqvdfp3qayaypd4i8sd26c-node_diag.drv",
+  "model_lm": "/nix/store/j7zp98y31ci40499g7scqvg223d80ami-model_lm.drv",
+  "node_summary": "/nix/store/q469mv2x2r6ikx489jnm84wx9zf3s776-node_summary.drv",
+  "node_pred": "/nix/store/kgn4yh674wqv914likq3rrg3ib3z06wb-node_pred.drv",
+  "node_resid": "/nix/store/jgnwrf0pyj3m3xpfa9pkvc4d5d2m34ac-node_resid.drv",
+  "node_coef": "/nix/store/h1di1yhqbimxrc55km1pl7ipwqfrfznp-node_coef.drv",
+  "model_nested": "/nix/store/vwwja14l4lzz174slcrdw36nkzmnmp05-model_nested.drv",
+  "node_vcov": "/nix/store/nhcw97cy72kk8srsd39c6120xg2lp056-node_vcov.drv",
+  "node_stats": "/nix/store/i5cqqm1ijr7xrx39k2v2nmqxfc1vb7b5-node_stats.drv",
+  "node_anova": "/nix/store/f1mqprf18yqqzv5pqskb9w5vj3xdw6gq-node_anova.drv"
+}

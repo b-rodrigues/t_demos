@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "baseline_data",
+  "depends": []
+},
+{
+  "node_name": "baseline_stats",
+  "depends": ["baseline_data"]
+},
+{
+  "node_name": "live_data",
+  "depends": ["baseline_data"]
+},
+{
+  "node_name": "drift_guardrail",
+  "depends": ["baseline_stats", "live_data"]
+}
+]

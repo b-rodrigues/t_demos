@@ -1,0 +1,34 @@
+[
+{
+  "node_name": "demo_data",
+  "depends": []
+},
+{
+  "node_name": "python_model",
+  "depends": ["demo_data"]
+},
+{
+  "node_name": "python_model_state",
+  "depends": ["demo_data", "python_model"]
+},
+{
+  "node_name": "julia_flux_model",
+  "depends": ["demo_data", "python_model_state"]
+},
+{
+  "node_name": "python_predictions",
+  "depends": ["demo_data", "python_model_state"]
+},
+{
+  "node_name": "julia_flux_predictions",
+  "depends": ["demo_data", "julia_flux_model"]
+},
+{
+  "node_name": "t_predictions",
+  "depends": ["demo_data", "python_model"]
+},
+{
+  "node_name": "validate_parity",
+  "depends": ["julia_flux_predictions", "python_predictions", "t_predictions"]
+}
+]

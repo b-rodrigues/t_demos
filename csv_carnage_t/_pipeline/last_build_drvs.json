@@ -1,0 +1,16 @@
+{
+  "test_skip": "/nix/store/7vxd3vg6rxxrzpmzp8v1psik8y8qwjdz-test_skip.drv",
+  "test_unicode_values": "/nix/store/qzwzay2ms2gz79zrjgzz56ngqz1xrpgq-test_unicode_values.drv",
+  "test_tab_sep": "/nix/store/lakfv2yr69qa1csw8a47aal638af4p4y-test_tab_sep.drv",
+  "test_empty": "/nix/store/yn3qb17snxv7pga99b1yjrw7df0qwnlq-test_empty.drv",
+  "validation": "/nix/store/s6bv77sa960b077858j54x1ix04m4f82-validation.drv",
+  "test_quoted_newlines": "/nix/store/nmw6235jz8xkgls4fw883b0rzic7sslz-test_quoted_newlines.drv",
+  "test_ragged": "/nix/store/kjs2mwbj51ayzi4jyz052dksg3dhgwjp-test_ragged.drv",
+  "test_weird_colnames": "/nix/store/b2xy8cyljpk7l517z5spd6ga9fwggy5v-test_weird_colnames.drv",
+  "test_clean_colnames": "/nix/store/9dc4avgh7ikdxrhbmwmishmsxjk71zz0-test_clean_colnames.drv",
+  "test_weird_delimiters": "/nix/store/ynfrqjaqssg35qsakhrzshi7g1ydxb5x-test_weird_delimiters.drv",
+  "test_bom": "/nix/store/i21n3qsx2m85813q1xq9vsdrdm5hsk7q-test_bom.drv",
+  "test_mixed_types": "/nix/store/xki9f37mc5n7s3597jkwxhm9xqrgghaj-test_mixed_types.drv",
+  "test_header_only": "/nix/store/n00zr3cjacn4zhaw1mcmqgkrdhzzcf85-test_header_only.drv",
+  "test_semicolon_sep": "/nix/store/0n6z4d3any7pq3yc1dr340lqpy8pzl33-test_semicolon_sep.drv"
+}

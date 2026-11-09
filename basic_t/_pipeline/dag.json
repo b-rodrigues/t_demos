@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "mtcars",
+  "depends": []
+},
+{
+  "node_name": "filtered_mtcars",
+  "depends": ["mtcars"]
+},
+{
+  "node_name": "mtcars_mpg",
+  "depends": ["filtered_mtcars"]
+},
+{
+  "node_name": "report",
+  "depends": ["filtered_mtcars", "mtcars", "mtcars_mpg"]
+}
+]
