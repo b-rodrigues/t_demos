@@ -40,7 +40,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 
 ### Foreign metadata (`explain`) demos
 - `explain_foreign_classic_t`, `explain_foreign_cluster_t`, `explain_foreign_discriminant_t`, `explain_foreign_forests_t`, `explain_foreign_frames_t`, `explain_foreign_lightgbm_t`
-- `explain_foreign_logistic_t`, `explain_foreign_matrix_t`, `explain_foreign_mixed_t`, `explain_foreign_models_t`, `explain_foreign_timeseries_t`, `explain_foreign_xgboost_t`, `explain_node_test_t`
+- `explain_foreign_logistic_t`, `explain_foreign_matrix_t`, `explain_foreign_mixed_t`, `explain_foreign_models_t`, `explain_foreign_models_wave2_t`, `explain_foreign_timeseries_t`, `explain_foreign_xgboost_t`, `explain_node_test_t`
 
 ### Dynamic branching and patterns demos
 - `dynamic_branching_t`, `dynamic_branching_composition_t`, `dynamic_branching_selectors_t`, `dynamic_branching_substitution_t`, `nested_patterns_t`

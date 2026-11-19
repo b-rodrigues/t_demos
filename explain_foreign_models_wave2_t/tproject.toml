@@ -1,0 +1,17 @@
+[project]
+name = "explain_foreign_models_wave2_t"
+description = "End-to-end validation of explain(p.node).foreign_meta on wave-2 model nodes from R, Python, and Julia"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite", "mgcv", "nlme", "quantreg", "urca", "cluster", "Matrix"]
+
+[py-dependencies]
+packages = ["statsmodels", "pandas", "numpy"]
+
+[jl-dependencies]
+packages = ["CategoricalArrays", "MultivariateStats", "DataFrames"]
+
+[t]
+min_version = "0.56.0"

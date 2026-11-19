@@ -1,0 +1,114 @@
+name: Tlang E2E Test - explain_foreign_models_wave2_t
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ trigger-demo ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://cache.nixos.org https://rstats-on-nix.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= rstats-on-nix.cachix.org-1:vdiiVgocg6WeJrODIqdprZRUrhi1JzhBnXv7aWI6+F0=
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: rstats-on-nix
+
+      - name: Get T commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.event.client_payload.repo }}"
+          SHA="${{ github.event.client_payload.sha }}"
+          if [[ -z "$SHA" || "$SHA" == "null" ]]; then
+            REPO="b-rodrigues/tlang"
+            SHA=$(gh api repos/b-rodrigues/tlang/commits/main --jq '.sha')
+            echo "No dispatch payload, falling back to tlang/main: $SHA"
+          fi
+          echo "TLANG_REPO=$REPO" >> $GITHUB_ENV
+          echo "TLANG_SHA=$SHA" >> $GITHUB_ENV
+
+      - name: Update to latest T version
+        working-directory: ./explain_foreign_models_wave2_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Inject pipeline dependencies
+        working-directory: ./explain_foreign_models_wave2_t
+        env:
+          TLANG_AUTO_ADD_PIPELINE_DEPS: "1"
+        run: |
+          nix develop --command t run src/pipeline.t || echo "Dependencies injected (expecting failure to re-lock)"
+
+      - name: Rebuild flake with new dependencies
+        working-directory: ./explain_foreign_models_wave2_t
+        run: |
+          nix shell "github:$TLANG_REPO/$TLANG_SHA" --command t update
+
+      - name: Build Pipeline
+        working-directory: ./explain_foreign_models_wave2_t
+        run: |
+          nix develop --command t run src/pipeline.t
+
+      - name: Verify foreign_meta wave 2 facts
+        working-directory: ./explain_foreign_models_wave2_t
+        run: |
+          cat > verify_wave2.t << 'EOF'
+          t_make()
+          check(explain(p.r_gam).foreign_meta.kind == "model")
+          check(explain(p.r_gam).foreign_meta.task == "regression")
+          check(explain(p.r_gam).foreign_meta.target == "mpg")
+          check(explain(p.r_gam).foreign_meta.n_obs == 32)
+          check(type(explain(p.r_gam).foreign_meta.metrics.edf) == "Float")
+          check(type(explain(p.r_gam).foreign_meta.metrics.r_squared) == "Float")
+
+          check(explain(p.r_lme).foreign_meta.kind == "model")
+          check(explain(p.r_lme).foreign_meta.task == "regression")
+          check(explain(p.r_lme).foreign_meta.n_obs == 108)
+          check(explain(p.r_lme).foreign_meta.groups.Subject == 27)
+
+          check(explain(p.r_rq).foreign_meta.kind == "model")
+          check(explain(p.r_rq).foreign_meta.task == "regression")
+          check(explain(p.r_rq).foreign_meta.metrics.tau == 0.5)
+
+          check(explain(p.r_urca).foreign_meta.kind == "test")
+          check(type(explain(p.r_urca).foreign_meta.metrics.statistic) == "Float")
+
+          check(explain(p.r_dist).foreign_meta.kind == "dist")
+          check(explain(p.r_dist).foreign_meta.n_obs == 5)
+          check(explain(p.r_dist).foreign_meta.method == "euclidean")
+
+          check(explain(p.r_sparse).foreign_meta.kind == "matrix")
+          check(explain(p.r_sparse).foreign_meta.metrics.nnz == 2)
+
+          check(explain(p.py_markov).foreign_meta.kind == "model")
+          check(explain(p.py_markov).foreign_meta.task == "time_series")
+          check(explain(p.py_markov).foreign_meta.metrics.n_regimes == 2)
+
+          check(explain(p.jl_factor).foreign_meta.kind == "factor")
+          check(explain(p.jl_factor).foreign_meta.n_obs == 5)
+          check(explain(p.jl_factor).foreign_meta.n_levels == 3)
+
+          check(explain(p.jl_mlda).foreign_meta.kind == "model")
+          check(explain(p.jl_mlda).foreign_meta.task == "dim_reduction")
+          check(explain(p.jl_mlda).foreign_meta.n_components == 1)
+          check(explain(p.jl_mlda).foreign_meta.metrics.n_classes == 2)
+
+          print("+ foreign wave 2 model metadata: ok")
+          EOF
+          nix develop --command t run --failfast --unsafe verify_wave2.t
