@@ -54,6 +54,56 @@ p = pipeline {
         }>,
         runtime = Julia
     )
+
+    -- R forecast::ets exponential smoothing state space model
+    r_ets = node(
+        command = <{
+            library(forecast)
+            ets(AirPassengers)
+        }>,
+        runtime = R
+    )
+
+    -- R forecast(...) output (new forecast kind with horizon)
+    r_forecast = node(
+        command = <{
+            library(forecast)
+            m = ets(AirPassengers)
+            forecast(m, h = 12)
+        }>,
+        runtime = R
+    )
+
+    -- R forecast::tbats multi-seasonal model
+    r_tbats = node(
+        command = <{
+            library(forecast)
+            tbats(AirPassengers)
+        }>,
+        runtime = R
+    )
+
+    -- R zoo series object
+    r_zoo = node(
+        command = <{
+            library(zoo)
+            zoo(1:24, as.Date("2020-01-01") + 0:23)
+        }>,
+        runtime = R
+    )
+
+    -- statsmodels vector autoregression (VAR)
+    py_var = node(
+        command = <{
+            import numpy as np
+            import pandas as pd
+            from statsmodels.tsa.api import VAR
+            rng = np.random.default_rng(42)
+            df_var = pd.DataFrame(rng.normal(size = (50, 2)), columns = ["a", "b"])
+            VAR(df_var).fit(maxlags = 2)
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

@@ -1,17 +1,17 @@
 [project]
 name = "explain_foreign_timeseries_t"
-description = "End-to-end test for explain(p.node).foreign_meta time-series facts on R arima and statsmodels ARIMA nodes"
+description = "End-to-end test for explain(p.node).foreign_meta time-series facts on R forecast/zoo/arima and statsmodels ARIMA/VAR nodes"
 
 [dependencies]
 
 [r-dependencies]
-packages = ["jsonlite"]
+packages = ["jsonlite", "forecast", "zoo"]
 
 [py-dependencies]
-packages = ["statsmodels"]
+packages = ["statsmodels", "pandas", "numpy"]
 
 [jl-dependencies]
 packages = ["StateSpaceModels"]
 
 [t]
-min_version = "0.55.0"
+min_version = "0.56.0"
