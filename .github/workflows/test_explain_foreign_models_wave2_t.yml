@@ -68,4 +68,4 @@ jobs:
       - name: Verify foreign_meta wave 2 facts
         working-directory: ./explain_foreign_models_wave2_t
         run: |
-          nix develop --command t run --failfast --unsafe verify_wave2.t
+          nix develop --command t run --failfast --unsafe src/verify_wave2.t
