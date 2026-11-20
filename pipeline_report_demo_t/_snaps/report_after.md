@@ -23,6 +23,20 @@
 | filtered_mtcars | T | 1 | mtcars |
 | mtcars_mpg | T | 2 | filtered_mtcars |
 
+## Node Overview
+
+Same rows as pipeline_overview, failed first. Use pipeline_overview_markdown(p) for this table alone.
+
+| name | runtime | status | depth | error |
+|------|---------|--------|-------|-------|
+| mtcars | T | --- | 0 |  |
+| r_model | R | --- | 1 |  |
+| py_stats | Python | --- | 1 |  |
+| errored_mtcars | T | --- | 1 |  |
+| errored_mtcars_r | R | --- | 1 |  |
+| filtered_mtcars | T | --- | 1 |  |
+| mtcars_mpg | T | --- | 2 |  |
+
 ## Built Nodes (0)
 
 _No nodes built yet._
