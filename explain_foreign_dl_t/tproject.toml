@@ -1,0 +1,17 @@
+[project]
+name = "explain_foreign_dl_t"
+description = "End-to-end validation of explain(p.node).foreign_meta on deep learning, transformers, catboost, Julia Flux/MCMC/SciML/MultivariateStats nodes"
+
+[dependencies]
+
+[r-dependencies]
+packages = ["jsonlite"]
+
+[py-dependencies]
+packages = ["torch", "keras", "tensorflow", "transformers", "catboost", "numpy"]
+
+[jl-dependencies]
+packages = ["Flux", "MCMCChains", "MultivariateStats", "SciMLBase", "GaussianMixtures", "ARCHModels", "XGBoost"]
+
+[t]
+min_version = "0.56.0"

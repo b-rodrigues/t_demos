@@ -5,13 +5,13 @@ description = "End-to-end validation of explain(p.node).foreign_meta on wave-2 m
 [dependencies]
 
 [r-dependencies]
-packages = ["jsonlite", "mgcv", "nlme", "quantreg", "urca", "cluster", "Matrix"]
+packages = ["jsonlite", "mgcv", "nlme", "quantreg", "urca", "cluster", "Matrix", "workflows", "parsnip", "ranger", "betareg", "party", "partykit", "caret", "kernlab", "e1071", "FactoMineR", "igraph", "coda", "glmnet", "dbscan", "gbm", "C50", "earth", "pls", "mclust", "psych", "lavaan", "neuralnet"]
 
 [py-dependencies]
-packages = ["statsmodels", "pandas", "numpy"]
+packages = ["statsmodels", "pandas", "numpy", "scikit-learn", "imbalanced-learn", "networkx", "xarray", "polars", "pillow", "gensim", "dask"]
 
 [jl-dependencies]
-packages = ["CategoricalArrays", "MultivariateStats", "DataFrames"]
+packages = ["CategoricalArrays", "MultivariateStats", "DataFrames", "Clustering", "Graphs", "JuMP", "Distributions"]
 
 [t]
 min_version = "0.56.0"

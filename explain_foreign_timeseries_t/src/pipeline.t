@@ -104,6 +104,125 @@ p = pipeline {
         }>,
         runtime = Python
     )
+
+    -- R multivariate zoo series (verifies NROW instead of length)
+    r_zoo_mv = node(
+        command = <{
+            library(zoo)
+            m <- matrix(1:20, ncol = 2)
+            colnames(m) <- c("s1", "s2")
+            zoo(m, as.Date("2020-01-01") + 0:9)
+        }>,
+        runtime = R
+    )
+
+    -- R forecast::auto.arima on AirPassengers (verifies ARIMA(2,1,1)(0,1,0)[12])
+    r_auto_arima = node(
+        command = <{
+            library(forecast)
+            auto.arima(AirPassengers)
+        }>,
+        runtime = R
+    )
+
+    -- R forecast::nnetar neural network autoregression
+    r_nnetar = node(
+        command = <{
+            library(forecast)
+            set.seed(1)
+            nnetar(AirPassengers)
+        }>,
+        runtime = R
+    )
+
+    -- R forecast::tbats with fractional seasonal period (365.25)
+    r_tbats_frac = node(
+        command = <{
+            library(forecast)
+            y <- msts(sin(seq_len(800) / 10) + 0.1 * cos(seq_len(800)), seasonal.periods = c(7, 365.25))
+            tbats(y)
+        }>,
+        runtime = R
+    )
+
+    -- R rugarch uGARCHfit (unattached rugarch:: namespace test for rugarch::likelihood)
+    r_ugarch = node(
+        command = <{
+            set.seed(1)
+            spec <- rugarch::ugarchspec()
+            rugarch::ugarchfit(spec, rnorm(200))
+        }>,
+        runtime = R
+    )
+
+    -- R tidyverts mable (mdl_df) and multi-key/multi-model fable (16 rows, horizon = 4)
+    r_mable = node(
+        command = <{
+            tsb <- tsibble::tsibble(
+                id = rep(c("A", "B"), each = 24),
+                t = rep(1:24, 2),
+                y = c(sin(1:24) + 10, cos(1:24) + 20),
+                key = id,
+                index = t
+            )
+            fabletools::model(tsb, ets = fable::ETS(y), arima = fable::ARIMA(y))
+        }>,
+        runtime = R
+    )
+
+    r_fable = node(
+        command = <{
+            fabletools::forecast(r_mable, h = 4)
+        }>,
+        runtime = R
+    )
+
+    -- R smooth::es exponential smoothing
+    r_smooth = node(
+        command = <{
+            smooth::es(AirPassengers)
+        }>,
+        runtime = R
+    )
+
+    -- R dlm::dlmFilter
+    r_dlm = node(
+        command = <{
+            dlm::dlmFilter(as.numeric(AirPassengers), dlm::dlmModPoly(1))
+        }>,
+        runtime = R
+    )
+
+    -- R vars::VAR
+    r_vars = node(
+        command = <{
+            set.seed(1)
+            vars::VAR(data.frame(a = rnorm(40), b = rnorm(40)), p = 2)
+        }>,
+        runtime = R
+    )
+
+    -- Python pmdarima auto_arima
+    py_pmdarima = node(
+        command = <{
+            import numpy as np
+            import pmdarima as pm
+            y = np.sin(np.arange(40) / 3.0) + np.arange(40) * 0.1
+            pm.auto_arima(y, seasonal = False)
+        }>,
+        runtime = Python
+    )
+
+    -- Python tbats with fractional seasonal period
+    py_tbats = node(
+        command = <{
+            import numpy as np
+            from tbats import TBATS
+            y = np.sin(np.arange(100) / 3.0) + 10.0
+            TBATS(seasonal_periods = [7, 14.5], use_box_cox = False, use_arma_errors = False).fit(y)
+        }>,
+        runtime = Python
+    )
 }
 
 print("===============================================")

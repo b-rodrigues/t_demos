@@ -5,10 +5,10 @@ description = "End-to-end test for explain(p.node).foreign_meta time-series fact
 [dependencies]
 
 [r-dependencies]
-packages = ["jsonlite", "forecast", "zoo"]
+packages = ["jsonlite", "forecast", "zoo", "rugarch", "fable", "fabletools", "tsibble", "smooth", "dlm", "vars"]
 
 [py-dependencies]
-packages = ["statsmodels", "pandas", "numpy"]
+packages = ["statsmodels", "pandas", "numpy", "pmdarima", "tbats"]
 
 [jl-dependencies]
 packages = ["StateSpaceModels"]

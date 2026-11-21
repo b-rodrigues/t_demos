@@ -39,7 +39,7 @@ Each subdirectory is a complete T project with its own `tproject.toml` and pipel
 - `glm_basic_r_t`, `glm_basic_py_t`, `glm_discoveries_t`, `glm_hsb_t`, `glm_titanic_t`, `glm_warpbreaks_t`
 
 ### Foreign metadata (`explain`) demos
-- `explain_foreign_classic_t`, `explain_foreign_cluster_t`, `explain_foreign_discriminant_t`, `explain_foreign_forests_t`, `explain_foreign_frames_t`, `explain_foreign_lightgbm_t`
+- `explain_foreign_classic_t`, `explain_foreign_cluster_t`, `explain_foreign_discriminant_t`, `explain_foreign_dl_t`, `explain_foreign_forests_t`, `explain_foreign_frames_t`, `explain_foreign_lightgbm_t`
 - `explain_foreign_logistic_t`, `explain_foreign_matrix_t`, `explain_foreign_mixed_t`, `explain_foreign_models_t`, `explain_foreign_models_wave2_t`, `explain_foreign_timeseries_t`, `explain_foreign_xgboost_t`, `explain_node_test_t`
 
 ### Dynamic branching and patterns demos
