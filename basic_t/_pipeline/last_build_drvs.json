@@ -1,0 +1,6 @@
+{
+  "mtcars": "/nix/store/064yqm568yxf33fcgp8k21a9x077dn2k-mtcars.drv",
+  "mtcars_mpg": "/nix/store/8sgpkkw1sq4iabpwp7cz51cn8j13g7bp-mtcars_mpg.drv",
+  "report": "/nix/store/rayaf2c7d7yis97brslwb7d703s9sfmv-report.drv",
+  "filtered_mtcars": "/nix/store/hrrwqdfc47piclfgainfsvqwmaj2aj5a-filtered_mtcars.drv"
+}

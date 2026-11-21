@@ -1,0 +1,41 @@
+{
+  "timestamp": "20261121_093847",
+  "hash": "qmhkjps3db47vd0xqdwkzvh0dk4kgc6a",
+  "out_path": "/nix/store/qmhkjps3db47vd0xqdwkzvh0dk4kgc6a-pipeline_output",
+  "duration": 5.3944,
+  "nodes": [
+{
+  "node": "bad",
+  "path": "/nix/store/qmhkjps3db47vd0xqdwkzvh0dk4kgc6a-pipeline_output/bad/artifact",
+  "hash": "bad",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": [],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.4150,
+  "error_code": "DivisionByZero",
+  "error_message": "Division by zero.",
+  "source": "(1 / 0)"
+},
+{
+  "node": "downstream",
+  "path": "/nix/store/qmhkjps3db47vd0xqdwkzvh0dk4kgc6a-pipeline_output/downstream/artifact",
+  "hash": "downstream",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Error",
+  "dependencies": ["bad"],
+  "status": "SoftFailed",
+  "success": false,
+  "warnings": false,
+  "duration": 0.2655,
+  "error_code": "DivisionByZero",
+  "error_message": "Division by zero.",
+  "source": "(bad + 1)"
+}
+],
+  "pipeline": "p_err"
+}

@@ -1,0 +1,13 @@
+{
+  "seed_parquet": "/nix/store/bmcm8sllj8a7lkzwxv01nlmz5zwdz8fn-seed_parquet.drv",
+  "native_csv": "/nix/store/vabvcjhmik5jwwl6fzag730cx99wk7n3-native_csv.drv",
+  "py_temporal": "/nix/store/nwp8c76hq3asfjriyzln5333g439fzf4-py_temporal.drv",
+  "r_temporal": "/nix/store/j9as07rz6346xa2h99hlqm05h2clxg14-r_temporal.drv",
+  "seed_native_df": "/nix/store/c0lywqyi0s73gv20p7knfzjvmlb6jslm-seed_native_df.drv",
+  "temporal_roundtrip": "/nix/store/p05gpibbccsagr204ry1r8rkw3f5zc68-temporal_roundtrip.drv",
+  "seed_fallback_df": "/nix/store/01xs946gc44bqwhm44r0jb65384paw5n-seed_fallback_df.drv",
+  "fallback_csv": "/nix/store/q1iz1xn1nkh34p0f20g7msj6jkw0z2gg-fallback_csv.drv",
+  "validation_report": "/nix/store/w80q1ynjqk4bpk5d4qnky7v7rq12b8bx-validation_report.drv",
+  "parquet_scan": "/nix/store/6w10dncvim4ki90kz5f7ygszfb4vracb-parquet_scan.drv",
+  "parsed_native": "/nix/store/cw7g49slh143hhvwgf7bmfqwsv32q726-parsed_native.drv"
+}

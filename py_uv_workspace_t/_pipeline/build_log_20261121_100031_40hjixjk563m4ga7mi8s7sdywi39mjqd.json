@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261121_100031",
+  "hash": "40hjixjk563m4ga7mi8s7sdywi39mjqd",
+  "out_path": "/nix/store/40hjixjk563m4ga7mi8s7sdywi39mjqd-pipeline_output",
+  "duration": 6.6247,
+  "nodes": [
+{
+  "node": "a",
+  "path": "/nix/store/40hjixjk563m4ga7mi8s7sdywi39mjqd-pipeline_output/a/artifact",
+  "hash": "a",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "float",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6094,
+  "source": "import pandas as pd\n      df = pd.read_csv(\"data/scores.csv\")\n      float(df[\"score\"].mean())"
+}
+],
+  "pipeline": "p"
+}

@@ -1,0 +1,6 @@
+{
+  "validation": "/nix/store/1fn3645gzfm86dwf8qkminxfs5aqqfqc-validation.drv",
+  "raw_data": "/nix/store/ryksbfh228yddrplcqy0hh2snxpk04gx-raw_data.drv",
+  "features_r": "/nix/store/h173p12hfcr162r2706qx6drg0x7mp8q-features_r.drv",
+  "features_t": "/nix/store/q6i9iwcpai61gwq4bc03z3hqc32670hh-features_t.drv"
+}

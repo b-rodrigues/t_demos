@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "data",
+  "depends": []
+},
+{
+  "node_name": "expensive_node",
+  "depends": ["data"]
+},
+{
+  "node_name": "summary_stats",
+  "depends": ["expensive_node"]
+},
+{
+  "node_name": "report",
+  "depends": ["data", "expensive_node"]
+}
+]

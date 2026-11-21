@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261121_100641",
+  "hash": "h0hr5qv1pp025yhjnvrhf9a3zfz7knb3",
+  "out_path": "/nix/store/h0hr5qv1pp025yhjnvrhf9a3zfz7knb3-pipeline_output",
+  "duration": 4.4548,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/h0hr5qv1pp025yhjnvrhf9a3zfz7knb3-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "total",
+  "path": "/nix/store/h0hr5qv1pp025yhjnvrhf9a3zfz7knb3-pipeline_output/total/artifact",
+  "hash": "total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "sum(data)"
+}
+],
+  "pipeline": "p_py2"
+}

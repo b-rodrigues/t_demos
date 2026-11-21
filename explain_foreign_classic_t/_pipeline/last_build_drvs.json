@@ -1,0 +1,13 @@
+{
+  "py_frozen": "/nix/store/zcl58y5f1p5p810wgi7gl740pcbpf9sx-py_frozen.drv",
+  "r_fitdistr": "/nix/store/cz6ljxb4w45jgyjc66jmzsq9bmkr1m1g-r_fitdistr.drv",
+  "r_loess": "/nix/store/11h6c8997jm88s63mi0ygl9cqavwhhpj-r_loess.drv",
+  "r_htest": "/nix/store/mgyzb8gc47krd2lf104jmcn60im01icr-r_htest.drv",
+  "py_sparse": "/nix/store/rdj1vhn2g7v1r4vk7n91nwchq2mb813d-py_sparse.drv",
+  "py_pipe": "/nix/store/p42ilg9c4gq0k68dn8v120ljq3nxsqjn-py_pipe.drv",
+  "py_ets": "/nix/store/42zp566ajj5bjj40hqr7kwcyvkrwci7h-py_ets.drv",
+  "r_nls": "/nix/store/p9ds12g6pgxq205p7k8rbvn9s9sqqr0p-r_nls.drv",
+  "r_density": "/nix/store/cphck081nyzj31wncl1j3fpx4ipbnb2m-r_density.drv",
+  "py_phreg": "/nix/store/lq4361npyvyw6qb0hzvd4izjq41m6fan-py_phreg.drv",
+  "py_mnlogit": "/nix/store/lvm86mk3nbrrdpbj7j6acb42dpjvsffh-py_mnlogit.drv"
+}

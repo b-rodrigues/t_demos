@@ -1,0 +1,23 @@
+{
+  "timestamp": "20261121_100535",
+  "hash": "8spajswsqh90065vlywpgkl8j0dp852z",
+  "out_path": "/nix/store/8spajswsqh90065vlywpgkl8j0dp852z-pipeline_output",
+  "duration": 5.6213,
+  "nodes": [
+{
+  "node": "result",
+  "path": "/nix/store/8spajswsqh90065vlywpgkl8j0dp852z-pipeline_output/result/artifact",
+  "hash": "result",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2226,
+  "source": "{\"lang\": \"py\"}"
+}
+],
+  "pipeline": "p_fork1"
+}

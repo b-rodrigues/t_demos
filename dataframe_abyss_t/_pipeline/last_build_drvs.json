@@ -1,0 +1,17 @@
+{
+  "test_coerce_mutate": "/nix/store/4xf86p0hwb956qqbzbp5yy0cvpxsjxqy-test_coerce_mutate.drv",
+  "test_empty": "/nix/store/z4aa1kpclwxdgf9p3mnswcs0qnf4lj7f-test_empty.drv",
+  "test_long_colname": "/nix/store/yvpvx9645bbahx03p5j3hhpb2xrvay99-test_long_colname.drv",
+  "validation": "/nix/store/7ck38h2jzlggs6d9majrd2rdhp9jbyky-validation.drv",
+  "test_na_arithmetic": "/nix/store/kq6m563gj0jcmmpplx6w88dyalv0xv74-test_na_arithmetic.drv",
+  "test_empty_grouped": "/nix/store/b788v6zc8674mpblvrzacq0q18ri6yp0-test_empty_grouped.drv",
+  "test_all_na": "/nix/store/n6x44p773nm38ygrcb3xsq35pk5957ln-test_all_na.drv",
+  "test_pivot_dup_keys": "/nix/store/sww2zchwkh06zvfljdgk47w1bnrbh23y-test_pivot_dup_keys.drv",
+  "test_group_by_na": "/nix/store/8d2qr4wl8svigvxvypnbvbr6jzjpl31a-test_group_by_na.drv",
+  "test_zero_cols": "/nix/store/q3bfzq2s7mvqxv8w18lbjxws39j4ig26-test_zero_cols.drv",
+  "test_dup_colnames": "/nix/store/1lz6qxkj08mhw1zjpda16qj0slqsmx06-test_dup_colnames.drv",
+  "test_single_cell": "/nix/store/5j3pzw0aa9rjgiry56xyvfqqzl7ha6r8-test_single_cell.drv",
+  "test_coerce_bind": "/nix/store/50ar3ffjnhxppfz3q7h84zphkz1y75r6-test_coerce_bind.drv",
+  "test_na_filter": "/nix/store/s0xw30yxn5vzg2maa6zl9anh1b44d8p4-test_na_filter.drv",
+  "test_pivot_longer": "/nix/store/64v1caawhkhrlcf4bca7djygskncj9ff-test_pivot_longer.drv"
+}

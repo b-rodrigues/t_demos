@@ -1,0 +1,6 @@
+{
+  "handled_node": "/nix/store/rd50yjgnsly3jp15xb6zv1g13zrhzfwf-handled_node.drv",
+  "local_recovery": "/nix/store/3ikadqbhhbx2zch0vq41bvfhvm1djd3w-local_recovery.drv",
+  "risky_node": "/nix/store/7r411jpzf8knjh7v45li5kslzhks8nfj-risky_node.drv",
+  "error_info": "/nix/store/3wjmmglh2zjyzw46laqbpd5pjgy4v7kc-error_info.drv"
+}

@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "dep_node",
+  "depends": []
+},
+{
+  "node_name": "sh_node",
+  "depends": ["dep_node"]
+},
+{
+  "node_name": "failing_node",
+  "depends": []
+},
+{
+  "node_name": "recovery_node",
+  "depends": ["failing_node"]
+}
+]

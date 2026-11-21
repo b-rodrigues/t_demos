@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261121_094222",
+  "hash": "xsba75r45ifdz6xykjczrc7dxbggm3wv",
+  "out_path": "/nix/store/xsba75r45ifdz6xykjczrc7dxbggm3wv-pipeline_output",
+  "duration": 5.6173,
+  "nodes": [
+{
+  "node": "raw_data",
+  "path": "/nix/store/xsba75r45ifdz6xykjczrc7dxbggm3wv-pipeline_output/raw_data/artifact",
+  "hash": "raw_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5727,
+  "source": "[10, 20, 30, 40, 50]"
+},
+{
+  "node": "processed",
+  "path": "/nix/store/xsba75r45ifdz6xykjczrc7dxbggm3wv-pipeline_output/processed/artifact",
+  "hash": "processed",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": ["raw_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4207,
+  "source": "(raw_data |> map(\\(x) (x * 2)))"
+},
+{
+  "node": "summary_val",
+  "path": "/nix/store/xsba75r45ifdz6xykjczrc7dxbggm3wv-pipeline_output/summary_val/artifact",
+  "hash": "summary_val",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["processed"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2657,
+  "source": "sum(processed)"
+}
+],
+  "pipeline": "p"
+}

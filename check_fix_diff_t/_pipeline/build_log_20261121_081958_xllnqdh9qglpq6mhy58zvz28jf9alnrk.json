@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261121_081958",
+  "hash": "xllnqdh9qglpq6mhy58zvz28jf9alnrk",
+  "out_path": "/nix/store/xllnqdh9qglpq6mhy58zvz28jf9alnrk-pipeline_output",
+  "duration": 5.7476,
+  "nodes": [
+{
+  "node": "raw",
+  "path": "/nix/store/xllnqdh9qglpq6mhy58zvz28jf9alnrk-pipeline_output/raw/artifact",
+  "hash": "raw",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.6176,
+  "source": "read_csv(\"data/sales.csv\")"
+},
+{
+  "node": "clean",
+  "path": "/nix/store/xllnqdh9qglpq6mhy58zvz28jf9alnrk-pipeline_output/clean/artifact",
+  "hash": "clean",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["raw"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4437,
+  "source": "(raw |> filter(($amount > 0)))"
+},
+{
+  "node": "summary_node",
+  "path": "/nix/store/xllnqdh9qglpq6mhy58zvz28jf9alnrk-pipeline_output/summary_node/artifact",
+  "hash": "summary_node",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["clean"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2575,
+  "source": "(clean |> summarize(total = sum($amount), n = nrow(clean)))"
+}
+],
+  "pipeline": "p"
+}

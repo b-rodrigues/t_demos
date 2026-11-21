@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "raw",
+  "depends": []
+},
+{
+  "node_name": "clean",
+  "depends": ["raw"]
+},
+{
+  "node_name": "summary_node",
+  "depends": ["clean"]
+}
+]

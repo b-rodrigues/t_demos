@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261121_100602",
+  "hash": "wlc51w5frm3zvxbxzh8wniksmji1rvdg",
+  "out_path": "/nix/store/wlc51w5frm3zvxbxzh8wniksmji1rvdg-pipeline_output",
+  "duration": 4.0395,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/wlc51w5frm3zvxbxzh8wniksmji1rvdg-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "quick",
+  "path": "/nix/store/wlc51w5frm3zvxbxzh8wniksmji1rvdg-pipeline_output/quick/artifact",
+  "hash": "quick",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "sum(data)"
+}
+],
+  "pipeline": "p3"
+}

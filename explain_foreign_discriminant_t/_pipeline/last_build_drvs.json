@@ -1,0 +1,7 @@
+{
+  "py_gmm": "/nix/store/1pklv10znxfka93k3c1s53zzy7clvxqc-py_gmm.drv",
+  "py_grid": "/nix/store/gfaznx780rk0igz6cmdbyd1hdr7h7chc-py_grid.drv",
+  "r_polr": "/nix/store/hmj88prwlcffaxl7b18rw3axvn6174kw-r_polr.drv",
+  "r_multinom": "/nix/store/jy9xdi1a9z06x9zmgn3933md87ss2yhq-r_multinom.drv",
+  "r_lda": "/nix/store/r7f1zzr2ql9c4l6yiyqpqpn0ww1vl264-r_lda.drv"
+}

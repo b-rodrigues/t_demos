@@ -1,0 +1,26 @@
+[
+{
+  "node_name": "frozen",
+  "depends": []
+},
+{
+  "node_name": "shadowed",
+  "depends": []
+},
+{
+  "node_name": "via_quoted",
+  "depends": []
+},
+{
+  "node_name": "via_lambda",
+  "depends": []
+},
+{
+  "node_name": "sym_call",
+  "depends": []
+},
+{
+  "node_name": "report",
+  "depends": ["frozen", "shadowed", "sym_call", "via_lambda", "via_quoted"]
+}
+]

@@ -1,0 +1,10 @@
+[
+{
+  "node_name": "large_data",
+  "depends": []
+},
+{
+  "node_name": "summarized",
+  "depends": ["large_data"]
+}
+]

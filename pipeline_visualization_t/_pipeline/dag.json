@@ -1,0 +1,14 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "processed",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "summary_val",
+  "depends": ["processed"]
+}
+]

@@ -1,0 +1,6 @@
+{
+  "mtcars_r": "/nix/store/p8lsaxvzij8345wc1sdylr6haxcv0vgr-mtcars_r.drv",
+  "head_mtcars": "/nix/store/cm9y8rf5f8wfn8rm235f6s2gpw6csx8s-head_mtcars.drv",
+  "report": "/nix/store/j212l0mgm7q7xxdzy3zlxb2gh4ngqqb4-report.drv",
+  "mtcars_py": "/nix/store/6aclip7vg65rmi5klanrix6cflkcr83k-mtcars_py.drv"
+}

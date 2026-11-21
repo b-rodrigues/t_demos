@@ -1,0 +1,18 @@
+[
+{
+  "node_name": "wage_raw",
+  "depends": []
+},
+{
+  "node_name": "t_data",
+  "depends": ["wage_raw"]
+},
+{
+  "node_name": "t_model",
+  "depends": ["t_data"]
+},
+{
+  "node_name": "r_model",
+  "depends": ["wage_raw"]
+}
+]

@@ -1,0 +1,65 @@
+{
+  "timestamp": "20261121_082552",
+  "hash": "9aq7zyddx0pwhqp7n6158ba75mv7b7yl",
+  "out_path": "/nix/store/9aq7zyddx0pwhqp7n6158ba75mv7b7yl-pipeline_output",
+  "duration": 8.4332,
+  "nodes": [
+{
+  "node": "base_data",
+  "path": "/nix/store/9aq7zyddx0pwhqp7n6158ba75mv7b7yl-pipeline_output/base_data/artifact",
+  "hash": "base_data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.7224,
+  "source": "[owner: \"antigravity\", version: \"0.51.2\", retry: 3, tags: [\"data\", \"science\", \"reproducible\"]]"
+},
+{
+  "node": "updated_version",
+  "path": "/nix/store/9aq7zyddx0pwhqp7n6158ba75mv7b7yl-pipeline_output/updated_version/artifact",
+  "hash": "updated_version",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5071,
+  "source": "{ l = col_lens(\"version\"); over(base_data, l, \\(v) str_join([v, \"-released\"], sep = \"\")) }"
+},
+{
+  "node": "updated_retry",
+  "path": "/nix/store/9aq7zyddx0pwhqp7n6158ba75mv7b7yl-pipeline_output/updated_retry/artifact",
+  "hash": "updated_retry",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["updated_version"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.3088,
+  "source": "{ l = col_lens(\"retry\"); over(updated_version, l, \\(x) (x + 1)) }"
+},
+{
+  "node": "both_updated",
+  "path": "/nix/store/9aq7zyddx0pwhqp7n6158ba75mv7b7yl-pipeline_output/both_updated/artifact",
+  "hash": "both_updated",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Dict",
+  "dependencies": ["base_data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.5373,
+  "source": "{ vl = col_lens(\"version\"); rl = col_lens(\"retry\"); modify(base_data, vl, \\(v) str_join([v, \"-released\"], sep = \"\"), rl, \\(x) (x + 1)) }"
+}
+],
+  "pipeline": "p"
+}

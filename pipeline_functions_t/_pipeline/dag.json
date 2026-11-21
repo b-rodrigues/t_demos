@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "positive_rows",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "quiet_positive_rows",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "grouped_rows",
+  "depends": ["quiet_positive_rows"]
+},
+{
+  "node_name": "final_summary",
+  "depends": ["grouped_rows"]
+}
+]

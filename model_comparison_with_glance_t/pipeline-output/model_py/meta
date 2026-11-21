@@ -1,0 +1,1 @@
+{"class": "PMMLPipeline", "kind": "model", "task": "regression", "n_features": 3, "features": ["hp", "wt", "qsec"]}

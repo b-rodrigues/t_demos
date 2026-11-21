@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "raw_data",
+  "depends": []
+},
+{
+  "node_name": "validate_ranges",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "validate_dates",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "validate_nulls",
+  "depends": ["raw_data"]
+},
+{
+  "node_name": "final_analytics",
+  "depends": ["validate_dates", "validate_nulls", "validate_ranges"]
+}
+]

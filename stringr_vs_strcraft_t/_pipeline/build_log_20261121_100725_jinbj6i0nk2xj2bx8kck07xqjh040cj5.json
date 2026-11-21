@@ -1,0 +1,37 @@
+{
+  "timestamp": "20261121_100725",
+  "hash": "jinbj6i0nk2xj2bx8kck07xqjh040cj5",
+  "out_path": "/nix/store/jinbj6i0nk2xj2bx8kck07xqjh040cj5-pipeline_output",
+  "duration": 9.0785,
+  "nodes": [
+{
+  "node": "r_strings",
+  "path": "/nix/store/jinbj6i0nk2xj2bx8kck07xqjh040cj5-pipeline_output/r_strings/artifact",
+  "hash": "r_strings",
+  "runtime": "R",
+  "serializer": "ipc",
+  "class": "data.frame",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 1.5515,
+  "source": "library(stringr)\n            df <- data.frame(\n                raw = c(\"  Hello World  \", \"t-lang is cool\", \"regex 123 test\"),\n                stringsAsFactors = FALSE\n            )\n            df$r_trimmed <- str_trim(df$raw)\n            df$r_upper <- str_to_upper(df$raw)\n            df$r_has_digit <- str_detect(df$raw, \"\\\\d\")\n            df$r_replaced <- str_replace(df$raw, \"cool\", \"awesome\")\n            df"
+},
+{
+  "node": "comparison",
+  "path": "/nix/store/jinbj6i0nk2xj2bx8kck07xqjh040cj5-pipeline_output/comparison/artifact",
+  "hash": "comparison",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "DataFrame",
+  "dependencies": ["r_strings"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2806,
+  "source": "(r_strings |> mutate(t_trimmed = str_trim($raw), t_upper = to_upper($raw), t_has_digit = str_detect($raw, \"[0-9]\"), t_replaced = str_replace($raw, \"cool\", \"awesome\")))"
+}
+],
+  "pipeline": "p"
+}

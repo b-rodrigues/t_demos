@@ -1,0 +1,46 @@
+[
+{
+  "node_name": "seed_native_df",
+  "depends": []
+},
+{
+  "node_name": "seed_fallback_df",
+  "depends": []
+},
+{
+  "node_name": "seed_parquet",
+  "depends": []
+},
+{
+  "node_name": "native_csv",
+  "depends": ["seed_native_df"]
+},
+{
+  "node_name": "fallback_csv",
+  "depends": ["seed_fallback_df"]
+},
+{
+  "node_name": "parsed_native",
+  "depends": ["native_csv"]
+},
+{
+  "node_name": "parquet_scan",
+  "depends": ["seed_parquet"]
+},
+{
+  "node_name": "r_temporal",
+  "depends": []
+},
+{
+  "node_name": "py_temporal",
+  "depends": ["r_temporal"]
+},
+{
+  "node_name": "temporal_roundtrip",
+  "depends": ["py_temporal"]
+},
+{
+  "node_name": "validation_report",
+  "depends": ["fallback_csv", "native_csv", "parquet_scan", "parsed_native", "temporal_roundtrip"]
+}
+]

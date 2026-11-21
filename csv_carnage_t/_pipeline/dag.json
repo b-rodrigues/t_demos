@@ -1,0 +1,58 @@
+[
+{
+  "node_name": "test_empty",
+  "depends": []
+},
+{
+  "node_name": "test_header_only",
+  "depends": []
+},
+{
+  "node_name": "test_ragged",
+  "depends": []
+},
+{
+  "node_name": "test_weird_delimiters",
+  "depends": []
+},
+{
+  "node_name": "test_bom",
+  "depends": []
+},
+{
+  "node_name": "test_weird_colnames",
+  "depends": []
+},
+{
+  "node_name": "test_mixed_types",
+  "depends": []
+},
+{
+  "node_name": "test_unicode_values",
+  "depends": []
+},
+{
+  "node_name": "test_quoted_newlines",
+  "depends": []
+},
+{
+  "node_name": "test_tab_sep",
+  "depends": []
+},
+{
+  "node_name": "test_semicolon_sep",
+  "depends": []
+},
+{
+  "node_name": "test_clean_colnames",
+  "depends": []
+},
+{
+  "node_name": "test_skip",
+  "depends": []
+},
+{
+  "node_name": "validation",
+  "depends": ["test_bom", "test_clean_colnames", "test_empty", "test_header_only", "test_mixed_types", "test_quoted_newlines", "test_ragged", "test_semicolon_sep", "test_skip", "test_tab_sep", "test_unicode_values", "test_weird_colnames", "test_weird_delimiters"]
+}
+]

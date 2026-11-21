@@ -1,0 +1,22 @@
+[
+{
+  "node_name": "raw",
+  "depends": []
+},
+{
+  "node_name": "heavy_r",
+  "depends": ["raw"]
+},
+{
+  "node_name": "heavy_py",
+  "depends": []
+},
+{
+  "node_name": "say_hi",
+  "depends": []
+},
+{
+  "node_name": "report",
+  "depends": ["raw"]
+}
+]

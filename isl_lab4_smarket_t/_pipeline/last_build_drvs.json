@@ -1,0 +1,6 @@
+{
+  "py_model": "/nix/store/xvijka4csi3rz8lgam53kzhjn3lzqp2b-py_model.drv",
+  "r_model": "/nix/store/b4saa7x6i3z6amh61lvwkdd9w9fj6nw6-r_model.drv",
+  "smarket_raw": "/nix/store/7vy799i835mg40vl3gs6kx9vrimql82l-smarket_raw.drv",
+  "data_node": "/nix/store/g5kq565ydi1fw86847lvcs9s9k5py1p0-data_node.drv"
+}

@@ -1,0 +1,7 @@
+{
+  "parity_check": "/nix/store/maiya2jfh94r2v6j1vq2nfy864jgzhqf-parity_check.drv",
+  "raw_data": "/nix/store/pzgidqbnn91rc34xkrp1lrsfh0gkby87-raw_data.drv",
+  "t_summary": "/nix/store/64da0m597sv71pvc435ym6xmcjj60nr1-t_summary.drv",
+  "r_across": "/nix/store/bjnsscfx5vs8n4gpxn4as200ykhn984v-r_across.drv",
+  "t_across_parity": "/nix/store/z2qhsms2893sf9c526xdf5izg6d39dfm-t_across_parity.drv"
+}

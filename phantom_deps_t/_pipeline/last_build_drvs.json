@@ -1,0 +1,6 @@
+{
+  "bar": "/nix/store/d8mm3rpavymnczlqwv2qcpf1ld4748m8-bar.drv",
+  "foo": "/nix/store/47l9jdp8gagvxx7a036ndfyxypj0qpri-foo.drv",
+  "baz": "/nix/store/k58b6l7vmy5sc56v6dgmccjarnn1k9r2-baz.drv",
+  "qux": "/nix/store/zrfmc00nbbx4n1mz56q5n7gqfpdghlwm-qux.drv"
+}

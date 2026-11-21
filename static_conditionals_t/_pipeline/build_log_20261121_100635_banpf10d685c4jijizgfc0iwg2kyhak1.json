@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261121_100635",
+  "hash": "banpf10d685c4jijizgfc0iwg2kyhak1",
+  "out_path": "/nix/store/banpf10d685c4jijizgfc0iwg2kyhak1-pipeline_output",
+  "duration": 5.6154,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/banpf10d685c4jijizgfc0iwg2kyhak1-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "[1, 2, 3, 4, 5]"
+},
+{
+  "node": "total",
+  "path": "/nix/store/banpf10d685c4jijizgfc0iwg2kyhak1-pipeline_output/total/artifact",
+  "hash": "total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.0000,
+  "source": "sum(data)"
+},
+{
+  "node": "py_out",
+  "path": "/nix/store/banpf10d685c4jijizgfc0iwg2kyhak1-pipeline_output/py_out/artifact",
+  "hash": "py_out",
+  "runtime": "Python",
+  "serializer": "json",
+  "class": "dict",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2406,
+  "source": "{\"lang\": \"py\", \"val\": 42}"
+}
+],
+  "pipeline": "p_py1"
+}

@@ -1,0 +1,1 @@
+{"class":"lm","kind":"model","task":"regression","n_obs":32,"n_features":3,"features":["hp","wt","qsec"],"formula":"mpg ~ hp + wt + qsec","target":"mpg","metrics":{"r_squared":0.83476776170583,"adj_r_squared":0.817064307602883,"aic":157.142610839998,"bic":164.471290353997}}

@@ -1,0 +1,1 @@
+{"class": "XGBClassifier", "kind": "model", "task": "classification", "n_rounds": 100, "n_features": 8, "metrics": {"n_classes": 2}}

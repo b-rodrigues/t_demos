@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>documentation_manager.ml &mdash; Coverage report</title>
+    <meta name="description" content="0.00% coverage in src/package_manager/documentation_manager.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">src/package_manager/</span>documentation_manager.ml
+        </a>
+      </h1>
+      <h2>0.00%</h2>
+    </div>
+    <div id="navbar">
+      <span class="unvisited" style="top:19.51%"></span>
+      <span class="unvisited" style="top:21.95%"></span>
+      <span class="unvisited" style="top:24.39%"></span>
+      <span class="unvisited" style="top:26.83%"></span>
+      <span class="unvisited" style="top:29.27%"></span>
+      <span class="unvisited" style="top:31.71%"></span>
+      <span class="unvisited" style="top:36.59%"></span>
+      <span class="unvisited" style="top:46.34%"></span>
+      <span class="unvisited" style="top:48.78%"></span>
+      <span class="unvisited" style="bottom:48.78%"></span>
+      <span class="unvisited" style="bottom:43.90%"></span>
+      <span class="unvisited" style="bottom:41.46%"></span>
+      <span class="unvisited" style="bottom:36.59%"></span>
+      <span class="unvisited" style="bottom:34.15%"></span>
+      <span class="unvisited" style="bottom:31.71%"></span>
+      <span class="unvisited" style="bottom:26.83%"></span>
+      <span class="unvisited" style="bottom:24.39%"></span>
+      <span class="unvisited" style="bottom:21.95%"></span>
+      <span class="unvisited" style="bottom:19.51%"></span>
+      <span class="unvisited" style="bottom:14.63%"></span>
+      <span class="unvisited" style="bottom:12.20%"></span>
+      <span class="unvisited" style="bottom:4.88%"></span>
+      <span class="unvisited" style="bottom:0.00%"></span>
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span class="unvisited"> </span>
+<a id="L9"></a><span class="unvisited"> </span>
+<a id="L10"></a><span class="unvisited"> </span>
+<a id="L11"></a><span class="unvisited"> </span>
+<a id="L12"></a><span class="unvisited"> </span>
+<a id="L13"></a><span class="unvisited"> </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span class="unvisited"> </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span class="unvisited"> </span>
+<a id="L20"></a><span class="unvisited"> </span>
+<a id="L21"></a><span class="unvisited"> </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
+<a id="L25"></a><span > </span>
+<a id="L26"></a><span class="unvisited"> </span>
+<a id="L27"></a><span class="unvisited"> </span>
+<a id="L28"></a><span class="unvisited"> </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span class="unvisited"> </span>
+<a id="L31"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="unvisited"> </span>
+<a id="L33"></a><span class="unvisited"> </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span class="unvisited"> </span>
+<a id="L36"></a><span class="unvisited"> </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span class="unvisited"> </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span class="unvisited"> </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+</pre>
+<pre><code class="ocaml">(* src/package_manager/documentation_manager.ml *)
+(* Handles documentation validation and access *)
+
+
+
+(** Check if documentation structure is valid *)
+let validate_docs dir =
+  <span data-count="0">l</span>et docs_dir = Filename.concat dir "docs" in
+  <span data-count="0">l</span>et index_file = Filename.concat docs_dir "index.md" in
+  <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> docs_dir &amp;&amp; <span data-count="0">S</span>ys.is_director<span data-count="0">y</span> docs_dir) then
+    <span data-count="0">E</span>rror "Documentation directory 'docs/' not found."
+  else <span data-count="0">i</span>f not (Sys.file_exist<span data-count="0">s</span> index_file) then
+    <span data-count="0">E</span>rror "Documentation index 'docs/index.md' not found."
+  else
+    <span data-count="0">O</span>k ()
+
+(** Attempt to open documentation in the system browser/viewer *)
+let open_docs dir =
+  <span data-count="0">l</span>et readme = Filename.concat dir "README.md" in
+  <span data-count="0">l</span>et index = Filename.concat (Filename.conca<span data-count="0">t</span> dir "docs") "index.md" in
+  <span data-count="0">l</span>et target = if Sys.file_exists index then <span data-count="0">i</span>ndex else <span data-count="0">r</span>eadme in
+  
+  if not (Sys.file_exist<span data-count="0">s</span> target) then
+    <span data-count="0">P</span>rintf.eprintf "No documentation found to open (checked docs/index.md and README.md).\n"
+  else
+    <span data-count="0">l</span>et cmd = 
+      if Sys.os_type = "Win32" then <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> "start \"\" %s" (Filename.quot<span data-count="0">e</span> target)
+      else <span data-count="0">i</span>f Sys.os_type = "Unix" then
+        (* Heuristic for Linux/macOS *)
+        <span data-count="0">i</span>f Sys.comman<span data-count="0">d</span> "which xdg-open &gt; /dev/null 2&gt;&amp;1" = 0 then
+          <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> "xdg-open %s" (Filename.quot<span data-count="0">e</span> target)
+        else <span data-count="0">i</span>f Sys.comman<span data-count="0">d</span> "which open &gt; /dev/null 2&gt;&amp;1" = 0 then
+          <span data-count="0">P</span>rintf.sprint<span data-count="0">f</span> "open %s" (Filename.quot<span data-count="0">e</span> target)
+        else
+          <span data-count="0">"</span>"
+      else <span data-count="0">"</span>"
+    in
+    if cmd &lt;&gt; "" then
+      <span data-count="0">i</span>gnore (Sys.comman<span data-count="0">d</span> cmd)
+    else
+      <span data-count="0">P</span>rintf.printf "Could not detect a way to open the file automatically.\nDocumentation location: %s\n" target
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>

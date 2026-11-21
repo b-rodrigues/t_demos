@@ -1,0 +1,51 @@
+{
+  "timestamp": "20261121_093909",
+  "hash": "7g3b82cvavshgw8ph6gs3fzrhlac53wm",
+  "out_path": "/nix/store/7g3b82cvavshgw8ph6gs3fzrhlac53wm-pipeline_output",
+  "duration": 5.4227,
+  "nodes": [
+{
+  "node": "data",
+  "path": "/nix/store/7g3b82cvavshgw8ph6gs3fzrhlac53wm-pipeline_output/data/artifact",
+  "hash": "data",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "List",
+  "dependencies": [],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.4324,
+  "source": "[1, 2, 3]"
+},
+{
+  "node": "total",
+  "path": "/nix/store/7g3b82cvavshgw8ph6gs3fzrhlac53wm-pipeline_output/total/artifact",
+  "hash": "total",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2703,
+  "source": "sum(data)"
+},
+{
+  "node": "n_items",
+  "path": "/nix/store/7g3b82cvavshgw8ph6gs3fzrhlac53wm-pipeline_output/n_items/artifact",
+  "hash": "n_items",
+  "runtime": "T",
+  "serializer": "default",
+  "class": "Int",
+  "dependencies": ["data"],
+  "status": "Completed",
+  "success": true,
+  "warnings": false,
+  "duration": 0.2849,
+  "source": "length(data)"
+}
+],
+  "pipeline": "p_func"
+}
